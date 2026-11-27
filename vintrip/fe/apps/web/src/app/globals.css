@@ -1,3 +1,5 @@
+@import '@vintrip/ui-web/styles.css';
+
 @font-face {
   font-family: 'Inter';
   src: url('/brand/fonts/InterVariable.woff2') format('woff2');
@@ -5,13 +7,14 @@
   font-weight: 100 900;
   font-display: swap;
 }
-@import '@vintrip/ui-web/styles.css';
 
 /* Cho Tailwind quét class trong code của app. */
 @source "../";
 
 
 
+
+*, *::before, *::after { box-sizing: border-box; }
 
 * {
   scrollbar-width: none;
@@ -1204,7 +1207,9 @@ h3 {
 }
 .empty-state p {
   font-size: 13px;
-  max-width: 440px;
+  max-width: min(440px, 100%);
+  min-width: 0;
+  overflow-wrap: anywhere;
   color: var(--color-text-muted);
   line-height: 1.9;
 }

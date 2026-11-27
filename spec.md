@@ -191,14 +191,11 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 | 28/11/2026 · FE-08 | Đánh dấu KẸT: chờ đặc tả FE-02 cho cảm hứng và phụ thuộc FE-04 | Chưa có đặc tả trang tương ứng; chưa sửa code FE, API hoặc vùng của Antigravity |
 | 28/11/2026 · FE-03 | Theo yêu cầu mới, thay linh vật bằng 6 tư thế Teemo; PNG 1024×1024 alpha, dưới 400KB, thêm ảnh buồn 404, giữ tên tài nguyên Vini | Dùng ImageGen tích hợp, giữ prompt trong brand/vini/README; PM kiểm ảnh trang theo lựa chọn người dùng. Kiểm PNG đạt; test toàn FE còn 2 kỳ vọng điểm đến cũ thuộc FE-05 và route Google đã biết |
 | 28/11/2026 · FE-04 | Đổi khung chung sang token pastel, header 72/56px và điều hướng dưới 1024px; tự lưu trữ Inter variable kèm OFL, bỏ Playfair/Be Vietnam Pro đang dùng | Giữ hành vi tự ẩn, lớp focus, class tích hợp và liên kết pháp lý. 65 test shell đạt; kiểm font có glyph tiếng Việt và trục trọng lượng 100–900. Người dùng giao PM kiểm ảnh trang/hiển thị trên Windows |
-
 | 28/11/2026 · FE-05 | Làm lại hero, form, gợi ý và kết quả khách sạn bằng token; bỏ nền nước; thêm bộ lọc modal và trạng thái chưa chọn điểm đến | 576 test web và các package đạt; typecheck/test chỉ còn route Google đã biết. Sửa kỳ vọng mặc định theo dữ liệu PM, giữ API/parser. Người dùng chọn PM kiểm ảnh |
-
 | 28/11/2026 · FE-03 | Chuyển linh vật sang CHỜ NGHIỆM THU sau khi gỡ lỗi kiểm tra phụ thuộc FE-05 | 576 test web đạt; typecheck/test chỉ còn route Google đã được chấp nhận. PM kiểm ảnh theo lựa chọn người dùng |
-
 | 28/11/2026 · FE-04 | Chuyển khung chung và Inter variable sang CHỜ NGHIỆM THU | Chạy lại typecheck/test toàn FE: chỉ còn lỗi route Google đã biết, 576 test web đạt. Glyph tiếng Việt đã kiểm; PM kiểm hiển thị Windows và viewport |
-
 | 28/11/2026 · FE-03 | Ghi điểm chưa thống nhất giữa yêu cầu Teemo của người dùng và brief nhân vật nguyên bản của PM; lấy PNG trực tiếp qua ViniMascot | Giữ chỉ định trực tiếp và prompt trung thực; map expr-happy đã trỏ ảnh welcome. Chờ PM thống nhất nhân vật và kiểm lại cache ảnh đầu trang |
+| 28/11/2026 · FE-04 | Sửa chữ lỗi ở mobile bằng max-width min(440px, 100%) và wrap; đưa CSS import lên trước font-face, bảo đảm border-box; nối lại bảng nhật ký §10 | Theo lỗi nghiệm thu PM trên trang khách sạn 390px; chỉ sửa globals, không đổi vùng khách sạn hoặc API |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
