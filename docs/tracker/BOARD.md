@@ -14,7 +14,7 @@
 
 | Mã | Việc | Phụ thuộc | Trạng thái | Ghi chú |
 |---|---|---|---|---|
-| C1-00 | Dọn chỗ làm: cất thay đổi C3 vào stash | — | CHỜ NGHIỆM THU | C3 đã cất trong stash 7f7aaaa, tên "C3 da chuyen sang nhanh c3-flight-disruption" (25 file, gồm file chưa theo dõi). Giữ nhánh vintrip; stash C1 cũ 24d4494 còn nguyên. |
+| C1-00 | Dọn chỗ làm: cất thay đổi C3 vào stash | — | XONG | C3 đã cất trong stash 7f7aaaa, tên "C3 da chuyen sang nhanh c3-flight-disruption" (25 file, gồm file chưa theo dõi). Giữ nhánh vintrip; stash C1 cũ 24d4494 còn nguyên. |
 | C1-01 | Dữ liệu Công viên Mẫu + test dữ liệu | C1-00 | TODO | |
 | C1-02 | `validate_park_plan` + test từng luật | C1-01 | TODO | |
 | C1-03 | 4 công cụ đọc + `build_park_plan` | C1-01, C1-02 | TODO | |
@@ -114,3 +114,4 @@ Hàm thuần, tính lại độc lập trên cùng dữ liệu, trả danh sách
 | Thời điểm | Ticket | Kết quả | Bằng chứng |
 |---|---|---|---|
 | 27/11 22:40 | — | Mốc ban đầu | unittest 40/40 (1 skip); `run.py check` đạt; 30 câu C1 ~3/30 |
+| 27/11 23:06 | C1-00 | XONG | Nhánh `vintrip`, `git status` sạch (`.env` bị bỏ qua). Stash C3 có 17 file đã theo dõi và 8 file mới, khớp từng file với mốc `542af2a` ở nhánh `c3-flight-disruption`. Commit `e67ef50` chỉ sửa bảng và một dòng nhật ký §10; §7 giữ nguyên. unittest đạt (1 skip); `run.py check` đạt. |
