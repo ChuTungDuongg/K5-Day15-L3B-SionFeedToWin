@@ -181,6 +181,7 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
 | 27/11/2026, sau CP2 · C1-00 | Dừng C3 trong chỗ làm C1; cất 25 file C3 đã sửa/thêm vào stash `7f7aaaa` (gồm file chưa theo dõi), giữ nhánh `vintrip`; chuyển ticket sang `CHỜ NGHIỆM THU` | Theo `docs/tracker/BOARD.md`: tách C3 khỏi C1, không xoá công việc đã làm. Stash C1 cũ `24d4494` được giữ nguyên; không chạy eval đầy đủ hoặc gọi model |
+| 27/11/2026, sau CP2 · C1-01 | Phục hồi nguyên bản `data/park_mau.json` từ stash C1 `24d4494`, cập nhật Dataset 1 và thêm test dữ liệu | Kiểm hai tổng 1.370.000đ / 1.270.000đ và đủ 7 trường hợp bắt buộc trong ticket; kiểm thêm giờ show, metadata và ma trận đi bộ. Dữ liệu mô phỏng, không đổi §7, benchmark hay metric |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

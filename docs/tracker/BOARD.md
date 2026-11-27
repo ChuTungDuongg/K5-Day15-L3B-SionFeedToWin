@@ -15,7 +15,7 @@
 | Mã | Việc | Phụ thuộc | Trạng thái | Ghi chú |
 |---|---|---|---|---|
 | C1-00 | Dọn chỗ làm: cất thay đổi C3 vào stash | — | XONG | C3 đã cất trong stash 7f7aaaa, tên "C3 da chuyen sang nhanh c3-flight-disruption" (25 file, gồm file chưa theo dõi). Giữ nhánh vintrip; stash C1 cũ 24d4494 còn nguyên. |
-| C1-01 | Dữ liệu Công viên Mẫu + test dữ liệu | C1-00 | TODO | |
+| C1-01 | Dữ liệu Công viên Mẫu + test dữ liệu | C1-00 | CHỜ NGHIỆM THU | Phục hồi nguyên bản park_mau.json từ stash 24d4494; Dataset 1 đã cập nhật. 13 test dữ liệu đạt (7 mục bắt buộc, tổng 1.370.000đ và tối thiểu 1.270.000đ); toàn bộ 41 unittest và run.py check đạt với MODEL_PROVIDER=fake. |
 | C1-02 | `validate_park_plan` + test từng luật | C1-01 | TODO | |
 | C1-03 | 4 công cụ đọc + `build_park_plan` | C1-01, C1-02 | TODO | |
 | C1-04 | Luồng `answer()` C1, các trạng thái, khoá `plan` | C1-03 | TODO | |
