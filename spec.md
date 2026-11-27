@@ -180,7 +180,7 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| 27/11 | Thêm backend/domain `room-upgrades` cho tính năng mở rộng C2 theo yêu cầu riêng; dữ liệu mô phỏng, báo giá có kiểm độc lập, chưa làm AI hoặc duyệt | C2-CP1 nằm ngoài benchmark C1 đã khóa; giữ nguyên §7, metric, expected và các harness |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

@@ -135,3 +135,11 @@ Giữ nguyên toàn bộ cấu trúc `Card` + `CardLine` trong `vintrip/ai/app/s
 - `codebase/ai.py`: `call_model(system: str, user: str) -> {"text": str, "model": str, "tokens_in": int, "tokens_out": int}` (giữ `@model_call`, đọc token thật từ OpenAI `usage`, hỗ trợ `--fake`).
 - `codebase/tools.py`: mỗi công cụ có `@tool` và docstring đủ 4 mục (`tên · input · output · có tác động ra ngoài không`).
 - **KHÔNG BAO GIỜ SỬA:** `run.py`, `codebase/tracing.py`, `eval/run_eval.py`, `cost/simulate.py`.
+
+## 6. Room upgrades — lễ tân khách sạn (case C2, CP1)
+
+- Namespace nghiệp vụ: `/api/commerce/room-upgrades`; bắt buộc access token và phân công nhân viên tại đúng khách sạn trên server.
+- `GET /bookings?hotelId=...`, `GET /bookings/:bookingCode?hotelId=...`, `POST /quotes`.
+- Chỉ đọc snapshot mô phỏng và tính/kiểm báo giá; không có approve, giữ phòng, sửa booking hoặc thu/hoàn tiền trong CP1.
+- Hợp đồng chi tiết và giả định nghiệp vụ: [room-upgrades-contract.md](docs/room-upgrades-contract.md).
+- Endpoint mẫu `/api/commerce/bookings/draft-change` và consumer cũ giữ nguyên để tương thích; không dùng phụ thu mẫu của nó cho room-upgrades.
