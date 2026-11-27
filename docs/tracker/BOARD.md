@@ -15,7 +15,7 @@
 | Mã | Việc | Phụ thuộc | Trạng thái | Ghi chú |
 |---|---|---|---|---|
 | C1-00 | Dọn chỗ làm: cất thay đổi C3 vào stash | — | XONG | C3 đã cất trong stash 7f7aaaa, tên "C3 da chuyen sang nhanh c3-flight-disruption" (25 file, gồm file chưa theo dõi). Giữ nhánh vintrip; stash C1 cũ 24d4494 còn nguyên. |
-| C1-01 | Dữ liệu Công viên Mẫu + test dữ liệu | C1-00 | CHỜ NGHIỆM THU | Phục hồi nguyên bản park_mau.json từ stash 24d4494; Dataset 1 đã cập nhật. 13 test dữ liệu đạt (7 mục bắt buộc, tổng 1.370.000đ và tối thiểu 1.270.000đ); toàn bộ 41 unittest và run.py check đạt với MODEL_PROVIDER=fake. |
+| C1-01 | Dữ liệu Công viên Mẫu + test dữ liệu | C1-00 | XONG | Phục hồi nguyên bản park_mau.json từ stash 24d4494; Dataset 1 đã cập nhật. 13 test dữ liệu đạt (7 mục bắt buộc, tổng 1.370.000đ và tối thiểu 1.270.000đ); toàn bộ 41 unittest và run.py check đạt với MODEL_PROVIDER=fake. |
 | C1-02 | `validate_park_plan` + test từng luật | C1-01 | TODO | |
 | C1-03 | 4 công cụ đọc + `build_park_plan` | C1-01, C1-02 | TODO | |
 | C1-04 | Luồng `answer()` C1, các trạng thái, khoá `plan` | C1-03 | TODO | |
@@ -115,3 +115,4 @@ Hàm thuần, tính lại độc lập trên cùng dữ liệu, trả danh sách
 |---|---|---|---|
 | 27/11 22:40 | — | Mốc ban đầu | unittest 40/40 (1 skip); `run.py check` đạt; 30 câu C1 ~3/30 |
 | 27/11 23:06 | C1-00 | XONG | Nhánh `vintrip`, `git status` sạch (`.env` bị bỏ qua). Stash C3 có 17 file đã theo dõi và 8 file mới, khớp từng file với mốc `542af2a` ở nhánh `c3-flight-disruption`. Commit `e67ef50` chỉ sửa bảng và một dòng nhật ký §10; §7 giữ nguyên. unittest đạt (1 skip); `run.py check` đạt. |
+| 27/11 23:16 | C1-01 | XONG | `data/park_mau.json` khớp từng byte với bản gốc trong stash. Giá ra đúng: gia đình mẫu 1.370.000, tối thiểu 1.270.000. `tests/test_park_data.py` có 13 test, đủ 7 mục bắt buộc (show 11:00, show trưa 2 suất, show đầu giờ chiều, suất cuối ngày, trò ≥ 120 cm, hoạt động trong nhà cùng khu sân khấu, hoạt động thiếu điều kiện) và 2 test giá. DATA_CARD bỏ chữ "chưa tạo". §7 giữ nguyên. unittest đạt, `run.py check` đạt. |
