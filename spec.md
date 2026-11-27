@@ -1,8 +1,8 @@
-# AI SPEC C1: Lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ · Nhóm SionFeedToWin · Lớp L3B
+# AI SPEC: VinTrip, lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ · Nhóm SionFeedToWin · Lớp L3B
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 
-Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán C1: lập lịch một ngày tại một khu vui chơi cho gia đình có trẻ nhỏ, thoả giờ mở cửa, suất diễn, thời gian đi bộ, điều kiện tuổi/chiều cao và ngân sách (khớp [`canvas.md`](canvas.md) CP1). C2 (nâng hạng phòng) và C3 (xử lý huỷ chuyến bay) trong tài liệu *Kế hoạch sản phẩm, kiến trúc và demo hackathon C1, C2, C3* là **hướng mở rộng**, không thuộc lát cắt chính.
+Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán: **VinTrip** (case C1) giúp phụ huynh lập lịch một ngày tại một khu vui chơi cho gia đình có trẻ nhỏ, thoả giờ mở cửa, suất diễn, thời gian đi bộ, điều kiện tuổi/chiều cao và ngân sách (khớp [`canvas.md`](canvas.md) CP1). C2 (nâng hạng phòng) và C3 (xử lý huỷ chuyến bay) trong tài liệu *Kế hoạch sản phẩm, kiến trúc và demo hackathon C1, C2, C3* là **hướng mở rộng**, không thuộc lát cắt chính.
 
 Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùng data BTC cấp. P0 dùng **Công viên Mẫu** dữ liệu mô phỏng (`isMock`), không phải bảng giá của công viên thật.
 
@@ -160,7 +160,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-| 27/11 ~17:50 | Chuyển lát cắt từ "đọc điều khoản hoàn/huỷ" sang **C1** (canvas + TEAMS, commit `6c01cdd`) | Nhóm chọn C1 làm case chính để đánh giá và nộp bài |
+| 27/11 ~17:50 | Chuyển lát cắt từ "đọc điều khoản hoàn/huỷ" sang **C1** (canvas + TEAMS, commit `6c01cdd`); 18:32 đặt tên dự án VinTrip (commit `20d52c2`) | Nhóm chọn C1 làm case chính để đánh giá và nộp bài |
 | 27/11 ~18:45 | Viết lại `spec.md`, `eval/metric_spec.yaml` và `eval/benchmark.csv` (30 câu C1, 11 câu từ khảo sát thật, thay 15 câu lát cắt cũ), `evidence/summary.md` và `evidence/survey/results-c1.csv` theo C1; C2, C3 là hướng mở rộng; xoá §3; vẽ lại sơ đồ | Khớp canvas CP1 và tài liệu kế hoạch của nhóm mục 4 |
 
 **CP2 → CP4** (vd thu hẹp lát cắt, hỏi thêm người dùng, lần cải tiến trước lượt 2)
