@@ -15,7 +15,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 - **Việc họ cố làm xong:** Chọn một lịch đi chơi một ngày tại một công viên vừa sức cả nhà, hợp giờ mở cửa, suất diễn, điều kiện của từng bé và ngân sách.
 - **Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:** Tự ghép thông tin rải rác từ web công viên và review; phải tự cộng giờ đi bộ, giờ diễn, tiền vé theo nhóm khách; chưa có công cụ kiểm hết các ràng buộc cùng lúc cho đúng gia đình mình.
 - **Pain (KHÔNG chữ AI):** Phụ huynh khi lên lịch đi khu vui chơi phải ghép giờ mở cửa, suất diễn, thời gian đi bộ, chi phí và điều kiện tuổi/chiều cao của trẻ; bỏ sót một ràng buộc có thể khiến cả nhà trễ show, chọn trò trẻ không được tham gia hoặc vượt ngân sách.
-- **Bằng chứng — số chính + kết luận** (chi tiết: [`evidence/summary.md`](evidence/summary.md)): **Tính đến CP2: 0/3 phỏng vấn C1 hoàn thành.** Đang hẹn ít nhất 3 người ngoài đội từng tự lên lịch đi khu vui chơi cùng trẻ nhỏ (hỏi lần gần nhất, nguồn thông tin, thời gian chuẩn bị, sự cố thực tế). Câu hỏi khảo sát C1 đã soạn ở [`evidence/survey/questions.md`](evidence/survey/questions.md) (P2-1), chưa gửi. Số liệu đào data hiện có trong `evidence/data-mining.md` thuộc hướng cũ (huỷ/hoàn phòng, vé) — **không dùng làm bằng chứng cho C1**.
+- **Bằng chứng — số chính + kết luận** (chi tiết: [`evidence/summary.md`](evidence/summary.md), dữ liệu: [`evidence/survey/results-c1.csv`](evidence/survey/results-c1.csv)): **Khảo sát C1, 10 câu trả lời thật: 7/10 người kể lần đi gần nhất có sự cố** (trễ show / bỏ trò do xếp hàng, đi bộ 3/10; mưa, huỷ show 2/10; bé không đủ chiều cao/tuổi 2/10); 6/10 mất ≥30 phút lên lịch. Trích: *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* Mẫu nhỏ, chưa đạt ngưỡng khảo sát ≥20; 10 dòng nhóm tự viết trong cùng bảng được gắn nhãn `tu_viet` và **không đếm**. Phỏng vấn: 0/3, hoàn tất trước CP3. Số liệu đào data hiện có trong `evidence/data-mining.md` thuộc hướng cũ (huỷ/hoàn phòng, vé) — **không dùng làm bằng chứng cho C1**.
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
@@ -127,7 +127,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 - **Đặc thù lĩnh vực (lớp 4):** mưa / huỷ show → xếp lại phần còn lại, giữ phần đã xong và khoản đã chi; phải bỏ yêu cầu bắt buộc thì hỏi phụ huynh.
 
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
-- Data card: [`data/DATA_CARD.md`](data/DATA_CARD.md) (cập nhật cho Công viên Mẫu trước CP3) · bộ câu thử: [`eval/benchmark.csv`](eval/benchmark.csv) — **19 câu C1** (`thuong` 6 · `kho` 8 · `tu_choi` 5), nguồn `tu_viet` từ kịch bản demo và các tình huống ở §5; trước CP3 bổ sung lên 20–30 câu với ≥1/3 từ người dùng thật (`nguoi_dung`) · metric: [`eval/metric_spec.yaml`](eval/metric_spec.yaml) (**4 metric**).
+- Data card: [`data/DATA_CARD.md`](data/DATA_CARD.md) (cập nhật cho Công viên Mẫu trước CP3) · bộ câu thử: [`eval/benchmark.csv`](eval/benchmark.csv) — **30 câu C1** (`thuong` 14 · `kho` 11 · `tu_choi` 5); nguồn: `nguoi_dung` 11/30 (dựng từ 10 câu trả lời khảo sát thật, mỗi câu ghi dòng nguồn), `tu_viet` 19/30 (kịch bản demo và tình huống ở §5) · metric: [`eval/metric_spec.yaml`](eval/metric_spec.yaml) (**4 metric**).
 - **4 metric:**
   1. `can_cu_co_trong_nguon` *(code chấm)* — hoạt động, suất diễn, giờ mở cửa, giá hiển thị khớp dữ liệu công cụ trong cùng snapshot; model không sửa giờ, giá.
   2. `lich_valid_dung_rang_buoc` *(code chấm)* — mọi lịch đánh dấu `VALID` qua đủ các kiểm của validator (§4) và tổng tiền khớp phép tính lại; xếp lại giữ phần đã xong, không cộng vé hai lần.
@@ -161,7 +161,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
 | 27/11 ~17:50 | Chuyển lát cắt từ "đọc điều khoản hoàn/huỷ" sang **TripFlix C1** (canvas + TEAMS, commit `6c01cdd`) | Nhóm chọn C1 làm case chính để đánh giá và nộp bài |
-| 27/11 ~18:45 | Viết lại `spec.md`, `eval/metric_spec.yaml` và `eval/benchmark.csv` (19 câu C1, thay 15 câu lát cắt cũ) theo C1; C2, C3 là hướng mở rộng; xoá §3; vẽ lại sơ đồ | Khớp canvas CP1 và tài liệu kế hoạch TripFlix mục 4 |
+| 27/11 ~18:45 | Viết lại `spec.md`, `eval/metric_spec.yaml` và `eval/benchmark.csv` (30 câu C1, 11 câu từ khảo sát thật, thay 15 câu lát cắt cũ), `evidence/summary.md` và `evidence/survey/results-c1.csv` theo C1; C2, C3 là hướng mở rộng; xoá §3; vẽ lại sơ đồ | Khớp canvas CP1 và tài liệu kế hoạch TripFlix mục 4 |
 
 **CP2 → CP4** (vd thu hẹp lát cắt, hỏi thêm người dùng, lần cải tiến trước lượt 2)
 
