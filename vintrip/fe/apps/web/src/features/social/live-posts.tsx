@@ -1,4 +1,5 @@
 'use client';
+import { SocialEmptyState } from './social-empty-state';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   evictPostFromCache,
@@ -216,14 +217,14 @@ export function SocialIcon({ name, size = 18 }: { name: SocialIconName; size?: n
         <svg width={size} height={size} viewBox="0 0 40 40" fill="none" aria-hidden="true">
           <path
             d="M20 1.5 22.36 4.95 25.72 2.4 26.91 6.44 30.87 5.03 30.75 9.25 35.97 9.13 33.56 13.09 37.6 14.28 35.05 17.64 38.5 20 35.05 22.36 37.6 25.72 33.56 26.91 34.97 30.87 30.75 30.75 30.87 34.97 26.91 33.56 25.72 37.6 22.36 35.05 20 38.5 17.64 35.05 14.28 37.6 13.09 33.56 9.13 34.97 9.25 30.75 5.03 30.87 6.44 26.91 2.4 25.72 4.95 22.36 1.5 20 4.95 17.64 2.4 14.28 6.44 13.09 5.03 9.13 9.25 9.25 9.13 5.03 13.09 6.44 14.28 2.4 17.64 4.95Z"
-            fill="#2D9BEF"
-            stroke="#2D9BEF"
+            fill="var(--color-coral)"
+            stroke="var(--color-coral)"
             strokeWidth="2.2"
             strokeLinejoin="round"
           />
           <path
             d="M13.2 20.4 17.8 25 27.2 15.6"
-            stroke="#FFFFFF"
+            stroke="var(--color-background)"
             strokeWidth="3.8"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -2230,7 +2231,7 @@ export function InspirationImmersiveViewer({
                   ) : reelStageState === 'error' ? (
                     <ApiErrorNotice error={postsQuery.error} retry={() => { void postsQuery.refetch(); }} />
                   ) : (
-                    <p>{vi.api.noPosts}</p>
+                    <SocialEmptyState action={<Link prefetch={false} className="primary-button" href={user ? "/inspiration?compose=video" : loginReturnHref}>Chia sẻ chuyến đi</Link>} />
                   )}
                 </div>
               </div>
@@ -2253,9 +2254,7 @@ export function InspirationImmersiveViewer({
                 />
               </div>
             ) : !activePost ? (
-              <p className="empty-state">
-                {filterMode === 'saved' ? vi.api.noBookmarks : vi.api.noPosts}
-              </p>
+              <SocialEmptyState action={<Link prefetch={false} className="primary-button" href="/inspiration?view=posts">Khám phá bài viết</Link>}><p>{filterMode === 'saved' ? vi.api.noBookmarks : vi.api.noPosts}</p></SocialEmptyState>
             ) : (
               <>
                 <div

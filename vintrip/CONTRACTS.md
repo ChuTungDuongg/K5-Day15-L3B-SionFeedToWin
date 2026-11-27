@@ -143,3 +143,20 @@ Theo yêu cầu triển khai C3 ngày 27/11/2026, bổ sung `kind: "flight_disru
 `trip.pendingFlightDisruption` chỉ chứa `bookingCode`, `action` (`review`, `hold`, `change`, `refund`, `choose`), `targetFlightId`, `arrivalBefore`; không nhận giá hay tồn chỗ từ client. Engine đọc lại snapshot `c3-demo-v1` mỗi lượt. Các yêu cầu giao dịch chỉ tạo bản nháp `PENDING_USER_APPROVAL`; không có API thực thi giao dịch hay thay đổi dữ liệu đặt chỗ. Bridge CLI và AI service dùng chung engine thư viện chuẩn trong `ai/app/services/assistant/skills/c3_engine.py`.
 
 Hướng dẫn, dữ liệu giả, trạng thái và giới hạn: [`docs/c3-flight-disruption.md`](../docs/c3-flight-disruption.md). Đây là demo mở rộng; bộ đánh giá và chuẩn đạt C1 giữ nguyên.
+
+## 7. Room upgrades — lễ tân khách sạn (case C2, CP1–CP3)
+
+- Backend CP1 (`/api/commerce/room-upgrades`): bắt buộc access token và phân công nhân viên tại đúng khách sạn trên server.
+  - `GET /bookings?hotelId=...`, `GET /bookings/:bookingCode?hotelId=...`, `POST /quotes`.
+- AI Copilot CP2 (`POST /ai/room-upgrades/chat` qua Traefik → FastAPI `POST /room-upgrades/chat`):
+  - Bắt buộc access token hợp lệ (`401` nếu thiếu/sai), xác minh phân công khách sạn trên Core API trước khi gọi LLM (`403` nếu không được phân công, kể cả global `superadmin`).
+  - Dùng trực tiếp OpenAI Responses API (`gpt-6-luna`, `reasoning.effort = "low"`, Structured Outputs); tách biệt khỏi cấu hình chat C1/C3 (`gpt-4o-mini`).
+  - Phát sự kiện FinOps `ai.usage.recorded` (`feature: "room_upgrades"`) lên `stream:ai`; `core-api` analytics consumer chấp nhận `room_upgrades`.
+  - Bổ sung trường tùy chọn chỉ đọc `proposalDraft` (khớp payload `POST /api/commerce/room-upgrades/proposals` kèm `previewExpectation` và `aiMetadata`); không thêm write/approve tool cho LLM.
+- HITL Approval Workflow CP3 (`/api/commerce/room-upgrades/proposals`):
+  - 8 endpoint: `POST /`, `GET /`, `GET /:proposalId`, `GET /:proposalId/history`, `POST /:proposalId/revise`, `POST /:proposalId/approve`, `POST /:proposalId/reject`, `POST /:proposalId/escalate`.
+  - Lưu 4 bảng sandbox (`is_mock = true`): `room_upgrade_proposals`, `room_upgrade_proposal_revisions` (bất biến), `room_upgrade_proposal_audit_events` (append-only), `room_upgrade_proposal_idempotency` (nguyên tử trong transaction).
+  - Transaction `SERIALIZABLE` + `FOR UPDATE` + `FOR SHARE` dòng nguồn + CAS `WHERE version AND status` + bounded retry (`40001`/`40P01`/`23505` idempotency PK); kiểm quyền trước replay; tự kiểm stale quote/expiry khi duyệt.
+  - `APPROVED` chỉ duyệt nội dung đề xuất báo giá (`operationalEffects: "NONE"`, `requiresHumanApproval: true`); không chuyển phòng, giữ phòng, sửa booking vận hành, giảm tồn kho, thu/hoàn tiền hay gửi thông báo thật. Chưa có UI Staff Dashboard (CP4).
+- Hợp đồng chi tiết và ví dụ request/response (đủ cho CP4): [room-upgrades-contract.md](docs/room-upgrades-contract.md).
+- Endpoint mẫu `/api/commerce/bookings/draft-change` và consumer cũ giữ nguyên để tương thích; không dùng phụ thu mẫu của nó cho room-upgrades.

@@ -1,13 +1,13 @@
 /* --------------------------------------------------------------------------
    Vintrip Social Feed Design System Tokens — LIGHT THEME
-   Brand Orange: var(--color-coral) / #D9365A
-   Page Background: #F8FAFC
-   Card / Surface: #FFFFFF
-   Sub-surface / Pill: #F1F5F9
-   Border: #E2E8F0
-   Text Primary (Ink): #141B3D
-   Text Secondary (Muted): #64748B
-   Text Subtle: #94A3B8
+   Brand Orange: var(--color-coral) / var(--color-danger)
+   Page Background: var(--color-background)
+   Card / Surface: var(--color-background)
+   Sub-surface / Pill: var(--color-surface)
+   Border: var(--color-sea-mist)
+   Text Primary (Ink): var(--color-navy)
+   Text Secondary (Muted): var(--color-success)
+   Text Subtle: var(--color-border)
    -------------------------------------------------------------------------- */
 
 .feedPageWrapper {
@@ -18,7 +18,7 @@
   margin-inline: auto;
   /* Trong suốt để lộ mặt nước tĩnh của trang Cảm hứng (LivingBackground). */
   background: transparent;
-  color: #141B3D;
+  color: var(--color-navy);
   font-family: inherit;
   position: relative;
   padding-left: 76px;
@@ -1158,14 +1158,14 @@
 .floatingRail {
   width: 52px;
   padding: 10px 0;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: var(--color-background);
+  border: 1px solid var(--color-sea-mist);
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .railItemBtn {
@@ -1178,14 +1178,14 @@
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: #64748B;
+  color: var(--color-success);
   cursor: pointer;
   transition: all 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .railItemBtn:hover {
-  background: #F1F5F9;
-  color: #141B3D;
+  background: var(--color-surface);
+  color: var(--color-navy);
   transform: translateY(-1px);
 }
 
@@ -1206,13 +1206,13 @@
 
 .railCreateBtn {
   background: var(--color-coral);
-  color: #FFFFFF;
+  color: var(--color-background);
   margin-top: 6px;
 }
 
 .railCreateBtn:hover {
   background: var(--color-coral-ink);
-  color: #FFFFFF;
+  color: var(--color-background);
   transform: scale(1.06);
 }
 
@@ -1222,8 +1222,8 @@
   position: absolute;
   left: 60px;
   padding: 5px 10px;
-  background: #141B3D;
-  color: #FFFFFF;
+  background: var(--color-navy);
+  color: var(--color-background);
   font-size: 12px;
   font-weight: 500;
   border-radius: 8px;
@@ -1232,8 +1232,8 @@
   opacity: 0;
   transform: translateX(-6px);
   transition: opacity 160ms ease, transform 160ms ease;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid color-mix(in srgb, var(--color-background) 8%, transparent);
   z-index: 50;
 }
 
@@ -1367,11 +1367,11 @@
   flex-direction: column;
   gap: 12px;
   padding: 14px 18px 12px;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: var(--color-background);
+  border: 1px solid var(--color-sea-mist);
   border-radius: 18px;
   margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  box-shadow: var(--shadow-soft);
 }
 
 .composerTopRow {
@@ -1394,7 +1394,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #FFE4E6;
+  background: var(--color-surface-muted);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1409,10 +1409,10 @@
   flex: 1;
   text-align: left;
   padding: 11px 18px;
-  background: #F1F5F9;
+  background: var(--color-surface);
   border: 1px solid transparent;
   border-radius: 9999px;
-  color: #64748B;
+  color: var(--color-success);
   font-size: 13.5px;
   cursor: pointer;
   transition: all 160ms ease;
@@ -1423,9 +1423,9 @@
 
 .composerInputPill:hover,
 .composerTrigger:hover {
-  background: #E8EEF5;
-  color: #141B3D;
-  border-color: #CBD5E1;
+  background: var(--color-surface);
+  color: var(--color-navy);
+  border-color: var(--color-border);
 }
 
 .composerBottomRow {
@@ -1494,7 +1494,7 @@
   border-radius: 9999px;
   border: none;
   background: var(--color-coral);
-  color: #FFFFFF;
+  color: var(--color-background);
   font-size: 13.5px;
   font-weight: 700;
   cursor: pointer;
@@ -1544,7 +1544,7 @@
    Post Card Component
    -------------------------------------------------------------------------- */
 .postCard {
-  background: #FFFFFF;
+  background: var(--color-background);
   border: 1px solid var(--color-transparent);
   border-radius: 16px;
   padding: 20px 22px;
@@ -1647,7 +1647,7 @@ a.authorAvatar {
   align-items: center;
   gap: 5px;
   font-size: 12px;
-  color: #64748B;
+  color: var(--color-success);
   flex-wrap: wrap;
 }
 
@@ -1670,7 +1670,7 @@ a.authorAvatar {
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: #64748B;
+  color: var(--color-success);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1679,7 +1679,7 @@ a.authorAvatar {
 }
 
 .headerMenuBtn:hover {
-  background: #F1F5F9;
+  background: var(--color-surface);
   color: var(--color-text);
 }
 
@@ -1699,7 +1699,7 @@ a.authorAvatar {
 .postContent {
   font-size: 14px;
   line-height: 1.6;
-  color: #334155;
+  color: var(--color-success);
   margin: 0;
   white-space: pre-line;
   word-break: break-word;
@@ -1797,7 +1797,7 @@ a.authorAvatar {
   border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
-  background: #E2E8F0;
+  background: var(--color-sea-mist);
 }
 
 .tripThumbImg {
@@ -1824,7 +1824,7 @@ a.authorAvatar {
 
 .tripCardSub {
   font-size: 12px;
-  color: #64748B;
+  color: var(--color-success);
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -1854,7 +1854,7 @@ a.authorAvatar {
   justify-content: space-between;
   padding-top: 14px;
   margin-top: 14px;
-  border-top: 1px solid #F1F5F9;
+  border-top: 1px solid var(--color-surface);
 }
 
 .actionGroupLeft {
@@ -1873,7 +1873,7 @@ a.authorAvatar {
   border-radius: 20px;
   border: none;
   background: transparent;
-  color: #64748B;
+  color: var(--color-success);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -1881,16 +1881,16 @@ a.authorAvatar {
 }
 
 .actionBtn:hover {
-  background: #F1F5F9;
+  background: var(--color-surface);
   color: var(--color-text);
 }
 
 .actionBtnLiked {
-  color: #FF3B30 !important;
+  color: var(--color-danger) !important;
 }
 
 .actionBtnLiked svg {
-  fill: #FF3B30;
+  fill: var(--color-danger);
 }
 
 .actionBtnSaved {
@@ -1915,7 +1915,7 @@ a.authorAvatar {
   margin-top: 14px;
   border-radius: 14px;
   overflow: hidden;
-  background: #F1F5F9;
+  background: var(--color-surface);
 }
 
 .mediaSingleImg {
@@ -1926,7 +1926,7 @@ a.authorAvatar {
   border: none;
   padding: 0;
   display: block;
-  background: #F8FAFC;
+  background: var(--color-background);
 }
 
 .mediaTwoGrid {
@@ -1964,7 +1964,7 @@ a.authorAvatar {
   height: 100%;
   overflow: hidden;
   cursor: pointer;
-  background: #F8FAFC;
+  background: var(--color-background);
   border: none;
   padding: 0;
   display: block;
@@ -1987,7 +1987,7 @@ a.authorAvatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #FFFFFF;
+  color: var(--color-background);
   font-size: 24px;
   font-weight: 700;
   pointer-events: none;
@@ -1997,7 +1997,7 @@ a.authorAvatar {
   position: relative;
   width: 100%;
   height: 440px;
-  background: #000000;
+  background: var(--color-navy);
 }
 
 .inlineVideoEl {
@@ -2020,9 +2020,9 @@ a.authorAvatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #FFFFFF;
+  background: color-mix(in srgb, var(--color-navy) 65%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-background) 20%, transparent);
+  color: var(--color-background);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2043,13 +2043,13 @@ a.authorAvatar {
   width: 320px;
   height: calc(100vh - 100px);
   max-height: calc(100vh - 100px);
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background: var(--color-background);
+  border: 1px solid var(--color-sea-mist);
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-soft);
   z-index: 30;
 }
 
@@ -2058,14 +2058,14 @@ a.authorAvatar {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  border-bottom: 1px solid #F1F5F9;
+  border-bottom: 1px solid var(--color-surface);
   flex-shrink: 0;
 }
 
 .contextHeaderTitle {
   font-size: 15px;
   font-weight: 700;
-  color: #141B3D;
+  color: var(--color-navy);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -2077,7 +2077,7 @@ a.authorAvatar {
   border-radius: 50%;
   border: none;
   background: transparent;
-  color: #64748B;
+  color: var(--color-success);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2086,8 +2086,8 @@ a.authorAvatar {
 }
 
 .contextCloseBtn:hover {
-  background: #F1F5F9;
-  color: #141B3D;
+  background: var(--color-surface);
+  color: var(--color-navy);
 }
 
 .contextBody {
@@ -2111,7 +2111,7 @@ a.authorAvatar {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  color: #64748B;
+  color: var(--color-success);
 }
 
 .destinationItem {
@@ -2120,15 +2120,15 @@ a.authorAvatar {
   gap: 12px;
   padding: 8px;
   border-radius: 12px;
-  background: #F8FAFC;
-  border: 1px solid #E2E8F0;
+  background: var(--color-background);
+  border: 1px solid var(--color-sea-mist);
   text-decoration: none;
   transition: all 160ms ease;
 }
 
 .destinationItem:hover {
-  background: #F1F5F9;
-  border-color: #CBD5E1;
+  background: var(--color-surface);
+  border-color: var(--color-border);
   transform: translateX(2px);
 }
 
@@ -2139,7 +2139,7 @@ a.authorAvatar {
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
-  background: #E2E8F0;
+  background: var(--color-sea-mist);
 }
 
 .destText {
@@ -2151,19 +2151,19 @@ a.authorAvatar {
 .destName {
   font-size: 14px;
   font-weight: 600;
-  color: #141B3D;
+  color: var(--color-navy);
 }
 
 .destCount {
   font-size: 12px;
-  color: #64748B;
+  color: var(--color-success);
 }
 
 .postHashtag {
   padding: 4px 10px;
   border-radius: 12px;
-  background: #F1F5F9;
-  border: 1px solid #E2E8F0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-sea-mist);
   color: var(--color-coral);
   font-size: 12px;
   font-weight: 600;
@@ -2194,24 +2194,24 @@ a.authorAvatar {
   justify-content: center;
   padding: 60px 20px;
   text-align: center;
-  color: #64748B;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  color: var(--color-success);
+  background: var(--color-background);
+  border: 1px solid var(--color-sea-mist);
   border-radius: 18px;
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  box-shadow: var(--shadow-soft);
 }
 
 .emptyFeedTitle {
   font-size: 16px;
   font-weight: 700;
-  color: #141B3D;
+  color: var(--color-navy);
   margin-top: 14px;
 }
 
 .emptyFeedDesc {
   font-size: 13px;
   line-height: 1.5;
-  color: #64748B;
+  color: var(--color-success);
   max-width: 400px;
   margin: 8px auto 16px auto;
 }
@@ -2221,7 +2221,7 @@ a.authorAvatar {
   border-radius: 20px;
   border: none;
   background: var(--color-coral);
-  color: #FFFFFF;
+  color: var(--color-background);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -2245,14 +2245,14 @@ a.authorAvatar {
   flex-direction: column !important;
   overflow: hidden !important;
   /* Explicit light theme tokens for comment thread */
-  --iv-panel-bg: #FFFFFF;
-  --iv-elevated-bg: #F8FAFC;
-  --iv-hover-bg: #F1F5F9;
-  --iv-text: #141B3D;
-  --iv-text-muted: #64748B;
-  --iv-border: #E2E8F0;
+  --iv-panel-bg: var(--color-background);
+  --iv-elevated-bg: var(--color-background);
+  --iv-hover-bg: var(--color-surface);
+  --iv-text: var(--color-navy);
+  --iv-text-muted: var(--color-success);
+  --iv-border: var(--color-sea-mist);
   --iv-accent: var(--color-coral);
-  --iv-accent-ink: #FFFFFF;
+  --iv-accent-ink: var(--color-background);
   --iv-accent-soft: color-mix(in srgb, var(--color-coral) 12%, transparent);
 }
 
@@ -2265,25 +2265,25 @@ a.authorAvatar {
   padding: 40px 24px;
   text-align: center;
   gap: 12px;
-  color: #64748B;
+  color: var(--color-success);
 }
 
 .emptyCommentsIcon {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #F1F5F9;
+  background: var(--color-surface);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #94A3B8;
+  color: var(--color-border);
 }
 
 .emptyCommentsText {
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.5;
-  color: #64748B;
+  color: var(--color-success);
 }
 
 /* --------------------------------------------------------------------------
@@ -2475,3 +2475,77 @@ a.authorAvatar {
     animation: none;
   }
 }
+
+/* FE-08: lưới cảm hứng, giữ các panel và thao tác bài viết hiện có. */
+.feedPageWrapper, .feedPageWrapperReels { width: min(1600px, calc(100% - 32px)); background: var(--color-surface); color: var(--color-text); }
+.mainFeedFrame, .mainFeedColumn { max-width: none; }
+.postMasonry { flex: 0 0 auto; width: 100%; columns: 3; column-gap: 16px; }
+.postMasonry > div { break-inside: avoid; margin-bottom: 16px; }
+.postMasonry .postCard { display: flex; flex-direction: column; gap: 10px; padding: 12px; margin: 0; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-background); box-shadow: var(--shadow-soft); transition: box-shadow 180ms ease-out; }
+.postMasonry .postCard:hover { box-shadow: var(--shadow-raised); border-color: var(--color-border); }
+.postMasonry .postCard > .mediaGridWrap { order: -1; margin: 0; overflow: hidden; border-radius: var(--radius-md); }
+.postMasonry .postTitle { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; margin: 0; font-size: var(--text-base); line-height: 1.5; }
+.postMasonry .postHeader { padding: 0; min-width: 0; gap: 4px; }
+.postMasonry .authorLeft { min-width: 0; gap: 8px; }
+.postMasonry .authorAvatar { width: 32px; height: 32px; }
+.postMasonry .authorName { color: var(--color-text-muted); font-size: var(--text-xs); }
+.postMasonry .authorNameRow { min-width: 0; flex-wrap: nowrap; }
+.postMasonry .authorSubRow { font-size: var(--text-xs); }
+.postMasonry .postContentWrap { margin: 0; }
+.postMasonry .postContent { margin: 0; font-size: var(--text-base); color: var(--color-text-muted); }
+.postMasonry .postTagsWrap { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin: 0; }
+.postMasonry .postTagPill { flex-shrink: 0; }
+.postMasonry .mediaSingleImg { width: 100%; height: auto; aspect-ratio: 4 / 5; }
+.postMasonry :is(.mediaTwoGrid,.mediaThreeGrid,.mediaFourGrid) { height: 240px; }
+.postMasonry .postAttachedTrip { padding: 10px; min-width: 0; }
+.postMasonry .tripCardThumb { width: 36px; height: 36px; }
+.postMasonry .tripCardTitle, .postMasonry .tripCardSub { white-space: normal; overflow-wrap: anywhere; }
+.postMasonry .tripCardCta { display: none; }
+.postMasonry .postActionBar { padding-top: 8px; margin-top: 0; }
+.postMasonry .actionGroupLeft { width: 100%; gap: 4px; justify-content: space-between; }
+.postMasonry .actionBtn { padding: 6px; }
+.actionBtn, .postReadMoreBtn, .postTagPill, .headerMenuBtn, .dockItemBtn, .composerTagBtn, .composerSubmitBtn { min-width: 44px; min-height: 44px; }
+.actionBtnLiked, .actionBtnSaved { color: var(--color-coral) !important; }
+.actionBtnLiked svg, .actionBtnSaved svg { fill: var(--color-coral); }
+.recommendModeTabs { display: flex !important; flex-wrap: nowrap; overflow-x: auto; padding: 4px; gap: 8px; flex-shrink: 0; }
+.recommendModeTabs > button { flex: 0 0 auto; min-height: 44px; padding-inline: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-background); color: var(--color-text); }
+.recommendModeTabs > button[aria-pressed='true'] { background: var(--color-coral-soft); color: var(--color-coral-ink); border-color: var(--color-coral-soft); }
+.dockCreateBtn, .dockCreateBtn:hover {
+  position: fixed; right: 24px; bottom: calc(var(--mobile-tab-bar-space,0px) + 24px);
+  z-index: 45; display: inline-flex; width: 56px; height: 56px; min-height: 56px;
+  border: 1px solid var(--color-border); border-radius: 50%;
+  background: linear-gradient(135deg,var(--color-compose-start),var(--color-compose-end));
+  color: var(--color-coral-ink); box-shadow: 0 8px 20px var(--color-compose-icon-shadow); transform: none;
+}
+.dockCreateBtn svg { color: var(--color-coral-ink); filter: none; }
+.feedLoadingGrid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; flex-shrink: 0; }
+.feedLoadingGrid > div { min-height: 260px; border-radius: var(--radius-md); background: var(--color-surface-muted); border: 1px solid var(--color-border); }
+@media (min-width: 1024px) {
+  .splitViewContainer { grid-template-columns: 220px 16px minmax(0,1fr) 16px 240px; }
+  .splitViewNoLeft { grid-template-columns: 0px 0px minmax(0,1fr) 16px 240px; }
+  .splitViewNoRight { grid-template-columns: 220px 16px minmax(0,1fr) 0px 0px; }
+  .splitViewCenterOnly { grid-template-columns: 0px 0px minmax(0,1fr) 0px 0px; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) { .postMasonry { columns: 2; } }
+@media (max-width: 1023px) {
+  .postMasonry { columns: 2; column-gap: 12px; }
+  .feedLoadingGrid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 767px) {
+  .feedPageWrapper, .feedPageWrapperReels { width: calc(100% - 24px); }
+  .splitViewContainer { padding-inline: 0; }
+  .postMasonry .postCard { padding: 10px; }
+  .postMasonry .postHeader { align-items: start; }
+  .postMasonry .authorAvatar { width: 24px; height: 24px; }
+  .postMasonry .postAttachedTrip { flex-direction: column; align-items: start; }
+  .postMasonry .postContent { font-size: var(--text-base); }
+  .postMasonry :is(.mediaTwoGrid,.mediaThreeGrid,.mediaFourGrid) { height: 180px; }
+  .dockItemBtn { height: 44px; }
+  .instagramDock { height: auto; min-height: 52px; }
+  .dockCreateBtn { right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .postMasonry *, .dockCreateBtn, .feedLoadingGrid * { animation: none !important; transition: none !important; }
+}
+
+.composerSubmitBtn { background: var(--color-coral-tint); color: var(--color-coral-ink); }

@@ -646,7 +646,7 @@ function CostBreakdown({
           className={styles.costBookingButton}
           href={`/coming-soon?postId=${encodeURIComponent(postId)}`}
         >
-          Tải app để đặt combo <span aria-hidden="true">↗</span>
+          Dùng lịch trình này <span aria-hidden="true">↗</span>
         </Link>
       )}
     </section>

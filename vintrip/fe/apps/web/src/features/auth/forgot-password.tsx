@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useState } from 'react';
 import { AuthErrorNotice, AuthField } from './auth-fields';
+import styles from './auth.module.css';
 
 /** BE luôn trả 202 với cùng một câu, kể cả email không có tài khoản, nên trang cũng chỉ báo một câu. */
 export function ForgotPassword() {
@@ -14,7 +15,7 @@ export function ForgotPassword() {
   });
   return (
     <>
-      <h2>{vi.api.forgotTitle}</h2>
+      <h2 className={styles.title}>{vi.api.forgotTitle}</h2>
       {/* Gửi xong thì câu hướng dẫn đổi thành câu đã gửi, không thêm hộp thông báo. */}
       <p className="auth-hint" role="status">
         {request.isSuccess ? vi.api.forgotSent : vi.api.forgotBody}
@@ -38,12 +39,12 @@ export function ForgotPassword() {
             onValueChange={setEmail}
           />
           <AuthErrorNotice error={request.error} action="forgotPassword" />
-          <button className="primary-button auth-submit" disabled={request.isPending}>
+          <button className={`primary-button auth-submit ${styles.submitBtn}`} disabled={request.isPending}>
             {request.isPending ? vi.api.sending : vi.api.sendResetLink}
           </button>
         </form>
       )}
-      <Link prefetch={false} className="auth-link auth-switch" href="/login">
+      <Link prefetch={false} className={styles.switchLink} href="/login">
         {vi.api.backToLogin}
       </Link>
     </>

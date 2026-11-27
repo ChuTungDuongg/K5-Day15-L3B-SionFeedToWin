@@ -8,6 +8,7 @@ import {
 import { countCharacters, CURRENT_PASSWORD_MAX } from '@vintrip/app-core';
 import { vi } from '@vintrip/i18n';
 import { useState, type InputHTMLAttributes } from 'react';
+import styles from './auth.module.css';
 
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {
   id: string;
@@ -147,7 +148,7 @@ export function PasswordField({
         />
         <button
           type="button"
-          className="auth-toggle"
+          className={`auth-toggle ${styles.toggleBtn}`}
           aria-label={isVisible ? vi.api.hidePasswordLabel : vi.api.showPasswordLabel}
           aria-pressed={isVisible}
           aria-controls={id}
@@ -167,8 +168,12 @@ export function AuthErrorNotice({ error, action }: { error: unknown; action: Aut
   const kind = getAuthErrorKind(error, action);
   const fieldError = action === 'register' ? getRegistrationFieldError(error) : undefined;
   return (
-    <p role="alert" className="auth-error">
-      {fieldError ?? (kind ? vi.api[kind] : vi.api[getApiErrorKind(error)])}
+    <p role="alert" className={`auth-error ${styles.errorBox}`}>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 8v5M12 16h.01" strokeLinecap="round" />
+      </svg>
+      <span>{fieldError ?? (kind ? vi.api[kind] : vi.api[getApiErrorKind(error)])}</span>
     </p>
   );
 }

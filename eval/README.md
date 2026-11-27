@@ -18,8 +18,8 @@ Nguồn gồm bảng khảo sát C1 đã ẩn danh và các tình huống nhóm 
 
 | Metric (`eval/metric_spec.yaml`) | Cách chấm | Ngưỡng |
 |---|---|---|
-| `can_cu_co_trong_nguon` | Code đối chiếu snapshot, chưa triển khai grader | ≥90% câu thường và khó |
-| `lich_valid_dung_rang_buoc` | Code kiểm độc lập, chưa triển khai validator | 100% câu có kết quả VALID |
+| `can_cu_co_trong_nguon` | Code đối chiếu snapshot (`eval/check_c1_run.py`) | ≥90% câu thường và khó |
+| `lich_valid_dung_rang_buoc` | Code kiểm độc lập (`validate_park_plan`, `eval/check_c1_run.py`) | 100% câu có kết quả VALID |
 | `hoi_lai_va_trang_thai_dung` | Người chấm | ≥85% câu khó |
 | `tu_choi_va_khong_noi_dieu_kien` | Người chấm | 100% câu từ chối |
 
@@ -37,8 +37,12 @@ Kiểm tra CP2: `python run.py check` không báo vấn đề cấu trúc. Đã 
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
-| 1 | | | | __/__ | | |
-| 2 | | | | __/__ | | |
+| 1 | `run-1@20261127-231617` | gpt-6-luna | Luồng C1 bản đầu, chờ model 30 giây | nháp 25/30 | 83% | Chưa chốt (C1-21 lỗi timeout) |
+| 2 | `run-2@20261127-231855` | gpt-6-luna | Tăng thời gian chờ lên 90 giây | nháp 26/30 | 87% | Chưa chốt |
+| 3 | `run-3@20261127-233722` | gpt-6-luna | Chạy giữa lúc sửa | — | — | Bỏ, không dùng |
+| 4 | `run-4@20261127-234013` | gpt-6-luna | Bản nộp: checker và nhãn nguồn đã sửa | nháp 29/30 | 96,7% | Nháp đạt cả 4 ngưỡng; chờ nhóm điền `pass` và quyết C1-17 |
+
+Số trong bảng là điểm **nháp** của nhóm (`eval/run-2-cham-nhap.csv`, `eval/run-4-cham-nhap.csv`), lấy từ [report.md](report.md). Cột `pass` của các file `run-N.csv` chưa điền nên `python run.py score` chưa in %.
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 

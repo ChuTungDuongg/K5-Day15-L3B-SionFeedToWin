@@ -1,5 +1,5 @@
 /** Khổ màn có header gọn tự ẩn; trùng mốc với mobile-header.css (header-auto-hide.tsx dùng). */
-export const MOBILE_HEADER_QUERY = '(max-width: 767px)';
+export const MOBILE_HEADER_QUERY = '(max-width: 1023px)';
 
 /** Cuộn ít hơn mốc này (px) thì giữ nguyên, để header không giật khi tay rung hoặc cuộn quán tính. */
 export const HEADER_SCROLL_THRESHOLD_PX = 8;

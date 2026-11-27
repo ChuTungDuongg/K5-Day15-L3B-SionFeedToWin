@@ -17,6 +17,10 @@ class LlmResult:
     # "length" means the output was cut: JSON may still parse, so callers check this first.
     finish_reason: str = ""
     latency_ms: int | None = None
+    cached_input_tokens: int | None = None
+    reasoning_tokens: int | None = None
+    response_id: str | None = None
+    usage_reported: bool = True
 
 
 class LlmClient(Protocol):

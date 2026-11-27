@@ -7,9 +7,10 @@ import { ApiErrorNotice } from '@/features/shared/api-state';
 import { SoftSelect } from '@/features/shared/soft-select';
 import { HotelGallery } from './hotel-gallery';
 import styles from './hotel.module.css';
-import { LoadingDots } from '@/features/shared/loading-dots';
 
 const copy = vi.hotel;
+const getRatingTier = (average: number) =>
+  average >= 4.5 ? 'Xuất sắc' : average >= 4.0 ? 'Rất tốt' : average >= 3.5 ? 'Tốt' : 'Khá';
 const formatDate = (date: string, monthOnly = false) =>
   new Intl.DateTimeFormat(
     'vi-VN',
@@ -48,9 +49,16 @@ export function HotelReviews({ id }: { id: string }) {
       {summary && summary.count > 0 && (
         <div className={styles.reviewOverview}>
           <div className={styles.reviewScore}>
-            <strong>{summary.average?.toLocaleString('vi-VN')}</strong>
-            <span>{copy.outOfFive}</span>
-            <p>{t('hotel.reviewCount', { count: summary.count })}</p>
+            <strong className={styles.reviewScoreBox}>{summary.average?.toLocaleString('vi-VN')}</strong>
+            <div className={styles.reviewScoreMeta}>
+              <strong>
+                {summary.average !== null && summary.average !== undefined
+                  ? getRatingTier(summary.average)
+                  : copy.outOfFive}
+              </strong>
+              <span>{copy.outOfFive}</span>
+              <p>{t('hotel.reviewCount', { count: summary.count })}</p>
+            </div>
           </div>
           <div className={styles.distribution}>
             {summary.distribution.map((level) => (
@@ -114,7 +122,8 @@ export function HotelReviews({ id }: { id: string }) {
       {summary && summary.tags.length > 0 && (
         <div className={styles.chips} aria-label={copy.allTags}>
           <button
-            className="secondary-button"
+            type="button"
+            className={styles.chipButton}
             aria-pressed={!filters.tag}
             onClick={() => updateFilters({ tag: undefined })}
           >
@@ -122,7 +131,8 @@ export function HotelReviews({ id }: { id: string }) {
           </button>
           {summary.tags.map(({ tag, count }) => (
             <button
-              className="secondary-button"
+              type="button"
+              className={styles.chipButton}
               key={tag}
               aria-pressed={filters.tag === tag}
               onClick={() => updateFilters({ tag: filters.tag === tag ? undefined : tag })}
@@ -138,13 +148,19 @@ export function HotelReviews({ id }: { id: string }) {
           void query.refetch();
         }}
       />
-      {query.isPending && <LoadingDots isBlock label={copy.loadingReviews} />}
+      {query.isPending && (
+        <div className={styles.reviewsSkeleton} role="status" aria-label={copy.loadingReviews}>
+          <div />
+          <div />
+        </div>
+      )}
       {query.data?.items.length === 0 && (
-        <div className="empty-state">
+        <div className={styles.emptyStateCard}>
           <p>{summary?.count ? copy.noMatchingReviews : copy.noReviews}</p>
           {(filters.rating || filters.tag || filters.travelerType) && (
             <button
-              className="secondary-button"
+              type="button"
+              className={styles.secondaryCta}
               onClick={() => setFilters({ sort: 'newest', page: 1, limit: 5 })}
             >
               {copy.clearFilters}
@@ -209,7 +225,8 @@ export function HotelReviews({ id }: { id: string }) {
       {query.data && query.data.total > 0 && (
         <nav className={styles.pagination} aria-label={copy.reviews}>
           <button
-            className="secondary-button"
+            type="button"
+            className={styles.secondaryCta}
             disabled={query.isFetching || (filters.page ?? 1) <= 1}
             onClick={() => setFilters((previous) => ({ ...previous, page: (previous.page ?? 1) - 1 }))}
           >
@@ -217,7 +234,8 @@ export function HotelReviews({ id }: { id: string }) {
           </button>
           <span aria-live="polite">{t('hotel.page', { page: query.data.page, pages: pageCount })}</span>
           <button
-            className="secondary-button"
+            type="button"
+            className={styles.secondaryCta}
             disabled={query.isFetching || (filters.page ?? 1) >= pageCount}
             onClick={() => setFilters((previous) => ({ ...previous, page: (previous.page ?? 1) + 1 }))}
           >

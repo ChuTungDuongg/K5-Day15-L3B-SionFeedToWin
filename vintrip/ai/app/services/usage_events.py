@@ -76,6 +76,28 @@ class CoverOcrUsage(_WireModel):
     estimated: Literal[True] = True
 
 
+RoomUpgradeStep = Literal[
+    "extract_intent",
+    "extract_intent_repair",
+    "recommend",
+    "recommend_repair",
+    "usage_missing",
+]
+
+
+class RoomUpgradeUsage(_WireModel):
+    feature: Literal["room_upgrades"] = "room_upgrades"
+    model: str
+    step: RoomUpgradeStep
+    input_tokens: int | None = Field(default=None, ge=0)
+    output_tokens: int | None = Field(default=None, ge=0)
+    cost_usd: float = Field(ge=0, allow_inf_nan=False)
+    estimated: Literal[True] = True
+    conversation_id: UUID | None = None
+    turn_id: UUID | None = None
+    latency_ms: int | None = Field(default=None, ge=0)
+
+
 class UsageEvent(_WireModel):
     event_id: UUID = Field(default_factory=uuid4)
     type: Literal["ai.usage.recorded"] = "ai.usage.recorded"
@@ -83,7 +105,7 @@ class UsageEvent(_WireModel):
     occurred_at: AwareDatetime = Field(default_factory=lambda: datetime.now(UTC))
     producer: Literal["ai-service"] = "ai-service"
     user_id: UUID | None = None
-    payload: ChatUsage | SummaryUsage | ModerationUsage | CoverOcrUsage
+    payload: ChatUsage | SummaryUsage | ModerationUsage | CoverOcrUsage | RoomUpgradeUsage
 
 
 class ChatTurn(_WireModel):
