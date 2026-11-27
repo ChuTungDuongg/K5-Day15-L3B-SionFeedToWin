@@ -12,6 +12,8 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from tracing import tool
 from park_validation import validate as _validate_park
+from park_validation import walk_minutes as _park_walk
+from park_solver import build as _build_park
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -37,6 +39,59 @@ def validate_park_plan(plan: dict, request: dict, snapshot: dict | None = None) 
     Tác động ra ngoài: Không; chỉ đọc snapshot và tính, không sửa đầu vào.
     """
     return _validate_park(snapshot if snapshot is not None else _load("park_mau.json"), request, plan)
+
+
+@tool
+def get_show_schedule(park="Công viên Mẫu", visit_date="", snapshot=None):
+    """Tên: get_show_schedule · đọc suất diễn mô phỏng.
+    Input: công viên, ngày đi, snapshot tuỳ chọn.
+    Output: snapshotId, isMock và các show với suất, thời lượng, giờ đến sớm.
+    Tác động ra ngoài: Không; chỉ đọc dữ liệu.
+    """
+    data = deepcopy(snapshot if snapshot is not None else _load("park_mau.json"))
+    return {"status": "OK" if normalize(park) == normalize(data["park"]["name"]) else "MISSING_DATA",
+            "snapshotId": data["snapshotId"], "isMock": data["isMock"], "shows": data["shows"]}
+
+
+@tool
+def get_park_incidents(park="Công viên Mẫu", at="", reported=None, snapshot=None):
+    """Tên: get_park_incidents · đọc sự cố mô phỏng và bối cảnh người dùng.
+    Input: công viên, thời điểm, danh sách sự cố người dùng cung cấp, snapshot tuỳ chọn.
+    Output: snapshotId, isMock, incidents; sự cố bổ sung ghi source=user_scenario.
+    Tác động ra ngoài: Không; không tra vận hành thật hoặc sửa snapshot.
+    """
+    data = snapshot if snapshot is not None else _load("park_mau.json")
+    incidents = deepcopy(data["incidents"]) + [dict(i, source="user_scenario") for i in reported or []]
+    return {"status": "OK" if normalize(park) == normalize(data["park"]["name"]) else "MISSING_DATA",
+            "snapshotId": data["snapshotId"], "isMock": data["isMock"], "incidents": incidents}
+
+
+@tool
+def estimate_walk(origin, destination, snapshot_id=None, snapshot=None):
+    """Tên: estimate_walk · phút đi bộ đối xứng giữa hai khu.
+    Input: vị trí đi, vị trí đến, mã snapshot và snapshot tuỳ chọn.
+    Output: status, minutes (hoặc None nếu thiếu), snapshotId, isMock.
+    Tác động ra ngoài: Không; chỉ tính theo ma trận mô phỏng.
+    """
+    data = snapshot if snapshot is not None else _load("park_mau.json")
+    result = {"status": "MISSING_DATA", "minutes": None, "snapshotId": data["snapshotId"], "isMock": data["isMock"]}
+    if snapshot_id is not None and snapshot_id != data["snapshotId"]:
+        return result
+    try:
+        result.update(status="OK", minutes=_park_walk(data, origin, destination))
+    except (ValueError, TypeError):
+        pass
+    return result
+
+
+@tool
+def build_park_plan(request, snapshot=None, max_seconds=0.25):
+    """Tên: build_park_plan · xếp lịch tham lam theo mốc cố định.
+    Input: yêu cầu chuẩn hoá, snapshot tuỳ chọn, giới hạn giây tìm kiếm.
+    Output: timeline và kết quả validator; INFEASIBLE chỉ khi có chứng cứ tối thiểu.
+    Tác động ra ngoài: Không; chỉ tính lịch mô phỏng, không mua vé/giữ chỗ.
+    """
+    return _build_park(snapshot if snapshot is not None else _load("park_mau.json"), request, max_seconds)
 
 
 @lru_cache
@@ -494,7 +549,9 @@ def _ticket_tier(height_cm):
 
 @tool
 def get_park_catalog(park: str, visit_date: str = "", guests: list | None = None) -> dict:
-    """Tên: Lấy danh mục trò chơi, quy định và giá vé của một khu vui chơi Ocean Park.
+    """Tên: Lấy danh mục trò chơi, quy định và giá vé của một khu vui chơi.
+    Công viên Mẫu dùng data/park_mau.json (isMock=true): trả snapshotId, prices, activities,
+    shows, walk_minutes; không trộn giá và điều kiện với dữ liệu thật Ocean Park.
     Input: Công viên (VinWonders Wave Park, VinWonders Water Park, combo hai công viên hoặc Grand
     World), ngày đi ISO YYYY-MM-DD hoặc "cuối tuần" / "ngày thường" (tùy chọn), nhóm khách: danh sách {"label", "height_cm"}.
     Output: Trạng thái (OK, NEEDS_INPUT khi thiếu chiều cao để tính vé, MISSING_DATA khi công viên
@@ -504,6 +561,9 @@ def get_park_catalog(park: str, visit_date: str = "", guests: list | None = None
     Tác động ra ngoài: Không, chỉ đọc data/ocean_park_places.json (bảng giá chính thức VinWonders);
     không mua vé.
     """
+    if normalize(park) == "cong vien mau":
+        data = deepcopy(_load("park_mau.json"))
+        return dict(data, status="OK")
     catalog = _load(PLACES_FILE)["park_catalog"]
     canonical = resolve_park(park) or next((p for p in PARK_ALIASES if normalize(p) == normalize(park)),
                                            None)
