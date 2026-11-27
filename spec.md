@@ -1,10 +1,11 @@
-# AI SPEC C1: Lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ · Nhóm SionFeedToWin · Lớp L3B
+# AI SPEC: VinTrip · Nhóm SionFeedToWin · Phòng [XXX] · Zone [X]
+
+Trạng thái: phạm vi CP1 được mô tả trong [canvas.md](canvas.md). Các mục thiết kế, đánh giá và chi phí dưới đây còn là biểu mẫu cần hoàn thiện cho dự án lập lịch khu vui chơi VinTrip.
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 
-Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán C1: lập lịch một ngày tại một khu vui chơi cho gia đình có trẻ nhỏ, thoả giờ mở cửa, suất diễn, thời gian đi bộ, điều kiện tuổi/chiều cao và ngân sách (khớp [`canvas.md`](canvas.md) CP1). C2 (nâng hạng phòng) và C3 (xử lý huỷ chuyến bay) trong tài liệu *Kế hoạch sản phẩm, kiến trúc và demo hackathon C1, C2, C3* là **hướng mở rộng**, không thuộc lát cắt chính.
-
-Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùng data BTC cấp. P0 dùng **Công viên Mẫu** dữ liệu mô phỏng (`isMock`), không phải bảng giá của công viên thật.
+Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E. Bài toán: phụ huynh lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ, trong thời gian và ngân sách đã định.
+Data BTC cấp đã dùng (nếu có — không commit nguyên file): __
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
 - Luồng hiện tại (giả thuyết, sẽ kiểm bằng phỏng vấn): (1) mở web/app khu vui chơi xem danh sách trò và bảng giá → (2) tự tra giờ diễn, giới hạn chiều cao/tuổi của từng trò → (3) tự ước thời gian đi bộ giữa các khu, chỗ ăn trưa → (4) xếp lịch trong đầu hoặc ghi chú → (5) tới nơi thì đổi lịch theo hàng chờ, trời mưa hoặc show huỷ. *(Ảnh chụp minh hoạ từ tài khoản của nhóm, đã che thông tin: bổ sung trước CP3.)*

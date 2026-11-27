@@ -1,10 +1,16 @@
-# SionFeedToWin — Khung repo hackathon AI20K K5 · L3B
+# VinTrip
+
+Dự án của nhóm **SionFeedToWin**, lớp **L3B**, Track **C: Du lịch**, tham gia hackathon AI20K K5.
+
+VinTrip hỗ trợ phụ huynh lên lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ. Phạm vi dự kiến là chọn hoạt động và xếp lịch theo thời gian, ngân sách, sở thích cùng điều kiện tuổi và chiều cao của trẻ. Kết quả gồm lịch theo giờ, bảng chi phí và các điều kiện đã kiểm tra. Xem phạm vi, kế hoạch bằng chứng và phân công trong [canvas.md](canvas.md).
 
 Nguồn khung: [`starter-repo/` của BTC](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/tree/6225f90bc65e7751139127abb42bd0ed7241f2de/starter-repo), commit `6225f90bc65e7751139127abb42bd0ed7241f2de`.
 
 Hướng dẫn chính thức: [đề bài](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/01-challenge-brief.md) · [guide](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/02-guide.md) · [rubric](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/03-rubric.md) · [các track](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/tree/main/tracks).
 
-**Trạng thái:** đã đưa bộ khung vào repo; bản chạy thử dùng model giả. Track, lát cắt, thành viên, bằng chứng và bộ câu thử vẫn cần nhóm hoàn thiện. Các chỗ `____` và dòng ghi “ví dụ” là mẫu, chưa phải nội dung nộp bài.
+**Trạng thái:** tên dự án, Track C, phạm vi CP1 và danh sách 4 thành viên đã được điền. Mã nguồn còn là bộ khung dùng model giả, chưa triển khai luồng lập lịch VinTrip. Bằng chứng người dùng cho hướng khu vui chơi, bộ câu thử và metric cần hoàn thiện. Các chỗ `____` và dòng ghi “ví dụ” vẫn là mẫu.
+
+Tài liệu nghiên cứu về điều kiện hủy phòng trong repo thuộc hướng trước. Nhóm cần thu bằng chứng đúng đối tượng của VinTrip trước khi kết luận về nhu cầu hoặc mức tiết kiệm thời gian.
 
 **Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md). **Điền TEAMS.md đúng format**: khi chấm và đánh giá, BTC quét file này để ghép điểm cho từng người.
 
@@ -39,7 +45,7 @@ if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 
 `requirements.txt` hiện chỉ có chú thích vì bộ khung dùng thư viện chuẩn. Nếu nhóm thêm SDK hoặc thư viện, khai báo gói vào file này rồi chạy lại lệnh cài. `.venv/` và `.env` được giữ trên máy và đã có trong `.gitignore`.
 
-Các lệnh bên dưới có thể thay `python` bằng `.\.venv\Scripts\python.exe` để dùng đúng môi trường này. `python run.py check` sẽ còn nhắc về thành viên, track, metric và câu thử mẫu cho đến khi nhóm điền đủ nội dung.
+Các lệnh bên dưới có thể thay `python` bằng `.\.venv\Scripts\python.exe` để dùng đúng môi trường này. `python run.py check` hiện nhận đủ 4 thành viên và còn cảnh báo về metric, câu thử mẫu cùng số lượng câu thử.
 
 **Bước 1 — Mở cửa sổ lệnh ngay trong thư mục repo**
 
