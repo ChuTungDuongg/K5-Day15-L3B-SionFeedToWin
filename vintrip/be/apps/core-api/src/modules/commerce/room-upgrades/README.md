@@ -3,7 +3,8 @@
 Tên thư mục, API và bảng thể hiện nghiệp vụ `room-upgrades`. `caseId: C2` chỉ là nhãn case trong tài liệu hackathon.
 - **CP1:** backend/domain báo giá số nguyên VND, tồn toàn kỳ, policy có phiên bản, validator độc lập và phân công khách sạn trên server.
 - **CP2:** tầng AI Copilot chỉ đọc trong `vintrip/ai` ([AI feature README](../../../../../../ai/app/services/room_upgrades/README.md)), gọi OpenAI Responses API (`gpt-6-luna`).
-- **CP3:** Human-in-the-Loop (HITL) proposal persistence, immutable revisions, append-only audit log, RBAC phê duyệt, atomic approval (`SERIALIZABLE` + `FOR UPDATE` + `FOR SHARE` + CAS), stale-quote/expiry detection và transactional idempotency. Chưa triển khai giao diện Staff Dashboard (CP4) và không gây bất kỳ tác động vận hành nào (`operationalEffects: "NONE"`, `isMock: true`).
+- **CP3:** Human-in-the-Loop (HITL) proposal persistence, immutable revisions, append-only audit log, RBAC phê duyệt, atomic approval (`SERIALIZABLE` + `FOR UPDATE` + `FOR SHARE` + CAS), stale-quote/expiry detection và transactional idempotency (`operationalEffects: "NONE"`, `isMock: true`).
+- **CP4:** Bổ sung 2 endpoint đọc phục vụ Staff Portal (`GET /staff-context`, `GET /proposals/summary`), expose CORS header `Idempotency-Replayed`, triển khai trọn bộ giao diện Staff Portal tại `vintrip/fe/apps/web/src/app/staff/*` và `@vintrip/api-client`, kiểm thử E2E/Browser QA 4 viewport và bộ đánh giá 24 ca `eval/room-upgrades/` trên `gpt-6-luna`.
 
 ```mermaid
 flowchart LR
@@ -24,8 +25,8 @@ flowchart LR
 
 | Đường dẫn | Trách nhiệm |
 |---|---|
-| `api/room-upgrades.controller.ts` | CP1: `GET /bookings`, `GET /bookings/:bookingCode`, `POST /quotes` (auth, Zod, `no-store`) |
-| `api/room-upgrade-proposals.controller.ts` | CP3: 8 endpoint dưới `/api/commerce/room-upgrades/proposals` (auth, UUID param, strict Zod, `Idempotency-Key`, `no-store`) |
+| `api/room-upgrades.controller.ts` | CP1/CP4: `GET /staff-context`, `GET /bookings`, `GET /bookings/:bookingCode`, `POST /quotes` (auth, Zod, `no-store`) |
+| `api/room-upgrade-proposals.controller.ts` | CP3/CP4: 9 endpoint dưới `/api/commerce/room-upgrades/proposals` (gồm `GET /summary`, auth, UUID param, strict Zod, `Idempotency-Key`, `no-store`) |
 | `application/room-upgrade.use-cases.ts` | CP1: đọc snapshot `repeatable read read only`, kiểm phân công khách sạn, gọi calculator & validator |
 | `application/room-upgrade-proposal.use-cases.ts` | CP3: vòng đời proposal (`create`, `list`, `get`, `history`, `revise`, `approve`, `reject`, `escalate`), preview mismatch, stale quote, expiry, RBAC và idempotency |
 | `application/room-upgrade.ports.ts` | Cổng `RoomUpgradeStore` (CP1), `RoomUpgradeProposalStore` / `RoomUpgradeProposalTx` (CP3) và test-only `RoomUpgradeProposalFaultInjector` |
@@ -46,7 +47,7 @@ Contract đầy đủ cho CP4 Staff Dashboard (API, state machine, RBAC, transac
 
 Các bộ test nằm cạnh phần chúng kiểm:
 - Unit/domain: `domain/upgrade-quote.spec.ts` (26 ca), `domain/room-upgrade-proposal.spec.ts` (230 ca).
-- HTTP: `api/room-upgrades.controller.spec.ts` (8 ca), `api/room-upgrade-proposals.controller.spec.ts` (78 ca).
-- PostgreSQL integration & concurrency thật: `infra/drizzle-room-upgrade.store.int.spec.ts` (4 ca), `infra/drizzle-room-upgrade-proposals.int.spec.ts` (42 ca — dùng database riêng `room_upgrade_test_*`, `--maxWorkers=1`, pool tối đa 5, không chạy trên database `core` vận hành).
+- HTTP: `api/room-upgrades.controller.spec.ts` (8 ca), `api/room-upgrade-proposals.controller.spec.ts` (86 ca).
+- PostgreSQL integration & concurrency thật: `infra/drizzle-room-upgrade.store.int.spec.ts` (4 ca), `infra/drizzle-room-upgrade-proposals.int.spec.ts` (52 ca — dùng database riêng `room_upgrade_test_*`, `--maxWorkers=1`, pool tối đa 5, không chạy trên database `core` vận hành).
 
 Endpoint cũ `/api/commerce/bookings/draft-change` và consumer AI cũ được giữ nguyên. Tính năng này không nhập hoặc gọi phép tính phụ thu mẫu 450.000đ/đêm.

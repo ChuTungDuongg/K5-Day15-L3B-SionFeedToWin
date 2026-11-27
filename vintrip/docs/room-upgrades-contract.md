@@ -494,3 +494,66 @@ pnpm --filter @vintrip/core-api exec vitest run --config vitest.int.config.ts \
 ```
 
 Bằng chứng kiểm thử độc lập đầy đủ của CP3: [evidence CP3](../be/docs/evidence/room-upgrades-cp3.md).
+
+---
+
+# Phần CP4 — Staff Portal, End-to-End Integration & Evaluation
+
+## 1. Endpoint đọc bổ sung ở Core API
+
+1. **`GET /api/commerce/room-upgrades/staff-context`** (`REPEATABLE READ READ ONLY`, `Cache-Control: no-store`):
+   - Yêu cầu access token hợp lệ (`401` nếu thiếu/hết hạn).
+   - Trả `200` với `{ caseId: "C2", isMock: true, operationalEffects: "NONE", requestId, userId, hasAccess: boolean, assignments: [{ hotelId, hotelName, timezone, fixtureVersion, staffRole }] }`.
+   - Không trả `403` cho khách hàng thông thường chưa có phân công (`hasAccess: false, assignments: []`), giúp web kiểm tra quyền hiển thị menu `"Cổng nhân viên khách sạn"` sạch sẽ không gây nhiễu lỗi mạng; global `superadmin` không có dòng phân công hoạt động tại bảng `room_upgrade_staff_assignments` vẫn nhận `hasAccess: false`.
+2. **`GET /api/commerce/room-upgrades/proposals/summary?hotelId=...`** (`REPEATABLE READ READ ONLY`, `Cache-Control: no-store`, đặt route trước `:proposalId`):
+   - Yêu cầu phân công khách sạn trên server (`403` nếu không được phân công).
+   - Trả thống kê chính xác bằng SQL `GROUP BY status` (`inHouseBookings`, `totalProposals`, `draft`, `pendingReceptionist`, `pendingManager`, `approved`, `rejected`, `expired`, `requoteRequired`) và tối đa 5 `recentProposals` mới nhất (đã hydrate revision hiện tại và `allowedActions` theo `staffRole`).
+3. **CORS & Transport hardening**:
+   - `core-api` (`src/platform/http.ts`) expose thêm `Idempotency-Replayed` trong `Access-Control-Expose-Headers` để trình duyệt cross-origin (`http://localhost:3100` → `http://localhost:8080`) đọc được cờ idempotent replay.
+   - `roomUpgradesApi.chatCopilot` gửi `credentials: 'omit'` khi gọi `POST /ai/room-upgrades/chat` (AI Service chỉ xác thực qua `Authorization: Bearer <token>`, không dùng cookie).
+
+## 2. Kiến trúc Frontend Staff Portal (`vintrip/fe`)
+
+- **API client dùng chung (`packages/api-client/src/room-upgrades.ts`)**:
+  - 14 phương thức `roomUpgradesApi` đi qua `http<HttpResponse<T>>`, `parseRoomUpgradeError()`, `createLogicalCommandManager()` (giữ ổn định `Idempotency-Key` theo `(operation, resourceId, canonicalPayload)` cho retry lỗi mạng/5xx và sinh key mới khi đổi hành động/payload), khóa React Query theo `(userId, hotelId)` và 7 hook (`useStaffContext`, `useStaffSummary`, `useInHouseBookings`, `useBookingContext`, `useProposalsList`, `useProposalDetail`, `useProposalHistory`).
+- **Tách biệt giao diện Khách hàng vs Nhân viên**:
+  - Mọi route `/staff` và `/staff/*` gắn `robots: { index: false, follow: false }`, ẩn hoàn toàn header khách hàng, footer OTA, thanh tab di động khách hàng và widget chat Vini nổi của khách.
+  - Menu tài khoản khách hàng (`header-account.tsx`) chỉ hiện mục `"Cổng nhân viên khách sạn"` khi server `GET /staff-context` trả `hasAccess === true`.
+  - `auth-return.ts` cho phép `?returnTo=/staff/...` an toàn (chặn ký tự điều khiển, `..`, `\\`, `%` mã hóa).
+- **6 màn hình Staff Portal (`apps/web/src/app/staff/*`)**:
+  - `/staff` (`DashboardScreen`): KPI tổng quan từ server (`useStaffSummary`), banner Sandbox cố định, liên kết nhanh tới Vini Copilot và 5 đề xuất gần đây.
+  - `/staff/bookings` (`BookingsScreen`): danh sách booking đang lưu trú, tìm kiếm theo mã booking/số phòng/hạng phòng, nút xem chi tiết và mở trực tiếp Vini Copilot.
+  - `/staff/bookings/[bookingCode]` (`BookingDetailScreen`): chi tiết booking, bảng giá trị đối trừ từng đêm gốc, quyền lợi thành viên (phân biệt rõ `Đã xác minh` vs `Chưa xác minh`), danh mục hạng phòng.
+  - `/staff/room-upgrades` (`CopilotScreen`): không gian làm việc 3 cột responsive (tab switcher dưới `1280px`), hội thoại nhiều lượt với `POST /ai/room-upgrades/chat` (`gpt-6-luna`), kiểm tra nhất quán giá văn bản AI (`hasConflictingPriceInDraft`), so sánh phương án, bảng tồn phòng & chênh lệch từng đêm, nút `"Tạo đề xuất chờ duyệt"` gửi `previewExpectation` và xử lý `409 PREVIEW_MISMATCH`.
+  - `/staff/proposals` (`ProposalsListScreen`): hàng đợi đề xuất lọc theo `status`, `requiredApprovalRole`, `bookingCode` và phân trang.
+  - `/staff/proposals/[proposalId]` (`ProposalDetailScreen`): hiển thị báo giá xác minh, badge phiên bản nội dung (`Revision #N`) tách biệt phiên bản đồng thời (`Version vM`), countdown tham khảo (server quyết định hết hạn), các modal xác nhận native `<dialog>` cho `APPROVE` / `REVISE` / `ESCALATE` / `REJECT`, xử lý `VERSION_CONFLICT` / `REQUOTE_REQUIRED` / `PROPOSAL_EXPIRED` (không bao giờ tự duyệt lại với version mới, không cập nhật lạc quan `APPROVED`), thông báo duyệt chuẩn `"Đã duyệt đề xuất báo giá. Chưa thực hiện chuyển phòng hoặc thu tiền."`, bảng revisions bất biến và dòng thời gian kiểm toán từ server.
+
+## 3. Hướng dẫn chạy local, seed & đăng nhập dev
+
+1. Chuẩn bị `vintrip/ai/.env` có `OPENAI_API_KEY` (không commit file `.env`), giữ cấu hình `ROOM_UPGRADES_LLM_MODEL=gpt-6-luna`, `ROOM_UPGRADES_LLM_REASONING_EFFORT=low`.
+2. Khởi chạy stack local từ gốc repo:
+   ```powershell
+   docker compose -f vintrip/be/deploy/compose.vintrip.yaml --profile extra up -d --build
+   ```
+   *(Khi khởi tạo `ai-service`, truyền biến môi trường `OPENAI_API_KEY` từ `vintrip/ai/.env` vào tiến trình `docker compose`.)*
+3. Áp dụng migration & seed dữ liệu mô phỏng (nếu chưa chạy qua service `migrate`):
+   ```sh
+   pnpm --filter @vintrip/core-api db:migrate
+   pnpm --filter @vintrip/core-api db:seed
+   ```
+4. Tài khoản dev seeded (`SEED_PASSWORD=vintrip-dev-123`, mã OTP 8 số đọc qua Mailpit tại `http://127.0.0.1:8025`):
+   - `member@vintrip.local` — `RECEPTIONIST` tại `upgrade-demo-hotel`.
+   - `superadmin@vintrip.local` — `MANAGER` tại `upgrade-demo-hotel`.
+   - `moderator@vintrip.local` — không được phân công khách sạn (dùng kiểm tra chặn `403` / Access Denied).
+5. Truy cập Web tại `http://localhost:3100/staff` (Gateway tại `http://localhost:8080`).
+
+## 4. Bộ đánh giá C2 độc lập (`eval/room-upgrades/`)
+
+- Tách biệt hoàn toàn khỏi bộ C1 đã khóa (`eval/benchmark.csv`, `eval/metric_spec.yaml`).
+- 24 ca **synthetic / authored** theo CP1 fixture `room-upgrades-v1@2026-11-27` (`8 normal`, `6 hard`, `4 missing_info_or_data`, `2 injection_or_auth`, `4 service_error_or_stale`).
+- Chạy smoke và full:
+  ```powershell
+  python eval/room-upgrades/run_eval.py --limit 5 --max-budget-usd 0.10
+  python eval/room-upgrades/run_eval.py --max-budget-usd 0.50
+  ```
+- Bằng chứng CP4 và nghiệm thu tổng thể CP1–CP4: [evidence CP4](evidence/room-upgrades-cp4.md), [final acceptance](evidence/room-upgrades-final-acceptance.md).
