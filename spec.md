@@ -180,8 +180,11 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
+| 27/11/2026, sau CP2 | Theo yêu cầu của nhóm, bổ sung demo C3 trên nhánh `vintrip`: phương án chuyến bay bị huỷ, bản nháp giữ chỗ/đổi vé/hoàn tiền, bridge CLI, chat SSE và thẻ giao diện. Dữ liệu tự dựng `c3-demo-v1`; chi tiết và giới hạn ở `docs/c3-flight-disruption.md` | Phần mở rộng độc lập với lát cắt nộp C1; chưa tích hợp nhà cung cấp hay có bằng chứng người dùng C3. Không đổi §7, metric, benchmark hoặc kết quả đã chạy |
+| 27/11/2026, rà soát C3 sau triển khai | Sửa xử lý nhiều mã, phủ định hành động, bỏ giới hạn giờ đến, chuyển sang hoàn vé và gợi ý theo tồn chỗ; thêm giờ bay và tiền vào nội dung bản nháp | Theo yêu cầu rà từng bước của nhóm; các ca hồi quy mới trong `tests/test_c3_disruption.py` và `vintrip/ai/tests/test_vintrip_copilot.py` tái hiện lỗi trước khi sửa. Giữ nguyên bộ đánh giá C1 |
 | 27/11/2026, sau CP2 · C1-00 | Dừng C3 trong chỗ làm C1; cất 25 file C3 đã sửa/thêm vào stash `7f7aaaa` (gồm file chưa theo dõi), giữ nhánh `vintrip`; chuyển ticket sang `CHỜ NGHIỆM THU` | Theo `docs/tracker/BOARD.md`: tách C3 khỏi C1, không xoá công việc đã làm. Stash C1 cũ `24d4494` được giữ nguyên; không chạy eval đầy đủ hoặc gọi model |
 | 27/11/2026, sau CP2 · C1-01 | Phục hồi nguyên bản `data/park_mau.json` từ stash C1 `24d4494`, cập nhật Dataset 1 và thêm test dữ liệu | Kiểm hai tổng 1.370.000đ / 1.270.000đ và đủ 7 trường hợp bắt buộc trong ticket; kiểm thêm giờ show, metadata và ma trận đi bộ. Dữ liệu mô phỏng, không đổi §7, benchmark hay metric |
+| 27/11/2026, hoàn tất C3 (nhánh `c3-flight-disruption`) | Thêm luồng C3 có trạng thái cho booking mô phỏng `TRV-7Q2K` (1 người lớn + 1 trẻ em): 10 công cụ trên adapter nhà cung cấp giả lập (giữ chỗ có hạn, đổi vé cần token gắn proposal + phiên bản, khoá chống lặp, đối soát khi timeout, hoàn vé cần xác nhận riêng, chuyển nhân viên), nối vào CLI `python run.py`. Chi tiết ở `docs/c3-flight-disruption.md` | Theo mục 6 kế hoạch sản phẩm của nhóm; 10 tình huống khó có test trong `tests/test_c3_flow.py`. Dữ liệu tự dựng, không gọi hãng hay tiền thật. Không đổi §7, metric, benchmark hoặc kết quả đã chạy |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

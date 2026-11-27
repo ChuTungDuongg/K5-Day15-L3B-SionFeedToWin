@@ -1,0 +1,42 @@
+{
+  "snapshotId": "c3-demo-v1",
+  "isMock": true,
+  "observedAt": "2026-11-27T12:00:00+07:00",
+  "quoteExpiresAt": "2026-12-10T09:00:00+07:00",
+  "policy": {
+    "code": "DEMO-CANCEL-V1",
+    "clause": "Quy tắc mô phỏng: chuyến bị huỷ được đề nghị đổi chuyến cùng hành trình hoặc hoàn toàn bộ giá vé chưa sử dụng; phí xử lý mẫu bằng 0. Không phải chính sách của hãng bay thật.",
+    "holdMinutes": 15
+  },
+  "bookings": [
+    {
+      "bookingCode": "DEMO-C3-001",
+      "flightId": "DEMO-VT100",
+      "status": "cancelled",
+      "fromAirport": "SGN",
+      "toAirport": "HAN",
+      "departure": "2026-12-10T09:00:00+07:00",
+      "arrival": "2026-12-10T11:10:00+07:00",
+      "passengers": 2,
+      "unusedFareVnd": 4800000
+    },
+    {
+      "bookingCode": "DEMO-C3-002",
+      "flightId": "DEMO-VT200",
+      "status": "confirmed",
+      "fromAirport": "SGN",
+      "toAirport": "HAN",
+      "departure": "2026-12-10T09:00:00+07:00",
+      "arrival": "2026-12-10T11:10:00+07:00",
+      "passengers": 2,
+      "unusedFareVnd": 4800000
+    }
+  ],
+  "flights": [
+    {"id": "DEMO-VT101", "fromAirport": "SGN", "toAirport": "HAN", "departure": "2026-12-10T11:00:00+07:00", "arrival": "2026-12-10T13:10:00+07:00", "status": "scheduled", "seats": 4, "farePerPersonVnd": 2600000},
+    {"id": "DEMO-VT102", "fromAirport": "SGN", "toAirport": "HAN", "departure": "2026-12-10T12:00:00+07:00", "arrival": "2026-12-10T14:10:00+07:00", "status": "scheduled", "seats": 1, "farePerPersonVnd": 2200000},
+    {"id": "DEMO-VT103", "fromAirport": "SGN", "toAirport": "HAN", "departure": "2026-12-10T15:00:00+07:00", "arrival": "2026-12-10T17:10:00+07:00", "status": "scheduled", "seats": 5, "farePerPersonVnd": 2300000},
+    {"id": "DEMO-VT104", "fromAirport": "SGN", "toAirport": "DAD", "departure": "2026-12-10T11:00:00+07:00", "arrival": "2026-12-10T12:20:00+07:00", "status": "scheduled", "seats": 5, "farePerPersonVnd": 1800000},
+    {"id": "DEMO-VT105", "fromAirport": "SGN", "toAirport": "HAN", "departure": "2026-12-10T11:00:00+07:00", "arrival": "2026-12-10T13:10:00+07:00", "status": "cancelled", "seats": 5, "farePerPersonVnd": 1800000}
+  ]
+}

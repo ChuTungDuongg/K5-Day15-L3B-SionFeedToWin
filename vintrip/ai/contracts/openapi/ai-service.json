@@ -50,6 +50,99 @@
         "title": "Awaiting",
         "type": "object"
       },
+      "Cancellation": {
+        "additionalProperties": false,
+        "properties": {
+          "cancelAt": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancelat"
+          },
+          "checkIn": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checkin"
+          },
+          "hotelSlug": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hotelslug"
+          },
+          "nights": {
+            "anyOf": [
+              {
+                "maximum": 30.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nights"
+          },
+          "policyCode": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Policycode"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
+          },
+          "totalVnd": {
+            "anyOf": [
+              {
+                "maximum": 1000000000000.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Totalvnd"
+          }
+        },
+        "title": "Cancellation",
+        "type": "object"
+      },
       "Card": {
         "additionalProperties": false,
         "properties": {
@@ -963,6 +1056,62 @@
         "title": "EmbedResponse",
         "type": "object"
       },
+      "FlightDisruption": {
+        "additionalProperties": false,
+        "description": "Untrusted request slots only; C3 always re-reads the mock snapshot.",
+        "properties": {
+          "action": {
+            "default": "review",
+            "enum": [
+              "review",
+              "hold",
+              "change",
+              "refund",
+              "choose"
+            ],
+            "title": "Action",
+            "type": "string"
+          },
+          "arrivalBefore": {
+            "anyOf": [
+              {
+                "maxLength": 40,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrivalbefore"
+          },
+          "bookingCode": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookingcode"
+          },
+          "targetFlightId": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Targetflightid"
+          }
+        },
+        "title": "FlightDisruption",
+        "type": "object"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -1345,6 +1494,26 @@
             "maxItems": 4,
             "title": "Pending",
             "type": "array"
+          },
+          "pendingCancellation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Cancellation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pendingFlightDisruption": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FlightDisruption"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "pendingFlights": {
             "items": {
