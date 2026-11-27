@@ -529,7 +529,8 @@
 }
 
 .searchButton:disabled {
-  opacity: 0.5;
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
   box-shadow: none;
   cursor: not-allowed;
 }
