@@ -1,0 +1,174 @@
+'use client';
+import { useApiSession } from '@vintrip/api-client';
+import { useMutation } from '@tanstack/react-query';
+import { vi } from '@vintrip/i18n';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState, type ReactNode } from 'react';
+import { ApiErrorNotice } from '@/features/shared/api-state';
+import { ProfileInfoCard } from './account-profile';
+import { TravelPreferencesCard } from './travel-preferences';
+import { AccountSecurity } from './account-security';
+import { EmailVerificationNotice } from './email-verification-notice';
+import { ACCOUNT_TABS, type AccountTab } from './account-tabs';
+import { AvatarEditor } from './avatar-editor';
+import { LoadingDots } from '@/features/shared/loading-dots';
+
+// Màn đăng nhập nằm ở login-form.tsx; giữ export ở đây để app/login/page.tsx không phải đổi.
+export { LiveLogin } from './login-form';
+
+/**
+ * Trang tài khoản dạng hồ sơ (TF06M): cột trái avatar, thẻ thành viên, menu; bên phải nội dung mục đang chọn.
+ * ?tab= mở sẵn một mục (xem account-tabs.ts).
+ */
+export function LiveAccount({ initialTab = 'profile' }: { initialTab?: AccountTab }) {
+  const { user, isReady, session } = useApiSession();
+  const router = useRouter();
+  const [tab, setTab] = useState<AccountTab>(initialTab);
+  const logout = useMutation({
+    mutationFn: () => session.logout(),
+    onSuccess: () => router.push('/'),
+  });
+
+  useEffect(() => {
+    if (isReady && !user) {
+      router.replace('/login?returnTo=%2Faccount');
+    }
+  }, [isReady, user, router]);
+
+  if (!isReady || !user)
+    return (
+      <main id="content" className="ota-container results-page account-page">
+        <section className="account-guest is-loading" aria-busy="true">
+          <LoadingDots isBlock />
+        </section>
+      </main>
+    );
+  return (
+    <main id="content" className="ota-container results-page account-page">
+      <div className="profile-layout">
+        {user.emailVerified === false && (
+          <div className="profile-notice">
+            <EmailVerificationNotice key={`verify-${user.id}`} />
+          </div>
+        )}
+        <aside className="profile-aside">
+          <div className="profile-identity">
+            <AvatarEditor user={user} />
+            <h1>{user.displayName}</h1>
+            <span className="account-role">{describeRole(user.role)}</span>
+          </div>
+          <nav className="profile-nav" aria-label={vi.api.accountNavLabel}>
+            {ACCOUNT_TABS.map((kind) => (
+              <button
+                key={kind}
+                type="button"
+                aria-current={tab === kind ? 'page' : undefined}
+                onClick={() => setTab(kind)}
+              >
+                <NavIcon name={kind} />
+                {TAB_LABELS[kind]}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="is-logout"
+              disabled={logout.isPending}
+              onClick={() => logout.mutate()}
+            >
+              <NavIcon name="logout" />
+              {vi.api.logout}
+            </button>
+          </nav>
+          <ApiErrorNotice error={logout.error} />
+        </aside>
+        <div className="profile-main">
+          {tab === 'profile' ? (
+            <ProfileInfoCard key={user.id} userId={user.id} />
+          ) : tab === 'security' ? (
+            <AccountSecurity key={user.id} userId={user.id} />
+          ) : null}
+        </div>
+        {tab === 'profile' && (
+          <div className="profile-travel">
+            <TravelPreferencesCard key={`travel-${user.id}`} userId={user.id} />
+          </div>
+        )}
+      </div>
+    </main>
+  );
+}
+
+const TAB_LABELS: Record<AccountTab, string> = {
+  profile: vi.api.profileInfoTitle,
+  security: vi.api.accountNavSecurity,
+};
+
+const NAV_ICONS: Record<AccountTab | 'logout', ReactNode> = {
+  profile: (
+    <>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21a8 8 0 0 1 16 0" />
+    </>
+  ),
+  security: (
+    <>
+      <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z" />
+      <path d="m9 12 2 2 4-4" />
+    </>
+  ),
+  logout: (
+    <>
+      <path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4" />
+      <path d="M10 16 6 12l4-4M6 12h10" />
+    </>
+  ),
+};
+
+function NavIcon({ name }: { name: keyof typeof NAV_ICONS }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+      {NAV_ICONS[name]}
+    </svg>
+  );
+}
+
+/** Trang tài khoản khi chưa đăng nhập: giải thích trang này để làm gì, nút Đăng nhập và Tạo tài khoản. */
+export function AccountGuest() {
+  return (
+    <section className="account-guest" aria-labelledby="account-guest-title">
+      <div className="account-guest-body">
+        <span className="eyebrow">{vi.api.authEyebrow}</span>
+        <h1 id="account-guest-title">{vi.api.accountGuestTitle}</h1>
+        <p>{vi.api.accountGuestBody}</p>
+        <ul className="auth-benefits">
+          {Object.values(vi.api.authBenefits).map((benefit) => (
+            <li key={benefit}>{benefit}</li>
+          ))}
+        </ul>
+        <div className="account-guest-actions">
+          <Link prefetch={false} className="primary-button" href="/login?returnTo=/account">
+            {vi.api.login}
+          </Link>
+          <Link prefetch={false} className="secondary-button" href="/register?returnTo=%2Faccount">
+            {vi.api.register}
+          </Link>
+        </div>
+      </div>
+      <Image
+        className="account-guest-mascot"
+        src="/brand/vini/vini-welcome.png"
+        alt=""
+        width={200}
+        height={200}
+      />
+    </section>
+  );
+}
+
+function describeRole(role: string): string {
+  if (role === 'superadmin') return vi.api.superadmin;
+  if (role === 'moderator') return vi.api.moderator;
+  return vi.api.user;
+}

@@ -35,3 +35,23 @@ evidence/**/raw-*
 # Nguyên file data BTC cấp (data/preclass, data/training-ops… của repo đề): để ở đây, không commit
 data-btc
 data-btc/
+
+# Vintrip 3-stack build artifacts & local envs
+vintrip/**/node_modules/
+vintrip/**/.next/
+vintrip/**/dist/
+vintrip/**/.turbo/
+vintrip/**/.venv/
+vintrip/**/.uv-cache/
+vintrip/**/.pytest_cache/
+vintrip/**/.pytest-vintrip-tmp/
+vintrip/**/.vintrip-qa-cache/
+vintrip/**/.verify/
+vintrip/**/__pycache__/
+vintrip/**/.env
+vintrip/**/.env.*
+!vintrip/**/.env*.example
+vintrip/**/deploy/.env
+vintrip/**/deploy/.env.*
+!vintrip/**/deploy/.env*.example
+

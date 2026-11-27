@@ -1,0 +1,51 @@
+{
+  "snapshotId": "park-mau-2026-11-27-v1",
+  "isMock": true,
+  "source": "Nhóm tự dựng, mô phỏng. Không phải dữ liệu hay bảng giá của công viên thật.",
+  "observedAt": "2026-11-27",
+  "park": {"id": "PARK-MAU", "name": "Công viên Mẫu", "timezone": "Asia/Ho_Chi_Minh", "open": "08:00", "close": "19:00", "gate": "Cổng chính"},
+  "prices": {
+    "adult": 300000,
+    "child": 175000,
+    "child_free_below_cm": 100,
+    "child_max_cm": 140,
+    "lunch_per_person": 80000,
+    "note": "Vé vào cổng đã gồm mọi trò, trừ hoạt động có phụ thu. Bé dưới 100 cm miễn vé; từ 140 cm trở lên tính vé người lớn."
+  },
+  "food_zone": "Khu Ẩm thực",
+  "walk_minutes": {
+    "Cổng chính":     {"Khu Gia đình": 6, "Khu Nước": 10, "Khu Phiêu lưu": 12, "Khu Trong nhà": 8, "Sân khấu lớn": 12, "Nhà hát": 9, "Khu Ẩm thực": 7},
+    "Khu Gia đình":   {"Khu Nước": 6, "Khu Phiêu lưu": 8, "Khu Trong nhà": 5, "Sân khấu lớn": 7, "Nhà hát": 6, "Khu Ẩm thực": 4},
+    "Khu Nước":       {"Khu Phiêu lưu": 7, "Khu Trong nhà": 8, "Sân khấu lớn": 9, "Nhà hát": 9, "Khu Ẩm thực": 6},
+    "Khu Phiêu lưu":  {"Khu Trong nhà": 9, "Sân khấu lớn": 6, "Nhà hát": 10, "Khu Ẩm thực": 7},
+    "Khu Trong nhà":  {"Sân khấu lớn": 6, "Nhà hát": 3, "Khu Ẩm thực": 4},
+    "Sân khấu lớn":   {"Nhà hát": 7, "Khu Ẩm thực": 5},
+    "Nhà hát":        {"Khu Ẩm thực": 5},
+    "same_zone": 2
+  },
+  "activities": [
+    {"id": "A01", "name": "Đu quay mini",          "zone": "Khu Gia đình",  "duration": 20, "wait": 10, "indoor": false, "tags": ["nhe"],          "min_height": 90,  "min_age": 3,  "surcharge": 0},
+    {"id": "A02", "name": "Tàu hoả tí hon",        "zone": "Khu Gia đình",  "duration": 20, "wait": 10, "indoor": false, "tags": ["nhe"],          "min_height": 0,   "min_age": 0,  "surcharge": 0},
+    {"id": "A03", "name": "Thuyền thiên nga",      "zone": "Khu Gia đình",  "duration": 25, "wait": 10, "indoor": false, "tags": ["nhe", "nuoc"],  "min_height": 0,   "min_age": 0,  "surcharge": 0},
+    {"id": "A04", "name": "Làng cổ tích",          "zone": "Khu Gia đình",  "duration": 30, "wait": 5,  "indoor": true,  "tags": ["nhe"],          "min_height": 0,   "min_age": 0,  "surcharge": 25000},
+    {"id": "A05", "name": "Xe điện đụng mini",     "zone": "Khu Trong nhà", "duration": 15, "wait": 15, "indoor": true,  "tags": ["nhe"],          "min_height": 100, "min_age": 4,  "surcharge": 0},
+    {"id": "A06", "name": "Sông lười",             "zone": "Khu Nước",      "duration": 30, "wait": 10, "indoor": false, "tags": ["nhe", "nuoc"],  "min_height": 100, "min_age": 3,  "surcharge": 0},
+    {"id": "A07", "name": "Máng trượt nước",       "zone": "Khu Nước",      "duration": 20, "wait": 20, "indoor": false, "tags": ["nuoc"],         "min_height": 120, "min_age": 6,  "surcharge": 0},
+    {"id": "A08", "name": "Hồ tạo sóng",           "zone": "Khu Nước",      "duration": 40, "wait": 0,  "indoor": false, "tags": ["nhe", "nuoc"],  "min_height": 0,   "min_age": 0,  "surcharge": 0},
+    {"id": "A09", "name": "Tàu lượn Sấm Sét",      "zone": "Khu Phiêu lưu", "duration": 10, "wait": 40, "indoor": false, "tags": ["manh"],         "min_height": 120, "min_age": 8,  "surcharge": 0},
+    {"id": "A10", "name": "Thác nước siêu tốc",    "zone": "Khu Phiêu lưu", "duration": 15, "wait": 35, "indoor": false, "tags": ["manh", "nuoc"], "min_height": 115, "min_age": 7,  "surcharge": 0},
+    {"id": "A11", "name": "Tháp rơi tự do",        "zone": "Khu Phiêu lưu", "duration": 10, "wait": 45, "indoor": false, "tags": ["manh"],         "min_height": 130, "min_age": 10, "surcharge": 0},
+    {"id": "A12", "name": "Nhà ma",                "zone": "Khu Trong nhà", "duration": 20, "wait": 25, "indoor": true,  "tags": ["manh"],         "min_height": 0,   "min_age": 10, "surcharge": 0},
+    {"id": "A13", "name": "Rạp phim 5D",           "zone": "Khu Trong nhà", "duration": 20, "wait": 10, "indoor": true,  "tags": ["nhe"],          "min_height": 100, "min_age": 4,  "surcharge": 0},
+    {"id": "A14", "name": "Khu trò chơi điện tử",  "zone": "Khu Trong nhà", "duration": 30, "wait": 0,  "indoor": true,  "tags": ["nhe"],          "min_height": 0,   "min_age": 0,  "surcharge": 0},
+    {"id": "A15", "name": "Nhà kính bướm",         "zone": "Sân khấu lớn",  "duration": 25, "wait": 5,  "indoor": true,  "tags": ["nhe"],          "min_height": 0,   "min_age": 0,  "surcharge": 0},
+    {"id": "A16", "name": "Vẽ tranh cát",          "zone": "Khu Gia đình",  "duration": 30, "wait": 0,  "indoor": true,  "tags": ["nhe"],          "min_height": null, "min_age": null, "surcharge": 0}
+  ],
+  "shows": [
+    {"id": "S01", "name": "Show xiếc thú",       "zone": "Sân khấu lớn", "duration": 40, "early": 10, "indoor": false, "slots": ["09:10", "11:00", "15:00"]},
+    {"id": "S02", "name": "Show nhạc nước",      "zone": "Khu Nước",     "duration": 30, "early": 10, "indoor": false, "slots": ["11:30", "13:00"]},
+    {"id": "S03", "name": "Ảo thuật trong nhà",  "zone": "Nhà hát",      "duration": 30, "early": 10, "indoor": true,  "slots": ["13:30", "16:00"]},
+    {"id": "S04", "name": "Diễu hành ánh sáng",  "zone": "Sân khấu lớn", "duration": 30, "early": 15, "indoor": false, "slots": ["18:00"]}
+  ],
+  "incidents": []
+}

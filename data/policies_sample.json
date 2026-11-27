@@ -1,0 +1,208 @@
+[
+  {
+    "code": "FLEX-48H",
+    "citation": "[C1]",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "check_in_hour": 14,
+    "title": "Linh hoạt 48 giờ",
+    "clause": "Miễn phí khi hủy từ 48 giờ trở lên trước giờ nhận phòng. Sát giờ chịu phí một đêm, từ giờ nhận phòng chịu toàn bộ.",
+    "tiers": [
+      {
+        "min_hours": 48,
+        "unit": "percent",
+        "amount": 0
+      },
+      {
+        "min_hours": 0,
+        "unit": "nights",
+        "amount": 1,
+        "exclusive": true
+      },
+      {
+        "min_hours": null,
+        "unit": "percent",
+        "amount": 100
+      }
+    ],
+    "source": "Chính sách mô phỏng của Vintrip"
+  },
+  {
+    "code": "MOD-72H",
+    "citation": "[C2]",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "check_in_hour": 14,
+    "title": "Tiêu chuẩn 72 giờ",
+    "clause": "Miễn phí khi hủy trước ít nhất 72 giờ. Từ 24 đến dưới 72 giờ thu 50%. Dưới 24 giờ thu toàn bộ.",
+    "tiers": [
+      {
+        "min_hours": 72,
+        "unit": "percent",
+        "amount": 0
+      },
+      {
+        "min_hours": 24,
+        "unit": "percent",
+        "amount": 50
+      },
+      {
+        "min_hours": null,
+        "unit": "percent",
+        "amount": 100
+      }
+    ],
+    "source": "Chính sách mô phỏng của Vintrip"
+  },
+  {
+    "code": "STRICT-NO-REFUND",
+    "citation": "[C3]",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "check_in_hour": 14,
+    "title": "Không hoàn tiền",
+    "clause": "Thu toàn bộ giá trị đặt phòng ở mọi thời điểm.",
+    "tiers": [
+      {
+        "min_hours": null,
+        "unit": "percent",
+        "amount": 100
+      }
+    ],
+    "source": "Chính sách mô phỏng của Vintrip"
+  },
+  {
+    "code": "PARTIAL-50-24H",
+    "citation": "[C4]",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "check_in_hour": 14,
+    "title": "Phí 50% trong 24 giờ",
+    "clause": "Miễn phí khi hủy trước ít nhất 24 giờ. Sát giờ thu 50%, từ giờ nhận phòng chịu toàn bộ.",
+    "tiers": [
+      {
+        "min_hours": 24,
+        "unit": "percent",
+        "amount": 0
+      },
+      {
+        "min_hours": 0,
+        "unit": "percent",
+        "amount": 50,
+        "exclusive": true
+      },
+      {
+        "min_hours": null,
+        "unit": "percent",
+        "amount": 100
+      }
+    ],
+    "source": "Chính sách mô phỏng của Vintrip"
+  },
+  {
+    "code": "RESORT-PEAK-7D",
+    "citation": "[C5]",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "check_in_hour": 14,
+    "title": "Resort mùa cao điểm",
+    "clause": "Miễn phí trước ít nhất 7 ngày. Từ 72 giờ đến dưới 7 ngày thu 50%, dưới 72 giờ thu toàn bộ.",
+    "tiers": [
+      {
+        "min_hours": 168,
+        "unit": "percent",
+        "amount": 0
+      },
+      {
+        "min_hours": 72,
+        "unit": "percent",
+        "amount": 50
+      },
+      {
+        "min_hours": null,
+        "unit": "percent",
+        "amount": 100
+      }
+    ],
+    "source": "Chính sách mô phỏng của Vintrip"
+  },
+  {
+    "code": "JAPAN-RYOKAN-72H",
+    "citation": "[C6]",
+    "timezone": "Asia/Tokyo",
+    "check_in_hour": 14,
+    "title": "Ryokan Nhật Bản",
+    "clause": "Miễn phí trước ít nhất 72 giờ. Từ 24 đến dưới 72 giờ thu 30%, sát giờ thu 50%, từ giờ nhận phòng thu toàn bộ.",
+    "tiers": [
+      {
+        "min_hours": 72,
+        "unit": "percent",
+        "amount": 0
+      },
+      {
+        "min_hours": 24,
+        "unit": "percent",
+        "amount": 30
+      },
+      {
+        "min_hours": 0,
+        "unit": "percent",
+        "amount": 50,
+        "exclusive": true
+      },
+      {
+        "min_hours": null,
+        "unit": "percent",
+        "amount": 100
+      }
+    ],
+    "source": "Chính sách mô phỏng của Vintrip"
+  },
+  {
+    "code": "SG-BUSINESS-24H",
+    "citation": "[C7]",
+    "timezone": "Asia/Singapore",
+    "check_in_hour": 14,
+    "title": "Khách sạn công tác Singapore",
+    "clause": "Miễn phí trước ít nhất 24 giờ. Từ 6 đến dưới 24 giờ thu một đêm, dưới 6 giờ thu toàn bộ.",
+    "tiers": [
+      {
+        "min_hours": 24,
+        "unit": "percent",
+        "amount": 0
+      },
+      {
+        "min_hours": 6,
+        "unit": "nights",
+        "amount": 1
+      },
+      {
+        "min_hours": null,
+        "unit": "percent",
+        "amount": 100
+      }
+    ],
+    "source": "Chính sách mô phỏng của Vintrip"
+  },
+  {
+    "code": "UAE-CITY-48H",
+    "citation": "[C8]",
+    "timezone": "Asia/Dubai",
+    "check_in_hour": 14,
+    "title": "Khách sạn thành phố Dubai",
+    "clause": "Miễn phí trước ít nhất 48 giờ. Từ 12 đến dưới 48 giờ thu 25%, dưới 12 giờ thu toàn bộ.",
+    "tiers": [
+      {
+        "min_hours": 48,
+        "unit": "percent",
+        "amount": 0
+      },
+      {
+        "min_hours": 12,
+        "unit": "percent",
+        "amount": 25
+      },
+      {
+        "min_hours": null,
+        "unit": "percent",
+        "amount": 100
+      }
+    ],
+    "source": "Chính sách mô phỏng của Vintrip"
+  }
+]

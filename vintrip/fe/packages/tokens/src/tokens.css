@@ -1,0 +1,36 @@
+/* Khớp với src/index.ts: sửa màu ở đó thì sửa cả file này (pnpm test kiểm). */
+/* Dùng trong Tailwind v4: @import "@vintrip/tokens/tokens.css"; rồi dùng class bg-coral, text-navy, font-sans. */
+@theme {
+  --color-coral: #D9365A;
+  --color-coral-soft: #FB7185;
+  --color-sun: #FFC531;
+  --color-teal: #C2410C;
+  --color-teal-soft: #FFEDD5;
+  --color-navy: #141B3D;
+  --color-background: #FFFFFF;
+  --color-surface: #F8FAFC;
+  --color-surface-muted: #F1F5F9;
+  --color-border: #E2E8F0;
+  --color-text: #141B3D;
+  --color-text-muted: #64748B;
+  --color-text-subtle: #94A3B8;
+  --color-success: #15803D;
+  --color-warning: #FFC531;
+  --color-danger: #E5484D;
+  --color-ink: #18242B;
+  --color-warm-mist: #FFF7ED;
+  --color-sea-mist: #FFF4EC;
+  --color-teal-ink: #9A3412;
+  --color-coral-ink: #BE123C;
+  --color-sun-soft: #FFF6D8;
+  --color-coral-tint: #FFE4E6;
+  --color-overlay: #18242B80;
+  --color-overlay-heavy: #18242BCC;
+  --color-tab-bar: #000000;
+  --color-compose-start: #F97316;
+  --color-compose-end: #E11D48;
+  --color-compose-icon-shadow: #60180E47;
+  --color-transparent: transparent;
+  --font-sans: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}

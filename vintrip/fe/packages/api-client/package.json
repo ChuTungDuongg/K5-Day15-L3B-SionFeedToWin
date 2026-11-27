@@ -1,0 +1,40 @@
+{
+  "name": "@vintrip/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./flight-search": "./src/flight-search.ts",
+    "./seo": "./src/seo.ts",
+    "./profile-query-keys": "./src/profile-query-keys.ts",
+    "./core-api/*": "./src/generated/core-api/*.ts",
+    "./ai-service/*": "./src/generated/ai-service/*.ts"
+  },
+  "scripts": {
+    "gen": "orval --config orval.config.ts && prettier --write src/generated",
+    "lint": "oxlint -c ../../.oxlintrc.json src",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@noble/ciphers": "catalog:",
+    "@noble/curves": "catalog:",
+    "@noble/hashes": "catalog:",
+    "@tanstack/react-query": "catalog:",
+    "socket.io-client": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@vintrip/config": "workspace:*",
+    "@types/react": "catalog:",
+    "orval": "catalog:",
+    "oxlint": "catalog:",
+    "prettier": "catalog:",
+    "react": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

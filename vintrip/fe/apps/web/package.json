@@ -1,0 +1,38 @@
+{
+  "name": "@vintrip/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3100",
+    "build": "next build",
+    "start": "next start --port 3100",
+    "lint": "oxlint -c ../../.oxlintrc.json src",
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "catalog:",
+    "@vintrip/api-client": "workspace:*",
+    "@vintrip/app-core": "workspace:*",
+    "@vintrip/i18n": "workspace:*",
+    "@vintrip/tokens": "workspace:*",
+    "@vintrip/ui-web": "workspace:*",
+    "@vintrip/utils": "workspace:*",
+    "hls.js": "catalog:",
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "catalog:",
+    "@vintrip/config": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "oxlint": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
