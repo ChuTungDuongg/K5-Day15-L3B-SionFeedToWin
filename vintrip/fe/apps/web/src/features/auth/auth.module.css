@@ -203,7 +203,8 @@
 }
 
 .submitBtn:disabled {
-  opacity: 0.55;
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
   cursor: not-allowed;
 }
 

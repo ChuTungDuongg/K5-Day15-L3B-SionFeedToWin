@@ -11,6 +11,7 @@ import { t, vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ApiErrorNotice } from '@/features/shared/api-state';
+import { formatPrice } from '@/features/discovery/trip-card';
 import { FlightIcon } from './flight-icon';
 import { FlightCard, StaySuggestion, formatFlightDate, useFlightHold } from './flight-results';
 import { toAirportOption } from './flight-search-form';
@@ -114,16 +115,16 @@ function Detail({
         </div>
       </header>
       {query.isPending && (
-        <output className={styles.loadingState}>
-          <Image src="/brand/vini/vini-curious.png" alt="" width={88} height={88} />
-          <span>{copy.loadingFlights}</span>
-        </output>
+        <div className={styles.skeletonList} role="status" aria-label={copy.loadingFlights}>
+          <div className={styles.skeletonCard} />
+          <div className={styles.skeletonCard} />
+        </div>
       )}
       {isNotFound ? (
-        <div className={styles.loadingState} role="alert">
-          <Image src="/brand/vini/vini-curious.png" alt="" width={88} height={88} />
-          <span>{copy.detailNotFound}</span>
-          <Link prefetch={false} className={'ripple-button ' + styles.stayLink} href="/flights">
+        <div className={styles.emptyState} role="alert">
+          <Image src="/brand/vini/vini-curious.png" alt="" width={140} height={140} />
+          <h3>{copy.detailNotFound}</h3>
+          <Link prefetch={false} className={styles.bookButton} href="/flights">
             {copy.detailSearchAgain}
           </Link>
         </div>
@@ -132,24 +133,107 @@ function Detail({
       )}
       {offer && (
         <>
-          <FlightCard
-            flight={offer}
-            cabins={[offer]}
-            isLocked={!isReady || hold.isPending || hold.isSuccess}
-            isHolding={hold.isPending}
-            returnTo={user ? undefined : selfPath}
-            initialProductId={productId}
-            initialFareCode={initialFareCode}
-            isInitiallyOpen
-            date={date}
-            passengers={passengers}
-            passengerMix={passengerMix}
-            onHold={(cabinId, fareCode) =>
-              hold.mutate({ productId: cabinId, fareCode, flightKey: offer.flightKey })
-            }
-            error={hold.error}
-          />
+          <section className={styles.detailJourney} aria-label={copy.detailTitle}>
+            <ol className={styles.detailTimeline}>
+              <li className={styles.detailStep}>
+                <span className={styles.detailDot} aria-hidden="true" />
+                <div className={styles.detailStepInfo}>
+                  <strong>
+                    {offer.departTime?.slice(0, 5) ?? '--:--'} · {offer.fromAirport}
+                  </strong>
+                  <span>{toAirportOption(offer.fromAirport).city}</span>
+                </div>
+              </li>
+              <li className={styles.detailStepMeta}>
+                <span>
+                  {offer.durationMinutes != null
+                    ? t('flights.duration', {
+                        hours: Math.floor(offer.durationMinutes / 60),
+                        minutes: offer.durationMinutes % 60,
+                      })
+                    : ''}
+                  {offer.durationMinutes != null ? ' · ' : ''}
+                  {offer.stops > 0 ? t('flights.stops', { count: offer.stops }) : copy.direct}
+                </span>
+              </li>
+              <li className={styles.detailStep}>
+                <span className={styles.detailDot} aria-hidden="true" />
+                <div className={styles.detailStepInfo}>
+                  <strong>
+                    {offer.arriveTime?.slice(0, 5) ?? '--:--'} · {offer.toAirport}
+                  </strong>
+                  <span>{toAirportOption(offer.toAirport, offer.destination.name).city}</span>
+                </div>
+              </li>
+            </ol>
+            {offer.fares[0] && (
+              <ul className={styles.detailConditions}>
+                {offer.fares[0].carryOnKg != null && (
+                  <li>
+                    <FlightIcon name="seat" size={18} />
+                    <span>{t('flights.carryOn', { kg: offer.fares[0].carryOnKg })}</span>
+                  </li>
+                )}
+                {offer.fares[0].checkedKg != null && (
+                  <li>
+                    <FlightIcon name="seat" size={18} />
+                    <span>
+                      {offer.fares[0].checkedKg > 0
+                        ? t('flights.checked', { kg: offer.fares[0].checkedKg })
+                        : copy.noChecked}
+                    </span>
+                  </li>
+                )}
+                <li>
+                  <FlightIcon name="shield" size={18} />
+                  <span>
+                    {offer.fares[0].isRefundable && offer.fares[0].freeCancelDays > 0
+                      ? t('flights.freeCancel', { count: offer.fares[0].freeCancelDays })
+                      : offer.fares[0].isRefundable
+                        ? copy.refundable
+                        : vi.commerce.nonRefundable}
+                  </span>
+                </li>
+                {offer.isPriceTaxIncluded && (
+                  <li>
+                    <FlightIcon name="check" size={18} />
+                    <span>{copy.taxIncluded}</span>
+                  </li>
+                )}
+              </ul>
+            )}
+          </section>
+          <div id="flight-booking-section">
+            <FlightCard
+              flight={offer}
+              cabins={[offer]}
+              isLocked={!isReady || hold.isPending || hold.isSuccess}
+              isHolding={hold.isPending}
+              returnTo={user ? undefined : selfPath}
+              initialProductId={productId}
+              initialFareCode={initialFareCode}
+              isInitiallyOpen
+              date={date}
+              passengers={passengers}
+              passengerMix={passengerMix}
+              onHold={(cabinId, fareCode) =>
+                hold.mutate({ productId: cabinId, fareCode, flightKey: offer.flightKey })
+              }
+              error={hold.error}
+            />
+          </div>
           <StaySuggestion destination={offer.destination} search={search} />
+          {offer.fares[0]?.totalPrice != null && (
+            <div className={styles.detailMobileBar}>
+              <div className={styles.detailMobilePrice}>
+                <span>{vi.commerce.total}</span>
+                <strong>{formatPrice(offer.fares[0].totalPrice)}</strong>
+              </div>
+              <a href="#flight-booking-section" className={styles.bookButton}>
+                {copy.choose}
+              </a>
+            </div>
+          )}
         </>
       )}
     </section>

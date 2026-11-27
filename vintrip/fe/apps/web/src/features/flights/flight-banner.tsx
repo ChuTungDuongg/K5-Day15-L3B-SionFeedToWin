@@ -30,14 +30,6 @@ export function FlightBanner({ activeStep }: { activeStep: 1 | 2 }) {
         </h1>
         <p className={styles.bannerIntro}>{copy.heroIntro}</p>
       </div>
-      <Image
-        className={styles.bannerMascot}
-        src="/brand/vini/vini-guide.png"
-        alt=""
-        width={240}
-        height={240}
-        priority
-      />
       <div className={styles.feature}>
         <Link prefetch={false} href="/inspiration" className={styles.featureCard}>
           <span className={styles.featureHead}>
