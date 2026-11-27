@@ -8,6 +8,8 @@ Nguồn khung: [`starter-repo/` của BTC](https://github.com/VinUni-AI20k/K5-L3
 
 Nguồn tham khảo của thư mục `vintrip/`: khung frontend (Next.js), backend (NestJS) và dịch vụ AI dựa trên mã nguồn dự án TripFlix (đổi tên thành Vintrip). Phần nhóm tự làm: agent Vini trong `codebase/`, ý tưởng lập lịch khu vui chơi, giao diện tông cam hồng.
 
+**Mở rộng C3 trên nhánh `vintrip`:** đã có luồng demo xử lý chuyến bay bị huỷ trong CLI và chat Vini: kiểm phương án thay thế, tính chênh lệch và soạn bản nháp giữ chỗ/đổi vé/hoàn tiền chờ duyệt. Dữ liệu hoàn toàn mô phỏng, chưa nối nhà cung cấp và không thực hiện giao dịch. Chạy `python run.py`, nhập `C3 xem phương án DEMO-C3-001`. Xem [hướng dẫn C3](docs/c3-flight-disruption.md); phần này không thay đổi bộ đánh giá C1.
+
 Hướng dẫn chính thức: [đề bài](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/01-challenge-brief.md) · [guide](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/02-guide.md) · [rubric](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/03-rubric.md) · [các track](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/tree/main/tracks).
 
 **Trạng thái CP2:** đã có canvas, thiết kế ở [spec.md §4](spec.md), bộ thử 30 câu (14 thường, 11 khó, 5 từ chối), 4 metric và danh sách 4 thành viên. `python run.py check` không còn cảnh báo cấu trúc. Mã nguồn vẫn là bộ khung dùng model giả, chưa có công cụ lập lịch và validator của VinTrip. Kiểm tra cấu trúc đạt không có nghĩa là chất lượng trả lời đã đạt.

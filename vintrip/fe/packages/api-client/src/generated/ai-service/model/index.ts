@@ -8,6 +8,7 @@
 export * from './awaiting';
 export * from './awaitingIntent';
 export * from './awaitingMissing';
+export * from './cancellation';
 export * from './card';
 export * from './cardAction';
 export * from './cardActionParams';
@@ -34,6 +35,8 @@ export * from './draftTransport';
 export * from './draftTransportMode';
 export * from './embedRequest';
 export * from './embedResponse';
+export * from './flightDisruption';
+export * from './flightDisruptionAction';
 export * from './getHealthHealthGet200';
 export * from './hTTPValidationError';
 export * from './moderateItem';

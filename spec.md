@@ -180,7 +180,8 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| 27/11/2026, sau CP2 | Theo yêu cầu của nhóm, bổ sung demo C3 trên nhánh `vintrip`: phương án chuyến bay bị huỷ, bản nháp giữ chỗ/đổi vé/hoàn tiền, bridge CLI, chat SSE và thẻ giao diện. Dữ liệu tự dựng `c3-demo-v1`; chi tiết và giới hạn ở `docs/c3-flight-disruption.md` | Phần mở rộng độc lập với lát cắt nộp C1; chưa tích hợp nhà cung cấp hay có bằng chứng người dùng C3. Không đổi §7, metric, benchmark hoặc kết quả đã chạy |
+| 27/11/2026, rà soát C3 sau triển khai | Sửa xử lý nhiều mã, phủ định hành động, bỏ giới hạn giờ đến, chuyển sang hoàn vé và gợi ý theo tồn chỗ; thêm giờ bay và tiền vào nội dung bản nháp | Theo yêu cầu rà từng bước của nhóm; các ca hồi quy mới trong `tests/test_c3_disruption.py` và `vintrip/ai/tests/test_vintrip_copilot.py` tái hiện lỗi trước khi sửa. Giữ nguyên bộ đánh giá C1 |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

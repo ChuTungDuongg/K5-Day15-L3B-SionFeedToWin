@@ -22,7 +22,7 @@ export type AssistantAction = DraftAction;
 export interface AssistantCard {
   ref: string;
   id: string;
-  /** Bao gồm cancel_policy, approval_draft và verified_itinerary trong luồng SSE. */
+  /** Bao gồm cancel_policy, approval_draft, verified_itinerary và flight_disruption trong SSE. */
   kind: string;
   title: string;
   priceFrom: number | null;

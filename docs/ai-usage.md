@@ -8,6 +8,7 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 |---|---|---|---|---|
 | Thiết lập repo | OpenAI Codex | Chép starter kit của BTC, cập nhật README và thông tin nhóm đã biết, tạo môi trường Python, kiểm tra luồng với model giả | Nhóm cần kiểm lại phần thiết lập; chưa có xác nhận kiểm tay của nhóm | ____ |
 | Code bản chạy thử | | | | |
+| Mở rộng C3 trên nhánh vintrip | OpenAI Codex | Viết engine kiểm phương án chuyến bay bị huỷ, snapshot giả, bridge CLI, chat SSE, thẻ giao diện, kiểm thử và hướng dẫn demo; mọi giao dịch dừng ở bản nháp | Đã chạy kiểm thử tự động; nhóm cần kiểm tay dữ liệu, luồng và duyệt thay đổi trước commit. Chưa có xác nhận kiểm tay của nhóm | Chưa phân công |
 | Prompt / thiết kế lời gọi mô hình | | | | |
 | Đào data (viết script đếm, gợi ý nhãn) | | | Kiểm tay __ dòng, khớp __ | |
 | Rà câu hỏi phỏng vấn / khảo sát | | Chỉ rà câu dẫn dắt | | |
