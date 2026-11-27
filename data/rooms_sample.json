@@ -1,0 +1,132 @@
+[
+  {
+    "code": "DN-DELUXE",
+    "city": "Đà Nẵng",
+    "hotel": "Coastal Pearl",
+    "name": "Deluxe City View",
+    "nightly_rate_vnd": 1200000,
+    "change_surcharge_vnd": 0,
+    "amenities": [
+      "Wi-Fi",
+      "Nhìn ra thành phố"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "DN-PREMIER",
+    "city": "Đà Nẵng",
+    "hotel": "Coastal Pearl",
+    "name": "Premier Sea View",
+    "nightly_rate_vnd": 1600000,
+    "change_surcharge_vnd": 100000,
+    "amenities": [
+      "Ban công",
+      "Nhìn ra biển"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "HA-SUPERIOR",
+    "city": "Hội An",
+    "hotel": "Lantern Courtyard",
+    "name": "Superior Garden",
+    "nightly_rate_vnd": 850000,
+    "change_surcharge_vnd": 0,
+    "amenities": [
+      "Sân vườn",
+      "Wi-Fi"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "HA-SUITE",
+    "city": "Hội An",
+    "hotel": "Lantern Courtyard",
+    "name": "Heritage Suite",
+    "nightly_rate_vnd": 1350000,
+    "change_surcharge_vnd": 80000,
+    "amenities": [
+      "Bữa sáng",
+      "Ban công"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "NT-STANDARD",
+    "city": "Nha Trang",
+    "hotel": "Coral Bay",
+    "name": "Standard Twin",
+    "nightly_rate_vnd": 950000,
+    "change_surcharge_vnd": 0,
+    "amenities": [
+      "Hai giường",
+      "Wi-Fi"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "NT-OCEAN",
+    "city": "Nha Trang",
+    "hotel": "Coral Bay",
+    "name": "Ocean Family Suite",
+    "nightly_rate_vnd": 1750000,
+    "change_surcharge_vnd": 120000,
+    "amenities": [
+      "Hồ bơi",
+      "Phòng gia đình"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "DL-CLASSIC",
+    "city": "Đà Lạt",
+    "hotel": "Pine Terrace",
+    "name": "Classic Double",
+    "nightly_rate_vnd": 780000,
+    "change_surcharge_vnd": 0,
+    "amenities": [
+      "Máy sưởi",
+      "Wi-Fi"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "DL-PINE",
+    "city": "Đà Lạt",
+    "hotel": "Pine Terrace",
+    "name": "Pine Balcony",
+    "nightly_rate_vnd": 1080000,
+    "change_surcharge_vnd": 50000,
+    "amenities": [
+      "Ban công",
+      "Máy sưởi"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "PQ-GARDEN",
+    "city": "Phú Quốc",
+    "hotel": "Island Dunes",
+    "name": "Garden Bungalow",
+    "nightly_rate_vnd": 1450000,
+    "change_surcharge_vnd": 0,
+    "amenities": [
+      "Sân riêng",
+      "Bữa sáng"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "PQ-BEACH",
+    "city": "Phú Quốc",
+    "hotel": "Island Dunes",
+    "name": "Beachfront Villa",
+    "nightly_rate_vnd": 2650000,
+    "change_surcharge_vnd": 180000,
+    "amenities": [
+      "Bãi biển",
+      "Hồ bơi riêng"
+    ],
+    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  }
+]
