@@ -11,6 +11,7 @@ import { ApiErrorNotice } from '@/features/shared/api-state';
 import { AuthErrorNotice, AuthField, PasswordField } from './auth-fields';
 import { readDeviceName, readSafeReturnTo, withReturnTo } from './auth-return';
 import { GoogleButton } from './google-button';
+import styles from './auth.module.css';
 
 /**
  * Trang /login: đăng nhập bằng mật khẩu qua 2 bước (kiểm tra mật khẩu → gửi mã xác thực 8 số về email → nhập mã).
@@ -83,7 +84,7 @@ export function LiveLogin({ returnTo }: { returnTo?: string }) {
 
   return (
     <>
-      <h2 className="auth-panel-title">{vi.api.authLoginTitle}</h2>
+      <h2 className={styles.title}>{vi.api.authLoginTitle}</h2>
       <ApiErrorNotice
         error={error}
         retry={() => {
@@ -92,10 +93,21 @@ export function LiveLogin({ returnTo }: { returnTo?: string }) {
       />
       {process.env.NEXT_PUBLIC_VINTRIP_DEMO_ENABLED === 'true' && (
         <>
-          <button type="button" className="secondary-button" disabled={!isReady || isBusy} onClick={() => demo.mutate()}>
+          <button
+            type="button"
+            className={`secondary-button ${styles.secondaryBtn}`}
+            disabled={!isReady || isBusy}
+            onClick={() => demo.mutate()}
+          >
             {demo.isPending ? 'Đang mở bản demo…' : 'Dùng tài khoản demo'}
           </button>
           <AuthErrorNotice error={demo.error} action="login" />
+        </>
+      )}
+      {!loginChallengeId && (
+        <>
+          <GoogleButton onCredential={signInWithGoogle} />
+          <AuthErrorNotice error={google.error} action="google" />
         </>
       )}
       <form
@@ -141,7 +153,7 @@ export function LiveLogin({ returnTo }: { returnTo?: string }) {
           }}
         />
         {/* Ngay dưới ô mật khẩu, căn phải: chỗ người dùng tìm khi quên. */}
-        <Link className="auth-forgot" href="/forgot-password" prefetch={false}>
+        <Link className={styles.forgotLink} href="/forgot-password" prefetch={false}>
           {vi.api.forgotPassword}
         </Link>
         {loginChallengeId && (
@@ -180,7 +192,7 @@ export function LiveLogin({ returnTo }: { returnTo?: string }) {
           </div>
         )}
         {isTooSoon ? (
-          <p role="alert" className="auth-error">
+          <p role="alert" className={styles.errorBox}>
             {t('api.registrationCodeTooSoon', { seconds: cooldown.secondsLeft })}
           </p>
         ) : (
@@ -188,7 +200,7 @@ export function LiveLogin({ returnTo }: { returnTo?: string }) {
         )}
         <AuthErrorNotice error={credentials.error} action="login" />
         <button
-          className="primary-button auth-submit"
+          className={`primary-button auth-submit ${styles.submitBtn}`}
           disabled={
             !isReady ||
             isBusy ||
@@ -207,13 +219,7 @@ export function LiveLogin({ returnTo }: { returnTo?: string }) {
                   : vi.api.login}
         </button>
       </form>
-      {!loginChallengeId && (
-        <>
-          <GoogleButton onCredential={signInWithGoogle} />
-          <AuthErrorNotice error={google.error} action="google" />
-        </>
-      )}
-      <Link className="secondary-button auth-create" href={withReturnTo('/register', returnTo)} prefetch={false}>
+      <Link className={`secondary-button ${styles.secondaryBtn}`} href={withReturnTo('/register', returnTo)} prefetch={false}>
         {vi.api.authCreateAccount}
       </Link>
     </>

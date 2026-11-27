@@ -7,7 +7,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { AuthErrorNotice, PasswordField } from './auth-fields';
-import { LoadingDots } from '@/features/shared/loading-dots';
+import { SaveToast } from './account-toast';
+import styles from './account.module.css';
 
 /** Mục "Bảo mật & thiết bị" của trang tài khoản: đổi mật khẩu, rồi các thiết bị đang đăng nhập. */
 export function AccountSecurity({ userId }: { userId: string }) {
@@ -25,6 +26,7 @@ function PasswordPanel() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
   const [isMismatch, setMismatch] = useState(false);
+  const [toastKey, setToastKey] = useState(0);
   const change = useMutation({
     // Cả hai mật khẩu được mã hoá trước khi gửi (TF056).
     mutationFn: () => changePassword({ currentPassword, newPassword }),
@@ -32,15 +34,19 @@ function PasswordPanel() {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmation('');
+      setToastKey((k) => k + 1);
       // Các thiết bị khác đã bị đăng xuất: tải lại danh sách thiết bị.
       await client.invalidateQueries({ queryKey: ['account'] });
     },
   });
   return (
-    <section className="profile-card account-panel account-password" aria-labelledby="account-password-title">
+    <section className={`profile-card account-panel account-password ${styles.card}`} aria-labelledby="account-password-title">
+      <SaveToast message={vi.api.passwordChanged} showKey={toastKey} />
       <header className="profile-card-header">
         <div>
-          <h2 id="account-password-title">{vi.api.changePassword}</h2>
+          <h2 id="account-password-title" className={styles.cardTitle}>
+            {vi.api.changePassword}
+          </h2>
           <p className="auth-hint">{vi.api.changePasswordHint}</p>
         </div>
       </header>
@@ -87,8 +93,7 @@ function PasswordPanel() {
           </p>
         )}
         <AuthErrorNotice error={change.error} action="changePassword" />
-        {change.isSuccess && <output className="auth-success">{vi.api.passwordChanged}</output>}
-        <button className="primary-button" disabled={change.isPending}>
+        <button className={`primary-button ${styles.primaryBtn}`} disabled={change.isPending}>
           {change.isPending ? vi.api.saving : vi.api.changePassword}
         </button>
       </form>
@@ -139,10 +144,10 @@ function DevicesPanel({ userId }: { userId: string }) {
   const visibleDevices = isShowingAllDevices ? sortedDevices : sortedDevices.slice(0, VISIBLE_DEVICES);
   const hiddenCount = sortedDevices.length - VISIBLE_DEVICES;
   return (
-    <section className="profile-card account-panel account-devices" aria-labelledby="account-devices-title">
+    <section className={`profile-card account-panel account-devices ${styles.card}`} aria-labelledby="account-devices-title">
       <header className="profile-card-header">
         <div>
-          <h2 id="account-devices-title">
+          <h2 id="account-devices-title" className={styles.cardTitle}>
             {vi.api.sessions}
             {devices.data && (
               <span className="device-count">{t('api.deviceCount', { count: sortedDevices.length })}</span>
@@ -158,19 +163,24 @@ function DevicesPanel({ userId }: { userId: string }) {
         }}
       />
       <ApiErrorNotice error={action.error} />
-      {devices.isPending && <LoadingDots isBlock />}
+      {devices.isPending && (
+        <div style={{ display: 'grid', gap: '10px' }} aria-busy="true">
+          <div className={styles.skeletonLine} style={{ height: '64px' }} />
+          <div className={styles.skeletonLine} style={{ height: '64px' }} />
+        </div>
+      )}
       {devices.data?.length === 0 && <p className="auth-hint">{vi.api.noDevices}</p>}
       <ul className="device-list" id="account-device-list">
         {visibleDevices.map((device) => (
-          <li key={device.id} className="device-item">
+          <li key={device.id} className={`device-item ${styles.deviceItem}`}>
             <div>
               <strong>{device.deviceName ?? vi.api.unknownDevice}</strong>
-              {device.isCurrent && <span className="device-badge">{vi.api.currentSession}</span>}
+              {device.isCurrent && <span className={`device-badge ${styles.deviceBadge}`}>{vi.api.currentSession}</span>}
               <p>{t('api.lastActive', { time: new Date(device.lastUsedAt).toLocaleString('vi-VN') })}</p>
             </div>
             <button
               type="button"
-              className="secondary-button"
+              className={`secondary-button ${styles.secondaryBtn}`}
               disabled={action.isPending}
               onClick={() => action.mutate({ revoke: device.id })}
             >
@@ -191,19 +201,19 @@ function DevicesPanel({ userId }: { userId: string }) {
         </button>
       )}
       {isConfirmingLogoutAll ? (
-        <div className="account-confirm" role="alertdialog" aria-label={vi.api.logoutAllConfirm}>
+        <div className={`account-confirm ${styles.confirmBox}`} role="alertdialog" aria-label={vi.api.logoutAllConfirm}>
           <p>{vi.api.logoutAllConfirm}</p>
           <div className="account-actions">
             <button
               ref={confirmButton}
               type="button"
-              className="primary-button"
+              className={styles.dangerBtn}
               disabled={action.isPending}
               onClick={() => action.mutate('logoutAll')}
             >
               {vi.api.logoutAllConfirmButton}
             </button>
-            <button type="button" className="secondary-button" onClick={() => setConfirmingLogoutAll(false)}>
+            <button type="button" className={`secondary-button ${styles.secondaryBtn}`} onClick={() => setConfirmingLogoutAll(false)}>
               {vi.api.cancel}
             </button>
           </div>
@@ -213,7 +223,7 @@ function DevicesPanel({ userId }: { userId: string }) {
           <button
             ref={logoutAllButton}
             type="button"
-            className="secondary-button"
+            className={`secondary-button ${styles.secondaryBtn}`}
             disabled={action.isPending}
             onClick={() => setConfirmingLogoutAll(true)}
           >
@@ -221,7 +231,7 @@ function DevicesPanel({ userId }: { userId: string }) {
           </button>
           <button
             type="button"
-            className="secondary-button"
+            className={`secondary-button ${styles.secondaryBtn}`}
             disabled={action.isPending}
             onClick={() => action.mutate('logout')}
           >

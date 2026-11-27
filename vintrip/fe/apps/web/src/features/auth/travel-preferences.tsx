@@ -4,84 +4,52 @@ import type { MyProfileDto, TravelPreferencesDto } from '@vintrip/api-client/cor
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useState } from 'react';
 import { surveyHref } from '@/features/onboarding/post-auth';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { useMyProfile } from './account-profile';
+import { SaveToast } from './account-toast';
+import styles from './account.module.css';
 
 type Draft = Pick<TravelPreferencesDto, 'interests' | 'regions' | 'budgetLevels'>;
 type FieldProps = { label: string; options: Record<string, string>; value: string[]; onChange: (next: string[]) => void };
 
-/** <details> không tự đóng khi bấm ra ngoài hoặc Esc; danh sách đang mở sẽ che nút Lưu bên dưới. */
-function useDismissible() {
-  const ref = useRef<HTMLDetailsElement>(null);
-  useEffect(() => {
-    const close = (event: Event) => {
-      const details = ref.current;
-      if (!details?.open) return;
-      if (event instanceof KeyboardEvent ? event.key === 'Escape' : !details.contains(event.target as Node)) {
-        details.open = false;
-      }
-    };
-    document.addEventListener('pointerdown', close);
-    document.addEventListener('keydown', close);
-    return () => {
-      document.removeEventListener('pointerdown', close);
-      document.removeEventListener('keydown', close);
-    };
-  }, []);
-  return ref;
-}
-
 /** Giữ thứ tự mã theo danh sách gốc, không theo thứ tự bấm. */
 const ordered = (options: Record<string, string>, codes: string[]) => Object.keys(options).filter((c) => codes.includes(c));
 
-/** Kiểu đính tag: mỗi lựa chọn một pill có nút bỏ, nút "+" mở danh sách còn lại. Nhiều pill thì xuống dòng trong khung. */
+/** Chip chọn nhiều: đang chọn dùng nền --color-coral-soft, chữ --color-coral-ink kèm icon tick. */
 function TagPicker({ label, options, value, onChange }: FieldProps) {
-  const ref = useDismissible();
   const labelId = useId();
-  const remaining = Object.keys(options).filter((c) => !value.includes(c));
   return (
     <div className="travel-field">
       <span className="travel-field-label" id={labelId}>
         {label}
       </span>
-      <fieldset className="travel-tags" aria-labelledby={labelId}>
-        {value.map((code) => (
-          <button
-            key={code}
-            type="button"
-            className="travel-tag"
-            aria-label={vi.api.travelRemove.replace('{label}', options[code] ?? code)}
-            onClick={() => onChange(value.filter((c) => c !== code))}
-          >
-            {options[code] ?? code}
-            <span aria-hidden="true">×</span>
-          </button>
-        ))}
-        {!value.length && <span className="auth-hint">{vi.api.travelAny}</span>}
-        {remaining.length > 0 && (
-          // Cùng name: mở ô này thì trình duyệt tự đóng ô kia, hai danh sách không đè nhau.
-          <details ref={ref} className="travel-add" name="travel-add">
-            <summary aria-label={`${vi.api.travelAdd}: ${label}`}>+</summary>
-            <div className="travel-menu">
-              {remaining.map((code) => (
-                <button
-                  key={code}
-                  type="button"
-                  className="travel-select-option"
-                  onClick={() => {
-                    if (ref.current) ref.current.open = false;
-                    onChange(ordered(options, [...value, code]));
-                  }}
-                >
-                  {options[code]}
-                </button>
-              ))}
-            </div>
-          </details>
-        )}
-      </fieldset>
+      <div className={styles.chipGroup} role="group" aria-labelledby={labelId}>
+        {Object.entries(options).map(([code, text]) => {
+          const isSelected = value.includes(code);
+          const toggle = () => {
+            const next = isSelected ? value.filter((item) => item !== code) : ordered(options, [...value, code]);
+            onChange(next);
+          };
+          return (
+            <button
+              key={code}
+              type="button"
+              className={styles.chip}
+              aria-pressed={isSelected}
+              onClick={toggle}
+            >
+              {isSelected && (
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.3" aria-hidden="true">
+                  <path d="m5 12 5 5 9-10" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              )}
+              <span>{text}</span>
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -95,6 +63,7 @@ export function TravelPreferencesCard({ userId }: { userId: string }) {
   const profile = useMyProfile(userId);
   const saved = profile.data?.travelPreferences ?? null;
   const [draft, setDraft] = useState<Draft | null>(null);
+  const [toastKey, setToastKey] = useState(0);
   const current: Draft = draft ?? {
     interests: saved?.interests ?? [],
     regions: saved?.regions ?? [],
@@ -107,6 +76,7 @@ export function TravelPreferencesCard({ userId }: { userId: string }) {
     onSuccess: (me) => {
       client.setQueryData(['account', 'me', userId], me);
       setDraft(null);
+      setToastKey((k) => k + 1);
     },
   });
 
@@ -115,12 +85,15 @@ export function TravelPreferencesCard({ userId }: { userId: string }) {
   const isEmpty = Object.values(current).every((codes) => !codes.length);
 
   return (
-    <section className="profile-card" aria-labelledby="travel-title">
+    <section className={`profile-card ${styles.card}`} aria-labelledby="travel-title">
+      <SaveToast message={vi.api.travelSaved} showKey={toastKey} />
       <header className="profile-card-header">
         <div>
-          <h2 id="travel-title">{vi.api.travelTitle}</h2>
+          <h2 id="travel-title" className={styles.cardTitle}>
+            {vi.api.travelTitle}
+          </h2>
         </div>
-        <Link prefetch={false} className="secondary-button" href={surveyHref('/account', 'edit')}>
+        <Link prefetch={false} className={`secondary-button ${styles.secondaryBtn}`} href={surveyHref('/account', 'edit')}>
           {vi.api.onboardingRedo}
         </Link>
       </header>
@@ -157,13 +130,12 @@ export function TravelPreferencesCard({ userId }: { userId: string }) {
           </p>
         )}
         <ApiErrorNotice error={save.error} />
-        {save.isSuccess && !isDirty && <output className="auth-hint">{vi.api.travelSaved}</output>}
         <div className="profile-actions">
-          <button className="primary-button" disabled={save.isPending || !isDirty} aria-busy={save.isPending}>
+          <button className={`primary-button ${styles.primaryBtn}`} disabled={save.isPending || !isDirty} aria-busy={save.isPending}>
             {save.isPending ? vi.api.saving : vi.api.save}
           </button>
           {saved && (
-            <button type="button" className="secondary-button" disabled={save.isPending} onClick={() => save.mutate(null)}>
+            <button type="button" className={`secondary-button ${styles.secondaryBtn}`} disabled={save.isPending} onClick={() => save.mutate(null)}>
               {vi.api.travelReset}
             </button>
           )}
