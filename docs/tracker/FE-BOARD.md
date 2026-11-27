@@ -1,24 +1,25 @@
-# Bảng việc làm lại giao diện `vintrip/fe` — Claude giao và nghiệm thu · Claude + Codex cùng làm
+# Bảng việc làm lại giao diện `vintrip/fe` — PM: Claude (đặc tả, giao việc, nghiệm thu) · Làm: Codex
 
 > **Mục tiêu:** làm lại toàn bộ giao diện `vintrip/fe` theo tông **cam pastel**, giữ nguyên phạm vi (trang chủ, khách sạn, vé máy bay, cảm hứng, trợ lý, đặt chỗ, tài khoản) và giữ nguyên chức năng, API. **Chỉ đổi giao diện.**
 > **Dựa vào bản hiện tại:** giữ bố cục đang chạy tốt (ô tìm kiếm, thẻ gợi ý, thanh điều hướng điện thoại), bỏ những gì nặng và rối (lớp phủ đậm ở đầu trang, mặt nước động nhiều lớp).
-> **Thứ tự ưu tiên:** CP3 lúc 10:00 sáng 28/11 chấm C1, nên Codex làm xong `docs/tracker/BOARD.md` (C1-02 → C1-06) **trước**, rồi mới nhận ticket ở bảng này. Claude làm FE-01 → FE-03 song song ngay.
+> **Vai trò:** Claude chỉ làm PM, không viết code giao diện. Codex làm mọi ticket code và hình ảnh. Codex chỉ làm phần giao diện ở bảng này.
 
 ## Hướng thiết kế
 
 **Cảm giác:** ấm áp, nhẹ nhàng, thân thiện với gia đình. Nhiều khoảng trắng, góc bo tròn, bóng đổ mềm, ảnh thật làm điểm nhấn.
 
-**Bảng màu cam pastel** (độ tương phản đã đo, đều đạt AA):
+**Bảng màu cam pastel:** nguồn chuẩn là `docs/design/fe-redesign.md` mục 1 (token đã áp ở FE-01). Tóm tắt:
 
 | Vai trò | Màu | Chữ đi kèm | Tương phản |
 |---|---|---|---|
 | Nền trang | `#FFF8F2` kem | `#3D2418` nâu đậm | 13.6:1 |
 | Chữ phụ | `#8A5A44` | trên nền kem | 5.5:1 |
-| Nút chính | `#FFB98A` cam pastel | `#7A2E0E` nâu | 5.65:1 |
+| Nút chính (chữ trắng) | `#C2560F` cam đậm (`--color-coral`) | trắng | 4.53:1 |
+| Nút phụ, chip đang chọn | `#FFB98A` cam pastel (`--color-coral-soft`) | `#7A2E0E` nâu | 5.65:1 |
 | Nút phụ / thẻ | `#FFE8D6` đào | `#7A2E0E` | 8.0:1 |
 | Viền, nền nhạt | `#FFD3B0` | `#7A2E0E` | 6.8:1 |
-| Liên kết, nhấn mạnh | `#C2410C` cam cháy | trên nền kem | 4.9:1 |
-| Đạt / thành công | `#CDEEDF` mint pastel | `#2F5D50` | 6.0:1 |
+| Màu phụ (chữ trắng) | `#A24A1E` đất nung (`--color-teal`) | trắng | 5.94:1 |
+| Đạt / thành công | `#2F7A5F` (`--color-success`) | trắng | 5.16:1 |
 
 - **Không dùng chữ trắng trên cam pastel** (chỉ đạt 3:1).
 - Cần chữ trắng thì dùng nền `#C2560F` (4.5:1).
@@ -31,7 +32,7 @@
 |---|---|---|---|---|
 | FE-01 | Hệ thiết kế cam pastel: token màu, chữ, bo góc, bóng, trạng thái | **Claude** | — | XONG |
 | FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | TODO |
-| FE-03 | Linh vật nguyên bản: brief + 6 tư thế 3D nền trong suốt | **Claude** | FE-01 | TODO |
+| FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | TODO |
 | FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | TODO |
 | FE-05 | Trang chủ: đầu trang, ô tìm kiếm, khối gợi ý, nền | **Codex** | FE-04 | TODO |
 | FE-06 | Khách sạn: danh sách, bộ lọc, chi tiết, chọn phòng | **Codex** | FE-04 | TODO |
@@ -67,7 +68,7 @@
 
 `docs/design/fe-redesign.md`, mỗi trang một mục: mục tiêu của người dùng, bố cục ở cỡ máy tính và cỡ điện thoại, câu chữ chính (tiêu đề, nút), trạng thái rỗng / đang tải / lỗi, những gì giữ lại từ bản cũ, những gì bỏ đi.
 
-## FE-03 · Linh vật nguyên bản (Claude)
+## FE-03 · Linh vật nguyên bản (Codex, theo brief của PM)
 
 Brief nhân vật và 6 tư thế 3D nền trong suốt: chào, tò mò, lập kế hoạch, hướng dẫn, thành công, buồn (dùng cho trang lỗi). Thay vào `public/brand/vini/`, giữ tên file để không phải sửa code.
 
