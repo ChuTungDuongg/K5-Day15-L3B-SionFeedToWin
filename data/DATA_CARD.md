@@ -9,11 +9,11 @@
 | Dùng để làm gì | Nguồn duy nhất cho `get_park_catalog`, `get_show_schedule`, `get_park_incidents`, `estimate_walk`; `build_park_plan` và `validate_park_plan` tính trên cùng snapshot |
 | Từ đâu | Nhóm tự dựng theo *kế hoạch sản phẩm C1/C2/C3 của nhóm* mục 4.3; **mô phỏng, không phải công viên thật** |
 | Trường | Công viên (ID, ngày, múi giờ, giờ mở/đóng, cổng) · Hoạt động (ID, khu, thời lượng, chờ mô phỏng, trong/ngoài trời) · Điều kiện (tuổi, chiều cao, người lớn đi cùng) · Show (suất, giờ đến sớm, trạng thái) · Giá (theo nhóm khách, khoản đã gồm, phụ thu) · Ma trận phút đi bộ · Sự cố (mưa, điểm đóng, show huỷ) · `source`, `observedAt`, `snapshotId`, `isMock` |
-| Số dòng | 15–20 hoạt động, 1 công viên (dự kiến) |
-| Bảng giá demo | Vé 2 người lớn 600.000đ, vé 2 bé 350.000đ, ăn trưa 320.000đ, hoạt động phụ thu 100.000đ (khớp câu thử `C1-01`, `C1-11`) |
-| Phiên bản / ngày | Chưa tạo, xây trước CP3; mỗi bản có `snapshotId` và seed nếu sinh ngẫu nhiên |
+| Số dòng | File `data/cong_vien_mau.json`: 1 công viên (mở 09:00–19:00), 8 khu, ma trận đi bộ 28 cặp khu, 16 hoạt động (`X1` thiếu điều kiện, `X2` Vườn âm thanh cố ý để trống phụ thu để thử trường hợp thiếu giá của trò bắt buộc), 6 suất show (đến sớm 15 phút), 2 sự cố hôm nay (huỷ suất 11:00 và 15:00) |
+| Bảng giá demo | Vé người lớn 300.000đ, trẻ 100–139cm 175.000đ, dưới 100cm miễn phí; ăn trưa 80.000đ/người; chỉ `A1` phụ thu 100.000đ/nhóm → 2 người lớn 600.000đ, 2 bé 350.000đ, ăn trưa 4 người 320.000đ, phụ thu 100.000đ (khớp câu thử `C1-01`, `C1-11`) |
+| Phiên bản / ngày | `snapshotId = CVM-2026-11-28-v1`, ngày 28/11/2026; viết tay, không sinh ngẫu nhiên nên không có seed |
 | Nhãn | `isMock = true` |
-| Giới hạn | Thời gian chờ và đi bộ là mô phỏng; không phản ánh vận hành thật của công viên nào |
+| Giới hạn | Thời gian chờ và đi bộ là mô phỏng; không phản ánh vận hành thật của công viên nào. Mưa không nằm trong snapshot: luồng chính dùng khoảng mưa do phụ huynh báo tại chỗ. Sự cố "hôm nay" chỉ áp dụng khi xếp lại, không áp cho lịch ngày khác |
 
 ## Dataset 2 · Khảo sát C1 (`evidence/survey/results-c1.csv`)
 

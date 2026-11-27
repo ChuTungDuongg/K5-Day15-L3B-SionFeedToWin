@@ -1,38 +1,43 @@
 # Chi phí khi dùng thật
 
-> Điền ở guide bước 4.2, nộp ở CP4 14:30 Thứ Bảy 28/11. Ôn lại: ngày 13, ngày 1, ngày 14 · lab ngày 13, lab ngày 14. Chấm ở rubric R6.
-> Số **không điền tay**: điền `cost/personas.yaml` → `python run.py simulate` → chép bảng trong `cost/simulate-N-summary.md` vào đây.
-> Lúc build dùng gói miễn phí vẫn tính theo **giá gói trả phí** — đây là chi phí cho lúc đưa vào dùng thật.
+**Đo trên gpt-6-luna, giá trong bảng là giá mẫu của khung.** Số token dưới đây lấy từ usage của các lượt gọi thật. Các khoản USD minh họa chi phí theo cấu hình mẫu.
 
 ## 1. Đầu vào
 
-- **Persona** (`cost/personas.yaml`): ≥3 kiểu — tỉ lệ, số phiên / người / tháng, số lượt hỏi / phiên. Nguồn: __
-- **Số người dùng thật** 3 kịch bản: thấp __ · cơ sở __ · cao __. Nguồn: __
-- **Giá** ≥2 mức model (từ `further-reading/model-prices.md` của repo đề, có link + ngày xem): __ · __
-- **Tỉ lệ đạt** dùng để tính: __/__ (__%) — lượt `run-__` (lượt 2)
-- Đo token trên model __, tính giá model __ và __
+| Persona | Tỉ lệ cấu hình | Phiên / người / tháng | Lượt hỏi / phiên |
+|---|---:|---:|---:|
+| dung_it | 50% | 4 | 1 |
+| dung_vua | 30% | 10 | 3 |
+| dung_nhieu | 20% | 20 | 5 |
+
+Ba persona và quy mô thấp 300, cơ sở 700, cao 1.000 người lấy từ cấu hình mẫu. Nhóm chưa có nguồn xác nhận tần suất dùng và quy mô người dùng thật của VinTrip. [Cấu hình mô phỏng](personas.yaml)
+
+Giá thật gpt-6-luna trên 1 triệu token, tính bằng USD: đầu vào ____ · đầu ra ____ · nguồn và ngày đối chiếu ____. Hai mức giá minh họa ở mục 2 lấy từ cùng cấu hình mẫu.
+
+Run-4 đạt 29/30 câu (96,7%) theo **chấm nháp, chờ nhóm duyệt**. Tại thời điểm chạy simulate-1, chưa có lượt eval điền điểm, nên bản tóm tắt gốc để trống chi phí trên task thành công. [Báo cáo chấm nháp](../eval/report.md)
 
 ## 2. Kết quả mô phỏng
 
-Lượt mô phỏng: `cost/simulate-__.csv` · run ID __ · __ phiên · seed __
+Run ID `simulate-1@20261127-232039`, seed 42, 50 phiên, 0 phiên lỗi. Các cột token và số lần gọi là trung bình mỗi phiên trong từng persona. [Dữ liệu phiên](simulate-1.csv) · [Bản tóm tắt gốc](simulate-1-summary.md)
 
-*(dán bảng từ `cost/simulate-N-summary.md`)*
+| Persona | Số phiên đo | Lượt hỏi / phiên | Token vào / phiên | Token ra / phiên | Gọi model / phiên | Gọi công cụ / phiên |
+|---|---:|---:|---:|---:|---:|---:|
+| dung_it | 26 | 1 | 732 | 640 | 1,0 | 5,0 |
+| dung_vua | 15 | 3 | 1.760 | 1.452 | 3,0 | 11,9 |
+| dung_nhieu | 9 | 5 | 3.767 | 3.291 | 5,0 | 27,3 |
 
-| Model | Chi phí / phiên | Chi phí / task thành công | / tháng — thấp | / tháng — cơ sở | / tháng — cao | / người / tháng (cơ sở) |
-|---|---|---|---|---|---|---|
-| | | | | | | |
-| | | | | | | |
+| Model tính giá (USD/1 triệu token vào · ra) | USD / phiên | USD / task thành công theo điểm nháp | USD / tháng thấp | USD / tháng cơ sở | USD / tháng cao | USD / người / tháng cơ sở |
+|---|---:|---:|---:|---:|---:|---:|
+| gemini-3.1-flash-lite (0,25 · 1,50) | 0,0024 | ≈0,0025 | 10,10 | 23,56 | 33,65 | 0,0337 |
+| gemini-4-hydrogen (1,50 · 7,50) | 0,0126 | ≈0,0130 | 52,11 | 121,60 | 173,71 | 0,1737 |
+| gpt-6-luna (____ · ____) | ____ | ____ | ____ | ____ | ____ | ____ |
 
-Chi phí / task thành công = chi phí trung bình mỗi phiên ÷ tỉ lệ đạt — **không coi như đạt 100%**.
+Các cột phiên và tháng chép từ simulate-1-summary. Riêng cột task thành công tính bổ sung theo công thức của khung: chi phí trung bình mỗi phiên trong bảng ÷ (29/30). Đây là phép quy đổi từ tỉ lệ đạt theo câu thử. Mô phỏng đo token cho các phiên nhiều lượt hỏi, chưa đo xác suất thành công của cả phiên.
 
 ## 3. So với impact
 
-- Impact / người / tháng (`spec.md` §2): __
-- Chi phí / người / tháng (cơ sở, model __): __
-- **Kết luận một dòng — đáng làm không:** __
+Chi phí mẫu mỗi người ở kịch bản cơ sở là 0,0337 hoặc 0,1737 USD/tháng tùy bảng giá. Impact mỗi người mỗi tháng theo spec §2 còn chờ số liệu ____. Nhóm cần cả giá gpt-6-luna thật và giá trị thời gian hoặc chi phí tiết kiệm được để kết luận có đáng triển khai. [AI spec §2](../spec.md)
 
 ## 4. *(Muốn sâu hơn, không bắt buộc)*
 
-- Bảng độ nhạy: model rẻ hơn · cache · cắt ngữ cảnh · giới hạn bước — mỗi cần gạt đổi chi phí bao nhiêu
-- Chi phí ngoài model: hosting, lưu trữ, giờ công người duyệt
-- Quy mô nào thì bài toán còn đáng làm
+Khi có giá thật, tính lại chi phí từng phiên bằng (token vào × giá vào + token ra × giá ra) ÷ 1.000.000. Chi phí hosting, lưu trữ và giờ công người duyệt hiện chưa được đo.

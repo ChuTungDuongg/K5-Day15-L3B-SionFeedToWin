@@ -109,6 +109,9 @@ services:
     build: &ai-build
       context: '../../ai'
       dockerfile: Dockerfile.vintrip
+      additional_contexts:
+        c1_code: ../../../codebase
+        c1_data: ../../../data
     environment:
       CORE_API_URL: http://core-api:3000
       REDIS_URL: redis://redis:6379
