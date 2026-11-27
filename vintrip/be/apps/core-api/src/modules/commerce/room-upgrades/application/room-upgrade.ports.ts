@@ -116,7 +116,17 @@ export interface RoomUpgradeProposalFaultInjector {
 }
 
 /** Use only during the callback of a store transaction; never retain a tx reference. */
+export interface StaffHotelAssignmentRecord {
+  hotelId: string;
+  hotelName: string;
+  timezone: string;
+  fixtureVersion: string;
+  staffRole: StaffRole;
+}
+
 export interface RoomUpgradeProposalTx {
+  listStaffAssignments(userId: string): Promise<StaffHotelAssignmentRecord[]>;
+  countProposalsByStatus(hotelId: string): Promise<{ status: ProposalStatus; count: number }[]>;
   staffRole(hotelId: string, userId: string): Promise<StaffRole | null>;
   loadSnapshot(hotelId: string): Promise<Snapshot | null>;
   findIdempotency(scope: {

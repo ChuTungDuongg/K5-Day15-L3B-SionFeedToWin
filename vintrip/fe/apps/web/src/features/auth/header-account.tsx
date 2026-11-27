@@ -1,5 +1,5 @@
 'use client';
-import { useApiSession } from '@vintrip/api-client';
+import { useApiSession, useStaffContext } from '@vintrip/api-client';
 import { useMutation } from '@tanstack/react-query';
 import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
@@ -54,6 +54,7 @@ function MenuIcon({ name }: { name: keyof typeof MENU_ICONS }) {
 
 export function HeaderAccount() {
   const { user, isReady, session } = useApiSession();
+  const staffContext = useStaffContext();
   const router = useRouter();
   const { isOpen, root, toggle, setOpen, close } = useHeaderPopover();
   const openAdmin = useOpenAdmin();
@@ -106,6 +107,14 @@ export function HeaderAccount() {
             </div>
           </div>
           <ul>
+            {staffContext.data?.hasAccess === true && (
+              <li>
+                <Link prefetch={false} href="/staff" onClick={closeMenu}>
+                  <MenuIcon name="admin" />
+                  Cổng nhân viên khách sạn
+                </Link>
+              </li>
+            )}
             {ADMIN_URL && isStaffRole(user.role) && (
               <li>
                 <a

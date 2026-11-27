@@ -14,6 +14,7 @@ import { Providers } from './providers';
 import { OtaNavigation } from '@/features/discovery/ota-navigation';
 import { OtaFooter } from '@/features/discovery/ota-footer';
 import { HeaderAutoHide } from '@/features/shell/header-auto-hide';
+import { CustomerHeader } from '@/features/shell/customer-header';
 import { MobileTabBar } from '@/features/shell/mobile-tab-bar';
 import { ButtonRipple } from '@/features/shared/button-ripple';
 import { DEFAULT_OG_IMAGE } from '@/features/seo/page-metadata';
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="min-h-dvh bg-background text-text antialiased">
         <Providers>
           <ButtonRipple />
+          <CustomerHeader>
           <header className="ota-header" id="top">
             <div className="ota-container header-content">
               <Link prefetch={false} href="/" aria-label={vi.demo.common.logo} className="header-brand">
@@ -89,6 +91,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </div>
           </header>
           <HeaderAutoHide />
+          </CustomerHeader>
           {children}
           <OtaFooter />
           <MobileTabBar />
