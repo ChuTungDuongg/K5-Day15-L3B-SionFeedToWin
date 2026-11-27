@@ -1,8 +1,8 @@
-# Bảng việc làm lại giao diện `vintrip/fe` — PM: Claude (đặc tả, giao việc, nghiệm thu) · Làm: Codex
+# Bảng việc làm lại giao diện `vintrip/fe` — PM: Claude (đặc tả, giao việc, nghiệm thu) · Làm: Codex + Antigravity
 
 > **Mục tiêu:** làm lại toàn bộ giao diện `vintrip/fe` theo tông **cam pastel**, giữ nguyên phạm vi (trang chủ, khách sạn, vé máy bay, cảm hứng, trợ lý, đặt chỗ, tài khoản) và giữ nguyên chức năng, API. **Chỉ đổi giao diện.**
 > **Dựa vào bản hiện tại:** giữ bố cục đang chạy tốt (ô tìm kiếm, thẻ gợi ý, thanh điều hướng điện thoại), bỏ những gì nặng và rối (lớp phủ đậm ở đầu trang, mặt nước động nhiều lớp).
-> **Vai trò:** Claude chỉ làm PM, không viết code giao diện. Codex làm mọi ticket code và hình ảnh. Codex chỉ làm phần giao diện ở bảng này.
+> **Vai trò:** Claude chỉ làm PM, không viết code giao diện. **Codex** làm trong thư mục chính, nhánh `vintrip`. **Antigravity** làm trong worktree `C:\Users\PC\Documents\GitHub\K5-Day15-fe-antigravity`, nhánh `fe-antigravity`. PM gộp nhánh của Antigravity vào `vintrip` sau khi nghiệm thu.
 
 ## Hướng thiết kế
 
@@ -35,11 +35,23 @@
 | FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | TODO |
 | FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | TODO |
 | FE-05 | Trang chủ: đầu trang, ô tìm kiếm, khối gợi ý, nền | **Codex** | FE-04 | TODO |
-| FE-06 | Khách sạn: danh sách, bộ lọc, chi tiết, chọn phòng | **Codex** | FE-04 | TODO |
-| FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Codex** | FE-04 | TODO |
+| FE-06 | Khách sạn: danh sách, bộ lọc, chi tiết, chọn phòng | **Antigravity** | FE-01, FE-02 | TODO |
+| FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | TODO |
-| FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Codex** | FE-04 | TODO |
+| FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-10 | Nghiệm thu từng ticket của Codex và rà tổng thể cuối cùng | **Claude** | mỗi ticket Codex | liên tục |
+
+## Phân vùng file (không ai sửa vùng của người khác)
+
+| Vùng | Chủ | Thư mục (trong `vintrip/fe/apps/web/src` nếu không ghi khác) |
+|---|---|---|
+| Hệ thiết kế | **PM (Claude)** | `vintrip/fe/packages/tokens/**`, `docs/design/**`, `docs/tracker/FE-BOARD.md`. Cần token mới thì ghi `KẸT` để PM thêm |
+| Khung chung, trang chủ, cảm hứng, linh vật | **Codex** | `app/globals.css`, `app/layout.tsx`, `app/page.tsx`, `app/loading.tsx`, `app/not-found.tsx`, `features/shell/**`, `features/discovery/**`, `features/social/**`, `features/mascot/**`, `features/notifications/**`, `features/onboarding/**`, `app/inspiration/**`, `app/trip-plans/**`, `app/trips/**`, `app/u/**`, `app/search/**`, `app/onboarding/**`, `app/coming-soon/**`, `vintrip/fe/apps/web/public/brand/**` |
+| Khách sạn, vé máy bay, trợ lý, đặt chỗ, tài khoản | **Antigravity** | `features/hotels/**`, `features/flights/**`, `features/assistant/**`, `features/checkout/**`, `features/auth/**`, `app/hotels/**`, `app/flights/**`, `app/cart/**`, `app/checkout/**`, `app/bookings/**`, `app/payments/**`, `app/account/**`, `app/(auth)/**` |
+| Dùng chung, cấm sửa | — | `vintrip/fe/packages/api-client/**`, `vintrip/fe/packages/app-core/**`, `features/shared/**`, `features/seo/**`, `features/legal/**`. Cần sửa thì ghi `KẸT` để PM quyết |
+
+- **Antigravity không sửa file bảng này.** Antigravity ghi trạng thái ticket vào `docs/tracker/FE-ANTIGRAVITY.md` trong worktree của mình. PM đọc file đó rồi cập nhật bảng này.
+- Cần một thứ ở vùng của người khác (ví dụ một class trong `globals.css`): ghi `KẸT` kèm yêu cầu cụ thể, PM chuyển cho chủ vùng.
 
 ## Quy trình (giống bảng C1)
 
