@@ -1,8 +1,8 @@
-# AI SPEC — TripFlix C1: Lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ · Nhóm SionFeedToWin · Lớp L3B
+# AI SPEC — C1: Lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ · Nhóm SionFeedToWin · Lớp L3B
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 
-Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán: **TripFlix C1** — lập lịch một ngày tại một khu vui chơi cho gia đình có trẻ nhỏ, thoả giờ mở cửa, suất diễn, thời gian đi bộ, điều kiện tuổi/chiều cao và ngân sách (khớp [`canvas.md`](canvas.md) CP1). C2 (nâng hạng phòng) và C3 (xử lý huỷ chuyến bay) trong tài liệu *TripFlix C1, C2, C3: Kế hoạch sản phẩm, kiến trúc và demo hackathon* là **hướng mở rộng**, không thuộc lát cắt chính.
+Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán: **C1** — lập lịch một ngày tại một khu vui chơi cho gia đình có trẻ nhỏ, thoả giờ mở cửa, suất diễn, thời gian đi bộ, điều kiện tuổi/chiều cao và ngân sách (khớp [`canvas.md`](canvas.md) CP1). C2 (nâng hạng phòng) và C3 (xử lý huỷ chuyến bay) trong tài liệu *Kế hoạch sản phẩm, kiến trúc và demo hackathon C1, C2, C3* là **hướng mở rộng**, không thuộc lát cắt chính.
 
 Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùng data BTC cấp. P0 dùng **Công viên Mẫu** dữ liệu mô phỏng (`isMock`), không phải bảng giá của công viên thật.
 
@@ -29,7 +29,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 | Đọc điều khoản hoàn/huỷ phòng & vé (lát cắt cũ) | Data: `30/300` review nhắc huỷ/hoàn/đổi | — | — | — | Có, đã có bản chạy thử | Đã đổi ở CP1 |
 
 - **Impact / tháng** của hướng chọn = *(đang thu thập, hoàn thiện trước CP3)*
-- **Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):** Lát cắt cũ "đọc điều khoản hoàn/huỷ" được thay ở CP1 vì nhóm chọn TripFlix C1 làm case chính để đánh giá và nộp bài. C2 và C3 giữ làm hướng mở rộng vì mỗi đề cần dữ liệu và cơ chế giao dịch riêng, không kịp làm tốt cùng C1 trong 24 giờ. Đã loại hẳn: so sánh phụ phí/hành lý nhiều hãng, tư vấn hoàn/tranh chấp quốc tế (quá rộng).
+- **Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):** Lát cắt cũ "đọc điều khoản hoàn/huỷ" được thay ở CP1 vì nhóm chọn C1 làm case chính để đánh giá và nộp bài. C2 và C3 giữ làm hướng mở rộng vì mỗi đề cần dữ liệu và cơ chế giao dịch riêng, không kịp làm tốt cùng C1 trong 24 giờ. Đã loại hẳn: so sánh phụ phí/hành lý nhiều hãng, tư vấn hoàn/tranh chấp quốc tế (quá rộng).
 - Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8): *(đang tổng hợp cho CP3–CP4)*
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
@@ -43,7 +43,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
   4. Không tự nới điều kiện bắt buộc (chiều cao, ngân sách, show bắt buộc) hay tự sửa giờ, giá do công cụ trả.
   5. C2, C3 và nhiều công viên thuộc P1, không làm trong hackathon.
 
-- **Sơ đồ kiến trúc AI** (theo *Kế hoạch TripFlix*, mục 4; nguồn sinh hình: [`docs/diagrams/build_diagrams.py`](docs/diagrams/build_diagrams.py)):
+- **Sơ đồ kiến trúc AI** (theo *kế hoạch sản phẩm của nhóm*, mục 4; nguồn sinh hình: [`docs/diagrams/build_diagrams.py`](docs/diagrams/build_diagrams.py)):
 
   ![Kiến trúc AI C1: agent chọn công cụ, solver lập lịch, validator kiểm độc lập](docs/diagrams/kien-truc-ai.svg)
 
@@ -153,15 +153,15 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
   - **Nguyễn Lê Trọng Mạnh:** xây luồng AI C1, công cụ xếp lịch và kiểm ràng buộc thời gian, ngân sách, điều kiện tham gia.
   - **Hà Lê Duy:** phỏng vấn người từng tự lên lịch đi khu vui chơi cùng trẻ nhỏ, tổng hợp bằng chứng ẩn danh và nguồn dữ liệu.
   - **Nguyễn Thiên Bảo:** cập nhật canvas C1; soạn bộ thử, tổng hợp đánh giá, chi phí và chuẩn bị hồ sơ, kịch bản demo.
-- Dùng AI vào việc gì (2–3 dòng; chi tiết `docs/ai-usage.md`): Nhóm dùng OpenAI Codex, Antigravity và Claude Code để thiết lập khung repo, soạn `spec.md` theo tài liệu kế hoạch TripFlix C1, vẽ sơ đồ (`docs/diagrams/`) và `eval/metric_spec.yaml`. Các thành viên rà soát ràng buộc, ngưỡng metric và chạy kiểm chứng; không dùng AI để tạo bằng chứng người dùng thật.
+- Dùng AI vào việc gì (2–3 dòng; chi tiết `docs/ai-usage.md`): Nhóm dùng OpenAI Codex, Antigravity và Claude Code để thiết lập khung repo, soạn `spec.md` theo tài liệu kế hoạch C1 của nhóm, vẽ sơ đồ (`docs/diagrams/`) và `eval/metric_spec.yaml`. Các thành viên rà soát ràng buộc, ngưỡng metric và chạy kiểm chứng; không dùng AI để tạo bằng chứng người dùng thật.
 - Nhật ký thay đổi — **mọi thay đổi sau CP2 19:30 Thứ Sáu 27/11 phải có dòng ở đây**:
 
 **Trước CP2** (ghi để theo dõi)
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-| 27/11 ~17:50 | Chuyển lát cắt từ "đọc điều khoản hoàn/huỷ" sang **TripFlix C1** (canvas + TEAMS, commit `6c01cdd`) | Nhóm chọn C1 làm case chính để đánh giá và nộp bài |
-| 27/11 ~18:45 | Viết lại `spec.md`, `eval/metric_spec.yaml` và `eval/benchmark.csv` (30 câu C1, 11 câu từ khảo sát thật, thay 15 câu lát cắt cũ), `evidence/summary.md` và `evidence/survey/results-c1.csv` theo C1; C2, C3 là hướng mở rộng; xoá §3; vẽ lại sơ đồ | Khớp canvas CP1 và tài liệu kế hoạch TripFlix mục 4 |
+| 27/11 ~17:50 | Chuyển lát cắt từ "đọc điều khoản hoàn/huỷ" sang **C1** (canvas + TEAMS, commit `6c01cdd`) | Nhóm chọn C1 làm case chính để đánh giá và nộp bài |
+| 27/11 ~18:45 | Viết lại `spec.md`, `eval/metric_spec.yaml` và `eval/benchmark.csv` (30 câu C1, 11 câu từ khảo sát thật, thay 15 câu lát cắt cũ), `evidence/summary.md` và `evidence/survey/results-c1.csv` theo C1; C2, C3 là hướng mở rộng; xoá §3; vẽ lại sơ đồ | Khớp canvas CP1 và tài liệu kế hoạch của nhóm mục 4 |
 
 **CP2 → CP4** (vd thu hẹp lát cắt, hỏi thêm người dùng, lần cải tiến trước lượt 2)
 

@@ -1,6 +1,6 @@
 # Metric spec — "thế nào là tốt", đo bằng gì.
 # CHỐT TRƯỚC 19:30 Thứ Sáu 27/11 (CP2), KHÔNG SỬA SAU.
-# Lát cắt: TripFlix C1 — lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ (khớp canvas.md CP1, spec.md §4).
+# Lát cắt: C1 — lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ (khớp canvas.md CP1, spec.md §4).
 # Chuẩn "đạt" (khớp spec.md §7): >= 80% tổng số câu thử qua, đồng thời thoả cả 4 ngưỡng dưới đây.
 # Câu nào đánh dấu VALID cho lịch vi phạm ràng buộc luôn tính pass = 0.
 

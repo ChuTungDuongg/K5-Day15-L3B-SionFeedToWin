@@ -1,4 +1,4 @@
-"""Sinh sơ đồ SVG cho spec.md §4 (TripFlix C1). Chạy: python docs/diagrams/build_diagrams.py
+"""Sinh sơ đồ SVG cho spec.md §4 (C1). Chạy: python docs/diagrams/build_diagrams.py
 
 Chỉ dùng thư viện chuẩn. Sửa toạ độ/nhãn ở đây rồi chạy lại, không sửa tay file .svg.
 """
@@ -73,7 +73,7 @@ def architecture():
     s = Svg(1200, 600, "Kiến trúc AI C1: agent LLM chuẩn hoá yêu cầu và chọn công cụ; solver lập lịch; "
                        "validator phía server tính lại độc lập trên cùng snapshot trước khi lịch được gọi là hợp lệ; "
                        "không có đường tới mua vé hay thanh toán")
-    s.text(30, 34, "Kiến trúc AI — TripFlix C1: lập lịch một ngày tại khu vui chơi", size=18, weight="bold", anchor="start")
+    s.text(30, 34, "Kiến trúc AI — C1: lập lịch một ngày tại khu vui chơi", size=18, weight="bold", anchor="start")
 
     s.box(30, 200, 170, 140, "human", rx=16)
     s.text(115, 236, "Phụ huynh", size=15, weight="bold")

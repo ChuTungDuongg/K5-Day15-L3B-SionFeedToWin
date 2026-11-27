@@ -1,4 +1,4 @@
-# Data card — TripFlix C1 (lập lịch một ngày tại khu vui chơi)
+# Data card — C1 (lập lịch một ngày tại khu vui chơi)
 
 > Dữ liệu tự dựng hoặc mô phỏng KHÔNG phải bằng chứng pain. Bằng chứng nằm ở `evidence/`.
 
@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | Dùng để làm gì | Nguồn duy nhất cho `get_park_catalog`, `get_show_schedule`, `get_park_incidents`, `estimate_walk`; `build_park_plan` và `validate_park_plan` tính trên cùng snapshot |
-| Từ đâu | Nhóm tự dựng theo *Kế hoạch TripFlix C1/C2/C3* mục 4.3; **mô phỏng, không phải công viên thật** |
+| Từ đâu | Nhóm tự dựng theo *kế hoạch sản phẩm C1/C2/C3 của nhóm* mục 4.3; **mô phỏng, không phải công viên thật** |
 | Trường | Công viên (ID, ngày, múi giờ, giờ mở/đóng, cổng) · Hoạt động (ID, khu, thời lượng, chờ mô phỏng, trong/ngoài trời) · Điều kiện (tuổi, chiều cao, người lớn đi cùng) · Show (suất, giờ đến sớm, trạng thái) · Giá (theo nhóm khách, khoản đã gồm, phụ thu) · Ma trận phút đi bộ · Sự cố (mưa, điểm đóng, show huỷ) · `source`, `observedAt`, `snapshotId`, `isMock` |
 | Số dòng | 15–20 hoạt động, 1 công viên (dự kiến) |
 | Bảng giá demo | Vé 2 người lớn 600.000đ, vé 2 bé 350.000đ, ăn trưa 320.000đ, hoạt động phụ thu 100.000đ (khớp câu thử `C1-01`, `C1-11`) |
