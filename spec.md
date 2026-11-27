@@ -180,7 +180,7 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| 27/11/2026, sau CP2 · C1-00 | Dừng C3 trong chỗ làm C1; cất 25 file C3 đã sửa/thêm vào stash `7f7aaaa` (gồm file chưa theo dõi), giữ nhánh `vintrip`; chuyển ticket sang `CHỜ NGHIỆM THU` | Theo `docs/tracker/BOARD.md`: tách C3 khỏi C1, không xoá công việc đã làm. Stash C1 cũ `24d4494` được giữ nguyên; không chạy eval đầy đủ hoặc gọi model |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
