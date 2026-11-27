@@ -32,6 +32,10 @@
 | Số câu | 30 (`thuong` 14 · `kho` 11 · `tu_choi` 5) |
 | Nguồn | `nguoi_dung` 11 (dựng từ khảo sát thật, ghi dòng nguồn) · `tu_viet` 19 (kịch bản demo và tình huống ở `spec.md` §5) |
 
+## Ngữ cảnh trong câu thử
+
+Một số câu xếp lại lịch có thêm lịch trước đó, vị trí hiện tại hoặc khoản đã chi ngay trong ô `input` của `eval/benchmark.csv`. Đây là bối cảnh mô phỏng do nhóm bổ sung để mỗi câu chạy độc lập. Không phải dữ liệu phỏng vấn và không được cộng vào bằng chứng. Phần `expected` và `pass_criterion` được giữ nguyên.
+
 ## Dữ liệu của lát cắt cũ (không dùng cho C1)
 
-`data/policies.json`, `data/hotels.json`, `data/flights.json`, `data/trip_plans.json` thuộc bản chạy thử đọc điều khoản hoàn/huỷ trước CP1. Giữ lại để tham chiếu, nhãn `synthetic`.
+Nhánh main hiện không có các bộ dữ liệu nghiệp vụ hủy phòng, khách sạn, chuyến bay hay lịch chuyến đi. Bộ khung chỉ có công cụ trả một đoạn dữ liệu ví dụ. Tài liệu cũ trên máy chưa commit không phải dữ liệu của VinTrip và không được dùng thay bằng chứng C1.

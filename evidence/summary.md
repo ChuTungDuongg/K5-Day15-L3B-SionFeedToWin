@@ -7,11 +7,11 @@
 
 | Nguồn | Đạt ngưỡng? | File |
 |---|---|---|
-| Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☐ Chưa, mới có n = 10 | `evidence/survey/results-c1.csv`, câu hỏi: `evidence/survey/questions.md` |
+| Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☐ Chưa, có 10 dòng gắn nhãn thật, trong đó 4 đi cùng trẻ nhỏ | [CSV đã ẩn danh](survey/results-c1.csv), [đối chiếu trường và tình trạng bản câu hỏi gốc](survey/questions.md) |
 | Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | ☐ | `evidence/interviews/P1.md`… *(nhóm cần bổ sung trước CP3)* |
-| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` thuộc lát cắt cũ (huỷ/hoàn phòng, vé) nên không dùng cho C1 |
+| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` còn là mẫu chưa điền, chưa có kết quả để dùng cho C1 |
 
-**Phạm vi dữ liệu khảo sát:** bảng trả lời có 20 dòng, lưu đủ trong `results-c1.csv` với cột `loai_du_lieu`. Nhóm xác nhận 10 dòng đầu (17:45 đến 18:17 ngày 27/11/2026) là câu trả lời thật (`nguoi_dung_that`). 10 dòng sau do nhóm tự viết thêm trong Sheets (`tu_viet`); chúng được giữ để minh hoạ tình huống và không được đếm vào số bằng chứng. 10 dòng giữ lại có cột nguồn "Google Form · có bổ sung trong Sheets". Chỉ đếm phần câu hỏi C1 (đi khu vui chơi); file `results-c1.csv` chỉ giữ các cột C1, không có cột nhận ra người trả lời.
+**Phạm vi dữ liệu khảo sát:** bảng trả lời có 20 dòng với cột `loai_du_lieu`. Theo nhãn nhóm lưu, 10 dòng đầu là `nguoi_dung_that`, 10 dòng sau là `tu_viet` và không được đếm vào bằng chứng. Cột nguồn của các dòng đầu ghi “Google Form · có bổ sung trong Sheets”. Repo chưa có bản câu hỏi gốc hoặc lịch sử cho biết ô nào đã được bổ sung, nên phép đếm xác nhận nội dung CSV, chưa xác minh độc lập nguồn gốc và tính nguyên văn. Các số dưới đây chỉ tính bản ghi STT 1 đến 10. Khi trích dẫn “dòng N”, N là giá trị cột `stt`, không tính hàng tiêu đề.
 
 ## 2. Số chính
 

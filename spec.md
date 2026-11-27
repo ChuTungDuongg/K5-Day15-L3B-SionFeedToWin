@@ -13,9 +13,9 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
 - **Người dùng chính (một vai cụ thể):** Phụ huynh chịu trách nhiệm tự lên lịch đi khu vui chơi cho cả gia đình có trẻ nhỏ, trong một ngày và một ngân sách xác định.
 - **Việc họ cố làm xong:** Chọn một lịch đi chơi một ngày tại một công viên vừa sức cả nhà, hợp giờ mở cửa, suất diễn, điều kiện của từng bé và ngân sách.
-- **Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:** Họ ghép thông tin từ web công viên và các bài review, tự cộng giờ đi bộ, giờ diễn và tiền vé theo nhóm khách. Chưa có công cụ nào kiểm cùng lúc mọi ràng buộc cho đúng gia đình họ.
+- **Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:** Trong 10 dòng khảo sát gắn nhãn thật, 5 người tự tra web/app công viên, 5 người tự kiểm điều kiện và cộng tiền, 3 người xem review hoặc hỏi bạn bè, 2 người hỏi công cụ AI. Các cách có thể được chọn cùng lúc. Nhóm chưa kiểm chứng đầy đủ tính năng của các sản phẩm đang có để kết luận rằng chưa có công cụ nào đáp ứng nhu cầu này.
 - **Pain (KHÔNG chữ AI):** Phụ huynh khi lên lịch đi khu vui chơi phải ghép giờ mở cửa, suất diễn, thời gian đi bộ, chi phí và điều kiện tuổi/chiều cao của trẻ; bỏ sót một ràng buộc có thể khiến cả nhà trễ show, chọn trò trẻ không được tham gia hoặc vượt ngân sách.
-- **Bằng chứng — số chính + kết luận** (chi tiết: [`evidence/summary.md`](evidence/summary.md), dữ liệu: [`evidence/survey/results-c1.csv`](evidence/survey/results-c1.csv)): **Khảo sát C1, 10 câu trả lời thật: 7/10 người kể lần đi gần nhất có sự cố** (trễ show / bỏ trò do xếp hàng, đi bộ 3/10; mưa, huỷ show 2/10; bé không đủ chiều cao/tuổi 2/10); 6/10 mất ≥30 phút lên lịch. Trích: *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* Mẫu nhỏ, chưa đạt ngưỡng khảo sát ≥20; 10 dòng nhóm tự viết trong cùng bảng được gắn nhãn `tu_viet` và **không đếm**. Phỏng vấn: 0/3, hoàn tất trước CP3. Số liệu đào data hiện có trong `evidence/data-mining.md` thuộc hướng cũ (huỷ/hoàn phòng, vé) — **không dùng làm bằng chứng cho C1**.
+- **Bằng chứng — số chính + kết luận** (chi tiết: [`evidence/summary.md`](evidence/summary.md), dữ liệu: [`evidence/survey/results-c1.csv`](evidence/survey/results-c1.csv)): **Khảo sát C1, 10 dòng gắn nhãn người dùng thật: 7/10 người kể lần đi gần nhất có sự cố** (trễ show / bỏ trò do xếp hàng, đi bộ 3/10; mưa, huỷ show 2/10; bé không đủ chiều cao/tuổi 2/10); 6/10 mất ≥30 phút lên lịch. Trích: *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* Mẫu nhỏ, chỉ 4/10 đi cùng trẻ nhỏ và chưa đạt ngưỡng khảo sát ≥20. Nguồn ghi có bổ sung trong Sheets, cần đối chiếu bản gốc trước khi xác nhận nguyên văn; 10 dòng nhóm tự viết trong cùng bảng được gắn nhãn `tu_viet` và **không đếm**. Phỏng vấn: 0/3, hoàn tất trước CP3. `evidence/data-mining.md` còn là mẫu chưa điền, **chưa có kết quả đào dữ liệu để dùng làm bằng chứng C1**.
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
@@ -26,11 +26,21 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 | **C1 · Lập lịch một ngày tại khu vui chơi** | *(chờ phỏng vấn)* | *(chờ)* | *(chờ: số phút chuẩn bị, tiền/hoạt động bị lỡ)* | *(chờ)* | Có, nếu giới hạn ở một Công viên Mẫu 15–20 hoạt động, kiểm được bằng validator | **Chọn** |
 | C2 · Đề xuất đổi/nâng hạng phòng cho lễ tân | *(chưa khảo sát)* | — | — | — | Cần dữ liệu tồn theo đêm, quyền nhân viên, chính sách có phiên bản | Mở rộng sau |
 | C3 · Chuyến bay bị huỷ: giữ chỗ, đổi vé, hoàn | *(chưa khảo sát)* | — | — | — | Cần adapter nhà cung cấp, giao dịch chống lặp, đối soát | Mở rộng sau |
-| Đọc điều khoản hoàn/huỷ phòng & vé (lát cắt cũ) | Data: `30/300` review nhắc huỷ/hoàn/đổi | — | — | — | Có, đã có bản chạy thử | Đã đổi ở CP1 |
+| Đọc điều khoản hoàn/huỷ phòng & vé (lát cắt cũ) | Chưa có số có nguồn kiểm lại trong repo | — | — | — | Mới có bộ khung ví dụ, chưa có luồng nghiệp vụ | Đã đổi ở CP1 |
 
 - **Impact / tháng** của hướng chọn = *(đang thu thập, hoàn thiện trước CP3)*
 - **Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):** Lát cắt cũ "đọc điều khoản hoàn/huỷ" được thay ở CP1 vì nhóm chọn C1 làm case chính để đánh giá và nộp bài. C2 và C3 giữ làm hướng mở rộng vì mỗi đề cần dữ liệu và cơ chế giao dịch riêng, không kịp làm tốt cùng C1 trong 24 giờ. Đã loại hẳn: so sánh phụ phí/hành lý nhiều hãng, tư vấn hoàn/tranh chấp quốc tế (quá rộng).
 - Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8): *(đang tổng hợp cho CP3–CP4)*
+
+## §3. Giải pháp tương tự *(guide 2.1)*
+
+Đối chiếu bước đầu dựa trên các cách người tham gia khai trong [CSV khảo sát](evidence/survey/results-c1.csv), các bản ghi STT 1 đến 10. Đây là mô tả cách làm hiện tại, chưa phải kiểm chứng tính năng của từng sản phẩm.
+
+| Cách đang dùng | Điều cần học | Điểm cần kiểm thêm | VinTrip dự kiến bổ sung |
+|---|---|---|---|
+| Tự tra web/app khu vui chơi | Lấy giờ, giá và điều kiện từ nguồn công viên | Cách ghép các mục thành lịch cho cả gia đình | Một lịch chung kèm kiểm thời gian, ngân sách và từng thành viên |
+| Xem review hoặc hỏi bạn bè | Ghi nhận trải nghiệm đi bộ, hàng chờ và sự cố | Ngày trải nghiệm và mức phù hợp với gia đình hiện tại | Dữ liệu có phiên bản, giả định và nhãn mô phỏng rõ ràng |
+| Hỏi công cụ AI gợi ý lịch | Tiếp nhận yêu cầu bằng ngôn ngữ tự nhiên | Căn cứ của giờ, giá và điều kiện trong câu trả lời | Công cụ tính lịch và validator độc lập trước khi gọi là hợp lệ |
 
 ## §4. Thiết kế *(guide 2.2, 3.2)*
 
@@ -95,7 +105,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 
 - **Phần nào còn giả / chưa có (CP2):**
   - 6 công cụ C1 và dữ liệu Công viên Mẫu chưa có code; nhóm xây trước CP3.
-  - `codebase/` hiện chỉ có bản chạy thử của lát cắt cũ (đọc điều khoản hoàn/huỷ), sẽ thay bằng luồng C1. `codebase/ai.py` đang `MODEL_PROVIDER=fake` (token = 0).
+  - `codebase/` hiện là bộ khung ví dụ với `search_example`, chưa triển khai nghiệp vụ đọc điều khoản hay lập lịch. Model mặc định là `fake` với token bằng 0. Cần thay bằng luồng C1 và nối model thật trước CP3.
   - Bảng giá demo hoàn toàn mô phỏng: vé 2 người lớn 600.000đ, vé 2 bé 350.000đ, ăn trưa 320.000đ, hoạt động phụ thu 100.000đ. Đây không phải bảng giá của công viên thật.
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
@@ -137,6 +147,8 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 - Kết quả: lượt 1 *(chưa chạy — dự kiến trước CP3)* · lượt 2 *(chưa chạy — CP4)* — run ID: `__ / __` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
+
+Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cost/personas.yaml` còn là cấu hình mẫu của khung, chưa dùng để báo cáo chi phí VinTrip.
 - Persona + giá: `cost/personas.yaml` (persona: phụ huynh lên lịch đi khu vui chơi cuối tuần / dịp lễ) · lượt mô phỏng: `cost/simulate-__.csv` (__ phiên)
 - Chi phí / task thành công: __ (model __) · __ (model __)
 - Chi phí / tháng ở quy mô thật: thấp __ · cơ sở __ · cao __ → chi tiết `cost/cost-estimate.md`
@@ -161,7 +173,8 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
 | 27/11 ~17:50 | Chuyển lát cắt từ "đọc điều khoản hoàn/huỷ" sang **C1** (canvas + TEAMS, commit `6c01cdd`); 18:32 đặt tên dự án VinTrip (commit `20d52c2`) | Nhóm chọn C1 làm case chính để đánh giá và nộp bài |
-| 27/11 ~18:45 | Viết lại `spec.md`, `eval/metric_spec.yaml` và `eval/benchmark.csv` (30 câu C1, 11 câu từ khảo sát thật, thay 15 câu lát cắt cũ), `evidence/summary.md` và `evidence/survey/results-c1.csv` theo C1; C2, C3 là hướng mở rộng; xoá §3; vẽ lại sơ đồ | Khớp canvas CP1 và tài liệu kế hoạch của nhóm mục 4 |
+| 27/11 ~18:45 | Viết lại thiết kế, metric, bộ thử 30 câu C1, tổng hợp khảo sát và sơ đồ | Chuyển hồ sơ sang phạm vi lập lịch khu vui chơi |
+| 27/11 trước CP2 | Rà merge `df1caa9` và `db2cbc0`, đồng bộ README, bổ sung §3, bỏ số thiếu nguồn và đường dẫn tới dữ liệu không có; bổ sung ngữ cảnh đầu vào các ca xếp lại lịch | Giữ tên VinTrip cùng bằng chứng CP2, sửa các điểm lệch sau merge. Giữ nguyên §7, metric, expected và pass_criterion |
 
 **CP2 → CP4** (vd thu hẹp lát cắt, hỏi thêm người dùng, lần cải tiến trước lượt 2)
 
