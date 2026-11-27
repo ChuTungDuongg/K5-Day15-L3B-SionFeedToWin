@@ -42,7 +42,11 @@ vintrip/**/.next/
 vintrip/**/dist/
 vintrip/**/.turbo/
 vintrip/**/.venv/
+vintrip/**/.uv-cache/
 vintrip/**/.pytest_cache/
+vintrip/**/.pytest-vintrip-tmp/
+vintrip/**/.vintrip-qa-cache/
+vintrip/**/.verify/
 vintrip/**/__pycache__/
 vintrip/**/.env
 vintrip/**/.env.*
