@@ -1,6 +1,6 @@
 ﻿# Báo cáo đánh giá C1
 
-**Run-4 là lượt chính để nộp.** Model gpt-6-luna trả lời đủ 30/30 câu, 0 lỗi kỹ thuật. Điểm nháp là **29/30 (96,7%)**. Tổng điểm và cả bốn metric đều đạt ngưỡng của spec §7. [Bản chấm từng câu](run-4-cham-nhap.csv) · [Tiêu chí](metric_spec.yaml)
+**Run-4 là ứng viên để nhóm duyệt làm lượt nộp, chưa được chốt.** Model gpt-6-luna trả lời đủ 30/30 câu, 0 lỗi kỹ thuật. Điểm ở bản chấm nháp là **29/30 (96,7%)**. Cột `pass` của file run gốc còn trống, chưa được công bố là điểm chính thức. Hai metric code được kiểm lại ngoại tuyến, hai metric người chấm còn cần duyệt. Nhóm xác nhận chưa làm/nộp CP3. [Bản chấm từng câu](run-4-cham-nhap.csv) · [Tiêu chí](metric_spec.yaml)
 
 ## Các lượt chạy gpt-6-luna
 
@@ -10,7 +10,7 @@
 |---|---|---|
 | [Run-1](run-1.csv) | `run-1@20261127-231617` | Nháp 25/30. C1-21 gặp một lỗi timeout khi đọc phản hồi model. |
 | [Run-2](run-2.csv) | `run-2@20261127-231855` | Bản chấm nháp đầu đạt 26/30. Sau khi tăng thời gian chờ từ 30 lên 90 giây, C1-21 đã có câu trả lời. [Điểm từng câu](run-2-cham-nhap.csv) |
-| [Run-3](run-3.csv) | `run-3@20261127-233722` | Bỏ lượt này vì chạy giữa lúc sửa. |
+| [Run-3](run-3.csv) | `run-3@20261127-233722` | Chạy giữa lúc sửa, giữ nguyên file và trace. Chưa có điểm duyệt, không tự dùng làm lượt nộp. |
 | [Run-4](run-4.csv) | `run-4@20261127-234013` | Nháp 29/30, gồm 14/14 câu thường, 11/11 câu khó và 4/5 câu từ chối. [Trace](../traces/run-4.jsonl) |
 
 ## Điểm nháp run-4
@@ -28,6 +28,8 @@
 ## Đối chiếu với run-2
 
 Checker ghép từng câu với trace theo run ID và ID câu. Một số payload trong trace bị rút gọn. Khi chấm VALID, checker đối chiếu kết quả validator đã ghi với timeline và bảng tiền hiển thị. Chạy lại bằng `python eval/check_c1_run.py eval/run-4.csv`.
+
+Khi checkout Windows, CSV có thể dùng CRLF còn chuỗi trong JSONL vẫn là LF. Checker chuẩn hóa riêng ký tự xuống dòng trước khi so sánh. Không bỏ qua khác biệt nội dung và không sửa các file dữ liệu đã chạy. Sau sửa này, kết quả hai metric code của run-4 là 25/25 và 14/14 như bảng trên.
 
 - **C1-11** có lần gọi `get_park_catalog`. Vé và ăn trưa tối thiểu 1.270.000đ, vượt ngân sách 270.000đ, đủ căn cứ kết luận INFEASIBLE.
 - **C1-25** giữ nguyên output. Trace mới có lần gọi `estimate_walk` cho đúng chặng cổng → sân khấu, 12 phút.

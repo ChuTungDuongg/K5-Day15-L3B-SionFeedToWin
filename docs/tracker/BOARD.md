@@ -1,6 +1,40 @@
 # Bảng việc C1 — người giao và nghiệm thu: Claude · người làm: Codex
 
-> Mục tiêu CP3: agent đạt **≥ 24/30** câu trong `eval/benchmark.csv` và đủ 4 ngưỡng ở `spec.md` §7. Mốc ban đầu (27/11 22:40): **~3/30**.
+## Rà soát hồ sơ checkpoint ngày 28/11/2026
+
+Đối chiếu hai tài liệu nhóm cung cấp: `SionFeedToWin-huong-dan.html` (bước 06–23) và `slide-kickoff-zoom-hoc-vien-k5.html` (các trang CP1–CP4, điều kiện xét giải và khóa repo). Ví dụ hủy phòng trong sổ tay được áp dụng theo phạm vi lập lịch khu vui chơi hiện tại. Chỉ kiểm phần đã lưu trong repo, chưa xác minh việc gửi Form 1/Form 2 hoặc trạng thái cổng BTC.
+
+**Kết luận:** CP1 và CP2 đủ các nội dung bắt buộc trong repo. Nhóm xác nhận chưa làm/nộp CP3 và CP4. Những code, log eval và mô phỏng đã xuất hiện là phần chuẩn bị, chưa được dùng để tự đánh dấu checkpoint hoàn tất.
+
+| Mốc và hạn giờ Việt Nam | Phải có | Tình trạng hồ sơ |
+|---|---|---|
+| CP1, 17:00 ngày 27/11 | Repo công khai, TEAMS đủ 4 người, Track, canvas 7 mục, bài toán không dùng chữ AI và lát cắt một câu | Có đủ file và nội dung, `run.py check` nhận 4 thành viên. Chưa có xác nhận Form và đúng hạn để đối chiếu trong repo |
+| CP2, 19:30 ngày 27/11 | Spec §4 có sơ đồ, ≥10 câu thử, ≥3 metric, data card, khung chạy được bằng AI giả, §7 chốt ngưỡng số | Đủ sơ đồ, 30 câu, 4 metric, data card, ngưỡng số và ghi nhận khung chạy AI giả. Chuẩn đạt giữ nguyên. Không đòi khảo sát đủ ngưỡng hoặc video phải xong ở mốc này |
+| CP3, 10:00 ngày 28/11 | Ít nhất một nguồn bằng chứng đạt ngưỡng và ≥5 trích dẫn, 20–30 câu, AI thật ở quyết định chính, video 30 giây, eval lượt 1 có điểm và run ID | Nhóm chưa làm/nộp. Có 30 câu, code và các log model, nhưng còn chờ các mục nêu dưới đây |
+| CP4, 14:30 ngày 28/11 | So sánh hai lượt sau một cải tiến, mô phỏng ≥50 phiên, chi phí/task thành công, slide PDF ở gốc và video dự phòng, bốn điều kiện xét giải | Nhóm chưa làm/nộp. Có log 50 phiên nhưng giá và tần suất còn là mẫu; chưa có slide hoặc video |
+| Khóa repo, 23:59 ngày 28/11 | Changelog, docs/ai-usage, reflection đủ 4 người, hoàn thiện link và hướng dẫn chạy | Changelog và khai báo AI đã có. Reflection hiện chỉ có TEMPLATE, chưa có bài của 4 thành viên |
+
+### Các mục đang chờ
+
+| Mục | Đã có | Chờ gì / ai dự kiến phụ trách theo TEAMS |
+|---|---|---|
+| Bằng chứng CP3 | 10 dòng gắn nhãn thật, 10 tự viết; chỉ 4/10 đi cùng trẻ nhỏ; 6 câu trả lời mở | Hà Lê Duy: khảo sát đủ ≥20 người ngoài đội đúng đối tượng và đối chiếu nguồn gốc, sự đồng ý trích dẫn. Có thể chọn nguồn thay thế đạt ngưỡng, không bắt buộc làm thêm cả khảo sát lẫn phỏng vấn |
+| Vai trò model trong C1 | Model có token trong log, code lập và kiểm lịch | Nguyễn Lê Trọng Mạnh: hiện model chỉ diễn đạt kết quả cuối, chưa tham gia quyết định trung tâm. Cần hoàn thiện và chứng minh trước khi xác nhận điều kiện AI thật |
+| Điểm eval CP3 | Run-2 nháp 26/30, run-4 nháp 29/30, hai metric code run-4 kiểm được 25/25 và 14/14 | Nguyễn Thiên Bảo và người duyệt: chọn lượt, duyệt từng câu và hai metric người chấm, người thứ hai kiểm 5 output. Các run gốc còn trống pass, chưa có điểm chính thức |
+| Video CP3 | Nhóm xác nhận chưa có | Chu Nguyễn Tùng Dương điều phối quay 30 giây với input, lời gọi thật và kết quả; cấp quyền và mở thử ẩn danh |
+| Hai lượt CP4 | Có run-1 đến run-4 và log thay đổi | Nhóm chọn cặp lượt, ghi rõ cải tiến và so sánh bằng cùng benchmark. Giữ cả lượt lỗi và lượt chạy giữa lúc sửa |
+| Chi phí CP4 | Simulate-1 có 50 phiên, seed 42, token model gpt-6-luna | Chờ nguồn đơn giá model/endpoint, duyệt tỷ lệ thành công và xác nhận giả định persona/quy mô. Giá Gemini trong bảng là kịch bản mẫu, không phải phí thực trả |
+| Slide và video dự phòng | Chỉ có dàn ý slide | Nhóm xác nhận chưa làm. Chờ `demo-slides.pdf` ở gốc và link video được cấp quyền |
+| Reflection cuối ngày | TEMPLATE có 3 câu hỏi | Mỗi thành viên tự viết trải nghiệm thật, phần việc và câu thử trượt. Không điền thay trải nghiệm chưa được xác nhận |
+| Tình trạng nộp | Hướng dẫn đã có link các Form | Đội trưởng đối chiếu biên nhận và cổng BTC. Có file trên GitHub chưa xác nhận được đã gửi Form đúng hạn |
+
+Không tự tick đủ bốn điều kiện xét giải chỉ vì `run.py check` đạt. Phần kiểm cấu trúc không xác minh nguồn khảo sát, tính đúng của mọi câu trả lời, vai trò AI hoặc quyền xem video. Chuẩn đạt §7, metric, benchmark và các lượt đã chạy được giữ nguyên khi rà hồ sơ.
+
+Kiểm tra trong worktree rà soát: `python run.py check` đạt; 73 test có sẵn chạy với `MODEL_PROVIDER=fake` đều qua; checker run-4 đối chiếu được 25/25 câu có căn cứ và 14/14 lịch VALID sau khi chuẩn hóa xuống dòng. Kiểm tra cố ý thay một đoạn nội dung vẫn bị checker phát hiện. Không gọi API thật, không chạy thêm eval hoặc simulate, không điền cột pass và không thay trạng thái nghiệm thu ticket bên dưới.
+
+## Theo dõi triển khai C1
+
+> Chỉ tiêu chất lượng của nhóm: **≥ 24/30** câu và đủ 4 ngưỡng ở `spec.md` §7. Đây là chuẩn chất lượng đã chốt, không phải yêu cầu phải đạt 80% mới được nộp CP3. Tài liệu kickoff cho phép nộp kết quả thấp nhưng thật. Mốc triển khai ban đầu (27/11 22:40): **~3/30**.
 > C3 (chuyến bay bị huỷ) làm ở nhánh riêng `c3-flight-disruption`. Thư mục này chỉ làm C1.
 
 ## Quy trình
