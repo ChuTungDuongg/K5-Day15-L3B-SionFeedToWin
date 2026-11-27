@@ -3,6 +3,8 @@
 > Mục tiêu CP3: agent đạt **≥ 24/30** câu trong `eval/benchmark.csv` và đủ 4 ngưỡng ở `spec.md` §7. Mốc ban đầu (27/11 22:40): **~3/30**.
 > C3 (chuyến bay bị huỷ) làm ở nhánh riêng `c3-flight-disruption`. Thư mục này chỉ làm C1.
 
+> **Cập nhật 28/11/2026:** theo yêu cầu mới của người dùng, Codex dừng C1 và chỉ làm FE. Các phần triển khai C1-01, C1-02, C1-03 vừa thêm đã được gỡ bằng commit đảo thay đổi; nhật ký nghiệm thu bên dưới được giữ để theo dõi lịch sử. C1-00 (cất C3) vẫn được giữ nguyên.
+
 ## Quy trình
 
 1. **Codex** lấy ticket `TODO` trên cùng, đổi trạng thái thành `ĐANG LÀM`, làm xong thì chuyển `CHỜ NGHIỆM THU`. Mỗi ticket ít nhất một commit, tiêu đề bắt đầu bằng mã ticket, ví dụ `[C1-02] validator ...`.
@@ -15,12 +17,12 @@
 | Mã | Việc | Phụ thuộc | Trạng thái | Ghi chú |
 |---|---|---|---|---|
 | C1-00 | Dọn chỗ làm: cất thay đổi C3 vào stash | — | XONG | C3 đã cất trong stash 7f7aaaa, tên "C3 da chuyen sang nhanh c3-flight-disruption" (25 file, gồm file chưa theo dõi). Giữ nhánh vintrip; stash C1 cũ 24d4494 còn nguyên. |
-| C1-01 | Dữ liệu Công viên Mẫu + test dữ liệu | C1-00 | XONG | Phục hồi nguyên bản park_mau.json từ stash 24d4494; Dataset 1 đã cập nhật. 13 test dữ liệu đạt (7 mục bắt buộc, tổng 1.370.000đ và tối thiểu 1.270.000đ); toàn bộ 41 unittest và run.py check đạt với MODEL_PROVIDER=fake. |
-| C1-02 | `validate_park_plan` + test từng luật | C1-01 | CHỜ NGHIỆM THU | park_validation.py + wrapper tools.py; test_park_validator.py có 18 ca cho từng luật, gồm 108cm/120cm, tối thiểu 1.270.000 > 1.000.000 và xếp lại không thu vé hai lần. MODEL_PROVIDER=fake unittest discover -s tests -v: 72 đạt; run.py check: Không thấy vấn đề. |
-| C1-03 | 4 công cụ đọc + `build_park_plan` | C1-01, C1-02 | CHỜ NGHIỆM THU | tools.py thêm nhánh catalog Mẫu, lịch show, sự cố có nguồn, đi bộ và build; park_solver.py dùng greedy có giới hạn. 9 test mới gồm lịch gia đình VALID 1.370.000, timeout, mưa, giữ phần đã xong. Cập nhật test công viên lạ sang tên chưa có vì Mẫu nay đã hỗ trợ. Fake unittest: 81 đạt; run.py check: Không thấy vấn đề. |
-| C1-04 | Luồng `answer()` C1, các trạng thái, khoá `plan` | C1-03 | TODO | |
-| C1-05 | Từ chối và phạm vi C1 (5 câu `tu_choi`) | C1-04 | TODO | |
-| C1-06 | Model: báo rõ chế độ offline, model chỉ chuẩn hoá và giải thích | C1-04 | TODO | |
+| C1-01 | Dữ liệu Công viên Mẫu + test dữ liệu | C1-00 | KẸT | Dừng theo yêu cầu chỉ làm FE; đã gỡ phần triển khai của commit 0c17673. Dữ liệu gốc vẫn có trong stash 24d4494. |
+| C1-02 | `validate_park_plan` + test từng luật | C1-01 | KẸT | Dừng theo yêu cầu chỉ làm FE; đã gỡ phần triển khai của commit 0f31713. |
+| C1-03 | 4 công cụ đọc + `build_park_plan` | C1-01, C1-02 | KẸT | Dừng theo yêu cầu chỉ làm FE; đã gỡ phần triển khai của commit b814958. |
+| C1-04 | Luồng `answer()` C1, các trạng thái, khoá `plan` | C1-03 | KẸT | Dừng theo yêu cầu chỉ làm FE; chưa triển khai. |
+| C1-05 | Từ chối và phạm vi C1 (5 câu `tu_choi`) | C1-04 | KẸT | Dừng theo yêu cầu chỉ làm FE; chưa triển khai. |
+| C1-06 | Model: báo rõ chế độ offline, model chỉ chuẩn hoá và giải thích | C1-04 | KẸT | Dừng theo yêu cầu chỉ làm FE; thay đổi ai.py chưa commit đã được hoàn lại. |
 
 ## Luật chung (mọi ticket)
 

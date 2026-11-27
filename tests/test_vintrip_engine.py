@@ -399,7 +399,7 @@ class AgentTests(unittest.TestCase):
                                                 [{"label": "bé", "height_cm": None}])
         self.assertEqual((unknown_height["status"], unknown_height["ticket_total_vnd"]),
                          ("NEEDS_INPUT", None))
-        self.assertEqual(tools.get_park_catalog("Công viên Không Có")["status"], "MISSING_DATA")
+        self.assertEqual(tools.get_park_catalog("Công viên Mẫu")["status"], "MISSING_DATA")
         self.assertEqual(tools.get_park_catalog("Water Park", "2026-13-40")["status"], "NEEDS_INPUT")
         self.assertIs(tracing.TOOLS["get_park_catalog"], tools.get_park_catalog)
         for label in ("Tên:", "Input:", "Output:", "Tác động ra ngoài:"):
