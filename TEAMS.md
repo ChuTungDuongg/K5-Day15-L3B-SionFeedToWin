@@ -11,10 +11,10 @@
 
 | STT | Họ và tên | Mã học viên | Vai trò | Phần việc chính |
 |---|---|---|---|---|
-| 1 | Chu Nguyễn Tùng Dương | 2A202604016 | Đội trưởng | Quản lý repo, kiểm tra và nộp checkpoint. |
-| 2 | Nguyễn Lê Trọng Mạnh | 2A202603857 | Thành viên | Dự kiến xây dựng luồng đọc điều khoản và bản chạy thử. |
-| 3 | Hà Lê Duy | 2A202603851 | Thành viên | Dự kiến phỏng vấn khách đặt phòng và tổng hợp bằng chứng ẩn danh. |
-| 4 | Nguyễn Thiên Bảo | 2A202603861 | Thành viên | Theo dõi yêu cầu BTC, chuẩn bị canvas, kiểm tra hồ sơ từng checkpoint. |
+| 1 | Chu Nguyễn Tùng Dương | 2A202604016 | Đội trưởng | Điều phối, quản lý repo, tích hợp demo lập lịch khu vui chơi C1 và nộp checkpoint. |
+| 2 | Nguyễn Lê Trọng Mạnh | 2A202603857 | Thành viên | Dự kiến xây luồng AI C1, công cụ xếp lịch và kiểm ràng buộc thời gian, ngân sách, điều kiện tham gia. |
+| 3 | Hà Lê Duy | 2A202603851 | Thành viên | Dự kiến phỏng vấn người từng tự lên lịch đi khu vui chơi cùng trẻ nhỏ, tổng hợp bằng chứng ẩn danh và nguồn dữ liệu. |
+| 4 | Nguyễn Thiên Bảo | 2A202603861 | Thành viên | Cập nhật canvas C1; dự kiến soạn bộ thử, tổng hợp đánh giá, chi phí và chuẩn bị hồ sơ, kịch bản demo. |
 
 **Quy tắc điền**
 - **Lớp:** `L3A` hoặc `L3B`. **Track:** một chữ `A` (EdTech), `B` (Y tế), `C` (Du lịch), `D` (Thương mại điện tử), `E` (Tài chính) hoặc `F` (Làn khác). **Link repo:** link GitHub công khai của nhóm.
