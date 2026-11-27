@@ -31,13 +31,27 @@ DEFAULT_TIMEZONE = _DefaultTimezone("Asia/Ho_Chi_Minh")
 
 
 @lru_cache
-def flight_disruption_engine():
-    """Load the shared stdlib engine without importing FastAPI or service packages."""
-    path = (DATA.parent / "vintrip/ai/app/services/assistant/skills/c3_engine.py")
-    spec = importlib.util.spec_from_file_location("vintrip_c3_engine", path)
+def _vintrip_skill(name):
+    """Load a shared stdlib skill without importing FastAPI or service packages."""
+    path = (DATA.parent / f"vintrip/ai/app/services/assistant/skills/{name}.py")
+    spec = importlib.util.spec_from_file_location(f"vintrip_{name}", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
+def flight_disruption_engine():
+    return _vintrip_skill("c3_engine")
+
+
+def flight_flow_module():
+    return _vintrip_skill("c3_flow")
+
+
+# C3 có trạng thái: 10 công cụ (docstring ở c3_flow.py) chạy trên adapter mô phỏng.
+C3_TOOLS = {name: tool(getattr(flight_flow_module(), name))
+            for name in flight_flow_module().TOOL_NAMES}
+globals().update(C3_TOOLS)
 
 
 @tool

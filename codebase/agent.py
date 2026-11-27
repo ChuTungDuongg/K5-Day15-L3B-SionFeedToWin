@@ -8,7 +8,7 @@ from ai import EVIDENCE_HEADER, INPUT_HEADER, call_model
 from tools import (APPROVAL, calculate_cancel_fee, contains_phrase, draft_room_change,
                    itinerary_cities, lookup_cancel_policy, normalize,
                    plan_and_verify_itinerary, room_names, flight_disruption_engine,
-                   resolve_flight_disruption)
+                   flight_flow_module, resolve_flight_disruption, C3_TOOLS)
 from tracing import note
 
 
@@ -255,11 +255,25 @@ def _itinerary_lines(text):
     return lines
 
 
+_C3 = {}
+
+
+def _c3_conversation():
+    # shortcut: một phiên C3 cho cả tiến trình CLI (một người dùng); nhiều người cần khoá theo phiên.
+    if "flow" not in _C3:
+        _C3["flow"] = flight_flow_module().C3Conversation(tools=C3_TOOLS)
+    return _C3["flow"]
+
+
 def _route(text):
     normalized = normalize(text)
     if any(re.search(pattern, normalized) for pattern in PROMPT_PATTERNS):
         note("Từ chối yêu cầu can thiệp chỉ dẫn hoặc bỏ bước duyệt")
         return ["Vini từ chối tiết lộ chỉ dẫn nội bộ hoặc bỏ bước duyệt.", GUIDE]
+    flow = _c3_conversation()
+    if flow.claims(text):
+        note(f"C3 TRV: luồng có trạng thái, đang ở {flow.state}")
+        return flow.handle(text)["lines"]
     engine = flight_disruption_engine()
     if engine.is_disruption(text):
         note("C3: kiểm phương án mô phỏng và soạn bản nháp chờ duyệt")
