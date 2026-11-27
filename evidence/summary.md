@@ -1,4 +1,4 @@
-# Tổng hợp bằng chứng pain — TripFlix C1 (lập lịch một ngày tại khu vui chơi)
+# Tổng hợp bằng chứng pain: TripFlix C1 (lập lịch một ngày tại khu vui chơi)
 
 > Điền ở guide bước 1.2, xong trước **CP3 10:00 Thứ Bảy 28/11**. Chấm ở rubric R1.
 > Ba nguồn ngang nhau — tối thiểu **≥1 nguồn đạt ngưỡng**. Mạnh nhất: đào data ra insight → hỏi người dùng để kiểm lại (hoặc ngược lại).
@@ -7,30 +7,30 @@
 
 | Nguồn | Đạt ngưỡng? | File |
 |---|---|---|
-| Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☐ **Chưa** — mới n = 10 | `evidence/survey/results-c1.csv`, câu hỏi: `evidence/survey/questions.md` |
+| Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☐ Chưa, mới có n = 10 | `evidence/survey/results-c1.csv`, câu hỏi: `evidence/survey/questions.md` |
 | Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | ☐ | `evidence/interviews/P1.md`… *(nhóm cần bổ sung trước CP3)* |
-| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` — thuộc lát cắt cũ (huỷ/hoàn phòng, vé), **không dùng cho C1** |
+| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` thuộc lát cắt cũ (huỷ/hoàn phòng, vé) nên không dùng cho C1 |
 
-**Phạm vi dữ liệu khảo sát:** bảng trả lời có 20 dòng, lưu đủ trong `results-c1.csv` với cột `loai_du_lieu`. Nhóm xác nhận **10 dòng đầu (17:45–18:17 ngày 27/11/2026) là câu trả lời thật** (`nguoi_dung_that`); 10 dòng sau do nhóm tự viết thêm trong Sheets (`tu_viet`) — **giữ để minh hoạ tình huống, không đếm vào số bằng chứng**. 10 dòng giữ lại có cột nguồn "Google Form · có bổ sung trong Sheets". Chỉ đếm phần câu hỏi C1 (đi khu vui chơi); file `results-c1.csv` chỉ giữ các cột C1, không có cột nhận ra người trả lời.
+**Phạm vi dữ liệu khảo sát:** bảng trả lời có 20 dòng, lưu đủ trong `results-c1.csv` với cột `loai_du_lieu`. Nhóm xác nhận 10 dòng đầu (17:45 đến 18:17 ngày 27/11/2026) là câu trả lời thật (`nguoi_dung_that`). 10 dòng sau do nhóm tự viết thêm trong Sheets (`tu_viet`); chúng được giữ để minh hoạ tình huống và không được đếm vào số bằng chứng. 10 dòng giữ lại có cột nguồn "Google Form · có bổ sung trong Sheets". Chỉ đếm phần câu hỏi C1 (đi khu vui chơi); file `results-c1.csv` chỉ giữ các cột C1, không có cột nhận ra người trả lời.
 
 ## 2. Số chính
 
 - Khảo sát C1, n = 10 (dưới 10–20 người nên chỉ ghi x/n):
-  - **7/10** người kể lần đi gần nhất có sự cố: trễ show hoặc bỏ bớt trò do xếp hàng/đi bộ lâu **3/10**; mưa hoặc show huỷ làm rối lịch phần còn lại **2/10**; tới nơi mới biết bé không đủ chiều cao/tuổi hoặc trò đóng cửa **2/10**. 3/10 đi trơn tru.
-  - **6/10** mất từ 30 phút trở lên để lên lịch (30–60 phút: 5/10; trên 60 phút: 1/10); 4/10 mất 15–30 phút.
-  - Đi khu vui chơi trung bình **1–4 lần/năm** (trung vị 2).
+  - 7/10 người kể lần đi gần nhất có sự cố: trễ show hoặc bỏ bớt trò do xếp hàng/đi bộ lâu 3/10; mưa hoặc show huỷ làm rối lịch phần còn lại 2/10; tới nơi mới biết bé không đủ chiều cao/tuổi hoặc trò đóng cửa 2/10. 3/10 đi trơn tru.
+  - 6/10 mất từ 30 phút trở lên để lên lịch (30–60 phút: 5/10; trên 60 phút: 1/10); 4/10 mất 15–30 phút.
+  - Mỗi người đi khu vui chơi 1 đến 4 lần/năm (trung vị 2).
   - Cách xoay xở: tự tra web/app công viên 5/10; tự kiểm giới hạn tuổi/chiều cao và cộng giá 5/10; xem review/hỏi bạn rồi ước lượng đi bộ, xếp hàng 3/10; hỏi công cụ AI 2/10.
-  - **Riêng nhóm đi cùng gia đình có trẻ nhỏ (đúng người dùng chính): 4/10.** Trong 4 người này: 2/4 tới nơi mới biết bé không đủ chiều cao/tuổi; 2/4 đi trơn tru nhưng phải tự cân giờ suất diễn với giờ ăn trưa của bé.
-- Phỏng vấn: 0/3 *(chưa phỏng vấn — cần bổ sung trước CP3)*
+  - 4/10 người đi cùng gia đình có trẻ nhỏ, tức đúng người dùng chính. Trong 4 người này, 2/4 tới nơi mới biết bé không đủ chiều cao/tuổi; 2/4 đi trơn tru nhưng phải tự cân giờ suất diễn với giờ ăn trưa của bé.
+- Phỏng vấn: 0/3, cần làm trước CP3.
 
 ## 3. ≥5 trích dẫn nguyên văn (có nguồn, bỏ tên)
 
-1. *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* — `results-c1.csv` dòng 5 (đi cùng gia đình có trẻ nhỏ)
-2. *"Trang bán vé không ghi rõ cách đo chiều cao cho bé."* — dòng 7 (đi cùng gia đình có trẻ nhỏ, lên lịch trên 60 phút)
-3. *"Phải so giờ hai suất diễn để còn kịp cho bé ăn trưa."* — dòng 1 (đi cùng gia đình có trẻ nhỏ)
-4. *"Ước lượng sai hàng chờ nên nhóm lỡ suất diễn cuối."* — dòng 10
-5. *"Trời mưa đúng lúc cả nhóm ra sân khấu. Tìm một trò trong nhà gần đó mất khá lâu."* — dòng 6
-6. *"Từ cổng đến sân khấu xa hơn mình tính."* — dòng 2
+1. *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* (`results-c1.csv` dòng 5, đi cùng gia đình có trẻ nhỏ)
+2. *"Trang bán vé không ghi rõ cách đo chiều cao cho bé."* (dòng 7, đi cùng gia đình có trẻ nhỏ, lên lịch trên 60 phút)
+3. *"Phải so giờ hai suất diễn để còn kịp cho bé ăn trưa."* (dòng 1, đi cùng gia đình có trẻ nhỏ)
+4. *"Ước lượng sai hàng chờ nên nhóm lỡ suất diễn cuối."* (dòng 10)
+5. *"Trời mưa đúng lúc cả nhóm ra sân khấu. Tìm một trò trong nhà gần đó mất khá lâu."* (dòng 6)
+6. *"Từ cổng đến sân khấu xa hơn mình tính."* (dòng 2)
 
 ## 4. Các nguồn có khớp nhau không
 
@@ -38,7 +38,7 @@ Mới có một nguồn (khảo sát n = 10), chưa đối chiếu được. Cá
 
 ## 5. Kết luận
 
-Giả thuyết C1 (phụ huynh khó ghép đủ ràng buộc khi lên lịch cho trẻ nhỏ): **có dấu hiệu ủng hộ, chưa đủ để kết luận** — 7/10 người kể sự cố liên quan đúng các ràng buộc này, nhưng mẫu nhỏ (n = 10, chỉ 4 người đúng nhóm đi cùng trẻ nhỏ), chưa đạt ngưỡng khảo sát ≥20 và các dòng có bổ sung trong Sheets. Điều chưa biết: số phút thực tế phụ huynh bỏ ra và thiệt hại (tiền, hoạt động bị lỡ) mỗi lần.
+Giả thuyết C1 (phụ huynh khó ghép đủ ràng buộc khi lên lịch cho trẻ nhỏ) có dấu hiệu ủng hộ nhưng chưa đủ để kết luận. 7/10 người kể sự cố liên quan đúng các ràng buộc này, nhưng mẫu nhỏ (n = 10, chỉ 4 người đúng nhóm đi cùng trẻ nhỏ), chưa đạt ngưỡng khảo sát ≥20 và các dòng có bổ sung trong Sheets. Điều chưa biết: số phút thực tế phụ huynh bỏ ra và thiệt hại (tiền, hoạt động bị lỡ) mỗi lần.
 
 ## Lịch hẹn phỏng vấn (chỉ ghi vai và giờ, không tên)
 
