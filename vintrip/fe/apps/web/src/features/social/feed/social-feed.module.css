@@ -32,28 +32,13 @@
   margin-bottom: 12px;
 }
 
-/* Bốn nhãn dài như "Dành cho bạn" cần ~500px mới đủ một hàng: lề nút hẹp như trước khi dùng bộ tab chung,
-   và chữ không bao giờ tràn khỏi nút. Selector có thẻ để thắng .tab/.tabs của bộ chung bất kể thứ tự nạp CSS. */
-.recommendModeTabs > button {
-  min-width: 0;
-  padding-inline: 6px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-@container (max-width: 500px) {
-  div.recommendModeTabs {
-    grid-auto-flow: row;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 .feedViewSlot {
   display: none;
   flex: 1;
   width: 100%;
   height: 100%;
   min-height: 0;
+  min-width: 0;
   flex-direction: column;
   overflow: hidden;
   box-sizing: border-box;
@@ -2507,9 +2492,21 @@ a.authorAvatar {
 .actionBtn, .postReadMoreBtn, .postTagPill, .headerMenuBtn, .dockItemBtn, .composerTagBtn, .composerSubmitBtn { min-width: 44px; min-height: 44px; }
 .actionBtnLiked, .actionBtnSaved { color: var(--color-coral) !important; }
 .actionBtnLiked svg, .actionBtnSaved svg { fill: var(--color-coral); }
-.recommendModeTabs { display: flex !important; flex-wrap: nowrap; overflow-x: auto; padding: 4px; gap: 8px; flex-shrink: 0; }
-.recommendModeTabs > button { flex: 0 0 auto; min-height: 44px; padding-inline: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-background); color: var(--color-text); }
-.recommendModeTabs > button[aria-pressed='true'] { background: var(--color-coral-soft); color: var(--color-coral-ink); border-color: var(--color-coral-soft); }
+/* Cuộn các chip bên trong thanh; chiều rộng nội tại của nhãn không kéo giãn cột. */
+div.recommendModeTabs {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 4px;
+  gap: 8px;
+  scroll-padding-inline: 4px;
+}
+.recommendModeTabs > button { flex: 0 0 auto; min-width: 0; min-height: 44px; padding-inline: 16px; border: 1px solid var(--color-border); border-radius: var(--radius-pill); background: var(--color-background); color: var(--color-text); }
+.recommendModeTabs > button[aria-selected='true'] { background: var(--color-coral-soft); color: var(--color-coral-ink); border-color: var(--color-coral-soft); }
 .dockCreateBtn, .dockCreateBtn:hover {
   position: fixed; right: 24px; bottom: calc(var(--mobile-tab-bar-space,0px) + 24px);
   z-index: 45; display: inline-flex; width: 56px; height: 56px; min-height: 56px;
