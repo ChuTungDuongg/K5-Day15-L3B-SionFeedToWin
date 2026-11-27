@@ -187,6 +187,7 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 | 28/11/2026 · Dừng C1 theo yêu cầu | Gỡ triển khai C1-01, C1-02, C1-03 bằng đảo thay đổi, hoàn lại chỉnh sửa ai.py chưa commit; giữ lịch sử nghiệm thu và việc cất C3 | Người dùng xác nhận gỡ các thay đổi C1 vừa tạo và chỉ làm FE. Không sửa §7, benchmark, metric hay file kết quả; không gọi model hoặc đọc .env |
 | 28/11/2026 · FE-03 | Đánh dấu KẸT: chờ đặc tả FE-02 cho linh vật; chỉ đọc brief và phạm vi file | Theo cập nhật PM, mọi ticket FE chờ tài liệu được chốt. `fe-redesign.md` hiện chỉ có mục 1; chưa thay tài nguyên hoặc tự thiết kế |
 | 28/11/2026 · FE-04 | Đánh dấu KẸT: chờ đặc tả FE-02 cho khung chung | Chưa có mục header/footer/mobile nav trong tài liệu; giữ phân vùng Codex và Antigravity |
+| 28/11/2026 · FE-05 | Đánh dấu KẸT: chờ đặc tả FE-02 cho trang chủ và phụ thuộc FE-04 | Danh sách lỗi màu ở mục 1.3 chưa thay thế đặc tả trang; chưa đổi bố cục hoặc tự soạn thiết kế |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

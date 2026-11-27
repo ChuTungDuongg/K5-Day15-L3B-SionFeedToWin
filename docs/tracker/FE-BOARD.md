@@ -34,7 +34,7 @@
 | FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | TODO |
 | FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | KẸT |
 | FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | KẸT |
-| FE-05 | Trang chủ: đầu trang, ô tìm kiếm, khối gợi ý, nền | **Codex** | FE-04 | TODO |
+| FE-05 | Trang chủ: đầu trang, ô tìm kiếm, khối gợi ý, nền | **Codex** | FE-04 | KẸT |
 | FE-06 | Khách sạn: danh sách, bộ lọc, chi tiết, chọn phòng | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | TODO |
@@ -91,6 +91,7 @@ Brief nhân vật và 6 tư thế 3D nền trong suốt: chào, tò mò, lập k
 Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket kèm ảnh chụp trước và sau ở 1440px và 390px (lưu tạm, không commit ảnh), và danh sách file đã sửa.
 
 - **FE-04 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục khung chung (header/footer/mobile nav) trong `fe-redesign.md`; chưa sửa giao diện. Đã kiểm phụ thuộc và phạm vi file.
+- **FE-05 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Mục 1.3 mới liệt kê điểm lệch màu, chưa có đặc tả trang chủ về bố cục, câu chữ và các trạng thái. FE-04 cũng đang kẹt; chưa sửa trang chủ.
 
 ---
 
