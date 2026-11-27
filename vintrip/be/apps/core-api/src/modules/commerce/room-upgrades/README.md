@@ -1,6 +1,6 @@
 # Room upgrades — báo giá đổi/nâng hạng cho lễ tân
 
-Tên thư mục, API và bảng thể hiện nghiệp vụ `room-upgrades`. `caseId: C2` chỉ là nhãn case trong tài liệu hackathon. Hiện chỉ hoàn thành checkpoint backend/domain; chưa có AI, proposal, quyết định duyệt hay giao diện lễ tân.
+Tên thư mục, API và bảng thể hiện nghiệp vụ `room-upgrades`. `caseId: C2` chỉ là nhãn case trong tài liệu hackathon. CP1 hoàn thành backend/domain báo giá có kiểm độc lập; CP2 bổ sung tầng AI Copilot trong `vintrip/ai` ([AI feature README](../../../../../../ai/app/services/room_upgrades/README.md)). Chưa có proposal persistence, quyết định duyệt hay giao diện lễ tân (thuộc CP3/CP4).
 
 ```mermaid
 flowchart LR

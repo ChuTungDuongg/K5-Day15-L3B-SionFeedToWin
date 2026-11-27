@@ -181,6 +181,7 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
 | 27/11 | Thêm backend/domain `room-upgrades` cho tính năng mở rộng C2 theo yêu cầu riêng; dữ liệu mô phỏng, báo giá có kiểm độc lập, chưa làm AI hoặc duyệt | C2-CP1 nằm ngoài benchmark C1 đã khóa; giữ nguyên §7, metric, expected và các harness |
+| 28/11 | Bổ sung AI Copilot workflow `room_upgrades` (C2-CP2) trong `vintrip/ai` (`POST /ai/room-upgrades/chat`), dùng OpenAI Responses API (`gpt-6-luna`, `reasoning.effort=low`), 5 tool gọi CP1, guardrails và FinOps usage (`room_upgrades`) | C2-CP2 nằm ngoài benchmark C1 đã khóa; chưa làm proposal persistence/approve (CP3) hay UI (CP4); giữ nguyên §7, metric, expected và các harness |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

@@ -118,3 +118,129 @@ Integration test mặc định dùng Testcontainers như repo. Khi chạy trong 
 Acceptance CP1 kiểm các ca 1–9; ca 10 mới kiểm authority/schema ở backend, chưa phải thử model injection. Ca 13 kiểm fresh requests nhận dữ liệu mới; kiểm lúc approve thuộc CP3. Ca 16 hiện chứng minh tính báo giá không gây side effect; approve thuộc CP3. Ca 11,12,14 và phần approve chưa triển khai; ca 15 thuộc CP2. Không ghi các ca chưa triển khai là pass.
 
 CP2 chỉ bắt đầu sau khi checkpoint này qua test. Còn phải nối LLM thật với structured extraction, năm tool nghiệp vụ, candidate allowlist, giới hạn 5 calls/2 repairs/30 giây và usage/trace thật. CP3 mới lưu proposal/revision/audit và triển khai duyệt nguyên tử; CP4 mới có UI lễ tân/eval AI. Hiện không có API approve/revise/reject và không có màn `/admin/room-upgrades`.
+
+---
+
+# Room upgrades — AI Copilot contract (C2-CP2)
+
+## Phạm vi và kiến trúc CP2
+
+CP2 bổ sung tầng AI orchestration, tool execution, guardrails và observability ngay trong FastAPI AI Service (`vintrip/ai`), không tạo microservice mới, không dùng LangGraph/RAG/vector DB, và không sao chép pricing/policy engine sang Python. Backend NestJS CP1 tiếp tục là nguồn sự thật duy nhất về quyền, tồn phòng, giá, quyền lợi, chính sách và kiểm độc lập.
+
+Luồng tuần tự có kiểm soát:
+
+`Authenticate (JWT + /api/auth/me) → Authorize hotel scope (Core API /bookings) → Scoped session check → Input injection guardrail → Structured Intent Extraction (LLM #1) → Resolve booking & hotel-timezone datetime → Tools (get_booking_context, get_upgrade_policy, find_available_rooms, calculate_upgrade_quote, validate_upgrade_proposal) → Recommendation & draft (LLM #2 + allowlist/price guardrails) → Structured JSON response + FinOps usage + trace`.
+
+CP2 **không** lưu proposal, không approve/reject/revise, không giữ phòng, không đổi phòng, không sửa booking, không thu/hoàn tiền.
+
+## Endpoint, routing và bảo mật
+
+- Gateway (Traefik `dynamic.yml` strip prefix `/ai`): `POST /ai/room-upgrades/chat`
+- FastAPI AI Service: `POST /room-upgrades/chat` (trả `Cache-Control: no-store`)
+- Bắt buộc `Authorization: Bearer <accessToken>` của chính nhân viên (`401` nếu thiếu/hết hạn/thu hồi hoặc dùng service token).
+- Luôn xác minh phân công khách sạn trên Core API (`GET /api/commerce/room-upgrades/bookings?hotelId=...`) **trước** khi gửi dữ liệu nghiệp vụ cho LLM (`403` cho khách hàng, nhân viên khách sạn khác hoặc global `superadmin` chưa được phân công).
+- Không dùng service account đặc quyền để bypass phạm vi người dùng; không tin `role`, `userId`, `amount`, `status`, `approved` do client gửi (schema `extra="forbid"` trả `422`).
+- Session theo `sessionId` gắn chặt `(ownerUserId, hotelId)`; tái sử dụng `sessionId` bởi nhân viên hoặc khách sạn khác bị chặn `403`.
+- Không log `Authorization` header, Bearer token, API key hoặc raw PII.
+
+## Request contract
+
+```json
+{
+  "hotelId": "upgrade-demo-hotel",
+  "message": "Khách booking C2-0001 muốn nâng từ STD lên Deluxe lúc 14 giờ ngày 28/11.",
+  "sessionId": "8f3c6a71-3d21-4c76-9e7d-2f07f6a7d101",
+  "selectedBookingCode": "C2-0001",
+  "context": {
+    "targetRoomHint": "Deluxe"
+  }
+}
+```
+
+- `hotelId` (bắt buộc), `message` (bắt buộc, 1–1000 ký tự).
+- `sessionId` (tùy chọn UUID; tự cấp mới nếu không truyền).
+- `selectedBookingCode` và `context` (tùy chọn, chỉ chứa gợi ý chưa xác thực cho lượt follow-up; mọi giá trị được kiểm lại trên backend).
+
+## Response contract (sẵn sàng cho Staff Dashboard CP4)
+
+Tách rõ hai lớp trạng thái:
+
+- `workflowStatus`: `COMPLETED` | `NEEDS_INPUT` | `OUT_OF_SCOPE` | `BLOCKED_INJECTION` | `DEGRADED` | `AI_ERROR` | `DEPENDENCY_ERROR`
+- `quoteStatus`: giữ nguyên enum CP1 (`VALID`, `REQUIRES_MANAGER`, `UNAVAILABLE`, `MISSING_DATA`, `NEEDS_INPUT`, `INELIGIBLE`, `VALIDATION_FAILED`) hoặc `null` khi chưa có báo giá.
+
+Trích cấu trúc phản hồi thành công (happy path `C2-0001`, `STD → DLX`, 2 đêm):
+
+```json
+{
+  "requestId": "...",
+  "caseId": "C2",
+  "sessionId": "...",
+  "sessionContext": {
+    "hotelId": "upgrade-demo-hotel",
+    "bookingCode": "C2-0001",
+    "targetRoomTypeId": "DLX",
+    "effectiveAt": "2026-11-28T14:00:00+07:00",
+    "requestType": "UPGRADE",
+    "requiredFeatures": [],
+    "guestPreferences": [],
+    "pendingMissingFields": []
+  },
+  "workflowStatus": "COMPLETED",
+  "quoteStatus": "VALID",
+  "messageVi": "Đề xuất Deluxe hướng vườn (DLX) cho booking C2-0001: 2 đêm, chênh lệch 600.000đ (VALID). Chờ RECEPTIONIST duyệt.",
+  "recommendationReasonVi": "...",
+  "draftMessageVi": "...",
+  "missingFields": [],
+  "violations": [],
+  "bookingSummary": { "bookingCode": "C2-0001", "roomNumber": "101", "currentRoomTypeId": "STD", "status": "IN_HOUSE", "guests": 2 },
+  "candidates": [ { "candidateId": "DLX", "quoteStatus": "VALID", "priceDiffVnd": 600000, "remainingNights": 2, "approvalRole": "RECEPTIONIST", "requiresHumanApproval": true } ],
+  "selectedCandidateId": "DLX",
+  "selectedQuote": { "status": "VALID", "priceDiffVnd": 600000, "remainingNights": 2, "requiresHumanApproval": true, "operationalEffects": "NONE" },
+  "policySources": [ { "ref": "STAY-UPGRADE:v1:TIME", "code": "TIME", "policyCode": "STAY-UPGRADE", "policyVersion": 1, "clause": "..." } ],
+  "requiresHumanApproval": true,
+  "approvalRole": "RECEPTIONIST",
+  "staffRole": "RECEPTIONIST",
+  "snapshotId": "room-upgrades:...",
+  "fixtureVersion": "room-upgrades-v1@2026-11-27",
+  "isMock": true,
+  "operationalEffects": "NONE",
+  "model": {
+    "provider": "openai",
+    "api": "responses",
+    "model": "gpt-6-luna",
+    "reasoningEffort": "low",
+    "promptVersions": ["room-upgrades-intent.v1", "room-upgrades-recommend.v1"],
+    "status": "ok",
+    "degraded": false,
+    "callCount": 2,
+    "repairCount": 0,
+    "usageStatus": "reported",
+    "inputTokens": 0,
+    "cachedInputTokens": 0,
+    "outputTokens": 0,
+    "reasoningTokens": 0,
+    "costUsd": 0,
+    "responseIds": ["resp_..."],
+    "guardrailEvents": []
+  },
+  "trace": { "requestId": "...", "totalLatencyMs": 0, "steps": [], "tools": [], "modelCalls": [], "policyVersion": 1 }
+}
+```
+
+## Cấu hình model, guardrails và FinOps
+
+- Provider chính thức: **OpenAI Responses API** trực tiếp (`https://api.openai.com/v1/responses`), model `gpt-6-luna`, `reasoning.effort = "low"`, `text.format.type = "json_schema"` (`strict: true`), `store: false`. Không bật hosted tools (`web_search`, `file_search`, `code_interpreter`). Không tự fallback sang `gpt-4o-mini` hoặc provider khác.
+- Cấu hình riêng qua `ROOM_UPGRADES_LLM_*` + `OPENAI_API_KEY` để không ảnh hưởng C1/C3 và chat cũ.
+- Giới hạn cứng: tối đa **5 model calls/lượt**, **2 lần repair**, **30 giây** deadline toàn workflow (tính từ lúc nhận request gồm auth, backend tools và LLM); single-attempt per HTTP call (không retry ngầm ở SDK).
+- Allowlist & guardrails:
+  - Candidate ID chỉ lấy từ `roomTypes` của backend; từ chối ID bịa (`HALLUCINATED_CANDIDATE_ID`).
+  - Nguồn chính sách kiểm theo allowlist từ backend (`HALLUCINATED_SOURCE_REF`).
+  - Kiểm tra số tiền VND và tuyên bố hành động/miễn phí trong văn bản do LLM sinh (`FABRICATED_PRICE_IN_TEXT`, `UNAUTHORIZED_WAIVER_CLAIM`, `FORBIDDEN_ACTION_CLAIM`); số tiền chính thức luôn lấy trực tiếp từ backend CP1.
+  - Nhất quán snapshot: nếu `snapshotId` lệch giữa `get_booking_context` và `calculate_upgrade_quote`, đọc lại và báo giá lại tối đa 1 lần; nếu vẫn lệch thì trả `SNAPSHOT_INCONSISTENT` (`MISSING_DATA`, không gộp snapshot).
+  - Nếu lỗi model xảy ra ở bước Intent Extraction → trả `workflowStatus: "AI_ERROR"`, `quoteStatus: null` (không bao giờ sinh báo giá chưa xác minh). Nếu lỗi model xảy ra ở bước Recommendation sau khi backend đã kiểm báo giá → fallback deterministic an toàn có gắn nhãn `workflowStatus: "DEGRADED"`, `model.degraded: true`.
+- FinOps & analytics:
+  - Đơn giá chuẩn `gpt-6-luna`: input `$0.10/1M`, cached input `$0.01/1M`, output `$0.50/1M` (`reasoning_tokens` đã nằm trong `output_tokens`, không tính trùng).
+  - Phát `UsageEvent` với `feature: "room_upgrades"` lên `stream:ai` cho mọi model call kể cả output lỗi/repair; thiếu usage từ provider ghi `usage_missing` (`inputTokens: null`, `outputTokens: null`), không tự bịa số.
+  - `vintrip/be` analytics consumer (`AI_FEATURES`) đã bổ sung `'room_upgrades'` theo hướng tương thích ngược.
+
+Chi tiết bản đồ code và bằng chứng kiểm thử CP2: [AI feature README](../ai/app/services/room_upgrades/README.md) · [evidence CP2](../ai/docs/evidence/room-upgrades-cp2.md).
