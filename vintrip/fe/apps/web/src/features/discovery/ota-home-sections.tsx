@@ -41,45 +41,36 @@ export function OtaHomeSections() {
   return (
     <>
       <section className={`ota-container ${styles.section}`} aria-labelledby="ocean-park-nearby-title" data-home-reveal>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, marginBottom: 18, flexWrap: 'wrap' }}>
+        <div className={styles.sectionHead}>
           <div>
-            <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0B4F56', margin: 0 }}>
+            <p className={styles.nearbyEyebrow}>
               Gần VinUni · Vinhomes Ocean Park
             </p>
-            <h2 id="ocean-park-nearby-title" style={{ margin: '4px 0 0' }}>
+            <h2 id="ocean-park-nearby-title">
               Ăn ngon, nghỉ đẹp quanh Ocean Park
             </h2>
           </div>
-          <Link prefetch={false} href="/search?placeId=ha-noi&q=Ocean%20Park" style={{ fontSize: 14, fontWeight: 600, color: '#0B4F56' }}>
+          <Link prefetch={false} href="/search?placeId=ha-noi&q=Ocean%20Park" className={styles.textLink}>
             Xem nơi lưu trú gần VinUni →
           </Link>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 16 }}>
+        <div className={styles.nearbyGrid}>
           {OCEAN_PARK_SPOTS.map((spot) => (
             <Link
               key={spot.title}
               prefetch={false}
               href={spot.href}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                borderRadius: 16,
-                overflow: 'hidden',
-                border: '1px solid rgba(11, 79, 86, 0.14)',
-                background: '#fff',
-                textDecoration: 'none',
-                color: 'inherit',
-              }}
+              className={styles.nearbyCard}
             >
-              <div style={{ position: 'relative', aspectRatio: '16 / 10', width: '100%' }}>
+              <div className={styles.nearbyPhoto}>
                 <Image src={spot.image} alt={spot.title} fill sizes="(max-width: 760px) 100vw, 25vw" style={{ objectFit: 'cover' }} />
               </div>
-              <div style={{ padding: '12px 14px 14px' }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#0F6B75', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              <div className={styles.nearbyCopy}>
+                <span>
                   {spot.tag}
                 </span>
-                <p style={{ margin: '4px 0 4px', fontWeight: 700, fontSize: 15, color: '#102A30' }}>{spot.title}</p>
-                <p style={{ margin: 0, fontSize: 13, color: '#536A70', lineHeight: 1.4 }}>{spot.subtitle}</p>
+                <h3>{spot.title}</h3>
+                <p>{spot.subtitle}</p>
               </div>
             </Link>
           ))}

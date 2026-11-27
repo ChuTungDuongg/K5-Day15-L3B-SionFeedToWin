@@ -192,6 +192,8 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 | 28/11/2026 · FE-03 | Theo yêu cầu mới, thay linh vật bằng 6 tư thế Teemo; PNG 1024×1024 alpha, dưới 400KB, thêm ảnh buồn 404, giữ tên tài nguyên Vini | Dùng ImageGen tích hợp, giữ prompt trong brand/vini/README; PM kiểm ảnh trang theo lựa chọn người dùng. Kiểm PNG đạt; test toàn FE còn 2 kỳ vọng điểm đến cũ thuộc FE-05 và route Google đã biết |
 | 28/11/2026 · FE-04 | Đổi khung chung sang token pastel, header 72/56px và điều hướng dưới 1024px; tự lưu trữ Inter variable kèm OFL, bỏ Playfair/Be Vietnam Pro đang dùng | Giữ hành vi tự ẩn, lớp focus, class tích hợp và liên kết pháp lý. 65 test shell đạt; kiểm font có glyph tiếng Việt và trục trọng lượng 100–900. Người dùng giao PM kiểm ảnh trang/hiển thị trên Windows |
 
+| 28/11/2026 · FE-05 | Làm lại hero, form, gợi ý và kết quả khách sạn bằng token; bỏ nền nước; thêm bộ lọc modal và trạng thái chưa chọn điểm đến | 576 test web và các package đạt; typecheck/test chỉ còn route Google đã biết. Sửa kỳ vọng mặc định theo dữ liệu PM, giữ API/parser. Người dùng chọn PM kiểm ảnh |
+
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
 | Thời điểm | Đổi gì | Vì sao |
