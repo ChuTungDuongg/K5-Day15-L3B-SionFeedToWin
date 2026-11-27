@@ -220,6 +220,122 @@
       "title": "ModerationUsage",
       "type": "object"
     },
+    "RoomUpgradeUsage": {
+      "additionalProperties": false,
+      "properties": {
+        "conversationId": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Conversationid"
+        },
+        "costUsd": {
+          "minimum": 0,
+          "title": "Costusd",
+          "type": "number"
+        },
+        "estimated": {
+          "const": true,
+          "default": true,
+          "title": "Estimated",
+          "type": "boolean"
+        },
+        "feature": {
+          "const": "room_upgrades",
+          "default": "room_upgrades",
+          "title": "Feature",
+          "type": "string"
+        },
+        "inputTokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Inputtokens"
+        },
+        "latencyMs": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latencyms"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "outputTokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outputtokens"
+        },
+        "step": {
+          "enum": [
+            "extract_intent",
+            "extract_intent_repair",
+            "recommend",
+            "recommend_repair",
+            "usage_missing"
+          ],
+          "title": "Step",
+          "type": "string"
+        },
+        "turnId": {
+          "anyOf": [
+            {
+              "format": "uuid",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Turnid"
+        }
+      },
+      "required": [
+        "feature",
+        "model",
+        "step",
+        "inputTokens",
+        "outputTokens",
+        "costUsd",
+        "estimated",
+        "conversationId",
+        "turnId",
+        "latencyMs"
+      ],
+      "title": "RoomUpgradeUsage",
+      "type": "object"
+    },
     "SummaryUsage": {
       "additionalProperties": false,
       "properties": {
@@ -299,6 +415,9 @@
         },
         {
           "$ref": "#/$defs/CoverOcrUsage"
+        },
+        {
+          "$ref": "#/$defs/RoomUpgradeUsage"
         }
       ],
       "title": "Payload"

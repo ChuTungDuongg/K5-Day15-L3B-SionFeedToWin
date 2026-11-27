@@ -4,11 +4,12 @@ import { REGISTRATION_CODE_PATTERN } from '@vintrip/app-core';
 import { t, vi } from '@vintrip/i18n';
 import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useAfterAuth } from '@/features/onboarding/use-after-auth';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { AuthErrorNotice, AuthField, PasswordField } from './auth-fields';
-import { readDeviceName, withReturnTo } from './auth-return';
+import { readDeviceName, readSafeReturnTo, withReturnTo } from './auth-return';
 import { GoogleButton } from './google-button';
 
 /**
@@ -61,7 +62,12 @@ export function LiveLogin({ returnTo }: { returnTo?: string }) {
     onSuccess: goBack,
   });
   const { mutate: signInWithGoogle } = google;
-  const isBusy = credentials.isPending || google.isPending || requestCode.isPending;
+  const router = useRouter();
+  const demo = useMutation({
+    mutationFn: () => session.startDemo(),
+    onSuccess: () => router.replace(returnTo ? readSafeReturnTo(returnTo) : '/c1'),
+  });
+  const isBusy = demo.isPending || credentials.isPending || google.isPending || requestCode.isPending;
 
   useEffect(() => {
     if (loginChallengeId) document.getElementById('auth-login-code')?.focus();
@@ -84,6 +90,14 @@ export function LiveLogin({ returnTo }: { returnTo?: string }) {
           void session.initialize();
         }}
       />
+      {process.env.NEXT_PUBLIC_VINTRIP_DEMO_ENABLED === 'true' && (
+        <>
+          <button type="button" className="secondary-button" disabled={!isReady || isBusy} onClick={() => demo.mutate()}>
+            {demo.isPending ? 'Đang mở bản demo…' : 'Dùng tài khoản demo'}
+          </button>
+          <AuthErrorNotice error={demo.error} action="login" />
+        </>
+      )}
       <form
         className="auth-form"
         onSubmit={(event) => {

@@ -50,6 +50,884 @@
         "title": "Awaiting",
         "type": "object"
       },
+      "BackendInventoryNight": {
+        "additionalProperties": false,
+        "properties": {
+          "availableUnits": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availableunits"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "stopSell": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stopsell"
+          },
+          "version": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Version"
+          }
+        },
+        "required": [
+          "date",
+          "availableUnits",
+          "stopSell",
+          "version"
+        ],
+        "title": "BackendInventoryNight",
+        "type": "object"
+      },
+      "BackendIssue": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "field",
+          "message"
+        ],
+        "title": "BackendIssue",
+        "type": "object"
+      },
+      "BackendPolicySource": {
+        "properties": {
+          "clause": {
+            "title": "Clause",
+            "type": "string"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "clause"
+        ],
+        "title": "BackendPolicySource",
+        "type": "object"
+      },
+      "BackendQuoteBenefit": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "discountBps": {
+            "title": "Discountbps",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "code",
+          "version",
+          "discountBps"
+        ],
+        "title": "BackendQuoteBenefit",
+        "type": "object"
+      },
+      "BackendQuoteNight": {
+        "additionalProperties": false,
+        "properties": {
+          "additionalFeesVnd": {
+            "title": "Additionalfeesvnd",
+            "type": "integer"
+          },
+          "additionalTaxVnd": {
+            "title": "Additionaltaxvnd",
+            "type": "integer"
+          },
+          "availableUnits": {
+            "title": "Availableunits",
+            "type": "integer"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string"
+          },
+          "eligibleDiscountVnd": {
+            "title": "Eligiblediscountvnd",
+            "type": "integer"
+          },
+          "eligibleOriginalCreditVnd": {
+            "title": "Eligibleoriginalcreditvnd",
+            "type": "integer"
+          },
+          "newRoomPriceVnd": {
+            "title": "Newroompricevnd",
+            "type": "integer"
+          },
+          "originalPaidVnd": {
+            "title": "Originalpaidvnd",
+            "type": "integer"
+          },
+          "priceDiffVnd": {
+            "title": "Pricediffvnd",
+            "type": "integer"
+          },
+          "rateTaxIncluded": {
+            "title": "Ratetaxincluded",
+            "type": "boolean"
+          },
+          "sourceRefs": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Sourcerefs",
+            "type": "array"
+          },
+          "sourceVersions": {
+            "$ref": "#/components/schemas/BackendQuoteSourceVersions"
+          }
+        },
+        "required": [
+          "date",
+          "availableUnits",
+          "newRoomPriceVnd",
+          "originalPaidVnd",
+          "eligibleOriginalCreditVnd",
+          "additionalFeesVnd",
+          "additionalTaxVnd",
+          "eligibleDiscountVnd",
+          "priceDiffVnd",
+          "rateTaxIncluded",
+          "sourceRefs",
+          "sourceVersions"
+        ],
+        "title": "BackendQuoteNight",
+        "type": "object"
+      },
+      "BackendQuotePolicy": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/BackendPolicySource"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "code",
+          "version",
+          "sources"
+        ],
+        "title": "BackendQuotePolicy",
+        "type": "object"
+      },
+      "BackendQuoteResponse": {
+        "properties": {
+          "approvalRole": {
+            "anyOf": [
+              {
+                "enum": [
+                  "RECEPTIONIST",
+                  "MANAGER"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approvalrole"
+          },
+          "benefit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BackendQuoteBenefit"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bookingCode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookingcode"
+          },
+          "breakdown": {
+            "items": {
+              "$ref": "#/components/schemas/BackendQuoteNight"
+            },
+            "title": "Breakdown",
+            "type": "array"
+          },
+          "calculatedAt": {
+            "title": "Calculatedat",
+            "type": "string"
+          },
+          "caseId": {
+            "const": "C2",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "currency": {
+            "const": "VND",
+            "title": "Currency",
+            "type": "string"
+          },
+          "effectiveAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effectiveat"
+          },
+          "expiresAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expiresat"
+          },
+          "fixtureVersion": {
+            "title": "Fixtureversion",
+            "type": "string"
+          },
+          "hotelId": {
+            "title": "Hotelid",
+            "type": "string"
+          },
+          "inventoryByNight": {
+            "items": {
+              "$ref": "#/components/schemas/BackendInventoryNight"
+            },
+            "title": "Inventorybynight",
+            "type": "array"
+          },
+          "isMock": {
+            "const": true,
+            "title": "Ismock",
+            "type": "boolean"
+          },
+          "missingFields": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Missingfields",
+            "type": "array"
+          },
+          "operationalEffects": {
+            "const": "NONE",
+            "title": "Operationaleffects",
+            "type": "string"
+          },
+          "policy": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BackendQuotePolicy"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "priceDiffVnd": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pricediffvnd"
+          },
+          "quoteId": {
+            "title": "Quoteid",
+            "type": "string"
+          },
+          "remainingNights": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remainingnights"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          },
+          "requiresHumanApproval": {
+            "const": true,
+            "title": "Requireshumanapproval",
+            "type": "boolean"
+          },
+          "snapshotId": {
+            "title": "Snapshotid",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "VALID",
+              "NEEDS_INPUT",
+              "MISSING_DATA",
+              "INELIGIBLE",
+              "UNAVAILABLE",
+              "REQUIRES_MANAGER",
+              "VALIDATION_FAILED"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "targetRoomTypeId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Targetroomtypeid"
+          },
+          "timezone": {
+            "title": "Timezone",
+            "type": "string"
+          },
+          "totals": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BackendQuoteTotals"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validation": {
+            "$ref": "#/components/schemas/BackendQuoteValidation"
+          },
+          "violations": {
+            "items": {
+              "$ref": "#/components/schemas/BackendIssue"
+            },
+            "title": "Violations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "caseId",
+          "requestId",
+          "quoteId",
+          "hotelId",
+          "bookingCode",
+          "targetRoomTypeId",
+          "status",
+          "currency",
+          "isMock",
+          "snapshotId",
+          "fixtureVersion",
+          "calculatedAt",
+          "expiresAt",
+          "effectiveAt",
+          "timezone",
+          "remainingNights",
+          "approvalRole",
+          "policy",
+          "benefit",
+          "breakdown",
+          "totals",
+          "priceDiffVnd",
+          "inventoryByNight",
+          "missingFields",
+          "violations",
+          "validation",
+          "requiresHumanApproval",
+          "operationalEffects"
+        ],
+        "title": "BackendQuoteResponse",
+        "type": "object"
+      },
+      "BackendQuoteSourceVersions": {
+        "additionalProperties": false,
+        "properties": {
+          "benefit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Benefit"
+          },
+          "booking": {
+            "title": "Booking",
+            "type": "integer"
+          },
+          "inventory": {
+            "title": "Inventory",
+            "type": "integer"
+          },
+          "policy": {
+            "title": "Policy",
+            "type": "integer"
+          },
+          "rate": {
+            "title": "Rate",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "booking",
+          "inventory",
+          "rate",
+          "policy"
+        ],
+        "title": "BackendQuoteSourceVersions",
+        "type": "object"
+      },
+      "BackendQuoteTotals": {
+        "additionalProperties": false,
+        "properties": {
+          "additionalFeesVnd": {
+            "title": "Additionalfeesvnd",
+            "type": "integer"
+          },
+          "additionalTaxVnd": {
+            "title": "Additionaltaxvnd",
+            "type": "integer"
+          },
+          "eligibleDiscountVnd": {
+            "title": "Eligiblediscountvnd",
+            "type": "integer"
+          },
+          "eligibleOriginalCreditVnd": {
+            "title": "Eligibleoriginalcreditvnd",
+            "type": "integer"
+          },
+          "newRoomTotalVnd": {
+            "title": "Newroomtotalvnd",
+            "type": "integer"
+          },
+          "priceDiffVnd": {
+            "title": "Pricediffvnd",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "newRoomTotalVnd",
+          "eligibleOriginalCreditVnd",
+          "additionalFeesVnd",
+          "additionalTaxVnd",
+          "eligibleDiscountVnd",
+          "priceDiffVnd"
+        ],
+        "title": "BackendQuoteTotals",
+        "type": "object"
+      },
+      "BackendQuoteValidation": {
+        "additionalProperties": false,
+        "properties": {
+          "checked": {
+            "title": "Checked",
+            "type": "boolean"
+          },
+          "passed": {
+            "title": "Passed",
+            "type": "boolean"
+          },
+          "violations": {
+            "items": {
+              "$ref": "#/components/schemas/BackendIssue"
+            },
+            "title": "Violations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "checked",
+          "passed",
+          "violations"
+        ],
+        "title": "BackendQuoteValidation",
+        "type": "object"
+      },
+      "BookingSummaryOut": {
+        "additionalProperties": false,
+        "properties": {
+          "bookingCode": {
+            "title": "Bookingcode",
+            "type": "string"
+          },
+          "checkInAt": {
+            "title": "Checkinat",
+            "type": "string"
+          },
+          "checkOutAt": {
+            "title": "Checkoutat",
+            "type": "string"
+          },
+          "currentRoomTypeId": {
+            "title": "Currentroomtypeid",
+            "type": "string"
+          },
+          "currentRoomTypeName": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Currentroomtypename"
+          },
+          "guests": {
+            "title": "Guests",
+            "type": "integer"
+          },
+          "hotelId": {
+            "title": "Hotelid",
+            "type": "string"
+          },
+          "hotelName": {
+            "title": "Hotelname",
+            "type": "string"
+          },
+          "roomNumber": {
+            "title": "Roomnumber",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "IN_HOUSE",
+              "CONFIRMED",
+              "CHECKED_OUT"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "timezone": {
+            "title": "Timezone",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "hotelId",
+          "hotelName",
+          "timezone",
+          "bookingCode",
+          "roomNumber",
+          "currentRoomTypeId",
+          "status",
+          "checkInAt",
+          "checkOutAt",
+          "guests",
+          "version"
+        ],
+        "title": "BookingSummaryOut",
+        "type": "object"
+      },
+      "Cancellation": {
+        "additionalProperties": false,
+        "properties": {
+          "cancelAt": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancelat"
+          },
+          "checkIn": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Checkin"
+          },
+          "hotelSlug": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hotelslug"
+          },
+          "nights": {
+            "anyOf": [
+              {
+                "maximum": 30.0,
+                "minimum": 1.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nights"
+          },
+          "policyCode": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Policycode"
+          },
+          "timezone": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Timezone"
+          },
+          "totalVnd": {
+            "anyOf": [
+              {
+                "maximum": 1000000000000.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Totalvnd"
+          }
+        },
+        "title": "Cancellation",
+        "type": "object"
+      },
+      "CandidateQuoteOut": {
+        "additionalProperties": false,
+        "properties": {
+          "approvalRole": {
+            "anyOf": [
+              {
+                "enum": [
+                  "RECEPTIONIST",
+                  "MANAGER"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approvalrole"
+          },
+          "benefit": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BackendQuoteBenefit"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "candidateId": {
+            "title": "Candidateid",
+            "type": "string"
+          },
+          "features": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Features",
+            "type": "array"
+          },
+          "maxGuests": {
+            "title": "Maxguests",
+            "type": "integer"
+          },
+          "missingFields": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Missingfields",
+            "type": "array"
+          },
+          "priceDiffVnd": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pricediffvnd"
+          },
+          "quote": {
+            "$ref": "#/components/schemas/BackendQuoteResponse"
+          },
+          "quoteStatus": {
+            "enum": [
+              "VALID",
+              "NEEDS_INPUT",
+              "MISSING_DATA",
+              "INELIGIBLE",
+              "UNAVAILABLE",
+              "REQUIRES_MANAGER",
+              "VALIDATION_FAILED"
+            ],
+            "title": "Quotestatus",
+            "type": "string"
+          },
+          "rank": {
+            "title": "Rank",
+            "type": "integer"
+          },
+          "remainingNights": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remainingnights"
+          },
+          "requiresHumanApproval": {
+            "const": true,
+            "default": true,
+            "title": "Requireshumanapproval",
+            "type": "boolean"
+          },
+          "roomTypeName": {
+            "title": "Roomtypename",
+            "type": "string"
+          },
+          "totals": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BackendQuoteTotals"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "violations": {
+            "items": {
+              "$ref": "#/components/schemas/BackendIssue"
+            },
+            "title": "Violations",
+            "type": "array"
+          }
+        },
+        "required": [
+          "candidateId",
+          "roomTypeName",
+          "rank",
+          "maxGuests",
+          "features",
+          "quoteStatus",
+          "priceDiffVnd",
+          "remainingNights",
+          "totals",
+          "approvalRole",
+          "quote"
+        ],
+        "title": "CandidateQuoteOut",
+        "type": "object"
+      },
       "Card": {
         "additionalProperties": false,
         "properties": {
@@ -976,6 +1854,313 @@
         "title": "HTTPValidationError",
         "type": "object"
       },
+      "ModelCallTraceOut": {
+        "additionalProperties": false,
+        "properties": {
+          "cachedInputTokens": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cachedinputtokens"
+          },
+          "costUsd": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Costusd"
+          },
+          "errorCode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Errorcode"
+          },
+          "finishReason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Finishreason"
+          },
+          "inputTokens": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Inputtokens"
+          },
+          "latencyMs": {
+            "minimum": 0.0,
+            "title": "Latencyms",
+            "type": "integer"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "outputTokens": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outputtokens"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "reasoningTokens": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoningtokens"
+          },
+          "responseId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Responseid"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "step": {
+            "title": "Step",
+            "type": "string"
+          },
+          "usageStatus": {
+            "enum": [
+              "reported",
+              "partial",
+              "usage_missing",
+              "not_called"
+            ],
+            "title": "Usagestatus",
+            "type": "string"
+          }
+        },
+        "required": [
+          "step",
+          "provider",
+          "status",
+          "latencyMs",
+          "usageStatus"
+        ],
+        "title": "ModelCallTraceOut",
+        "type": "object"
+      },
+      "ModelStatusOut": {
+        "additionalProperties": false,
+        "properties": {
+          "api": {
+            "default": "responses",
+            "title": "Api",
+            "type": "string"
+          },
+          "cachedInputTokens": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cachedinputtokens"
+          },
+          "callCount": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Callcount",
+            "type": "integer"
+          },
+          "costUsd": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Costusd"
+          },
+          "degraded": {
+            "default": false,
+            "title": "Degraded",
+            "type": "boolean"
+          },
+          "guardrailEvents": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Guardrailevents",
+            "type": "array"
+          },
+          "inputTokens": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Inputtokens"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "outputTokens": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outputtokens"
+          },
+          "promptVersions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Promptversions",
+            "type": "array"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "reasoningEffort": {
+            "default": "low",
+            "title": "Reasoningeffort",
+            "type": "string"
+          },
+          "reasoningTokens": {
+            "anyOf": [
+              {
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reasoningtokens"
+          },
+          "repairCount": {
+            "default": 0,
+            "minimum": 0.0,
+            "title": "Repaircount",
+            "type": "integer"
+          },
+          "responseIds": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Responseids",
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "not_called",
+              "disabled",
+              "not_configured",
+              "timeout",
+              "invalid_output",
+              "guardrail_rejected",
+              "budget_exceeded",
+              "deadline_exceeded",
+              "breaker_open",
+              "provider_error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "usageStatus": {
+            "default": "not_called",
+            "enum": [
+              "reported",
+              "partial",
+              "usage_missing",
+              "not_called"
+            ],
+            "title": "Usagestatus",
+            "type": "string"
+          }
+        },
+        "required": [
+          "provider",
+          "status"
+        ],
+        "title": "ModelStatusOut",
+        "type": "object"
+      },
       "ModerateItem": {
         "additionalProperties": false,
         "properties": {
@@ -1228,6 +2413,849 @@
         "title": "ModerateResult",
         "type": "object"
       },
+      "PolicySourceOut": {
+        "additionalProperties": false,
+        "properties": {
+          "clause": {
+            "title": "Clause",
+            "type": "string"
+          },
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "policyCode": {
+            "title": "Policycode",
+            "type": "string"
+          },
+          "policyVersion": {
+            "title": "Policyversion",
+            "type": "integer"
+          },
+          "ref": {
+            "title": "Ref",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ref",
+          "code",
+          "policyCode",
+          "policyVersion",
+          "clause"
+        ],
+        "title": "PolicySourceOut",
+        "type": "object"
+      },
+      "ProposalAiMetadataOut": {
+        "additionalProperties": false,
+        "properties": {
+          "aiRequestId": {
+            "title": "Airequestid",
+            "type": "string"
+          },
+          "draftMessageVi": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Draftmessagevi"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "promptVersions": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "Promptversions",
+            "type": "array"
+          },
+          "recommendationReasonVi": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommendationreasonvi"
+          },
+          "selectedCandidateId": {
+            "title": "Selectedcandidateid",
+            "type": "string"
+          },
+          "sessionId": {
+            "title": "Sessionid",
+            "type": "string"
+          },
+          "source": {
+            "const": "ai_copilot",
+            "default": "ai_copilot",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionId",
+          "aiRequestId",
+          "selectedCandidateId"
+        ],
+        "title": "ProposalAiMetadataOut",
+        "type": "object"
+      },
+      "ProposalCreateDraftOut": {
+        "additionalProperties": false,
+        "properties": {
+          "endpoint": {
+            "const": "/api/commerce/room-upgrades/proposals",
+            "default": "/api/commerce/room-upgrades/proposals",
+            "title": "Endpoint",
+            "type": "string"
+          },
+          "method": {
+            "const": "POST",
+            "default": "POST",
+            "title": "Method",
+            "type": "string"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ProposalCreatePayloadOut"
+          },
+          "requiresIdempotencyKey": {
+            "const": true,
+            "default": true,
+            "title": "Requiresidempotencykey",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "payload"
+        ],
+        "title": "ProposalCreateDraftOut",
+        "type": "object"
+      },
+      "ProposalCreatePayloadOut": {
+        "additionalProperties": false,
+        "properties": {
+          "aiMetadata": {
+            "$ref": "#/components/schemas/ProposalAiMetadataOut"
+          },
+          "benefitId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Benefitid"
+          },
+          "bookingCode": {
+            "title": "Bookingcode",
+            "type": "string"
+          },
+          "effectiveAt": {
+            "title": "Effectiveat",
+            "type": "string"
+          },
+          "hotelId": {
+            "title": "Hotelid",
+            "type": "string"
+          },
+          "previewExpectation": {
+            "$ref": "#/components/schemas/ProposalPreviewExpectationOut"
+          },
+          "requestType": {
+            "enum": [
+              "UPGRADE",
+              "ROOM_CHANGE",
+              "COMPLIMENTARY_UPGRADE"
+            ],
+            "title": "Requesttype",
+            "type": "string"
+          },
+          "requiredFeatures": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "Requiredfeatures",
+            "type": "array"
+          },
+          "targetRoomTypeId": {
+            "title": "Targetroomtypeid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "hotelId",
+          "bookingCode",
+          "targetRoomTypeId",
+          "effectiveAt",
+          "requestType",
+          "previewExpectation",
+          "aiMetadata"
+        ],
+        "title": "ProposalCreatePayloadOut",
+        "type": "object"
+      },
+      "ProposalPreviewExpectationOut": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedApprovalRole": {
+            "enum": [
+              "RECEPTIONIST",
+              "MANAGER"
+            ],
+            "title": "Expectedapprovalrole",
+            "type": "string"
+          },
+          "expectedPriceDiffVnd": {
+            "title": "Expectedpricediffvnd",
+            "type": "integer"
+          },
+          "expectedQuoteStatus": {
+            "enum": [
+              "VALID",
+              "REQUIRES_MANAGER"
+            ],
+            "title": "Expectedquotestatus",
+            "type": "string"
+          },
+          "expectedSnapshotId": {
+            "title": "Expectedsnapshotid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expectedPriceDiffVnd",
+          "expectedSnapshotId",
+          "expectedQuoteStatus",
+          "expectedApprovalRole"
+        ],
+        "title": "ProposalPreviewExpectationOut",
+        "type": "object"
+      },
+      "RoomUpgradeChatRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoomUpgradeClientContext"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "hotelId": {
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Hotelid",
+            "type": "string"
+          },
+          "message": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "pattern": "\\S",
+            "title": "Message",
+            "type": "string"
+          },
+          "selectedBookingCode": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selectedbookingcode"
+          },
+          "sessionId": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sessionid"
+          }
+        },
+        "required": [
+          "hotelId",
+          "message"
+        ],
+        "title": "RoomUpgradeChatRequest",
+        "type": "object"
+      },
+      "RoomUpgradeChatResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "approvalRole": {
+            "anyOf": [
+              {
+                "enum": [
+                  "RECEPTIONIST",
+                  "MANAGER"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Approvalrole"
+          },
+          "bookingSummary": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BookingSummaryOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateQuoteOut"
+            },
+            "title": "Candidates",
+            "type": "array"
+          },
+          "caseId": {
+            "const": "C2",
+            "default": "C2",
+            "title": "Caseid",
+            "type": "string"
+          },
+          "draftMessageVi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Draftmessagevi"
+          },
+          "fixtureVersion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fixtureversion"
+          },
+          "isMock": {
+            "const": true,
+            "default": true,
+            "title": "Ismock",
+            "type": "boolean"
+          },
+          "messageVi": {
+            "title": "Messagevi",
+            "type": "string"
+          },
+          "missingFields": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Missingfields",
+            "type": "array"
+          },
+          "model": {
+            "$ref": "#/components/schemas/ModelStatusOut"
+          },
+          "operationalEffects": {
+            "const": "NONE",
+            "default": "NONE",
+            "title": "Operationaleffects",
+            "type": "string"
+          },
+          "policySources": {
+            "items": {
+              "$ref": "#/components/schemas/PolicySourceOut"
+            },
+            "title": "Policysources",
+            "type": "array"
+          },
+          "proposalDraft": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProposalCreateDraftOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "quoteStatus": {
+            "anyOf": [
+              {
+                "enum": [
+                  "VALID",
+                  "NEEDS_INPUT",
+                  "MISSING_DATA",
+                  "INELIGIBLE",
+                  "UNAVAILABLE",
+                  "REQUIRES_MANAGER",
+                  "VALIDATION_FAILED"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quotestatus"
+          },
+          "recommendationReasonVi": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommendationreasonvi"
+          },
+          "requestId": {
+            "format": "uuid",
+            "title": "Requestid",
+            "type": "string"
+          },
+          "requiresHumanApproval": {
+            "const": true,
+            "default": true,
+            "title": "Requireshumanapproval",
+            "type": "boolean"
+          },
+          "selectedCandidateId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selectedcandidateid"
+          },
+          "selectedQuote": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BackendQuoteResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sessionContext": {
+            "$ref": "#/components/schemas/RoomUpgradeSessionContext"
+          },
+          "sessionId": {
+            "format": "uuid",
+            "title": "Sessionid",
+            "type": "string"
+          },
+          "snapshotId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Snapshotid"
+          },
+          "staffRole": {
+            "anyOf": [
+              {
+                "enum": [
+                  "RECEPTIONIST",
+                  "MANAGER"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Staffrole"
+          },
+          "trace": {
+            "$ref": "#/components/schemas/WorkflowTraceOut"
+          },
+          "violations": {
+            "items": {
+              "$ref": "#/components/schemas/BackendIssue"
+            },
+            "title": "Violations",
+            "type": "array"
+          },
+          "workflowStatus": {
+            "enum": [
+              "COMPLETED",
+              "NEEDS_INPUT",
+              "OUT_OF_SCOPE",
+              "BLOCKED_INJECTION",
+              "DEGRADED",
+              "AI_ERROR",
+              "DEPENDENCY_ERROR"
+            ],
+            "title": "Workflowstatus",
+            "type": "string"
+          }
+        },
+        "required": [
+          "requestId",
+          "sessionId",
+          "sessionContext",
+          "workflowStatus",
+          "messageVi",
+          "model",
+          "trace"
+        ],
+        "title": "RoomUpgradeChatResponse",
+        "type": "object"
+      },
+      "RoomUpgradeClientContext": {
+        "additionalProperties": false,
+        "description": "Non-authoritative structured hints for follow-up turns; always re-checked on backend.",
+        "properties": {
+          "benefitId": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Benefitid"
+          },
+          "bookingCode": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookingcode"
+          },
+          "effectiveAt": {
+            "anyOf": [
+              {
+                "maxLength": 64,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effectiveat"
+          },
+          "guestPreferences": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "Guestpreferences",
+            "type": "array"
+          },
+          "requestType": {
+            "anyOf": [
+              {
+                "enum": [
+                  "UPGRADE",
+                  "ROOM_CHANGE",
+                  "COMPLIMENTARY_UPGRADE"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requesttype"
+          },
+          "requiredFeatures": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "Requiredfeatures",
+            "type": "array"
+          },
+          "roomNumber": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Roomnumber"
+          },
+          "targetRoomHint": {
+            "anyOf": [
+              {
+                "maxLength": 120,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Targetroomhint"
+          },
+          "targetRoomTypeId": {
+            "anyOf": [
+              {
+                "maxLength": 100,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Targetroomtypeid"
+          }
+        },
+        "title": "RoomUpgradeClientContext",
+        "type": "object"
+      },
+      "RoomUpgradeSessionContext": {
+        "additionalProperties": false,
+        "description": "Merged non-authoritative intent slots preserved for follow-up turns.",
+        "properties": {
+          "benefitId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Benefitid"
+          },
+          "bookingCode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookingcode"
+          },
+          "effectiveAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effectiveat"
+          },
+          "guestPreferences": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Guestpreferences",
+            "type": "array"
+          },
+          "hotelId": {
+            "title": "Hotelid",
+            "type": "string"
+          },
+          "pendingMissingFields": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Pendingmissingfields",
+            "type": "array"
+          },
+          "requestType": {
+            "default": "UPGRADE",
+            "enum": [
+              "UPGRADE",
+              "ROOM_CHANGE",
+              "COMPLIMENTARY_UPGRADE"
+            ],
+            "title": "Requesttype",
+            "type": "string"
+          },
+          "requiredFeatures": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Requiredfeatures",
+            "type": "array"
+          },
+          "roomNumber": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Roomnumber"
+          },
+          "targetRoomHint": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Targetroomhint"
+          },
+          "targetRoomTypeId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Targetroomtypeid"
+          }
+        },
+        "required": [
+          "hotelId"
+        ],
+        "title": "RoomUpgradeSessionContext",
+        "type": "object"
+      },
+      "StepTraceOut": {
+        "additionalProperties": false,
+        "properties": {
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "latencyMs": {
+            "minimum": 0.0,
+            "title": "Latencyms",
+            "type": "integer"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "type": "string"
+          },
+          "step": {
+            "title": "Step",
+            "type": "string"
+          }
+        },
+        "required": [
+          "step",
+          "outcome",
+          "latencyMs"
+        ],
+        "title": "StepTraceOut",
+        "type": "object"
+      },
+      "ToolTraceOut": {
+        "additionalProperties": false,
+        "properties": {
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "latencyMs": {
+            "minimum": 0.0,
+            "title": "Latencyms",
+            "type": "integer"
+          },
+          "outcome": {
+            "title": "Outcome",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          }
+        },
+        "required": [
+          "tool",
+          "outcome",
+          "latencyMs"
+        ],
+        "title": "ToolTraceOut",
+        "type": "object"
+      },
       "TripContext": {
         "additionalProperties": false,
         "description": "What Tripi remembers of the trip being planned (trip memory, v3 \"Trip Draft\" lite).\n\nThe app keeps it and sends it back each turn; the server re-checks everything against\nCore before use, so an edited copy only spoils its own answers (DeepResearch \u00a75.1).\nv2 (Stage B) adds the plan itself: origin city, stay, way there, stops per day, the\noptions on screen and the last edits. Kept small: the app stores the whole chat in 2 KB.",
@@ -1345,6 +3373,16 @@
             "maxItems": 4,
             "title": "Pending",
             "type": "array"
+          },
+          "pendingCancellation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Cancellation"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "pendingFlights": {
             "items": {
@@ -1502,6 +3540,92 @@
           "type"
         ],
         "title": "ValidationError",
+        "type": "object"
+      },
+      "WorkflowTraceOut": {
+        "additionalProperties": false,
+        "properties": {
+          "errorCode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Errorcode"
+          },
+          "fixtureVersion": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fixtureversion"
+          },
+          "modelCalls": {
+            "items": {
+              "$ref": "#/components/schemas/ModelCallTraceOut"
+            },
+            "title": "Modelcalls",
+            "type": "array"
+          },
+          "policyVersion": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Policyversion"
+          },
+          "requestId": {
+            "format": "uuid",
+            "title": "Requestid",
+            "type": "string"
+          },
+          "snapshotId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Snapshotid"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/StepTraceOut"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "tools": {
+            "items": {
+              "$ref": "#/components/schemas/ToolTraceOut"
+            },
+            "title": "Tools",
+            "type": "array"
+          },
+          "totalLatencyMs": {
+            "minimum": 0.0,
+            "title": "Totallatencyms",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "requestId",
+          "totalLatencyMs"
+        ],
+        "title": "WorkflowTraceOut",
         "type": "object"
       }
     },
@@ -1775,6 +3899,64 @@
         "summary": "Moderate Separate Parts",
         "tags": [
           "moderation"
+        ]
+      }
+    },
+    "/room-upgrades/chat": {
+      "post": {
+        "operationId": "room_upgrades_chat_room_upgrades_chat_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoomUpgradeChatRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoomUpgradeChatResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "401": {
+            "description": "Missing, invalid, or revoked Bearer access token"
+          },
+          "403": {
+            "description": "Caller lacks hotel staff assignment or session scope mismatch"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          },
+          "503": {
+            "description": "Core API dependency unavailable"
+          },
+          "504": {
+            "description": "Workflow or upstream timeout"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Room Upgrades Chat",
+        "tags": [
+          "room-upgrades"
         ]
       }
     }

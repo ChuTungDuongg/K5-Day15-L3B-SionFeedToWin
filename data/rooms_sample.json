@@ -1,137 +1,422 @@
 [
   {
-    "code": "DN-DELUXE",
-    "city": "Đà Nẵng",
-    "hotel": "Coastal Pearl",
-    "name": "Deluxe City View",
-    "nightly_rate_vnd": 1200000,
+    "code": "AD-FAM",
+    "city": "Ocean Park",
+    "area": "Ocean Park 3",
+    "hotel": "Ks Á Đông",
+    "hotel_id": "P-osm-hung-yen-011",
+    "stars": 3,
+    "distance_km": 0.3,
+    "check_in_time": "14:00",
+    "name": "Phòng gia đình Á Đông",
+    "max_guests": 4,
+    "nightly_rate_vnd": 1160000,
     "change_surcharge_vnd": 0,
-    "amenities": [
-      "Wi-Fi",
-      "Nhìn ra thành phố"
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
     ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Chợ Cái",
+      "Chợ Nghĩa Trụ",
+      "Clock Tower Grand World - Venice"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/481837571; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
   },
   {
-    "code": "DN-PREMIER",
-    "city": "Đà Nẵng",
-    "hotel": "Coastal Pearl",
-    "name": "Premier Sea View",
-    "nightly_rate_vnd": 1600000,
-    "change_surcharge_vnd": 100000,
-    "amenities": [
-      "Ban công",
-      "Nhìn ra biển"
-    ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
-  },
-  {
-    "code": "HA-SUPERIOR",
-    "city": "Hội An",
-    "hotel": "Lantern Courtyard",
-    "name": "Superior Garden",
-    "nightly_rate_vnd": 850000,
+    "code": "AD-STD",
+    "city": "Ocean Park",
+    "area": "Ocean Park 3",
+    "hotel": "Ks Á Đông",
+    "hotel_id": "P-osm-hung-yen-011",
+    "stars": 3,
+    "distance_km": 0.3,
+    "check_in_time": "14:00",
+    "name": "Phòng tiêu chuẩn Á Đông",
+    "max_guests": 2,
+    "nightly_rate_vnd": 690000,
     "change_surcharge_vnd": 0,
-    "amenities": [
-      "Sân vườn",
-      "Wi-Fi"
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
     ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Chợ Cái",
+      "Chợ Nghĩa Trụ",
+      "Clock Tower Grand World - Venice"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/481837571; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
   },
   {
-    "code": "HA-SUITE",
-    "city": "Hội An",
-    "hotel": "Lantern Courtyard",
-    "name": "Heritage Suite",
-    "nightly_rate_vnd": 1350000,
-    "change_surcharge_vnd": 80000,
-    "amenities": [
-      "Bữa sáng",
-      "Ban công"
-    ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
-  },
-  {
-    "code": "NT-STANDARD",
-    "city": "Nha Trang",
-    "hotel": "Coral Bay",
-    "name": "Standard Twin",
-    "nightly_rate_vnd": 950000,
+    "code": "AD-SUP",
+    "city": "Ocean Park",
+    "area": "Ocean Park 3",
+    "hotel": "Ks Á Đông",
+    "hotel_id": "P-osm-hung-yen-011",
+    "stars": 3,
+    "distance_km": 0.3,
+    "check_in_time": "14:00",
+    "name": "Phòng Superior Á Đông",
+    "max_guests": 2,
+    "nightly_rate_vnd": 920000,
     "change_surcharge_vnd": 0,
-    "amenities": [
-      "Hai giường",
-      "Wi-Fi"
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
     ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Chợ Cái",
+      "Chợ Nghĩa Trụ",
+      "Clock Tower Grand World - Venice"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/481837571; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
   },
   {
-    "code": "NT-OCEAN",
-    "city": "Nha Trang",
-    "hotel": "Coral Bay",
-    "name": "Ocean Family Suite",
-    "nightly_rate_vnd": 1750000,
-    "change_surcharge_vnd": 120000,
-    "amenities": [
-      "Hồ bơi",
-      "Phòng gia đình"
-    ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
-  },
-  {
-    "code": "DL-CLASSIC",
-    "city": "Đà Lạt",
-    "hotel": "Pine Terrace",
-    "name": "Classic Double",
-    "nightly_rate_vnd": 780000,
+    "code": "HL-DLX",
+    "city": "Ocean Park",
+    "area": "Ocean Park 2",
+    "hotel": "Homestay HL",
+    "hotel_id": "P-osm-hung-yen-008",
+    "stars": 2,
+    "distance_km": 1.6,
+    "check_in_time": "14:00",
+    "name": "Deluxe hướng vườn HL",
+    "max_guests": 2,
+    "nightly_rate_vnd": 600000,
     "change_surcharge_vnd": 0,
-    "amenities": [
-      "Máy sưởi",
-      "Wi-Fi"
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
     ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Cổng chào Ciao",
+      "Bảo tàng ảo ảnh",
+      "Quảng trường cầu Đông Tây"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/13403802797; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
   },
   {
-    "code": "DL-PINE",
-    "city": "Đà Lạt",
-    "hotel": "Pine Terrace",
-    "name": "Pine Balcony",
-    "nightly_rate_vnd": 1080000,
-    "change_surcharge_vnd": 50000,
-    "amenities": [
-      "Ban công",
-      "Máy sưởi"
-    ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
-  },
-  {
-    "code": "PQ-GARDEN",
-    "city": "Phú Quốc",
-    "hotel": "Island Dunes",
-    "name": "Garden Bungalow",
-    "nightly_rate_vnd": 1450000,
+    "code": "HL-DLXV",
+    "city": "Ocean Park",
+    "area": "Ocean Park 2",
+    "hotel": "Homestay HL",
+    "hotel_id": "P-osm-hung-yen-008",
+    "stars": 2,
+    "distance_km": 1.6,
+    "check_in_time": "14:00",
+    "name": "Deluxe hướng vườn (tầng cao) HL",
+    "max_guests": 2,
+    "nightly_rate_vnd": 730000,
     "change_surcharge_vnd": 0,
-    "amenities": [
-      "Sân riêng",
-      "Bữa sáng"
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
     ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Cổng chào Ciao",
+      "Bảo tàng ảo ảnh",
+      "Quảng trường cầu Đông Tây"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/13403802797; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
   },
   {
-    "code": "PQ-BEACH",
-    "city": "Phú Quốc",
-    "hotel": "Island Dunes",
-    "name": "Beachfront Villa",
-    "nightly_rate_vnd": 2650000,
-    "change_surcharge_vnd": 180000,
-    "amenities": [
-      "Bãi biển",
-      "Hồ bơi riêng"
+    "code": "TC-DLX",
+    "city": "Ocean Park",
+    "area": "Ocean Park 2",
+    "hotel": "Tiny Cozy House",
+    "hotel_id": "P-osm-hung-yen-009",
+    "stars": 2,
+    "distance_km": 1.6,
+    "check_in_time": "14:00",
+    "name": "Deluxe hướng phố Tiny Cozy",
+    "max_guests": 2,
+    "nightly_rate_vnd": 660000,
+    "change_surcharge_vnd": 0,
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
     ],
-    "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Cổng chào Ciao",
+      "Bảo tàng ảo ảnh",
+      "Quảng trường cầu Đông Tây"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/13403802792; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
+  },
+  {
+    "code": "MG-FAM",
+    "city": "Ocean Park",
+    "area": "Ocean Park 3",
+    "hotel": "Khách sạn Melia Grand Hotel",
+    "hotel_id": "P-osm-hung-yen-003",
+    "stars": 5,
+    "distance_km": 1.8,
+    "check_in_time": "15:00",
+    "name": "Phòng gia đình Melia",
+    "max_guests": 4,
+    "nightly_rate_vnd": 3530000,
+    "change_surcharge_vnd": 0,
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
+    ],
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Chợ Cái",
+      "Chợ Gốc si",
+      "Chợ Nghĩa Trụ"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/13726823777; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
+  },
+  {
+    "code": "MG-STD",
+    "city": "Ocean Park",
+    "area": "Ocean Park 3",
+    "hotel": "Khách sạn Melia Grand Hotel",
+    "hotel_id": "P-osm-hung-yen-003",
+    "stars": 5,
+    "distance_km": 1.8,
+    "check_in_time": "15:00",
+    "name": "Phòng tiêu chuẩn Melia",
+    "max_guests": 2,
+    "nightly_rate_vnd": 2240000,
+    "change_surcharge_vnd": 0,
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
+    ],
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Chợ Cái",
+      "Chợ Gốc si",
+      "Chợ Nghĩa Trụ"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/13726823777; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
+  },
+  {
+    "code": "MG-SUP",
+    "city": "Ocean Park",
+    "area": "Ocean Park 3",
+    "hotel": "Khách sạn Melia Grand Hotel",
+    "hotel_id": "P-osm-hung-yen-003",
+    "stars": 5,
+    "distance_km": 1.8,
+    "check_in_time": "15:00",
+    "name": "Phòng Superior Melia",
+    "max_guests": 2,
+    "nightly_rate_vnd": 2780000,
+    "change_surcharge_vnd": 0,
+    "rate_plans": [
+      {
+        "code": "RO",
+        "name": "Chỉ phòng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "BB",
+        "name": "Kèm ăn sáng · huỷ miễn phí",
+        "refundable": true,
+        "free_cancel_days": 3
+      },
+      {
+        "code": "NR",
+        "name": "Chỉ phòng · không hoàn huỷ (giá tốt)",
+        "refundable": false,
+        "free_cancel_days": 0
+      }
+    ],
+    "amenities": [
+      "Điều hoà không khí",
+      "Nước uống miễn phí",
+      "TV màn hình phẳng",
+      "Máy sấy tóc"
+    ],
+    "nearby": [
+      "Chợ Cái",
+      "Chợ Gốc si",
+      "Chợ Nghĩa Trụ"
+    ],
+    "source": "Tên, toạ độ: OpenStreetMap node/13726823777; hạng phòng, giá, gói hủy: seed TripFlix (synthetic); phụ phí đổi phòng 0 (tự ước tính)"
   },
   {
     "code": "OP-STUDIO",
     "city": "Ocean Park",
+    "area": "Ocean Park 1",
     "hotel": "Masteri Waterfront Homestay",
     "name": "Studio Ocean Park",
     "nightly_rate_vnd": 650000,
@@ -141,11 +426,12 @@
       "Bếp riêng",
       "Check-in 24/7"
     ],
-    "source": "Tham khảo homestay gần VinUni (tự ước tính)"
+    "source": "Nhóm thêm (commit 9832c08): tham khảo homestay gần VinUni (tự ước tính)"
   },
   {
     "code": "OP-LAGOON",
     "city": "Ocean Park",
+    "area": "Ocean Park 1",
     "hotel": "Masteri Waterfront Homestay",
     "name": "Căn hộ View Biển Hồ",
     "nightly_rate_vnd": 1100000,
@@ -155,6 +441,6 @@
       "2 phòng ngủ",
       "Bể bơi 4 mùa"
     ],
-    "source": "Tham khảo homestay gần VinUni (tự ước tính)"
+    "source": "Nhóm thêm (commit 9832c08): tham khảo homestay gần VinUni (tự ước tính)"
   }
 ]

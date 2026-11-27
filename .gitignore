@@ -55,3 +55,6 @@ vintrip/**/deploy/.env
 vintrip/**/deploy/.env.*
 !vintrip/**/deploy/.env*.example
 
+
+# Ban text tho cao tu web (ban quyen nguon), chi commit du kien da trich
+data/scrape/raw/
