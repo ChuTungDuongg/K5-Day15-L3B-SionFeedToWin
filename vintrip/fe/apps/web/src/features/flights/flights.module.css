@@ -769,8 +769,8 @@
 .calendarGrid button {
   position: relative;
   aspect-ratio: 1;
-  min-width: 36px;
-  min-height: 36px;
+  min-width: 44px;
+  min-height: 44px;
   border: 0;
   border-radius: var(--radius-pill);
   background: transparent;
@@ -781,6 +781,15 @@
   transition:
     background-color 160ms ease-out,
     color 160ms ease-out;
+}
+
+@media (max-width: 400px) {
+  .calendarGrid button {
+    min-width: 0;
+    width: 100%;
+    min-height: 44px;
+    aspect-ratio: auto;
+  }
 }
 
 .calendarGrid button[data-weekend] {
