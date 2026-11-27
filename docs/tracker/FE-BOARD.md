@@ -33,7 +33,7 @@
 | FE-01 | Hệ thiết kế cam pastel: token màu, chữ, bo góc, bóng, trạng thái | **Claude** | — | XONG |
 | FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | XONG |
 | FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | CHỜ NGHIỆM THU |
-| FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | ĐANG LÀM |
+| FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | CHỜ NGHIỆM THU |
 | FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | CHỜ NGHIỆM THU |
 | FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | ĐANG LÀM |
 | FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
@@ -90,7 +90,7 @@ Brief nhân vật và 6 tư thế 3D nền trong suốt: chào, tò mò, lập k
 
 Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket kèm ảnh chụp trước và sau ở 1440px và 390px (lưu tạm, không commit ảnh), và danh sách file đã sửa.
 
-- **FE-04 · Codex 28/11/2026 — ĐANG LÀM, đã có mã khung và font.** `fe-shell.css`, globals/layout, menu/footer và shell: header 72/56px, mốc 1024px, giỏ trên mobile, vùng bấm 44px, focus/reduced-motion; giữ tên class và liên kết pháp lý. Inter variable từ rsms/inter kèm OFL, wght 100–900, kiểm cmap chuỗi tiếng Việt đạt; bỏ Be Vietnam Pro/Playfair trong khai báo đang dùng. 65 test shell đạt. Chờ chạy lại kiểm tra chung sau khi xử lý 2 test tìm kiếm cũ ở FE-05; ảnh trang và font Windows do PM kiểm theo lựa chọn người dùng.
+- **FE-04 · Codex 28/11/2026 — CHỜ NGHIỆM THU.** `fe-shell.css`, globals/layout, menu/footer và shell: header 72/56px, mốc 1024px, giỏ trên mobile, vùng bấm 44px, focus/reduced-motion; giữ tên class và liên kết pháp lý. Inter variable từ rsms/inter kèm OFL, wght 100–900, kiểm cmap chuỗi tiếng Việt đạt; bỏ Be Vietnam Pro/Playfair trong khai báo đang dùng. 65 test shell đạt. Sau FE-05: pnpm typecheck chỉ lỗi route Google đã biết; pnpm test có 576/576 test web và các package đạt, chỉ suite route Google không nạp được. Ảnh trang và font Windows do PM kiểm theo lựa chọn người dùng.
 - **FE-05 · Codex 28/11/2026 — CHỜ NGHIỆM THU.** Hero ảnh thật/lớp phủ token, linh vật 160px ẩn dưới 640px; form trắng có tab khách sạn/vé, nhãn và nút tìm. Bỏ nền nước/canvas; gợi ý 4/2 cột, mobile scroll-snap, giá từ dữ liệu xác thực. `/search`: banner riêng, cột lọc 280px, dialog trượt mobile, thẻ ngang, khung tải, xoá lọc và trạng thái chưa chọn điểm đến. File: `app/search/page.tsx`, `features/discovery/{ota-hero,ota-home*,LivingBackground,live-search-screen,stay-search,stay-filter-sheet,hotel-listing,search-params.test}`. Sửa React key trùng bằng bỏ hotspot cũ; sửa 2 kỳ vọng mặc định Hà Nội · Ocean Park theo dữ liệu PM, giữ parser/API. `pnpm typecheck`: chỉ thiếu route Google cũ; `pnpm test`: 576/576 test web và các package đạt, chỉ suite route Google không nạp được. Parse CSS đạt, 5 stylesheet chính không còn hex/rgb. PM kiểm ảnh 1440/390 và huy hiệu Next trên trang; `/hotels` chưa có tham số thuộc vùng Antigravity, PM phối hợp FE-06.
 - **FE-08 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục cảm hứng/bảng tin/reels/lịch trình/hồ sơ trong tài liệu; FE-04 đang kẹt. Chưa sửa vùng social/discovery hoặc các trang tương ứng.
 

@@ -196,6 +196,8 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 
 | 28/11/2026 · FE-03 | Chuyển linh vật sang CHỜ NGHIỆM THU sau khi gỡ lỗi kiểm tra phụ thuộc FE-05 | 576 test web đạt; typecheck/test chỉ còn route Google đã được chấp nhận. PM kiểm ảnh theo lựa chọn người dùng |
 
+| 28/11/2026 · FE-04 | Chuyển khung chung và Inter variable sang CHỜ NGHIỆM THU | Chạy lại typecheck/test toàn FE: chỉ còn lỗi route Google đã biết, 576 test web đạt. Glyph tiếng Việt đã kiểm; PM kiểm hiển thị Windows và viewport |
+
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
 | Thời điểm | Đổi gì | Vì sao |
