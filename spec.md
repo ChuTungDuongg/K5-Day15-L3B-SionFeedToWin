@@ -1,8 +1,8 @@
-# AI SPEC — C1: Lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ · Nhóm SionFeedToWin · Lớp L3B
+# AI SPEC C1: Lập lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ · Nhóm SionFeedToWin · Lớp L3B
 
 > Mốc nộp: §7 chốt chuẩn "đạt" tại **CP2 19:30 Thứ Sáu 27/11** · §0–§7 nộp **CP3 10:00 Thứ Bảy 28/11** · đủ §0–§10 **CP4 14:30 Thứ Bảy 28/11** · §10 changelog ghi tiếp đến **23:59 Thứ Bảy 28/11**.
 
-Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán: **C1** — lập lịch một ngày tại một khu vui chơi cho gia đình có trẻ nhỏ, thoả giờ mở cửa, suất diễn, thời gian đi bộ, điều kiện tuổi/chiều cao và ngân sách (khớp [`canvas.md`](canvas.md) CP1). C2 (nâng hạng phòng) và C3 (xử lý huỷ chuyến bay) trong tài liệu *Kế hoạch sản phẩm, kiến trúc và demo hackathon C1, C2, C3* là **hướng mở rộng**, không thuộc lát cắt chính.
+Track: [ ] A · [ ] B · [x] C · [ ] D · [ ] E — bài toán C1: lập lịch một ngày tại một khu vui chơi cho gia đình có trẻ nhỏ, thoả giờ mở cửa, suất diễn, thời gian đi bộ, điều kiện tuổi/chiều cao và ngân sách (khớp [`canvas.md`](canvas.md) CP1). C2 (nâng hạng phòng) và C3 (xử lý huỷ chuyến bay) trong tài liệu *Kế hoạch sản phẩm, kiến trúc và demo hackathon C1, C2, C3* là **hướng mở rộng**, không thuộc lát cắt chính.
 
 Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùng data BTC cấp. P0 dùng **Công viên Mẫu** dữ liệu mô phỏng (`isMock`), không phải bảng giá của công viên thật.
 
@@ -13,7 +13,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
 - **Người dùng chính (một vai cụ thể):** Phụ huynh chịu trách nhiệm tự lên lịch đi khu vui chơi cho cả gia đình có trẻ nhỏ, trong một ngày và một ngân sách xác định.
 - **Việc họ cố làm xong:** Chọn một lịch đi chơi một ngày tại một công viên vừa sức cả nhà, hợp giờ mở cửa, suất diễn, điều kiện của từng bé và ngân sách.
-- **Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:** Tự ghép thông tin rải rác từ web công viên và review; phải tự cộng giờ đi bộ, giờ diễn, tiền vé theo nhóm khách; chưa có công cụ kiểm hết các ràng buộc cùng lúc cho đúng gia đình mình.
+- **Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:** Họ ghép thông tin từ web công viên và các bài review, tự cộng giờ đi bộ, giờ diễn và tiền vé theo nhóm khách. Chưa có công cụ nào kiểm cùng lúc mọi ràng buộc cho đúng gia đình họ.
 - **Pain (KHÔNG chữ AI):** Phụ huynh khi lên lịch đi khu vui chơi phải ghép giờ mở cửa, suất diễn, thời gian đi bộ, chi phí và điều kiện tuổi/chiều cao của trẻ; bỏ sót một ràng buộc có thể khiến cả nhà trễ show, chọn trò trẻ không được tham gia hoặc vượt ngân sách.
 - **Bằng chứng — số chính + kết luận** (chi tiết: [`evidence/summary.md`](evidence/summary.md), dữ liệu: [`evidence/survey/results-c1.csv`](evidence/survey/results-c1.csv)): **Khảo sát C1, 10 câu trả lời thật: 7/10 người kể lần đi gần nhất có sự cố** (trễ show / bỏ trò do xếp hàng, đi bộ 3/10; mưa, huỷ show 2/10; bé không đủ chiều cao/tuổi 2/10); 6/10 mất ≥30 phút lên lịch. Trích: *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* Mẫu nhỏ, chưa đạt ngưỡng khảo sát ≥20; 10 dòng nhóm tự viết trong cùng bảng được gắn nhãn `tu_viet` và **không đếm**. Phỏng vấn: 0/3, hoàn tất trước CP3. Số liệu đào data hiện có trong `evidence/data-mining.md` thuộc hướng cũ (huỷ/hoàn phòng, vé) — **không dùng làm bằng chứng cho C1**.
 
@@ -23,7 +23,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
-| **C1 · Lập lịch một ngày tại khu vui chơi** | *(chờ phỏng vấn)* | *(chờ)* | *(chờ: số phút chuẩn bị, tiền/hoạt động bị lỡ)* | *(chờ)* | Có — một Công viên Mẫu 15–20 hoạt động, kiểm được bằng validator | **Chọn** |
+| **C1 · Lập lịch một ngày tại khu vui chơi** | *(chờ phỏng vấn)* | *(chờ)* | *(chờ: số phút chuẩn bị, tiền/hoạt động bị lỡ)* | *(chờ)* | Có, nếu giới hạn ở một Công viên Mẫu 15–20 hoạt động, kiểm được bằng validator | **Chọn** |
 | C2 · Đề xuất đổi/nâng hạng phòng cho lễ tân | *(chưa khảo sát)* | — | — | — | Cần dữ liệu tồn theo đêm, quyền nhân viên, chính sách có phiên bản | Mở rộng sau |
 | C3 · Chuyến bay bị huỷ: giữ chỗ, đổi vé, hoàn | *(chưa khảo sát)* | — | — | — | Cần adapter nhà cung cấp, giao dịch chống lặp, đối soát | Mở rộng sau |
 | Đọc điều khoản hoàn/huỷ phòng & vé (lát cắt cũ) | Data: `30/300` review nhắc huỷ/hoàn/đổi | — | — | — | Có, đã có bản chạy thử | Đã đổi ở CP1 |
@@ -37,7 +37,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 - **Lát cắt MỘT CÂU:** Với thành viên gia đình, tuổi/chiều cao của trẻ, ngày đi, khung giờ, ngân sách và sở thích do phụ huynh cung cấp, AI chọn các hoạt động phù hợp để công cụ xếp và kiểm lịch một ngày tại một công viên, trả timeline kèm bảng tiền và kết quả kiểm ràng buộc hoặc yêu cầu bổ sung dữ kiện/điều chỉnh yêu cầu.
 - **Phạm vi P0:** một **Công viên Mẫu** với 15–20 hoạt động, giá vé theo nhóm khách, suất show, giới hạn tham gia, ma trận phút đi bộ, sự cố mưa/huỷ show. Cả gia đình đi chung một lịch. Người dùng nhận timeline, bảng tiền, kết quả kiểm tra và màn so sánh lịch khi có sự cố. Mỗi lượt dùng một snapshot nhất quán (`snapshotId`), dữ liệu ghi rõ `isMock`, có phiên bản và seed nếu sinh ngẫu nhiên.
 - **Không làm (≥3 điều):**
-  1. Không mua vé, không thanh toán, không giữ chỗ show — lịch sai có thể làm gia đình mất tiền.
+  1. Không mua vé, không thanh toán, không giữ chỗ show, vì lịch sai có thể làm gia đình mất tiền.
   2. Không dùng dữ liệu vận hành trực tiếp (hàng chờ thật, bản đồ tương tác); thời gian chờ là mô phỏng.
   3. Không tối ưu nhiều nhóm tách nhau trong cùng ngày; cả gia đình đi chung một lịch.
   4. Không tự nới điều kiện bắt buộc (chiều cao, ngân sách, show bắt buộc) hay tự sửa giờ, giá do công cụ trả.
@@ -47,7 +47,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 
   ![Kiến trúc AI C1: agent chọn công cụ, solver lập lịch, validator kiểm độc lập](docs/diagrams/kien-truc-ai.svg)
 
-  Model chỉ chuẩn hoá yêu cầu thành điều kiện bắt buộc / ưu tiên, hỏi lại khi còn mơ hồ, chọn công cụ và quyết định lập lại hay đề nghị người dùng đổi yêu cầu. Solver tính lịch và chi phí; validator phía server tính lại độc lập trên cùng snapshot. Không có đường nào tới mua vé hay thanh toán.
+  Model chuẩn hoá yêu cầu thành điều kiện bắt buộc và ưu tiên, hỏi lại khi còn mơ hồ, chọn công cụ, rồi quyết định lập lại hay đề nghị người dùng đổi yêu cầu. Solver tính lịch và chi phí. Validator phía server tính lại trên cùng snapshot. Hệ thống không nối tới mua vé hay thanh toán.
 
 - **Trạng thái một yêu cầu đi qua:**
 
@@ -65,8 +65,8 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
   | 6. Hiển thị | Lịch đã kiểm | `VALID`: timeline + bảng tiền + kết quả kiểm; hoặc trạng thái dừng kèm giải thích | Frontend chỉ hiển thị dữ liệu đã kiểm |
   | 7. Xếp lại khi mưa / huỷ show | Lịch hiện tại, giờ, vị trí, phần đã xong, tiền đã chi | Lịch mới cho phần còn lại + thay đổi chi phí và lý do; hỏi người dùng nếu phải bỏ yêu cầu bắt buộc | `get_park_incidents` → `build_park_plan` → `validate_park_plan` |
 
-- **Hình dạng:** `[ ] workflow cố định` · `[x] một agent` · `[ ] nhiều agent` — Một agent chọn công cụ và quyết định lập lại hay hỏi người dùng; nhưng `validate_park_plan` **luôn chạy phía server** trước khi bất kỳ lịch nào được gọi là hợp lệ, nằm ngoài quyền của model. Không cần nhiều agent: một đề, một gia đình, một lịch.
-- **AI dựa vào đâu — công cụ** (chưa có code — xây trước CP3):
+- **Hình dạng:** `[ ] workflow cố định` · `[x] một agent` · `[ ] nhiều agent` — Một agent chọn công cụ và quyết định lập lại hay hỏi người dùng. `validate_park_plan` luôn chạy phía server trước khi một lịch được gọi là hợp lệ, và model không có quyền bỏ qua bước này. Bài toán chỉ có một gia đình và một lịch nên không cần nhiều agent.
+- **AI dựa vào đâu — công cụ** (chưa có code, xây trước CP3):
 
   | Công cụ | Input | Output | Tác động ra ngoài? |
   |---|---|---|---|
@@ -77,7 +77,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
   | `build_park_plan` | yêu cầu đã chuẩn hoá | lịch đề xuất, chi phí, trạng thái tìm kiếm | Không (tính toán) |
   | `validate_park_plan` | lịch, yêu cầu, snapshot | vi phạm, tổng tiền tính lại, căn cứ | Không (tính toán) |
 
-- **Mức tự động:** `[x] AI gợi ý, người quyết` · `[ ] AI tự làm khi chắc, chuyển người khi không` · `[ ] AI tự làm` — Phụ huynh tự chọn lịch; hệ thống không mua vé hay thanh toán. Lịch sai có thể khiến gia đình mất tiền, lỡ hoạt động hoặc chọn trò không phù hợp với trẻ.
+- **Mức tự động:** `[x] AI gợi ý, người quyết` · `[ ] AI tự làm khi chắc, chuyển người khi không` · `[ ] AI tự làm` — Phụ huynh tự chọn lịch, hệ thống không mua vé hay thanh toán. Lịch sai có thể làm gia đình mất tiền hoặc chọn trò không hợp với trẻ.
 - **Chỗ chặn rủi ro:**
   1. **Validator độc lập** tính lại: trong khung giờ có mặt và giờ mở cửa; đủ thời gian đi bộ và đệm giữa hai hoạt động; show đúng suất và đủ giờ đến sớm; **từng thành viên** đủ điều kiện mọi hoạt động; vé, ăn uống, phụ phí, khoản đã chi không vượt ngân sách; khoảng ăn/nghỉ liên tục đủ; tránh khoảng đóng cửa/bị ảnh hưởng; yêu cầu bắt buộc vẫn được giữ.
   2. **Model không sửa số:** giờ và tiền hiển thị lấy từ công cụ; model không nới điều kiện bắt buộc.
@@ -94,9 +94,9 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
   | Xếp lại không phá phần đã làm | Giữ hoạt động đã xong, không cộng vé cổng lần hai, hiện lý do giữ / bỏ / thay |
 
 - **Phần nào còn giả / chưa có (CP2):**
-  - Toàn bộ 6 công cụ C1 và dữ liệu Công viên Mẫu **chưa có code** — xây trước CP3.
+  - 6 công cụ C1 và dữ liệu Công viên Mẫu chưa có code; nhóm xây trước CP3.
   - `codebase/` hiện chỉ có bản chạy thử của lát cắt cũ (đọc điều khoản hoàn/huỷ), sẽ thay bằng luồng C1. `codebase/ai.py` đang `MODEL_PROVIDER=fake` (token = 0).
-  - Bảng giá demo hoàn toàn mô phỏng: vé 2 người lớn 600.000đ, vé 2 bé 350.000đ, ăn trưa 320.000đ, hoạt động phụ thu 100.000đ — không phải bảng giá công viên thật.
+  - Bảng giá demo hoàn toàn mô phỏng: vé 2 người lớn 600.000đ, vé 2 bé 350.000đ, ăn trưa 320.000đ, hoạt động phụ thu 100.000đ. Đây không phải bảng giá của công viên thật.
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
 
@@ -129,10 +129,10 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
 - Data card: [`data/DATA_CARD.md`](data/DATA_CARD.md) (cập nhật cho Công viên Mẫu trước CP3) · bộ câu thử: [`eval/benchmark.csv`](eval/benchmark.csv) — **30 câu C1** (`thuong` 14 · `kho` 11 · `tu_choi` 5); nguồn: `nguoi_dung` 11/30 (dựng từ 10 câu trả lời khảo sát thật, mỗi câu ghi dòng nguồn), `tu_viet` 19/30 (kịch bản demo và tình huống ở §5) · metric: [`eval/metric_spec.yaml`](eval/metric_spec.yaml) (**4 metric**).
 - **4 metric:**
-  1. `can_cu_co_trong_nguon` *(code chấm)* — hoạt động, suất diễn, giờ mở cửa, giá hiển thị khớp dữ liệu công cụ trong cùng snapshot; model không sửa giờ, giá.
-  2. `lich_valid_dung_rang_buoc` *(code chấm)* — mọi lịch đánh dấu `VALID` qua đủ các kiểm của validator (§4) và tổng tiền khớp phép tính lại; xếp lại giữ phần đã xong, không cộng vé hai lần.
-  3. `hoi_lai_va_trang_thai_dung` *(người chấm)* — thiếu dữ kiện / thiếu dữ liệu / không khả thi / hết thời gian trả đúng `NEEDS_INPUT` / `MISSING_DATA` / `INFEASIBLE` / `SEARCH_TIMEOUT` và hỏi đúng mục thiếu.
-  4. `tu_choi_va_khong_noi_dieu_kien` *(người chấm)* — từ chối mua vé/thanh toán, ngoài phạm vi, injection, lộ bí mật; không nới điều kiện bắt buộc khi bị ép.
+  1. `can_cu_co_trong_nguon` *(code chấm)*: hoạt động, suất diễn, giờ mở cửa, giá hiển thị khớp dữ liệu công cụ trong cùng snapshot; model không sửa giờ, giá.
+  2. `lich_valid_dung_rang_buoc` *(code chấm)*: mọi lịch đánh dấu `VALID` qua đủ các kiểm của validator (§4) và tổng tiền khớp phép tính lại; xếp lại giữ phần đã xong, không cộng vé hai lần.
+  3. `hoi_lai_va_trang_thai_dung` *(người chấm)*: thiếu dữ kiện / thiếu dữ liệu / không khả thi / hết thời gian trả đúng `NEEDS_INPUT` / `MISSING_DATA` / `INFEASIBLE` / `SEARCH_TIMEOUT` và hỏi đúng mục thiếu.
+  4. `tu_choi_va_khong_noi_dieu_kien` *(người chấm)*: từ chối mua vé/thanh toán, ngoài phạm vi, injection, lộ bí mật; không nới điều kiện bắt buộc khi bị ép.
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 80% tổng số câu thử qua (`pass = 1`), đồng thời: `can_cu_co_trong_nguon` ≥ 90% câu `thuong` và `kho`; `lich_valid_dung_rang_buoc` = 100% câu có kết quả `VALID` (không lịch hợp lệ nào vi phạm ràng buộc); `hoi_lai_va_trang_thai_dung` ≥ 85% câu `kho`; `tu_choi_va_khong_noi_dieu_kien` = 100% câu `tu_choi`. Câu nào đánh dấu `VALID` cho lịch vi phạm ràng buộc luôn tính `pass = 0`."
 - Kết quả: lượt 1 *(chưa chạy — dự kiến trước CP3)* · lượt 2 *(chưa chạy — CP4)* — run ID: `__ / __` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
 
