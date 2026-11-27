@@ -44,7 +44,12 @@ from app.services.room_upgrades.schemas import (
     CandidateQuoteOut,
     ExtractedIntent,
     ModelOutcomeStatus,
+    ModelStatusOut,
     PolicySourceOut,
+    ProposalAiMetadataOut,
+    ProposalCreateDraftOut,
+    ProposalCreatePayloadOut,
+    ProposalPreviewExpectationOut,
     QuoteStatus,
     RecommendationLlmOutput,
     RoomUpgradeChatRequest,
@@ -308,6 +313,64 @@ def _build_verified_summary_message(
     return message_vi, reason_vi, draft_vi
 
 
+def _build_proposal_draft(
+    *,
+    selected_quote: BackendQuoteResponse | None,
+    selected_candidate_id: str | None,
+    session_ctx: RoomUpgradeSessionContext,
+    session_id: UUID,
+    request_id: UUID,
+    model_out: ModelStatusOut,
+    recommendation_reason_vi: str | None,
+    draft_message_vi: str | None,
+) -> ProposalCreateDraftOut | None:
+    """Prepare non-authoritative CP3 input; never submit or grant approval authority."""
+    if (
+        selected_quote is None
+        or selected_candidate_id is None
+        or selected_quote.status not in ("VALID", "REQUIRES_MANAGER")
+        or not selected_quote.validation.checked
+        or not selected_quote.validation.passed
+        or selected_quote.booking_code is None
+        or selected_quote.effective_at is None
+        or selected_quote.price_diff_vnd is None
+        or selected_quote.approval_role is None
+    ):
+        return None
+
+    def bounded_text(value: str | None) -> str | None:
+        if value is None:
+            return None
+        return value.strip()[:1000] or None
+
+    return ProposalCreateDraftOut(
+        payload=ProposalCreatePayloadOut(
+            hotel_id=selected_quote.hotel_id,
+            booking_code=selected_quote.booking_code,
+            target_room_type_id=selected_candidate_id,
+            effective_at=selected_quote.effective_at,
+            request_type=session_ctx.request_type,
+            required_features=list(session_ctx.required_features),
+            benefit_id=session_ctx.benefit_id,
+            preview_expectation=ProposalPreviewExpectationOut(
+                expected_price_diff_vnd=selected_quote.price_diff_vnd,
+                expected_snapshot_id=selected_quote.snapshot_id,
+                expected_quote_status=selected_quote.status,
+                expected_approval_role=selected_quote.approval_role,
+            ),
+            ai_metadata=ProposalAiMetadataOut(
+                session_id=str(session_id),
+                ai_request_id=str(request_id),
+                selected_candidate_id=selected_candidate_id,
+                model=model_out.model,
+                prompt_versions=list(model_out.prompt_versions[:10]),
+                recommendation_reason_vi=bounded_text(recommendation_reason_vi),
+                draft_message_vi=bounded_text(draft_message_vi),
+            ),
+        )
+    )
+
+
 def _describe_non_priced_quote(
     booking: BookingSummaryOut | None, quote: BackendQuoteResponse
 ) -> str:
@@ -565,6 +628,18 @@ class RoomUpgradeWorkflow:
                 candidates=candidates or [],
                 selected_candidate_id=selected_candidate_id,
                 selected_quote=selected_quote,
+                proposal_draft=_build_proposal_draft(
+                    selected_quote=selected_quote,
+                    selected_candidate_id=selected_candidate_id,
+                    session_ctx=session_ctx,
+                    session_id=session_id,
+                    request_id=req_id,
+                    model_out=model_out,
+                    recommendation_reason_vi=recommendation_reason_vi,
+                    draft_message_vi=draft_message_vi,
+                )
+                if workflow_status in {"COMPLETED", "DEGRADED"}
+                else None,
                 policy_sources=policy_sources or [],
                 approval_role=approval_role,
                 staff_role=staff_role,

@@ -1,0 +1,1886 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "7fa4f303-00ca-4912-9b06-eb3d2edc9c26",
+  "prevIds": [
+    "a0225bd8-ced1-4196-9066-4d6eeb1b4435"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposal_audit_events"
+      ],
+      "writes": [
+        "s|tbl|commerce.room_upgrade_proposal_audit_events",
+        "n|tbl|commerce.room_upgrade_proposal_audit_events",
+        "e|tbl|commerce.room_upgrade_proposal_audit_events",
+        "n|rel|commerce.room_upgrade_proposal_audit_events",
+        "n|type|commerce.room_upgrade_proposal_audit_events",
+        "n|rel|commerce.room_upgrade_proposal_audit_events_pkey"
+      ],
+      "reads": [
+        "n|sch|commerce"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposal_idempotency"
+      ],
+      "writes": [
+        "s|tbl|commerce.room_upgrade_proposal_idempotency",
+        "n|tbl|commerce.room_upgrade_proposal_idempotency",
+        "e|tbl|commerce.room_upgrade_proposal_idempotency",
+        "n|rel|commerce.room_upgrade_proposal_idempotency",
+        "n|type|commerce.room_upgrade_proposal_idempotency",
+        "n|rel|commerce.room_upgrade_proposal_idempotency_pkey"
+      ],
+      "reads": [
+        "n|sch|commerce"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposal_revisions"
+      ],
+      "writes": [
+        "s|tbl|commerce.room_upgrade_proposal_revisions",
+        "n|tbl|commerce.room_upgrade_proposal_revisions",
+        "e|tbl|commerce.room_upgrade_proposal_revisions",
+        "n|rel|commerce.room_upgrade_proposal_revisions",
+        "n|type|commerce.room_upgrade_proposal_revisions",
+        "n|rel|commerce.room_upgrade_proposal_revisions_pkey"
+      ],
+      "reads": [
+        "n|sch|commerce"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposals"
+      ],
+      "writes": [
+        "s|tbl|commerce.room_upgrade_proposals",
+        "n|tbl|commerce.room_upgrade_proposals",
+        "e|tbl|commerce.room_upgrade_proposals",
+        "n|rel|commerce.room_upgrade_proposals",
+        "n|type|commerce.room_upgrade_proposals",
+        "n|rel|commerce.room_upgrade_proposals_pkey",
+        "n|rel|commerce.uq_room_upgrade_proposals_hotel_id"
+      ],
+      "reads": [
+        "n|sch|commerce"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "commerce",
+        "room_upgrade_proposal_audit_events",
+        "idx_room_upgrade_audit_history"
+      ],
+      "writes": [
+        "s|idx|commerce.idx_room_upgrade_audit_history",
+        "n|idx|commerce.idx_room_upgrade_audit_history",
+        "e|idx|commerce.idx_room_upgrade_audit_history",
+        "n|rel|commerce.idx_room_upgrade_audit_history"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposal_audit_events",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposal_audit_events.hotel_id",
+        "n|col|commerce.room_upgrade_proposal_audit_events.proposal_id",
+        "n|col|commerce.room_upgrade_proposal_audit_events.created_at",
+        "n|col|commerce.room_upgrade_proposal_audit_events.proposal_version"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "commerce",
+        "room_upgrade_proposal_revisions",
+        "idx_room_upgrade_revisions_hotel_proposal"
+      ],
+      "writes": [
+        "s|idx|commerce.idx_room_upgrade_revisions_hotel_proposal",
+        "n|idx|commerce.idx_room_upgrade_revisions_hotel_proposal",
+        "e|idx|commerce.idx_room_upgrade_revisions_hotel_proposal",
+        "n|rel|commerce.idx_room_upgrade_revisions_hotel_proposal"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposal_revisions",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposal_revisions.hotel_id",
+        "n|col|commerce.room_upgrade_proposal_revisions.proposal_id",
+        "n|col|commerce.room_upgrade_proposal_revisions.revision_number"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "commerce",
+        "room_upgrade_proposals",
+        "idx_room_upgrade_proposals_queue"
+      ],
+      "writes": [
+        "s|idx|commerce.idx_room_upgrade_proposals_queue",
+        "n|idx|commerce.idx_room_upgrade_proposals_queue",
+        "e|idx|commerce.idx_room_upgrade_proposals_queue",
+        "n|rel|commerce.idx_room_upgrade_proposals_queue"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposals",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposals.hotel_id",
+        "n|col|commerce.room_upgrade_proposals.status",
+        "n|col|commerce.room_upgrade_proposals.updated_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "commerce",
+        "room_upgrade_proposals",
+        "idx_room_upgrade_proposals_booking"
+      ],
+      "writes": [
+        "s|idx|commerce.idx_room_upgrade_proposals_booking",
+        "n|idx|commerce.idx_room_upgrade_proposals_booking",
+        "e|idx|commerce.idx_room_upgrade_proposals_booking",
+        "n|rel|commerce.idx_room_upgrade_proposals_booking"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposals",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposals.hotel_id",
+        "n|col|commerce.room_upgrade_proposals.booking_code",
+        "n|col|commerce.room_upgrade_proposals.created_at"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposal_audit_events"
+      ],
+      "writes": [
+        "s|fk|commerce.room_upgrade_proposal_audit_events.fk_room_upgrade_audit_proposal",
+        "n|fk|commerce.room_upgrade_proposal_audit_events.fk_room_upgrade_audit_proposal",
+        "e|fk|commerce.room_upgrade_proposal_audit_events.fk_room_upgrade_audit_proposal",
+        "n|con|commerce.room_upgrade_proposal_audit_events.fk_room_upgrade_audit_proposal"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposal_audit_events",
+        "n|sch|commerce",
+        "n|tbl|commerce.room_upgrade_proposals",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposal_audit_events.hotel_id",
+        "n|col|commerce.room_upgrade_proposal_audit_events.proposal_id",
+        "n|col|commerce.room_upgrade_proposals.hotel_id",
+        "n|col|commerce.room_upgrade_proposals.id",
+        "e|uniqueness|commerce.room_upgrade_proposals.hotel_id.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposal_idempotency"
+      ],
+      "writes": [
+        "s|fk|commerce.room_upgrade_proposal_idempotency.room_upgrade_proposal_idempotency_ZUzuUFRd8T5X_fkey",
+        "n|fk|commerce.room_upgrade_proposal_idempotency.room_upgrade_proposal_idempotency_ZUzuUFRd8T5X_fkey",
+        "e|fk|commerce.room_upgrade_proposal_idempotency.room_upgrade_proposal_idempotency_ZUzuUFRd8T5X_fkey",
+        "n|con|commerce.room_upgrade_proposal_idempotency.room_upgrade_proposal_idempotency_ZUzuUFRd8T5X_fkey"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposal_idempotency",
+        "n|sch|commerce",
+        "n|tbl|commerce.room_upgrade_hotels",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposal_idempotency.hotel_id",
+        "n|col|commerce.room_upgrade_hotels.id",
+        "e|uniqueness|commerce.room_upgrade_hotels.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposal_idempotency"
+      ],
+      "writes": [
+        "s|fk|commerce.room_upgrade_proposal_idempotency.fk_room_upgrade_idempotency_proposal",
+        "n|fk|commerce.room_upgrade_proposal_idempotency.fk_room_upgrade_idempotency_proposal",
+        "e|fk|commerce.room_upgrade_proposal_idempotency.fk_room_upgrade_idempotency_proposal",
+        "n|con|commerce.room_upgrade_proposal_idempotency.fk_room_upgrade_idempotency_proposal"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposal_idempotency",
+        "n|sch|commerce",
+        "n|tbl|commerce.room_upgrade_proposals",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposal_idempotency.hotel_id",
+        "n|col|commerce.room_upgrade_proposal_idempotency.proposal_id",
+        "n|col|commerce.room_upgrade_proposals.hotel_id",
+        "n|col|commerce.room_upgrade_proposals.id",
+        "e|uniqueness|commerce.room_upgrade_proposals.hotel_id.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposal_revisions"
+      ],
+      "writes": [
+        "s|fk|commerce.room_upgrade_proposal_revisions.fk_room_upgrade_revisions_proposal",
+        "n|fk|commerce.room_upgrade_proposal_revisions.fk_room_upgrade_revisions_proposal",
+        "e|fk|commerce.room_upgrade_proposal_revisions.fk_room_upgrade_revisions_proposal",
+        "n|con|commerce.room_upgrade_proposal_revisions.fk_room_upgrade_revisions_proposal"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposal_revisions",
+        "n|sch|commerce",
+        "n|tbl|commerce.room_upgrade_proposals",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposal_revisions.hotel_id",
+        "n|col|commerce.room_upgrade_proposal_revisions.proposal_id",
+        "n|col|commerce.room_upgrade_proposals.hotel_id",
+        "n|col|commerce.room_upgrade_proposals.id",
+        "e|uniqueness|commerce.room_upgrade_proposals.hotel_id.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposal_revisions"
+      ],
+      "writes": [
+        "s|fk|commerce.room_upgrade_proposal_revisions.fk_room_upgrade_revisions_target_room",
+        "n|fk|commerce.room_upgrade_proposal_revisions.fk_room_upgrade_revisions_target_room",
+        "e|fk|commerce.room_upgrade_proposal_revisions.fk_room_upgrade_revisions_target_room",
+        "n|con|commerce.room_upgrade_proposal_revisions.fk_room_upgrade_revisions_target_room"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposal_revisions",
+        "n|sch|commerce",
+        "n|tbl|commerce.room_upgrade_room_types",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposal_revisions.hotel_id",
+        "n|col|commerce.room_upgrade_proposal_revisions.target_room_type_id",
+        "n|col|commerce.room_upgrade_room_types.hotel_id",
+        "n|col|commerce.room_upgrade_room_types.id",
+        "e|uniqueness|commerce.room_upgrade_room_types.hotel_id.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "commerce",
+        "room_upgrade_proposals"
+      ],
+      "writes": [
+        "s|fk|commerce.room_upgrade_proposals.fk_room_upgrade_proposals_booking",
+        "n|fk|commerce.room_upgrade_proposals.fk_room_upgrade_proposals_booking",
+        "e|fk|commerce.room_upgrade_proposals.fk_room_upgrade_proposals_booking",
+        "n|con|commerce.room_upgrade_proposals.fk_room_upgrade_proposals_booking"
+      ],
+      "reads": [
+        "n|tbl|commerce.room_upgrade_proposals",
+        "n|sch|commerce",
+        "n|tbl|commerce.room_upgrade_bookings",
+        "n|sch|commerce",
+        "n|col|commerce.room_upgrade_proposals.hotel_id",
+        "n|col|commerce.room_upgrade_proposals.booking_code",
+        "n|col|commerce.room_upgrade_bookings.hotel_id",
+        "n|col|commerce.room_upgrade_bookings.booking_code",
+        "e|uniqueness|commerce.room_upgrade_bookings.booking_code.hotel_id"
+      ]
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "name": "room_upgrade_proposal_audit_events",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "name": "room_upgrade_proposal_idempotency",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "name": "room_upgrade_proposal_revisions",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "name": "room_upgrade_proposals",
+        "isRlsEnabled": false,
+        "entityType": "tables"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "hotel_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "proposal_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "proposal_version",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "revision_number",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "actor_user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "actor_role",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "action",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "previous_status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "new_status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "reason",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "reason_codes",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'[]'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "request_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "idempotency_key_hash",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "is_mock",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "hotel_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "actor_user_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "operation",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "target_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "idempotency_key",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "payload_hash",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "proposal_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "http_status",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "response_body",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "is_mock",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "hotel_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "proposal_id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "revision_number",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "normalized_request",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "target_room_type_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "effective_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "quote",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "breakdown",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "policy_sources",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "policy_code",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "policy_version",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "fixture_version",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "snapshot_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "business_fingerprint",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "price_diff_vnd",
+        "type": "bigint",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "quote_status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "required_approval_role",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "calculated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "expires_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "ai_metadata",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "created_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "is_mock",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "id",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "hotel_id",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "booking_code",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "created_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "version",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "1",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "current_revision",
+        "type": "integer",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "1",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "status",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "required_approval_role",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "reason_codes",
+        "type": "jsonb",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "'[]'",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "decided_by",
+        "type": "uuid",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "decided_by_role",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "decided_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "decision_reason",
+        "type": "text",
+        "typeSchema": null,
+        "notNull": false,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "expires_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "created_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "updated_at",
+        "type": "timestamp with time zone",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": null,
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "is_mock",
+        "type": "boolean",
+        "typeSchema": null,
+        "notNull": true,
+        "dimensions": 0,
+        "default": "true",
+        "generated": null,
+        "identity": null,
+        "entityType": "columns"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "idx_room_upgrade_audit_history",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "hotel_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "proposal_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "created_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "proposal_version",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "idx_room_upgrade_revisions_hotel_proposal",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "hotel_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "proposal_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "revision_number",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "idx_room_upgrade_proposals_queue",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "hotel_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "status",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "updated_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "idx_room_upgrade_proposals_booking",
+        "nameExplicit": true,
+        "columns": [
+          {
+            "value": "hotel_id",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "booking_code",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          },
+          {
+            "value": "created_at",
+            "isExpression": false,
+            "asc": true,
+            "nullsFirst": false,
+            "opclass": null
+          }
+        ],
+        "isUnique": false,
+        "where": null,
+        "with": "",
+        "method": "btree",
+        "concurrently": false,
+        "entityType": "indexes"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "fk_room_upgrade_audit_proposal",
+        "nameExplicit": true,
+        "columns": [
+          "hotel_id",
+          "proposal_id"
+        ],
+        "schemaTo": "commerce",
+        "tableTo": "room_upgrade_proposals",
+        "columnsTo": [
+          "hotel_id",
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "room_upgrade_proposal_idempotency_ZUzuUFRd8T5X_fkey",
+        "nameExplicit": false,
+        "columns": [
+          "hotel_id"
+        ],
+        "schemaTo": "commerce",
+        "tableTo": "room_upgrade_hotels",
+        "columnsTo": [
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "fk_room_upgrade_idempotency_proposal",
+        "nameExplicit": true,
+        "columns": [
+          "hotel_id",
+          "proposal_id"
+        ],
+        "schemaTo": "commerce",
+        "tableTo": "room_upgrade_proposals",
+        "columnsTo": [
+          "hotel_id",
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "fk_room_upgrade_revisions_proposal",
+        "nameExplicit": true,
+        "columns": [
+          "hotel_id",
+          "proposal_id"
+        ],
+        "schemaTo": "commerce",
+        "tableTo": "room_upgrade_proposals",
+        "columnsTo": [
+          "hotel_id",
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "fk_room_upgrade_revisions_target_room",
+        "nameExplicit": true,
+        "columns": [
+          "hotel_id",
+          "target_room_type_id"
+        ],
+        "schemaTo": "commerce",
+        "tableTo": "room_upgrade_room_types",
+        "columnsTo": [
+          "hotel_id",
+          "id"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "fk_room_upgrade_proposals_booking",
+        "nameExplicit": true,
+        "columns": [
+          "hotel_id",
+          "booking_code"
+        ],
+        "schemaTo": "commerce",
+        "tableTo": "room_upgrade_bookings",
+        "columnsTo": [
+          "hotel_id",
+          "booking_code"
+        ],
+        "onUpdate": "NO ACTION",
+        "onDelete": "NO ACTION",
+        "entityType": "fks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "room_upgrade_proposal_idempotency_pkey",
+        "columns": [
+          "hotel_id",
+          "actor_user_id",
+          "operation",
+          "target_id",
+          "idempotency_key"
+        ],
+        "nameExplicit": true,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "room_upgrade_proposal_revisions_pkey",
+        "columns": [
+          "proposal_id",
+          "revision_number"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "room_upgrade_proposal_audit_events_pkey",
+        "columns": [
+          "id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "room_upgrade_proposals_pkey",
+        "columns": [
+          "id"
+        ],
+        "nameExplicit": false,
+        "entityType": "pks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "uq_room_upgrade_proposals_hotel_id",
+        "nameExplicit": true,
+        "columns": [
+          "hotel_id",
+          "id"
+        ],
+        "nullsNotDistinct": false,
+        "entityType": "uniques"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "ck_room_upgrade_audit_values",
+        "value": "\"is_mock\" = true and \"proposal_version\" > 0 and \"revision_number\" > 0",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "ck_room_upgrade_audit_action",
+        "value": "\"action\" in ('CREATED', 'REVISED', 'APPROVED', 'REJECTED', 'ESCALATED', 'MARKED_EXPIRED', 'MARKED_REQUOTE_REQUIRED')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_audit_events",
+        "name": "ck_room_upgrade_audit_roles_status",
+        "value": "\"actor_role\" in ('RECEPTIONIST', 'MANAGER') and (\"previous_status\" is null or \"previous_status\" in ('DRAFT', 'PENDING_RECEPTIONIST', 'PENDING_MANAGER', 'APPROVED', 'REJECTED', 'EXPIRED', 'REQUOTE_REQUIRED')) and \"new_status\" in ('DRAFT', 'PENDING_RECEPTIONIST', 'PENDING_MANAGER', 'APPROVED', 'REJECTED', 'EXPIRED', 'REQUOTE_REQUIRED')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_idempotency",
+        "name": "ck_room_upgrade_idempotency_values",
+        "value": "\"is_mock\" = true and \"http_status\" in (200, 201, 409) and \"operation\" in ('CREATE', 'REVISE', 'APPROVE', 'REJECT', 'ESCALATE')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "ck_room_upgrade_revisions_values",
+        "value": "\"is_mock\" = true and \"revision_number\" > 0 and \"policy_version\" > 0 and \"price_diff_vnd\" between -9007199254740991 and 9007199254740991",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposal_revisions",
+        "name": "ck_room_upgrade_revisions_status",
+        "value": "\"quote_status\" in ('VALID', 'REQUIRES_MANAGER') and \"required_approval_role\" in ('RECEPTIONIST', 'MANAGER')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "ck_room_upgrade_proposals_values",
+        "value": "\"is_mock\" = true and \"version\" > 0 and \"current_revision\" > 0 and \"version\" >= \"current_revision\"",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "ck_room_upgrade_proposals_status",
+        "value": "\"status\" in ('DRAFT', 'PENDING_RECEPTIONIST', 'PENDING_MANAGER', 'APPROVED', 'REJECTED', 'EXPIRED', 'REQUOTE_REQUIRED')",
+        "entityType": "checks"
+      }
+    },
+    {
+      "op": "create",
+      "row": {
+        "schema": "commerce",
+        "table": "room_upgrade_proposals",
+        "name": "ck_room_upgrade_proposals_role",
+        "value": "\"required_approval_role\" in ('RECEPTIONIST', 'MANAGER') and (\"decided_by_role\" is null or \"decided_by_role\" in ('RECEPTIONIST', 'MANAGER'))",
+        "entityType": "checks"
+      }
+    }
+  ]
+}

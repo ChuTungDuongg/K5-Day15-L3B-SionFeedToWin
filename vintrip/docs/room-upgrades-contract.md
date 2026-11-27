@@ -244,3 +244,253 @@ Trích cấu trúc phản hồi thành công (happy path `C2-0001`, `STD → DLX
   - `vintrip/be` analytics consumer (`AI_FEATURES`) đã bổ sung `'room_upgrades'` theo hướng tương thích ngược.
 
 Chi tiết bản đồ code và bằng chứng kiểm thử CP2: [AI feature README](../ai/app/services/room_upgrades/README.md) · [evidence CP2](../ai/docs/evidence/room-upgrades-cp2.md).
+
+---
+
+# Room upgrades — HITL Approval Workflow & Proposal Contract (C2-CP3)
+
+## Phạm vi và ranh giới CP3
+
+CP3 bổ sung lớp lưu trữ đề xuất nâng hạng (Human-in-the-Loop) có kiểm soát transaction ngay trong module `commerce/room-upgrades` của `core-api`, kèm gợi ý payload tạo đề xuất (`proposalDraft`, chỉ đọc) ở `vintrip/ai` để sẵn sàng cho Staff Dashboard CP4.
+
+- `APPROVED` chỉ xác nhận **nội dung đề xuất báo giá đã được nhân viên có thẩm quyền phê duyệt tại thời điểm kiểm tra**.
+- **Không có tác động vận hành (`operationalEffects: "NONE"`):** không chuyển phòng, không giữ phòng, không cập nhật booking vận hành, không giảm tồn kho, không thu tiền, không hoàn tiền và không gửi thông báo thật cho khách.
+- Toàn bộ bảng dữ liệu CP3 đều là sandbox (`is_mock = true` được ép bằng PostgreSQL `CHECK`), tách biệt hoàn toàn khỏi `orders`, `order_items`, `room_inventory`, `room_rates`, `payments`, `refunds` và `commerce.idempotency_keys`.
+- Không xây giao diện Staff Dashboard (`/admin/room-upgrades`) trong CP3.
+
+## Kiến trúc lưu trữ & Migration
+
+Schema nguồn: `vintrip/be/apps/core-api/src/modules/commerce/db/schema/room-upgrades.ts`.
+Migration bổ sung: `vintrip/be/apps/core-api/src/modules/commerce/db/migrations/20261127175228_room-upgrade-proposals/migration.sql` (sinh bằng `pnpm --filter @vintrip/core-api db:generate commerce --name=room-upgrade-proposals`). Không sửa migration CP1, không drop/truncate dữ liệu cũ.
+
+4 bảng sandbox mới trong schema `commerce`:
+
+| Bảng | Vai trò | Ràng buộc chính |
+|---|---|---|
+| `room_upgrade_proposals` | Aggregate đề xuất hiện hành | PK `id`; `UNIQUE (hotel_id, id)`; FK `(hotel_id, booking_code) -> room_upgrade_bookings`; `CHECK (is_mock = true AND version > 0 AND current_revision > 0 AND version >= current_revision)`; CHECK enum `status` & `role`; index hàng đợi `(hotel_id, status, updated_at)` và booking `(hotel_id, booking_code, created_at)` |
+| `room_upgrade_proposal_revisions` | Snapshot báo giá bất biến theo từng revision (append-only) | PK `(proposal_id, revision_number)`; FK `(hotel_id, proposal_id) -> room_upgrade_proposals`; FK `(hotel_id, target_room_type_id) -> room_upgrade_room_types`; `price_diff_vnd` hỗ trợ số nguyên âm/dương an toàn `[-9007199254740991, 9007199254740991]` (cho ca chênh âm `C2-0010`); `CHECK (quote_status IN ('VALID', 'REQUIRES_MANAGER'))` |
+| `room_upgrade_proposal_audit_events` | Nhật ký kiểm toán append-only | PK `id`; FK `(hotel_id, proposal_id) -> room_upgrade_proposals`; lưu `proposal_version`, `revision_number`, `actor_user_id`, `actor_role`, `action`, `previous_status`, `new_status`, `reason`, `reason_codes`, `request_id`, `idempotency_key_hash` (SHA-256, không lưu raw key/token/PII/prompt); index lịch sử `(hotel_id, proposal_id, created_at, proposal_version)` |
+| `room_upgrade_proposal_idempotency` | Kho idempotency nguyên tử theo phạm vi sandbox | PK đặt tên tường minh `room_upgrade_proposal_idempotency_pkey (hotel_id, actor_user_id, operation, target_id, idempotency_key)`; FK `(hotel_id, proposal_id) -> room_upgrade_proposals`; lưu `payload_hash`, `http_status` (`200`, `201`, `409`), `response_body` trong cùng transaction với proposal và audit |
+
+Phân biệt hai bộ đếm phiên bản:
+- **`version`** (optimistic concurrency version trên `room_upgrade_proposals`): bắt đầu từ `1`, tăng `+1` trên **mọi** đột biến vòng đời (`revise`, `approve`, `reject`, `escalate`, `mark-expired`, `mark-requote`). Client bắt buộc gửi `expectedVersion` khớp `version`.
+- **`currentRevision` / `revisionNumber`** (số thứ tự nội dung báo giá trên `room_upgrade_proposal_revisions`): bắt đầu từ `1`, chỉ tăng `+1` khi `revise` tạo revision bất biến mới. `approve`/`reject`/`escalate`/`mark-expired`/`mark-requote` chỉ tăng `version`, không bao giờ ghi đè revision lịch sử.
+
+## State Machine
+
+Tách biệt hoàn toàn trạng thái vòng đời proposal (`status`) với trạng thái báo giá CP1 (`quoteStatus`: `VALID` | `REQUIRES_MANAGER`).
+
+```mermaid
+stateDiagram-v2
+  [*] --> DRAFT: create (logical)
+  DRAFT --> PENDING_RECEPTIONIST: quote VALID
+  DRAFT --> PENDING_MANAGER: quote REQUIRES_MANAGER
+  PENDING_RECEPTIONIST --> APPROVED: approve (RECEPTIONIST/MANAGER)
+  PENDING_RECEPTIONIST --> REJECTED: reject (RECEPTIONIST/MANAGER)
+  PENDING_RECEPTIONIST --> PENDING_MANAGER: escalate / revise (needs MANAGER)
+  PENDING_RECEPTIONIST --> PENDING_RECEPTIONIST: revise (still VALID)
+  PENDING_RECEPTIONIST --> EXPIRED: command after expiresAt
+  PENDING_RECEPTIONIST --> REQUOTE_REQUIRED: stale quote on approve
+  PENDING_MANAGER --> APPROVED: approve (MANAGER only)
+  PENDING_MANAGER --> REJECTED: reject (MANAGER only)
+  PENDING_MANAGER --> PENDING_RECEPTIONIST: revise (now VALID)
+  PENDING_MANAGER --> PENDING_MANAGER: revise (still REQUIRES_MANAGER)
+  PENDING_MANAGER --> EXPIRED: command after expiresAt
+  PENDING_MANAGER --> REQUOTE_REQUIRED: stale quote on approve
+  REQUOTE_REQUIRED --> PENDING_RECEPTIONIST: revise (fresh VALID)
+  REQUOTE_REQUIRED --> PENDING_MANAGER: revise (fresh REQUIRES_MANAGER)
+  REQUOTE_REQUIRED --> REJECTED: reject (authorized role)
+  REQUOTE_REQUIRED --> EXPIRED: command after expiresAt
+  APPROVED --> [*]
+  REJECTED --> [*]
+  EXPIRED --> [*]
+```
+
+| Từ trạng thái | Được chuyển sang | Ghi chú |
+|---|---|---|
+| `DRAFT` | `PENDING_RECEPTIONIST`, `PENDING_MANAGER` | Trạng thái khởi tạo logic; `POST /proposals` luôn đánh giá quote trên server và chuyển sang hàng đợi chờ duyệt phù hợp |
+| `PENDING_RECEPTIONIST` | `APPROVED`, `REJECTED`, `PENDING_MANAGER`, `PENDING_RECEPTIONIST`, `EXPIRED`, `REQUOTE_REQUIRED` | Self-transition xảy ra khi `revise` vẫn cho quote `VALID` |
+| `PENDING_MANAGER` | `APPROVED`, `REJECTED`, `PENDING_RECEPTIONIST`, `PENDING_MANAGER`, `EXPIRED`, `REQUOTE_REQUIRED` | `revise` có thể hạ về `PENDING_RECEPTIONIST` nếu báo giá mới đạt `VALID` |
+| `REQUOTE_REQUIRED` | `PENDING_RECEPTIONIST`, `PENDING_MANAGER`, `REJECTED`, `EXPIRED` | Không thể `approve` trực tiếp khi đang `REQUOTE_REQUIRED`; phải `revise` tạo revision mới |
+| `APPROVED`, `REJECTED`, `EXPIRED` | *(không có — terminal P0)* | Mọi command mới đều trả `409 INVALID_STATE_TRANSITION` (hoặc `409 VERSION_CONFLICT` nếu dùng version cũ). Muốn đề xuất lại phải tạo proposal mới |
+
+Client/LLM không bao giờ được gửi `status`, `actorRole`, `actorUserId`, `amount`, `priceDiffVnd`, `approved` hoặc `isMock` (schema `z.strictObject` từ chối `400`).
+
+## Ma trận phân quyền RBAC
+
+Xác thực JWT qua `@Authenticated()`, đối chiếu `room_upgrade_staff_assignments (hotel_id, user_id, active = true)` **bên trong mỗi transaction trước cả bước tra cứu idempotency**.
+
+| Thao tác / Endpoint | `RECEPTIONIST` (đúng hotel) | `MANAGER` (đúng hotel) | `CUSTOMER` / chưa gán / `superadmin` không có assignment / staff hotel khác / staff bị thu hồi |
+|---|---|---|---|
+| `POST /proposals` (create) | Được phép | Được phép | `403 HOTEL_ACCESS_DENIED` |
+| `GET /proposals`, `GET /:id`, `GET /:id/history` | Được phép (chỉ trong hotel được gán; `proposalId` hotel khác → `404`) | Được phép (chỉ trong hotel được gán; `proposalId` hotel khác → `404`) | `403 HOTEL_ACCESS_DENIED` |
+| `POST /:id/revise` (chưa terminal) | Được phép | Được phép | `403 HOTEL_ACCESS_DENIED` |
+| `POST /:id/approve` (`PENDING_RECEPTIONIST`) | Được phép | Được phép | `403 HOTEL_ACCESS_DENIED` |
+| `POST /:id/approve` (`PENDING_MANAGER` hoặc `requiredApprovalRole = MANAGER`) | `403 INSUFFICIENT_APPROVAL_ROLE` | Được phép (không bypass validator, không tự đưa số tiền về 0) | `403 HOTEL_ACCESS_DENIED` |
+| `POST /:id/reject` (`PENDING_RECEPTIONIST`) | Được phép | Được phép | `403 HOTEL_ACCESS_DENIED` |
+| `POST /:id/reject` (`PENDING_MANAGER` hoặc `REQUOTE_REQUIRED` yêu cầu `MANAGER`) | `403 INSUFFICIENT_APPROVAL_ROLE` | Được phép | `403 HOTEL_ACCESS_DENIED` |
+| `POST /:id/escalate` (`PENDING_RECEPTIONIST`) | Được phép | Được phép | `403 HOTEL_ACCESS_DENIED` |
+| Idempotency replay sau khi bị thu hồi (`active = false`) | — | — | `403 HOTEL_ACCESS_DENIED` (không trả dữ liệu replay) |
+
+Lưu ý: `allowedActions` trong response chỉ dùng để CP4 bật/tắt nút trên giao diện; backend luôn kiểm quyền độc lập ở từng command.
+
+## API Contract (`/api/commerce/room-upgrades/proposals`)
+
+Mọi endpoint đều yêu cầu `Authorization: Bearer <accessToken>` (`401` nếu thiếu/hết hạn/sai), trả header `Cache-Control: no-store`. Các endpoint ghi bắt buộc header `Idempotency-Key` (chuỗi ASCII `^[A-Za-z0-9._:-]+$`, dài 8–128 ký tự; thiếu/sai trả `400 INVALID_IDEMPOTENCY_KEY`). Tham số `:proposalId` phải là UUID hợp lệ (`400 INVALID_PROPOSAL_ID`).
+
+| Method & Path | Input | Thành công | Lỗi nghiệp vụ / xung đột chính |
+|---|---|---|---|
+| `POST /proposals` | Header `Idempotency-Key`; body `CreateProposalRequest` | `201 Created` (`ProposalDetailResponse`) | `400` schema/key, `403` scope, `404 BOOKING_NOT_FOUND`, `409 PREVIEW_MISMATCH` / `IDEMPOTENCY_PAYLOAD_MISMATCH`, `422 QUOTE_NOT_PERSISTABLE` |
+| `GET /proposals` | Query `hotelId`, tùy chọn `status`, `bookingCode`, `requiredApprovalRole`, `limit` (`1..50`, mặc định `20`), `offset` (`0..10000`, mặc định `0`) | `200 OK` (`ProposalListResponse`) | `400` query, `403` scope |
+| `GET /proposals/:proposalId` | Query `hotelId` | `200 OK` (`ProposalDetailResponse`) | `400` UUID/query, `403` scope, `404 PROPOSAL_NOT_FOUND` |
+| `GET /proposals/:proposalId/history` | Query `hotelId` | `200 OK` (`ProposalHistoryResponse`) | `400` UUID/query, `403` scope, `404 PROPOSAL_NOT_FOUND` |
+| `POST /proposals/:proposalId/revise` | Header `Idempotency-Key`; body `{ hotelId, expectedVersion, targetRoomTypeId?, effectiveAt?, requestType?, requiredFeatures?, benefitId?, reason?, previewExpectation?, aiMetadata? }` (`benefitId: null` để xóa ưu đãi; body giữ nguyên input hợp lệ để xác nhận báo giá mới sau `REQUOTE_REQUIRED`) | `200 OK` (`ProposalDetailResponse`) | `403` scope, `404`, `409 VERSION_CONFLICT` / `INVALID_STATE_TRANSITION` / `PREVIEW_MISMATCH` / `PROPOSAL_EXPIRED` (commit) / `IDEMPOTENCY_PAYLOAD_MISMATCH`, `422 QUOTE_NOT_PERSISTABLE` |
+| `POST /proposals/:proposalId/approve` | Header `Idempotency-Key`; body `{ hotelId, expectedVersion, reason? }` | `200 OK` (`ProposalDetailResponse`) | `403 HOTEL_ACCESS_DENIED` / `INSUFFICIENT_APPROVAL_ROLE`, `404`, `409 VERSION_CONFLICT` / `INVALID_STATE_TRANSITION` / `PROPOSAL_EXPIRED` (commit) / `REQUOTE_REQUIRED` (commit) / `CONCURRENT_MODIFICATION` / `IDEMPOTENCY_PAYLOAD_MISMATCH` |
+| `POST /proposals/:proposalId/reject` | Header `Idempotency-Key`; body `{ hotelId, expectedVersion, reason }` (`reason` 1–500 ký tự) | `200 OK` (`ProposalDetailResponse`) | `403`, `404`, `409 VERSION_CONFLICT` / `INVALID_STATE_TRANSITION` / `PROPOSAL_EXPIRED` (commit) / `IDEMPOTENCY_PAYLOAD_MISMATCH` |
+| `POST /proposals/:proposalId/escalate` | Header `Idempotency-Key`; body `{ hotelId, expectedVersion, reason }` (`reason` 1–500 ký tự) | `200 OK` (`ProposalDetailResponse`) | `403`, `404`, `409 VERSION_CONFLICT` / `INVALID_STATE_TRANSITION` / `PROPOSAL_EXPIRED` (commit) / `IDEMPOTENCY_PAYLOAD_MISMATCH` |
+
+Ví dụ request `POST /api/commerce/room-upgrades/proposals`:
+
+```json
+{
+  "hotelId": "upgrade-demo-hotel",
+  "bookingCode": "C2-0001",
+  "targetRoomTypeId": "DLX",
+  "effectiveAt": "2026-11-28T14:00:00+07:00",
+  "requestType": "UPGRADE",
+  "requiredFeatures": [],
+  "previewExpectation": {
+    "expectedPriceDiffVnd": 600000,
+    "expectedSnapshotId": "room-upgrades:<sha256>",
+    "expectedQuoteStatus": "VALID",
+    "expectedApprovalRole": "RECEPTIONIST"
+  },
+  "aiMetadata": {
+    "source": "ai_copilot",
+    "sessionId": "8f3c6a71-3d21-4c76-9e7d-2f07f6a7d101",
+    "aiRequestId": "...",
+    "selectedCandidateId": "DLX",
+    "model": "gpt-6-luna",
+    "promptVersions": ["room-upgrades-intent.v1", "room-upgrades-recommend.v1"],
+    "recommendationReasonVi": "...",
+    "draftMessageVi": "..."
+  }
+}
+```
+
+Ví dụ response `ProposalDetailResponse` (`201` / `200`):
+
+```json
+{
+  "caseId": "C2",
+  "isMock": true,
+  "operationalEffects": "NONE",
+  "requiresHumanApproval": true,
+  "requestId": "...",
+  "hotelId": "upgrade-demo-hotel",
+  "staffRole": "RECEPTIONIST",
+  "proposalId": "uuid",
+  "bookingCode": "C2-0001",
+  "status": "PENDING_RECEPTIONIST",
+  "version": 1,
+  "currentRevision": 1,
+  "requiredApprovalRole": "RECEPTIONIST",
+  "allowedActions": ["REVISE", "APPROVE", "REJECT", "ESCALATE"],
+  "reasonCodes": [],
+  "expiresAt": "2026-11-27T09:15:00.000Z",
+  "isExpired": false,
+  "createdBy": "uuid",
+  "createdAt": "2026-11-27T09:00:00.000Z",
+  "updatedAt": "2026-11-27T09:00:00.000Z",
+  "decidedBy": null,
+  "decidedByRole": null,
+  "decidedAt": null,
+  "decisionReason": null,
+  "targetRoomTypeId": "DLX",
+  "effectiveAt": "2026-11-28T07:00:00.000Z",
+  "priceDiffVnd": 600000,
+  "quoteStatus": "VALID",
+  "policyCode": "STAY-UPGRADE",
+  "policyVersion": 1,
+  "normalizedRequest": {
+    "hotelId": "upgrade-demo-hotel",
+    "bookingCode": "C2-0001",
+    "targetRoomTypeId": "DLX",
+    "effectiveAt": "2026-11-28T14:00:00+07:00",
+    "requestType": "UPGRADE",
+    "requiredFeatures": [],
+    "benefitId": null
+  },
+  "quote": { "status": "VALID", "priceDiffVnd": 600000, "validation": { "checked": true, "passed": true, "violations": [] } },
+  "breakdown": [],
+  "policySources": [],
+  "fixtureVersion": "room-upgrades-v1@2026-11-27",
+  "snapshotId": "room-upgrades:<sha256>",
+  "businessFingerprint": "<sha256>",
+  "calculatedAt": "2026-11-27T09:00:00.000Z",
+  "aiMetadata": null
+}
+```
+
+Ví dụ `409 Conflict` có commit trạng thái (`REQUOTE_REQUIRED` khi nguồn thay đổi lúc duyệt):
+
+```json
+{
+  "code": "REQUOTE_REQUIRED",
+  "message": "Dữ liệu nguồn hoặc báo giá đã thay đổi; cần tạo revision báo giá lại trước khi duyệt.",
+  "reasonCodes": ["RATE_CHANGED", "PRICE_CHANGED"],
+  "proposal": { "status": "REQUOTE_REQUIRED", "version": 2, "currentRevision": 1, "expiresAt": "..." },
+  "freshQuote": { "status": "VALID", "priceDiffVnd": 700000 }
+}
+```
+
+## Đảm bảo Transaction, Concurrency, Stale Quote và Audit Atomicity
+
+1. **Isolation & bounded retry:** Mọi command ghi chạy trong một transaction PostgreSQL `SERIALIZABLE` (`DrizzleRoomUpgradeProposalStore.withSerializableTransaction`) với vòng lặp retry bao ngoài transaction tối đa **3 lần** chỉ cho lỗi tạm có thể thử lại: SQLSTATE `40001` (`serialization_failure`), `40P01` (`deadlock_detected`) và `23505` trên đúng constraint `room_upgrade_proposal_idempotency_pkey`. Nếu hết 3 lượt vẫn gặp `40001`/`40P01`, trả HTTP `409 CONCURRENT_MODIFICATION`. Lỗi nghiệp vụ và lỗi ghi audit không bao giờ bị nuốt hoặc retry.
+2. **Thứ tự khóa chuẩn (chống deadlock & chống TOCTOU):**
+   - Bước 1: Kiểm `staffRole` trong transaction (`403` nếu mất quyền).
+   - Bước 2: Tra `room_upgrade_proposal_idempotency` theo 5 thành phần `(hotelId, actorUserId, operation, targetId, idempotencyKey)`.
+   - Bước 3: `SELECT ... FROM room_upgrade_proposals WHERE hotel_id = $1 AND id = $2 FOR UPDATE` + kiểm `expectedVersion` và trạng thái/RBAC.
+   - Bước 4 (riêng `approve`): Khóa chia sẻ `SELECT ... FOR SHARE` theo đúng thứ tự bảng và khóa chính `room_upgrade_bookings → room_upgrade_inventory (ORDER BY date) → room_upgrade_rates (ORDER BY date) → room_upgrade_policies (ORDER BY code, version) → room_upgrade_member_benefits (ORDER BY id)`. Khóa `FOR SHARE` tương thích giữa nhiều lệnh `approve` trên các booking khác nhau nhưng ép tuần tự hóa với transaction sửa/xóa dữ liệu nguồn cạnh tranh: nếu nguồn đang bị cập nhật và commit trong lúc `approve`, PostgreSQL `SERIALIZABLE` báo `40001`, vòng retry chạy lại trên snapshot mới và chuyển đề xuất sang `REQUOTE_REQUIRED` thay vì duyệt giá cũ.
+   - Bước 5: `UPDATE room_upgrade_proposals SET version = version + 1, ... WHERE hotel_id = $1 AND id = $2 AND version = $3 AND status = $4 RETURNING *` (CAS nguyên tử ở DB).
+   - Bước 6: `INSERT` audit event và `INSERT` bản ghi idempotency **trong cùng transaction** trước khi `COMMIT`. Nếu ghi audit lỗi, toàn bộ transaction rollback (không thể tồn tại `APPROVED` không có audit event).
+   - Transaction không bao giờ giữ mở khi chờ LLM, HTTP ngoài hay người dùng.
+   - **Ranh giới cam kết:** CP3 chỉ chứng nhận báo giá hợp lệ tại thời điểm commit transaction duyệt; không giữ tồn phòng sau khi transaction kết thúc.
+3. **Stale quote & expiry:**
+   - `businessFingerprint` là SHA-256 của cấu trúc JSON chuẩn hóa gồm: booking (`bookingCode`, `roomTypeId`, `status`, `version`, `checkInAt`, `checkOutAt`, `guests`), `normalizedRequest` (đã sort `requiredFeatures`), `quote.status`, `approvalRole`, `remainingNights`, `policy`, `benefit`, `inventoryByNight`, `breakdown`, `totals`, `priceDiffVnd`. **Loại trừ** các trường biến động (`quoteId`, `requestId`, `calculatedAt`, `expiresAt`, `snapshotId`) để không tạo false stale conflict.
+   - Mã lý do stale chính xác: `BOOKING_STATUS_CHANGED`, `BOOKING_CHANGED`, `INVENTORY_UNAVAILABLE`, `INVENTORY_CHANGED`, `RATE_CHANGED`, `POLICY_VERSION_CHANGED`, `BENEFIT_CHANGED`, `PRICE_CHANGED`, `APPROVAL_ROLE_CHANGED`, `QUOTE_INVALIDATED`, `SNAPSHOT_FINGERPRINT_MISMATCH`.
+   - Khi phát hiện `REQUOTE_REQUIRED`, **không** tự gia hạn `expiresAt`; nhân viên phải gọi `POST /:proposalId/revise` trước khi hết hạn để tạo revision `N+1`. Khi `expiresAt <= now`, command chuyển trạng thái sang `EXPIRED` (commit + audit `MARKED_EXPIRED` + `409 PROPOSAL_EXPIRED`).
+
+## Hợp đồng Idempotency
+
+- Phạm vi khóa: `(hotelId, actorUserId, operation, targetId, idempotencyKey)` với `targetId = 'new'` cho `CREATE` và `proposalId` cho các command trên đề xuất.
+- Không dùng `IdempotencyInterceptor` của `@vintrip/idempotency` vì interceptor đó ghi ngoài transaction (2 transaction, có cửa sổ crash), chạy trước kiểm phân công khách sạn và ghi vào bảng vận hành `commerce.idempotency_keys`.
+- Cùng key + cùng `payloadHash`: trả nguyên trạng `httpStatus` (`200`/`201`/`409`) và `responseBody` đã commit kèm header `Idempotency-Replayed: true`, không tạo thêm revision hay audit event.
+- Cùng key + khác `payloadHash`: trả `409 IDEMPOTENCY_PAYLOAD_MISMATCH`.
+- Hai request `CREATE` đồng thời cùng key: một giao dịch commit, giao dịch kia gặp `23505` (`room_upgrade_proposal_idempotency_pkey`) / `40001`, rollback toàn bộ và retry đọc bản ghi đã commit để replay `201` + `Idempotency-Replayed: true`.
+
+## Tích hợp AI CP2 → CP3 (chỉ đọc)
+
+`POST /ai/room-upgrades/chat` giữ nguyên toàn bộ contract CP2 và cấu hình OpenAI Responses API `gpt-6-luna` (`reasoning.effort = "low"`), bổ sung trường tùy chọn tương thích ngược `proposalDraft`:
+- Chỉ có giá trị khi `selectedQuote` đã qua validator backend với `status` là `VALID` hoặc `REQUIRES_MANAGER`; mọi lượt `NEEDS_INPUT`, `BLOCKED_INJECTION`, `OUT_OF_SCOPE`, `AI_ERROR`, `DEPENDENCY_ERROR` hoặc quote không có tổng tiền đều trả `proposalDraft: null`.
+- `proposalDraft` gồm `{ endpoint: "/api/commerce/room-upgrades/proposals", method: "POST", requiresIdempotencyKey: true, payload }` với `payload` khớp 1-1 `CreateProposalRequestSchema` (đã bỏ key `null`, kèm `previewExpectation` và `aiMetadata` giới hạn ≤ 1.000 ký tự).
+- AI Service tuyệt đối không có write/approve tool và không gọi bất kỳ endpoint ghi nào của CP3.
+
+## Chạy Migration & Integration Test CP3
+
+```sh
+# 1. Sinh migration (nếu thay đổi schema)
+pnpm --filter @vintrip/core-api db:generate commerce --name=room-upgrade-proposals
+
+# 2. Chạy unit + HTTP tests (1 worker)
+pnpm --filter @vintrip/core-api exec vitest run src/modules/commerce/room-upgrades --maxWorkers=1
+
+# 3. Chạy PostgreSQL integration & concurrency tests trên database test riêng (TUYỆT ĐỐI không dùng DB core vận hành)
+ROOM_UPGRADE_TEST_DATABASE_URL="postgres://<user>:<pass>@<host>:5432/room_upgrade_test_cp3" \
+pnpm --filter @vintrip/core-api exec vitest run --config vitest.int.config.ts \
+  src/modules/commerce/room-upgrades/infra/drizzle-room-upgrade.store.int.spec.ts \
+  src/modules/commerce/room-upgrades/infra/drizzle-room-upgrade-proposals.int.spec.ts \
+  --maxWorkers=1
+```
+
+Bằng chứng kiểm thử độc lập đầy đủ của CP3: [evidence CP3](../be/docs/evidence/room-upgrades-cp3.md).

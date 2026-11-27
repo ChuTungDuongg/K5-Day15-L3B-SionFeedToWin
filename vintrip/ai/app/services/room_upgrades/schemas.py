@@ -9,7 +9,15 @@ from datetime import datetime
 from typing import Literal
 from uuid import UUID
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, model_validator
+from pydantic import (
+    AwareDatetime,
+    BaseModel,
+    ConfigDict,
+    Field,
+    SerializerFunctionWrapHandler,
+    model_serializer,
+    model_validator,
+)
 from pydantic.alias_generators import to_camel
 
 StaffRole = Literal["RECEPTIONIST", "MANAGER"]
@@ -499,6 +507,53 @@ class WorkflowTraceOut(WireModel):
     error_code: str | None = None
 
 
+class ProposalPreviewExpectationOut(WireModel):
+    expected_price_diff_vnd: int
+    expected_snapshot_id: str
+    expected_quote_status: Literal["VALID", "REQUIRES_MANAGER"]
+    expected_approval_role: StaffRole
+
+
+class ProposalAiMetadataOut(WireModel):
+    source: Literal["ai_copilot"] = "ai_copilot"
+    session_id: str
+    ai_request_id: str
+    selected_candidate_id: str
+    model: str | None = None
+    prompt_versions: list[str] = Field(default_factory=list, max_length=10)
+    recommendation_reason_vi: str | None = Field(default=None, min_length=1, max_length=1000)
+    draft_message_vi: str | None = Field(default=None, min_length=1, max_length=1000)
+
+    @model_serializer(mode="wrap")
+    def omit_none(self, handler: SerializerFunctionWrapHandler):
+        return {key: value for key, value in handler(self).items() if value is not None}
+
+
+class ProposalCreatePayloadOut(WireModel):
+    hotel_id: str
+    booking_code: str
+    target_room_type_id: str
+    effective_at: str
+    request_type: RequestType
+    required_features: list[str] = Field(default_factory=list, max_length=10)
+    benefit_id: str | None = None
+    preview_expectation: ProposalPreviewExpectationOut
+    ai_metadata: ProposalAiMetadataOut
+
+    @model_serializer(mode="wrap")
+    def omit_none_benefit(self, handler: SerializerFunctionWrapHandler):
+        return {key: value for key, value in handler(self).items() if value is not None}
+
+
+class ProposalCreateDraftOut(WireModel):
+    endpoint: Literal["/api/commerce/room-upgrades/proposals"] = (
+        "/api/commerce/room-upgrades/proposals"
+    )
+    method: Literal["POST"] = "POST"
+    requires_idempotency_key: Literal[True] = True
+    payload: ProposalCreatePayloadOut
+
+
 class RoomUpgradeChatResponse(WireModel):
     request_id: UUID
     case_id: Literal["C2"] = "C2"
@@ -515,6 +570,7 @@ class RoomUpgradeChatResponse(WireModel):
     candidates: list[CandidateQuoteOut] = Field(default_factory=list)
     selected_candidate_id: str | None = None
     selected_quote: BackendQuoteResponse | None = None
+    proposal_draft: ProposalCreateDraftOut | None = None
     policy_sources: list[PolicySourceOut] = Field(default_factory=list)
     requires_human_approval: Literal[True] = True
     approval_role: StaffRole | None = None

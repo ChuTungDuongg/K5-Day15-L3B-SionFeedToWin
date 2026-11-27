@@ -2447,6 +2447,215 @@
         "title": "PolicySourceOut",
         "type": "object"
       },
+      "ProposalAiMetadataOut": {
+        "additionalProperties": false,
+        "properties": {
+          "aiRequestId": {
+            "title": "Airequestid",
+            "type": "string"
+          },
+          "draftMessageVi": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Draftmessagevi"
+          },
+          "model": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model"
+          },
+          "promptVersions": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "Promptversions",
+            "type": "array"
+          },
+          "recommendationReasonVi": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "minLength": 1,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommendationreasonvi"
+          },
+          "selectedCandidateId": {
+            "title": "Selectedcandidateid",
+            "type": "string"
+          },
+          "sessionId": {
+            "title": "Sessionid",
+            "type": "string"
+          },
+          "source": {
+            "const": "ai_copilot",
+            "default": "ai_copilot",
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionId",
+          "aiRequestId",
+          "selectedCandidateId"
+        ],
+        "title": "ProposalAiMetadataOut",
+        "type": "object"
+      },
+      "ProposalCreateDraftOut": {
+        "additionalProperties": false,
+        "properties": {
+          "endpoint": {
+            "const": "/api/commerce/room-upgrades/proposals",
+            "default": "/api/commerce/room-upgrades/proposals",
+            "title": "Endpoint",
+            "type": "string"
+          },
+          "method": {
+            "const": "POST",
+            "default": "POST",
+            "title": "Method",
+            "type": "string"
+          },
+          "payload": {
+            "$ref": "#/components/schemas/ProposalCreatePayloadOut"
+          },
+          "requiresIdempotencyKey": {
+            "const": true,
+            "default": true,
+            "title": "Requiresidempotencykey",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "payload"
+        ],
+        "title": "ProposalCreateDraftOut",
+        "type": "object"
+      },
+      "ProposalCreatePayloadOut": {
+        "additionalProperties": false,
+        "properties": {
+          "aiMetadata": {
+            "$ref": "#/components/schemas/ProposalAiMetadataOut"
+          },
+          "benefitId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Benefitid"
+          },
+          "bookingCode": {
+            "title": "Bookingcode",
+            "type": "string"
+          },
+          "effectiveAt": {
+            "title": "Effectiveat",
+            "type": "string"
+          },
+          "hotelId": {
+            "title": "Hotelid",
+            "type": "string"
+          },
+          "previewExpectation": {
+            "$ref": "#/components/schemas/ProposalPreviewExpectationOut"
+          },
+          "requestType": {
+            "enum": [
+              "UPGRADE",
+              "ROOM_CHANGE",
+              "COMPLIMENTARY_UPGRADE"
+            ],
+            "title": "Requesttype",
+            "type": "string"
+          },
+          "requiredFeatures": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "Requiredfeatures",
+            "type": "array"
+          },
+          "targetRoomTypeId": {
+            "title": "Targetroomtypeid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "hotelId",
+          "bookingCode",
+          "targetRoomTypeId",
+          "effectiveAt",
+          "requestType",
+          "previewExpectation",
+          "aiMetadata"
+        ],
+        "title": "ProposalCreatePayloadOut",
+        "type": "object"
+      },
+      "ProposalPreviewExpectationOut": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedApprovalRole": {
+            "enum": [
+              "RECEPTIONIST",
+              "MANAGER"
+            ],
+            "title": "Expectedapprovalrole",
+            "type": "string"
+          },
+          "expectedPriceDiffVnd": {
+            "title": "Expectedpricediffvnd",
+            "type": "integer"
+          },
+          "expectedQuoteStatus": {
+            "enum": [
+              "VALID",
+              "REQUIRES_MANAGER"
+            ],
+            "title": "Expectedquotestatus",
+            "type": "string"
+          },
+          "expectedSnapshotId": {
+            "title": "Expectedsnapshotid",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expectedPriceDiffVnd",
+          "expectedSnapshotId",
+          "expectedQuoteStatus",
+          "expectedApprovalRole"
+        ],
+        "title": "ProposalPreviewExpectationOut",
+        "type": "object"
+      },
       "RoomUpgradeChatRequest": {
         "additionalProperties": false,
         "properties": {
@@ -2601,6 +2810,16 @@
             },
             "title": "Policysources",
             "type": "array"
+          },
+          "proposalDraft": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProposalCreateDraftOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "quoteStatus": {
             "anyOf": [
