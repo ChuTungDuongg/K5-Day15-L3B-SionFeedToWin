@@ -6,14 +6,15 @@
 
 - Tên nhóm: SionFeedToWin
 - Lớp: L3B
-- Track: ____
+- Track: C
 - Link repo: https://github.com/ChuTungDuongg/K5-Day15-L3B-SionFeedToWin
 
 | STT | Họ và tên | Mã học viên | Vai trò | Phần việc chính |
 |---|---|---|---|---|
-| 1 | ____ | ____ | Đội trưởng | ____ |
-| 2 | ____ | ____ | Thành viên | ____ |
-| 3 | ____ | ____ | Thành viên | ____ |
+| 1 | Chu Nguyễn Tùng Dương | 2A202604016 | Đội trưởng | Quản lý repo, kiểm tra và nộp checkpoint. |
+| 2 | Nguyễn Lê Trọng Mạnh | 2A202603857 | Thành viên | Dự kiến xây dựng luồng đọc điều khoản và bản chạy thử. |
+| 3 | Hà Lê Duy | 2A202603851 | Thành viên | Dự kiến phỏng vấn khách đặt phòng và tổng hợp bằng chứng ẩn danh. |
+| 4 | Nguyễn Thiên Bảo | 2A202603861 | Thành viên | Theo dõi yêu cầu BTC, chuẩn bị canvas, kiểm tra hồ sơ từng checkpoint. |
 
 **Quy tắc điền**
 - **Lớp:** `L3A` hoặc `L3B`. **Track:** một chữ `A` (EdTech), `B` (Y tế), `C` (Du lịch), `D` (Thương mại điện tử), `E` (Tài chính) hoặc `F` (Làn khác). **Link repo:** link GitHub công khai của nhóm.
