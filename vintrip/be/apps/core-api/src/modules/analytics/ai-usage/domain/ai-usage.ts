@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 /** Sự kiện ai-service phát sau mỗi lần gọi LLM hoặc kiểm duyệt (hợp đồng ở vintrip-ai: app/services/usage_events.py). */
 export const AI_USAGE_EVENT = 'ai.usage.recorded';
-export const AI_FEATURES = ['chat', 'summary', 'moderation', 'cover_ocr'] as const;
+export const AI_FEATURES = ['chat', 'summary', 'moderation', 'cover_ocr', 'room_upgrades'] as const;
 export type AiFeature = (typeof AI_FEATURES)[number];
 export const AI_USAGE_GROUPS = ['feature', 'day', 'model'] as const;
 export type AiUsageGroup = (typeof AI_USAGE_GROUPS)[number];

@@ -4,3 +4,4 @@ export * from './audit.js';
 export * from './orders.js';
 export * from './payments.js';
 export * from './reviews.js';
+export * from './room-upgrades.js';
