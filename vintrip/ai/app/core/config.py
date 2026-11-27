@@ -179,3 +179,62 @@ class ChatSettings(BaseSettings):
 @cache
 def get_chat_settings() -> ChatSettings:
     return ChatSettings()
+
+
+class RoomUpgradeSettings(BaseSettings):
+    """Settings for POST /room-upgrades/chat (C2 hotel staff copilot).
+
+    Dedicated OpenAI Responses API config for GPT-6 Luna so C1/C3 and existing chat models stay
+    untouched. Never silently falls back to another provider or model.
+    """
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore", env_ignore_empty=True)
+
+    core_api_url: str = "http://localhost:3000"
+    jwks_url: str = ""
+    auth_jwt_issuer: str = "vintrip-core"
+    auth_jwt_audience: str = "vintrip"
+    redis_url: str = "redis://localhost:6379/0"
+
+    room_upgrades_llm_enabled: bool = True
+    room_upgrades_llm_provider: Literal["openai"] = "openai"
+    room_upgrades_llm_model: str = "gpt-6-luna"
+    room_upgrades_llm_reasoning_effort: Literal["none", "low", "medium", "high", "xhigh", "max"] = (
+        "low"
+    )
+    # Whole-workflow deadline cap (including auth, backend tools and LLM calls) and per-call cap.
+    room_upgrades_llm_timeout_seconds: float = Field(default=30.0, gt=0, le=30.0)
+    room_upgrades_llm_call_timeout_seconds: float = Field(default=15.0, gt=0, le=30.0)
+    room_upgrades_llm_max_calls: int = Field(default=5, ge=1, le=5)
+    room_upgrades_llm_max_repairs: int = Field(default=2, ge=0, le=2)
+    # Includes reasoning tokens in Responses API; 1500 leaves headroom at reasoning effort "low".
+    room_upgrades_max_output_tokens: int = Field(default=1500, ge=200, le=4000)
+
+    # GPT-6 Luna standard pricing (USD per 1M tokens, OpenAI API docs):
+    # input $0.10, cached $0.01, output $0.50 (reasoning tokens are inside output_tokens).
+    room_upgrades_price_input: float = Field(default=0.10, ge=0)
+    room_upgrades_price_cached_input: float = Field(default=0.01, ge=0)
+    room_upgrades_price_output: float = Field(default=0.50, ge=0)
+
+    openai_api_key: SecretStr = SecretStr("")
+    openai_base_url: str = "https://api.openai.com/v1"
+
+    room_upgrades_core_timeout_seconds: float = Field(default=5.0, gt=0, le=15.0)
+    room_upgrades_session_ttl_seconds: int = Field(default=1800, ge=60, le=86_400)
+
+    @property
+    def resolved_jwks_url(self) -> str:
+        return self.jwks_url or f"{self.core_api_url.rstrip('/')}/.well-known/jwks.json"
+
+    @property
+    def resolved_prices(self) -> dict[str, float]:
+        return {
+            "input": self.room_upgrades_price_input,
+            "cached_input": self.room_upgrades_price_cached_input,
+            "output": self.room_upgrades_price_output,
+        }
+
+
+@cache
+def get_room_upgrade_settings() -> RoomUpgradeSettings:
+    return RoomUpgradeSettings()

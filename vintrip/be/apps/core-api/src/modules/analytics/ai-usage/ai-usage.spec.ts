@@ -84,6 +84,19 @@ describe('toAiUsageRecord', () => {
     expect(missing).toMatchObject({ feature: 'cover_ocr', step: 'usage_missing', inputTokens: null });
   });
 
+  it('nhận sự kiện usage từ room_upgrades kể cả khi thiếu token', () => {
+    const priced = toAiUsageRecord(chatEvent({
+      feature: 'room_upgrades', step: 'extract_intent', model: 'gpt-6-luna',
+      inputTokens: 420, outputTokens: 110, costUsd: 0.000097,
+    }));
+    const missing = toAiUsageRecord(chatEvent({
+      feature: 'room_upgrades', step: 'usage_missing', model: 'gpt-6-luna',
+      inputTokens: null, outputTokens: null, costUsd: 0,
+    }));
+    expect(priced).toMatchObject({ feature: 'room_upgrades', step: 'extract_intent', inputTokens: 420 });
+    expect(missing).toMatchObject({ feature: 'room_upgrades', step: 'usage_missing', inputTokens: null });
+  });
+
   it('sự kiện khác loại thì bỏ qua; payload sai thì ném', () => {
     expect(toAiUsageRecord({ ...chatEvent(), type: 'ai.summary.ready' })).toBeNull();
     expect(() => toAiUsageRecord(chatEvent({ costUsd: -1 }))).toThrow();
