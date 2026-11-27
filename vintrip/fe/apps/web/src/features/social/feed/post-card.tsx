@@ -316,7 +316,7 @@ export function PostCard({
             aria-label={isSaved ? vi.api.unbookmark : vi.api.bookmark}
             onClick={() => onToggleSave(post.id, !isSaved)}
           >
-            <SocialIcon name={isSaved ? 'bookmarkFilled' : 'bookmark'} size={18} />
+            <SocialIcon name={isSaved ? 'heartFilled' : 'heart'} size={18} />
             <span>{formatCompactCount(post.bookmarkCount)}</span>
           </button>
         </div>

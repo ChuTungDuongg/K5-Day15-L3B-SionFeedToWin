@@ -343,7 +343,7 @@ h3 {
   transition: background 0.15s;
 }
 .header-notifications-item.is-unread {
-  background: var(--color-teal-soft);
+  background: var(--color-coral-tint);
   color: var(--color-ink);
 }
 .header-notifications-item:hover {
@@ -444,7 +444,7 @@ h3 {
   flex: none;
   width: 10px;
   height: 10px;
-  color: var(--color-teal);
+  color: var(--color-coral);
 }
 .header-notifications-empty {
   display: grid;

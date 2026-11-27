@@ -52,9 +52,9 @@
   --iv-accent: var(--color-coral);
   --iv-accent-ink: var(--color-coral-ink);
   --iv-accent-soft: var(--color-coral-tint);
-  --iv-stage-bg: rgb(14 16 21);
+  --iv-stage-bg: var(--color-navy);
   --iv-control-bg: var(--color-background);
-  --iv-shadow: 0 8px 28px -12px rgba(24, 36, 43, 0.12);
+  --iv-shadow: 0 8px 28px -12px color-mix(in srgb, var(--color-navy) 12%, transparent);
 
   /* Trong suốt để mặt nước tĩnh của trang Cảm hứng hiện quanh khung Reels bo góc. */
   background: transparent;
@@ -74,19 +74,19 @@
 }
 
 .themeDark {
-  --iv-page-bg: rgb(11 12 15);
-  --iv-panel-bg: rgb(25 27 32);
-  --iv-elevated-bg: rgb(36 38 44);
-  --iv-hover-bg: rgb(46 49 58);
-  --iv-text: rgb(247 247 248);
-  --iv-text-muted: rgb(166 168 177);
-  --iv-border: rgba(255, 255, 255, 0.1);
+  --iv-page-bg: var(--color-navy);
+  --iv-panel-bg: var(--color-navy);
+  --iv-elevated-bg: var(--color-navy);
+  --iv-hover-bg: var(--color-navy);
+  --iv-text: var(--color-surface);
+  --iv-text-muted: var(--color-border);
+  --iv-border: color-mix(in srgb, var(--color-background) 10%, transparent);
   --iv-accent: var(--color-coral);
   --iv-accent-ink: var(--color-coral-soft);
-  --iv-accent-soft: rgba(217, 54, 90, 0.16);
-  --iv-stage-bg: rgb(7 8 11);
-  --iv-control-bg: rgb(36 38 44);
-  --iv-shadow: 0 16px 40px -14px rgba(0, 0, 0, 0.55);
+  --iv-accent-soft: color-mix(in srgb, var(--color-danger) 16%, transparent);
+  --iv-stage-bg: var(--color-navy);
+  --iv-control-bg: var(--color-navy);
+  --iv-shadow: 0 16px 40px -14px color-mix(in srgb, var(--color-navy) 55%, transparent);
 }
 
 /* --- Floating Left Utility Dock along the Itinerary Sidebar (Phương án 1) --- */
@@ -120,7 +120,7 @@
   border: 0;
   background: var(--iv-panel-bg);
   color: var(--iv-text);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-soft);
   cursor: pointer;
   transition:
     transform 160ms ease,
@@ -149,8 +149,8 @@
   border-radius: 999px;
   border: 0;
   background: var(--iv-accent);
-  color: rgb(255 255 255);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  color: var(--color-background);
+  box-shadow: var(--shadow-soft);
   cursor: pointer;
   text-decoration: none;
   transition:
@@ -182,9 +182,7 @@
   border-radius: 18px;
   border: 0;
   background: var(--iv-panel-bg);
-  box-shadow:
-    0 16px 38px -6px rgba(0, 0, 0, 0.22),
-    0 3px 10px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-soft);
   display: grid;
   gap: 10px;
 }
@@ -289,7 +287,7 @@
   border: 0;
   background: var(--iv-panel-bg);
   color: var(--iv-text);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-soft);
   font: inherit;
   font-size: 0.82rem;
   font-weight: 700;
@@ -395,7 +393,7 @@
   background: var(--iv-panel-bg);
   border: 1px solid var(--iv-border);
   border-radius: 20px;
-  box-shadow: 0 18px 60px -20px rgba(124, 45, 18, 0.18);
+  box-shadow: var(--shadow-soft);
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -532,7 +530,7 @@
   padding: 8px 14px;
   border-radius: 12px;
   background: var(--color-teal-ink);
-  color: rgb(255 255 255);
+  color: var(--color-background);
   font-size: 0.84rem;
   font-weight: 800;
   text-decoration: none;
@@ -542,7 +540,7 @@
 }
 
 .tripOverviewCta:hover {
-  background: #00564f;
+  background: var(--color-success);
   opacity: 1;
 }
 
@@ -1203,8 +1201,8 @@
   padding: 0 14px 0 10px;
   border: 0;
   border-radius: 999px;
-  background: rgba(15, 17, 22, 0.62);
-  color: rgb(255 255 255);
+  background: color-mix(in srgb, var(--color-navy) 62%, transparent);
+  color: var(--color-background);
   font: inherit;
   font-size: 0.88rem;
   font-weight: 600;
@@ -1213,7 +1211,7 @@
 }
 
 .searchBackPill:hover {
-  background: rgba(15, 17, 22, 0.84);
+  background: color-mix(in srgb, var(--color-navy) 84%, transparent);
 }
 
 .searchBackPill:focus-visible {
@@ -1233,13 +1231,13 @@
   height: 38px;
   padding: 0 6px;
   border-radius: 999px;
-  background: rgba(15, 17, 22, 0.62);
-  color: rgb(255 255 255);
+  background: color-mix(in srgb, var(--color-navy) 62%, transparent);
+  color: var(--color-background);
   transition: background-color 160ms ease;
 }
 
 .volumeControlPill:hover {
-  background: rgba(15, 17, 22, 0.84);
+  background: color-mix(in srgb, var(--color-navy) 84%, transparent);
 }
 
 .volumeToggleBtn {
@@ -1252,7 +1250,7 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: rgb(255 255 255);
+  color: var(--color-background);
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -1353,15 +1351,15 @@
   height: 38px;
   border-radius: 999px;
   border: 0;
-  background: rgba(15, 17, 22, 0.62);
-  color: rgb(255 255 255);
+  background: color-mix(in srgb, var(--color-navy) 62%, transparent);
+  color: var(--color-background);
   text-decoration: none;
   cursor: pointer;
   transition: background-color 160ms ease;
 }
 
 .stageCircleBtn:hover {
-  background: rgba(15, 17, 22, 0.85);
+  background: color-mix(in srgb, var(--color-navy) 85%, transparent);
 }
 
 /* Center Play Button Overlay */
@@ -1375,9 +1373,9 @@
   width: 64px;
   height: 64px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(15, 17, 22, 0.56);
-  color: rgb(255 255 255);
+  border: 1px solid color-mix(in srgb, var(--color-background) 28%, transparent);
+  background: color-mix(in srgb, var(--color-navy) 56%, transparent);
+  color: var(--color-background);
   cursor: pointer;
   opacity: 1;
   transform: scale(1);
@@ -1389,7 +1387,7 @@
 
 .centerPlayOverlayBtn:hover {
   transform: scale(1.06);
-  background: rgba(15, 17, 22, 0.78);
+  background: color-mix(in srgb, var(--color-navy) 78%, transparent);
 }
 
 .centerPlayOverlayHidden {
@@ -1407,11 +1405,11 @@
   padding: 48px 104px 32px 24px;
   background: linear-gradient(
     to top,
-    rgba(8, 9, 12, 0.92) 0%,
-    rgba(8, 9, 12, 0.62) 55%,
-    rgba(8, 9, 12, 0) 100%
+    color-mix(in srgb, var(--color-navy) 92%, transparent) 0%,
+    color-mix(in srgb, var(--color-navy) 62%, transparent) 55%,
+    color-mix(in srgb, var(--color-navy) 0%, transparent) 100%
   );
-  color: rgb(247 247 248);
+  color: var(--color-surface);
   display: grid;
   gap: 10px;
 }
@@ -1430,8 +1428,8 @@
   width: 38px;
   height: 38px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-  color: rgb(255 255 255);
+  background: color-mix(in srgb, var(--color-background) 16%, transparent);
+  color: var(--color-background);
   font-size: 0.86rem;
   font-weight: 800;
   flex-shrink: 0;
@@ -1464,7 +1462,7 @@
   margin: 0;
   font-size: 0.86rem;
   line-height: 1.48;
-  color: rgba(247, 247, 248, 0.94);
+  color: color-mix(in srgb, var(--color-surface) 94%, transparent);
 }
 
 .overlayCaptionClamped {
@@ -1479,7 +1477,7 @@
   padding: 0;
   border: 0;
   background: var(--color-transparent);
-  color: rgb(255 255 255);
+  color: var(--color-background);
   font: inherit;
   font-size: 0.8rem;
   font-weight: 800;
@@ -1496,9 +1494,9 @@
   padding: 3px 9px;
   border-radius: 999px;
   /* Không làm mờ nền phía sau (tốn GPU trên video đang phát); nền đậm hơn chút để chữ vẫn rõ. */
-  background: rgba(255, 255, 255, 0.2);
+  background: color-mix(in srgb, var(--color-background) 20%, transparent);
   border: 0;
-  color: rgb(255 255 255);
+  color: var(--color-background);
   font: inherit;
   font-size: 0.75rem;
   font-weight: 600;
@@ -1512,9 +1510,9 @@
   gap: 10px;
   padding: 9px 12px;
   border-radius: 14px;
-  background: rgba(25, 27, 32, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: rgb(247 247 248);
+  background: color-mix(in srgb, var(--color-navy) 84%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-background) 18%, transparent);
+  color: var(--color-surface);
   text-decoration: none;
   cursor: pointer;
   transition: border-color 160ms ease;
@@ -1563,7 +1561,7 @@
 
 .overlayTripSub {
   font-size: 0.72rem;
-  color: rgba(247, 247, 248, 0.72);
+  color: color-mix(in srgb, var(--color-surface) 72%, transparent);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1583,7 +1581,7 @@
   height: 4px;
   border-radius: 999px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.22);
+  background: color-mix(in srgb, var(--color-background) 22%, transparent);
   pointer-events: none;
   transition: height 120ms ease, top 120ms ease;
 }
@@ -1884,7 +1882,7 @@
   height: 18px;
   border-radius: 999px;
   background: var(--iv-accent);
-  color: rgb(255 255 255);
+  color: var(--color-background);
   font-size: 0.72rem;
   font-weight: 800;
   display: inline-flex;
@@ -2319,9 +2317,9 @@ a.avatarSmall {
   width: 14px;
   height: 14px;
   border-radius: 999px;
-  background: #FFFFFF;
+  background: var(--color-background);
   color: var(--color-coral);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-soft);
 }
 
 .composerLoadingPlaceholder {
@@ -2744,7 +2742,7 @@ a.avatarSmall {
 .composerTypeBtnActive {
   background: var(--iv-panel-bg);
   color: var(--iv-text);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-soft);
   font-weight: 600;
 }
 
@@ -2818,7 +2816,7 @@ a.avatarSmall {
   width: 100%;
   max-height: 220px;
   border-radius: 10px;
-  background: #000;
+  background: var(--color-navy);
   object-fit: contain;
 }
 
@@ -2956,15 +2954,15 @@ a.avatarSmall {
 }
 
 .removeItineraryItemBtn:hover {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+  color: var(--color-danger);
 }
 
 .uploadErrorBanner {
   padding: 8px 12px;
   border-radius: 10px;
-  background: rgba(239, 68, 68, 0.08);
-  color: #ef4444;
+  background: color-mix(in srgb, var(--color-danger) 8%, transparent);
+  color: var(--color-danger);
   font-size: 0.82rem;
   font-weight: 500;
   display: flex;
@@ -3181,7 +3179,7 @@ a.avatarSmall {
   border-radius: 8px;
   border: 0;
   background: var(--iv-accent);
-  color: rgb(255 255 255);
+  color: var(--color-background);
   font: inherit;
   font-size: 0.82rem;
   font-weight: 600;
@@ -3297,9 +3295,9 @@ a.avatarSmall {
   align-items: center;
   justify-content: center;
   padding: 32px 24px;
-  background: rgba(15, 23, 42, 0.88);
+  background: color-mix(in srgb, var(--color-navy) 88%, transparent);
   backdrop-filter: blur(12px);
-  color: #ffffff;
+  color: var(--color-background);
   text-align: center;
   z-index: 30;
   border-radius: inherit;
@@ -3315,12 +3313,12 @@ a.avatarSmall {
   font-size: 19px;
   font-weight: 700;
   margin: 0 0 8px;
-  color: #ffffff;
+  color: var(--color-background);
 }
 
 .postUnavailableDesc {
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.78);
+  color: color-mix(in srgb, var(--color-background) 78%, transparent);
   max-width: 320px;
   line-height: 1.5;
   margin: 0 0 20px;
@@ -3328,14 +3326,14 @@ a.avatarSmall {
 
 .postUnavailableNextBtn {
   padding: 8px 22px;
-  background-color: var(--color-coral, #ff4d4f);
-  color: #ffffff;
+  background-color: var(--color-coral);
+  color: var(--color-background);
   font-size: 13px;
   font-weight: 600;
   border: none;
   border-radius: 9999px;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(255, 77, 79, 0.35);
+  box-shadow: var(--shadow-soft);
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
@@ -3429,7 +3427,7 @@ a.avatarSmall {
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(8, 9, 12, 0.6);
+    background: color-mix(in srgb, var(--color-navy) 60%, transparent);
     z-index: 50;
   }
 
@@ -3481,3 +3479,14 @@ a.avatarSmall {
     transition: none;
   }
 }
+
+/* FE-08: khung dọc và nền đậm cho chú thích. */
+.mediaStageFrame { width: min(100%,calc((100dvh - var(--feed-header-height,72px) - var(--mobile-tab-bar-space,0px) - 32px) * 9 / 16)); height: auto; aspect-ratio: 9 / 16; max-height: 100%; border-radius: var(--radius-lg); }
+.stageBottomOverlay { background: var(--color-overlay-heavy); color: var(--color-background); padding-top: 20px; }
+.stageBottomOverlay :is(.overlayAuthorNameRow,.overlayCaptionText,.overlayExpandBtn,.overlayTagPill) { color: var(--color-background); }
+:is(.iconGhostBtn,.overlayExpandBtn,.reelRetryBtn,.createPostBtn,.videoOverlayBtn,.actionBtn) { min-width: 44px; min-height: 44px; }
+.reelStagePlaceholderContent { width: 100%; }
+.reelStagePlaceholderContent :global(.primary-button) { color: var(--color-background); }
+.reelStagePlaceholderContent :global(h3) { color: var(--color-text); }
+.reelStagePlaceholderContent :global(p) { color: var(--color-text-muted); }
+@media (prefers-reduced-motion: reduce) { .immersiveRoot * { animation: none !important; transition: none !important; } }

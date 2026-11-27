@@ -37,7 +37,7 @@
 | FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | CHỜ NGHIỆM THU |
 | FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | XONG |
 | FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
-| FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | ĐANG LÀM |
+| FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | CHỜ NGHIỆM THU |
 | FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
@@ -94,7 +94,7 @@ Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket k
 
 - **FE-04 · Codex 28/11/2026 — CHỜ NGHIỆM THU (sửa nghiệm thu).** Giữ Inter variable tự lưu trữ và khung 72/56px. Sửa `.empty-state p` thành `max-width: min(440px, 100%)`, cho phép ngắt từ; đặt CSS import đầu file và border-box; nối lại bảng nhật ký §10. Ảnh header đã map tới welcome, lấy PNG trực tiếp trong FE-03. `pnpm typecheck` chỉ lỗi route Google cũ; `pnpm test`: 576 test web và các package đạt, chỉ suite route Google không nạp được. PM kiểm lại ảnh 390px và hiển thị font Windows theo lựa chọn người dùng.
 - **FE-05 · Codex 28/11/2026 — CHỜ NGHIỆM THU (sửa nghiệm thu).** Giữ hero/form trắng/gợi ý và kết quả khách sạn đã nộp. Bổ sung `min-width: 0`, border-box và track `minmax(0, 1fr)` cho ô tìm/ngày; giới hạn bề ngang hero và wrapper, bỏ container lồng bị trừ lề lần hai trên `/search`. Nút tìm disabled có opacity 1, nền surface-muted/chữ text-muted; nút thường coral/trắng. File sửa lại: `discovery/{stay-search,ota-home-motion,ota-hero,hotel-listing}.module.css`. `pnpm typecheck` chỉ route Google cũ; `pnpm test`: 576 test web và các package đạt, chỉ suite route Google không nạp được. Chưa chụp lại theo chỉ định người dùng; PM kiểm lại tràn ngang ở 1440/390px.
-- **FE-08 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục cảm hứng/bảng tin/reels/lịch trình/hồ sơ trong tài liệu; FE-04 đang kẹt. Chưa sửa vùng social/discovery hoặc các trang tương ứng.
+- **FE-08 · Codex 28/11/2026 — CHỜ NGHIỆM THU.** Bảng tin masonry 3 cột màn rộng/2 cột mobile, giữ handler/API lưu/thích/bình luận/chia sẻ; tim lưu 44px, chip cuộn ngang pastel, nút tạo bài nổi gradient có icon nâu và nằm trên thanh đáy. Reels 9:16, chú thích trên overlay-heavy. Timeline mỗi ngày một thẻ và nút 'Dùng lịch trình này' giữ URL cũ; hồ sơ avatar 96px/viền 4px, thống kê ngang/lưới bài. Thêm khung tải và guide/CTA cho feed/hồ sơ/tìm bài/Reels rỗng. Thông báo chưa đọc nền tint/chấm coral; sửa token màu thông báo không tồn tại, vùng bấm 44px. File: `features/social/**` (feed/post-card/social-feed-view/CSS, live-posts, public-profile/profile-post-wall, search-results-grid, trip-plan-view, social-empty-state, các CSS còn màu cứng), `features/notifications/web-notifications.css`, 2 màu trạng thái trong `app/globals.css`. `pnpm typecheck`: chỉ lỗi route Google cũ; `pnpm test`: 576/576 test web và các package đạt, chỉ suite route Google không nạp được. Parse 24 stylesheet đạt, không còn hex/rgb hoặc token màu không tồn tại trong social/notifications/onboarding; `git diff --check` đạt. Chỉ sửa mã theo lựa chọn người dùng; PM kiểm 1440px/390px và dữ liệu thật khi có backend.
 
 ---
 

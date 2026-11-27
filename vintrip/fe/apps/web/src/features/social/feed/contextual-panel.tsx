@@ -143,17 +143,17 @@ export function ContextualPanel({
             style={{
               padding: '14px',
               borderRadius: '14px',
-              background: 'linear-gradient(135deg, rgba(255, 106, 0, 0.08) 0%, rgba(241, 245, 249, 0.9) 100%)',
-              border: '1px solid rgba(255, 106, 0, 0.2)',
+              background: 'linear-gradient(135deg, var(--color-coral-tint), var(--color-surface-muted))',
+              border: '1px solid var(--color-border)',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
               <SocialIcon name="sparkles" size={16} />
-              <span style={{ fontSize: '13px', fontWeight: 700, color: '#FF6A00' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--color-coral-ink)' }}>
                 Chia sẻ trải nghiệm
               </span>
             </div>
-            <p style={{ fontSize: '12px', lineHeight: 1.5, color: '#64748B', margin: 0 }}>
+            <p style={{ fontSize: '12px', lineHeight: 1.5, color: 'var(--color-text-muted)', margin: 0 }}>
               Đăng tải nhật ký hành trình, review khách sạn và kinh nghiệm điểm đến để nhận huy hiệu đóng góp từ Vintrip.
             </p>
           </section>
