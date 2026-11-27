@@ -37,8 +37,9 @@
 | FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | XONG |
 | FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | XONG |
 | FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | LÀM LẠI |
-| FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | LÀM LẠI |
-| FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | TODO |
+| FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | ĐANG LÀM |
+| FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | XONG |
+| FE-11 | Thống nhất kiểu nút bị khoá: nền `--color-surface-muted`, chữ `--color-text-muted`, không dùng `opacity` | **Codex** (`globals.css` `.primary-button:disabled`) + **Antigravity** (`auth.module.css` `.submitBtn`, `flights.module.css` `.searchButton`) | FE-04 | TODO |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
 ## Phân vùng file (không ai sửa vùng của người khác)
@@ -115,3 +116,5 @@ Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket k
 | 28/11 | FE-05 | XONG | Commit `bf501b2`. Đo màu nút "Tìm phòng trống" khi chưa chọn điểm đến: chữ `#8A5A44` trên `#FFF1E6`, đạt khoảng 5.2:1. Trang chủ và `/search` ở 390px (CDP) không tràn; các thẻ vượt mép ở trang chủ là băng cuộn ngang, đúng đặc tả. |
 | 28/11 | FE-08 | LÀM LẠI | Commit `3cb0f0f`, test đạt, không sửa ngoài vùng, 1440 và 390 không tràn, nút tạo bài có icon nâu trên dải compose (đúng). **Thiếu trạng thái:** khi backend không chạy, vùng bảng tin chỉ có ảnh nền, không hiện đang tải, lỗi (`ApiErrorNotice` + "Thử lại") hay rỗng (`vini-guide.png` + "Chưa có bài nào" + nút). Theo đặc tả, mỗi trang phải có đủ 3 trạng thái. Kiểm thêm: ở 390px, tab `segmented-tabs` của thanh trên vượt mép phải. |
 | 28/11 | FE-07 | LÀM LẠI | Commit `9ea1bd2` (đúng bản PM đã rà). Đạt: 0 mã màu viết cứng, không còn class nào bị `app/search` dùng, 1440 và 390 không tràn (CDP), test đạt. Cần sửa: (1) **bỏ ảnh linh vật khỏi `flight-banner.tsx`** (người dùng yêu cầu; ở 390px ảnh còn đè lên dòng giới thiệu); (2) nút "Tìm chuyến bay" khi bị khoá đang là chữ trắng trên `--color-coral` mờ 50%, khó đọc. Dùng kiểu khoá giống trang chủ: nền `--color-surface-muted`, chữ `--color-text-muted`, không dùng opacity; (3) ô ngày `.calendarGrid button` cao 36px, nâng lên 44px. |
+| 28/11 | FE-09 | XONG | Commit `8e76043` + `756c23c`, đưa vào `vintrip` bằng cherry-pick (`67d07fc`, `4c6683a`) để không kéo FE-07 chưa đạt. Chỉ sửa trong vùng Antigravity, 0 mã màu viết cứng. Giữ nút "Dùng tài khoản demo" của Lim (chỉ hiện khi `NEXT_PUBLIC_VINTRIP_DEMO_ENABLED=true`, như bản gốc). typecheck chỉ lỗi Google cũ, test web 576/576. CDP: `/login`, `/register`, `/cart` (chuyển về đăng nhập) ở 1440 và 390 không tràn. Khung chia đôi, Vini, ô nhập có icon, nút chính/phụ đúng đặc tả 8.6. **Chưa xem được** tài khoản, thanh toán, đặt chỗ, trợ lý khi có dữ liệu (cần backend và đăng nhập). Nút "Đăng nhập" khi bị khoá mờ 55% (chữ trắng trên cam nhạt): WCAG không bắt buộc với nút bị khoá, chuyển sang FE-11 cho đồng bộ. |
+| 28/11 | FE-07 | Vẫn LÀM LẠI | Antigravity chưa nộp bản sửa: `flight-banner.tsx` vẫn có ảnh linh vật, `.calendarGrid button` vẫn 36px. Mục nút khoá chuyển sang FE-11. |
