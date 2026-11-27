@@ -121,6 +121,29 @@ export class AuthUseCases {
     this.registerMaxPerIp = (env.AUTH_REGISTER_MAX_PER_IP_HOUR as number | undefined) ?? DEFAULT_REGISTER_MAX_PER_IP;
   }
 
+  async startDemo(meta: RequestMeta, proof: BrowserProof): Promise<TokenPair> {
+    const browserKey = await this.authenticateBrowser(proof, 'login');
+    await this.checkRegistrationLimit([`demo:ip:${meta.ip}`, 60, REGISTER_WINDOW_SECONDS]);
+    const refreshToken = createRefreshToken(browserKey);
+    const { user, session } = await this.createDemoSession(meta, hashRefreshToken(refreshToken));
+    return this.issueTokenPair(user, session.id, refreshToken);
+  }
+
+  @Transactional('access')
+  private async createDemoSession(meta: RequestMeta, tokenHash: string) {
+    const user = await this.store.users.insert({
+      email: `demo-${randomUUID()}@example.invalid`,
+      passwordHash: null,
+      role: 'member',
+      displayName: 'Khách demo',
+    });
+    if (!user) throw new Error('Could not create demo user');
+    const payload: AccessUserRegisteredV1 = { userId: user.id, displayName: user.displayName, avatarUrl: user.avatarUrl };
+    await this.store.outbox.add({ type: 'access.user.registered', userId: user.id, payload });
+    const session = await this.openSession(user, tokenHash, null, meta, 'demo');
+    return { user, session };
+  }
+
   async requestRegistrationCode(address: string, meta: RequestMeta): Promise<string> {
     const email = normalizeEmail(address);
     // Đợi giữa hai lần xin mã: kiểm trước để lần bấm quá sớm không ăn vào hạn mức theo giờ.
@@ -541,7 +564,7 @@ export class AuthUseCases {
     refreshTokenHash: string,
     deviceName: string | null,
     meta: RequestMeta,
-    provider: 'password' | 'google' | 'admin_handoff' = 'password',
+    provider: 'password' | 'google' | 'admin_handoff' | 'demo' = 'password',
     loginChallengeId?: string,
   ): Promise<SessionRecord> {
     if (
