@@ -7,8 +7,7 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Việc | Công cụ AI | AI làm gì | Người kiểm/sửa gì | Ai phụ trách |
 |---|---|---|---|---|
 | Thiết lập repo | OpenAI Codex | Chép starter kit của BTC, cập nhật README và thông tin nhóm đã biết, tạo môi trường Python, kiểm tra luồng với model giả | Nhóm cần kiểm lại phần thiết lập; chưa có xác nhận kiểm tay của nhóm | ____ |
-| Cập nhật hồ sơ CP1 | OpenAI Codex | Viết lại canvas, cập nhật tên dự án VinTrip và đối chiếu README, TEAMS.md, tiêu đề spec với phạm vi lập lịch khu vui chơi | Theo yêu cầu của người dùng trong phiên làm việc. Chưa có xác nhận kiểm tay toàn bộ nội dung sau khi sửa | Chu Nguyễn Tùng Dương điều phối theo phân công trong TEAMS.md |
-| Soạn hồ sơ CP2 | OpenAI Codex, Antigravity, Claude Code theo khai báo tại spec.md §10 | Hỗ trợ soạn thiết kế, sơ đồ và tiêu chí. Codex rà kết quả merge, cập nhật README, đối chiếu nguồn và bổ sung bối cảnh mô phỏng cho 3 input xếp lại lịch | Codex chạy check và kiểm đường chạy model giả. Nhóm cần đối chiếu khảo sát gốc và duyệt nội dung. Giữ nguyên chuẩn đạt, metric, expected và pass_criterion | Chu Nguyễn Tùng Dương điều phối, các thành viên phụ trách theo TEAMS.md |
+| Đổi tên mã nguồn tham khảo | Claude Code | Đổi tên `tripflix` thành `vintrip` trong thư mục `vintrip/` (khung dựa trên mã nguồn TripFlix, đã ghi nguồn trong README), giữ nguyên link github.com / ghcr.io gốc; đổi bảng màu giao diện | Nhóm cần kiểm lại build `vintrip/fe` (chưa chạy được vì máy chưa cài pnpm) | Nguyễn Lê Trọng Mạnh |
 | Code bản chạy thử | | | | |
 | Prompt / thiết kế lời gọi mô hình | | | | |
 | Đào data (viết script đếm, gợi ý nhãn) | | | Kiểm tay __ dòng, khớp __ | |

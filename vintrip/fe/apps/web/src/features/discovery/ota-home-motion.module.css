@@ -1,0 +1,169 @@
+.layeredCanvas {
+  --water-ink: #102f36;
+  --water-muted: #29454a;
+  --water-accent: #8c360b;
+  --water-panel: rgb(250 255 251 / 75%);
+  --water-heading-glow: rgb(223 248 237 / 44%);
+  --water-shadow: 0 10px 30px rgb(10 44 49 / 14%);
+  --water-glass: rgb(250 255 251 / 78%);
+  position: relative;
+  color: var(--water-ink);
+}
+
+.layeredCanvas[data-water-visible] {
+  touch-action: manipulation;
+}
+
+.layeredCanvas [data-home-paused] {
+  --home-animation-state: paused;
+}
+
+@media (min-width: 901px) {
+  .layeredCanvas[data-home-scrolling] {
+    /* Keep the translucent panels, but avoid resampling moving water during a scroll. */
+    --home-backdrop: none;
+  }
+}
+
+.layeredCanvas[data-water-act='1'] {
+  --water-panel: rgb(242 252 247 / 78%);
+}
+
+.layeredCanvas[data-water-act='2'] {
+  --water-panel: rgb(255 250 235 / 78%);
+}
+
+.layeredCanvas[data-water-act='3'] {
+  --water-panel: rgb(248 255 240 / 75%);
+}
+
+.layeredCanvas[data-water-act='4'] {
+  --water-ink: #f5fffb;
+  --water-muted: #e1f1ec;
+  --water-accent: #ffd0a6;
+  --water-panel: rgb(8 31 39 / 62%);
+  --water-heading-glow: rgb(8 31 39 / 54%);
+}
+
+.layeredCanvas::before,
+.water {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.layeredCanvas::before {
+  content: '';
+  background: radial-gradient(ellipse at 20% 10%, #c2e5d8, #2c7a7b);
+}
+
+.layeredCanvas[data-water-visible]::before {
+  /* The opaque water canvas already covers this fallback. */
+  visibility: hidden;
+}
+
+.water {
+  width: 100%;
+  height: 100%;
+  contain: strict;
+  /* Keep water updates on their own compositing layer while the content scrolls. */
+  will-change: transform;
+}
+
+.inspirationBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #e7f5f1;
+}
+.inspirationBackdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgb(240 250 249 / 20%), rgb(230 246 244 / 30%));
+}
+.inspirationBackdrop img {
+  object-fit: cover;
+  /* Phóng nhẹ để mép mờ của blur không lộ viền sáng. */
+  transform: scale(1.08);
+  filter: blur(8px);
+}
+
+.waterContent {
+  position: relative;
+  z-index: 1;
+  overflow-x: clip;
+}
+
+.waterContent > :global(.ota-home) {
+  z-index: 6;
+}
+
+.waterContent > :global(.ota-home)::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 46px calc((100% - 100vw) / 2) -96px;
+  background: linear-gradient(var(--color-sea-mist), #f5faf8 26px, #f5faf8 calc(100% - 96px), transparent);
+  pointer-events: none;
+}
+
+@media (min-width: 901px) {
+  .layeredCanvas:has([data-home-hero]) .waterContent > :global(.ota-home)::before {
+    top: 210px;
+  }
+}
+
+.layeredCanvas:not([data-water-visible]) :is(.water, .waterControls, .waterReadout) {
+  visibility: hidden;
+}
+
+.waterControls,
+.waterReadout {
+  position: fixed;
+  z-index: 12;
+  color: var(--water-ink);
+  background: var(--water-panel);
+  box-shadow: var(--water-shadow);
+  backdrop-filter: var(--home-backdrop, blur(14px));
+}
+
+.waterControls {
+  inset: auto auto max(10px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  padding: 6px 10px;
+  border: 1px solid rgb(255 255 255 / 38%);
+  border-radius: 999px;
+  font: italic 12px Georgia, serif;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.waterControls:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--water-ink);
+  outline-offset: -3px;
+}
+
+.waterReadout {
+  inset: 0 auto auto 0;
+  max-width: calc(100vw - 16px);
+  border-radius: 9px;
+  padding: 4px 8px;
+  font: italic 12px Georgia, serif;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+:global([data-water-cursor]) {
+  cursor: none;
+}
+
+@media (max-width: 640px) {
+  .waterContent > :global(.ota-home)::before {
+    top: 16px;
+  }
+
+}

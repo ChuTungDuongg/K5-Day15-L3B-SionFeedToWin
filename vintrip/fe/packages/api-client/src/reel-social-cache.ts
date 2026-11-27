@@ -1,0 +1,158 @@
+import type { InfiniteData, QueryClient } from '@tanstack/react-query';
+import { RECOMMENDED_REELS_KEY, REEL_FEED_TABS } from './feed';
+import type { FeedPageDto } from './generated/core-api/model/feedPageDto';
+import type { socialApi } from './social';
+
+type PostDetail = Awaited<ReturnType<typeof socialApi.getPost>>;
+export type ReelSocialAction = 'like' | 'save';
+
+/** A post opened from the feed already has its poster and title, so they can show before the detail loads. */
+export function findCachedFeedCard(client: QueryClient, postId: string) {
+  for (const [, data] of client.getQueriesData<InfiniteData<FeedPageDto>>({ queryKey: ['feed'] })) {
+    const card = data?.pages.flatMap((page) => page.items).find((entry) => entry.postId === postId);
+    if (card) return card;
+  }
+  return undefined;
+}
+
+/** Patch only this viewer/post; keep page order, cursors and video objects intact. */
+export function updateReelSocialCache(
+  client: QueryClient,
+  userId: string,
+  postId: string,
+  action: ReelSocialAction,
+  selected: boolean,
+) {
+  // A post can sit in several tabs (and in the saved Reels list), so every cached card has to change together.
+  // Reels opened from search results or a shared link live under ['feed', 'byIds', ids, userId] (useReelsByIds).
+  // Reels gợi ý của discovery (mỗi mode một danh sách) live under ['feed', 'recommended', mode, userId].
+  const keysOf = (prefix: readonly unknown[]) =>
+    client
+      .getQueriesData<InfiniteData<FeedPageDto>>({ queryKey: prefix })
+      .map(([queryKey]) => queryKey)
+      .filter((queryKey) => queryKey[3] === userId);
+  const feedKeys = [
+    ...REEL_FEED_TABS.map((tab) => ['feed', tab, userId]),
+    ['feed', 'saved', userId],
+    ...keysOf(['feed', 'byIds']),
+    ...keysOf(RECOMMENDED_REELS_KEY),
+  ];
+  const previousFeeds = feedKeys.map((feedKey) => client.getQueryData<InfiniteData<FeedPageDto>>(feedKey));
+  const detailKey = ['social', 'post', postId, userId];
+  const previousDetail = client.getQueryData<PostDetail>(detailKey);
+  const flag = action === 'like' ? 'liked' : 'saved';
+  const count = action === 'like' ? 'likes' : 'saves';
+  const detailCount = action === 'like' ? 'reactionTotal' : 'bookmarkCount';
+
+  for (const feedKey of feedKeys) {
+    client.setQueryData<InfiniteData<FeedPageDto>>(
+      feedKey,
+      (data) =>
+        data && {
+          ...data,
+          pages: data.pages.map((page) => ({
+            ...page,
+            items: page.items.map((card) =>
+              card.postId !== postId
+                ? card
+                : {
+                    ...card,
+                    viewerState: { liked: false, saved: false, ...card.viewerState, [flag]: selected },
+                    counts: {
+                      ...card.counts,
+                      [count]: Math.max(
+                        0,
+                        card.counts[count] + Number(selected) - Number(!!card.viewerState?.[flag]),
+                      ),
+                    },
+                  },
+            ),
+          })),
+        },
+    );
+  }
+  client.setQueryData<PostDetail>(detailKey, (data) => {
+    if (!data) return data;
+    const wasSelected =
+      action === 'like' ? data.viewerContext.myReaction !== null : data.viewerContext.isBookmarked;
+    return {
+      ...data,
+      post: {
+        ...data.post,
+        [detailCount]: Math.max(0, data.post[detailCount] + Number(selected) - Number(wasSelected)),
+      },
+      viewerContext: {
+        ...data.viewerContext,
+        ...(action === 'like'
+          ? { myReaction: selected ? ('like' as const) : null }
+          : { isBookmarked: selected }),
+      },
+    };
+  });
+
+  // Restore just the changed fields, preserving other posts and concurrent comment/share changes.
+  return () => {
+    feedKeys.forEach((feedKey, index) => {
+      client.setQueryData<InfiniteData<FeedPageDto>>(
+        feedKey,
+        (data) =>
+          data && {
+            ...data,
+            pages: data.pages.map((page) => ({
+              ...page,
+              items: page.items.map((card) => {
+                if (card.postId !== postId) return card;
+                const previous = previousFeeds[index]?.pages
+                  .flatMap((entry) => entry.items)
+                  .find((entry) => entry.postId === postId);
+                if (!previous) return card;
+                return {
+                  ...card,
+                  viewerState: {
+                    liked: false,
+                    saved: false,
+                    ...card.viewerState,
+                    [flag]: !!previous.viewerState?.[flag],
+                  },
+                  counts: { ...card.counts, [count]: previous.counts[count] },
+                };
+              }),
+            })),
+          },
+      );
+    });
+    if (previousDetail)
+      client.setQueryData<PostDetail>(
+        detailKey,
+        (data) =>
+          data && {
+            ...data,
+            post: { ...data.post, [detailCount]: previousDetail.post[detailCount] },
+            viewerContext: {
+              ...data.viewerContext,
+              ...(action === 'like'
+                ? { myReaction: previousDetail.viewerContext.myReaction }
+                : { isBookmarked: previousDetail.viewerContext.isBookmarked }),
+            },
+          },
+      );
+  };
+}
+
+/**
+ * Bỏ lưu thành công thì Reel đó không còn thuộc danh sách "Đã lưu": xoá khỏi cache thay vì chỉ đổi saved=false.
+ * Chỉ gọi sau khi server xác nhận, nên lỗi mạng không làm Reel biến mất rồi hiện lại.
+ */
+export function removeReelFromSavedFeedCache(client: QueryClient, userId: string, postId: string) {
+  client.setQueryData<InfiniteData<FeedPageDto>>(
+    ['feed', 'saved', userId],
+    (data) =>
+      data && {
+        ...data,
+        pages: data.pages.map((page) => ({
+          ...page,
+          items: page.items.filter((card) => card.postId !== postId),
+        })),
+      },
+  );
+}

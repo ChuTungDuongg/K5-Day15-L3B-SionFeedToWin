@@ -1,0 +1,5 @@
+{
+  "extends": "@vintrip/config/tsconfig/library.json",
+  "compilerOptions": { "types": ["node"] },
+  "include": ["src"]
+}

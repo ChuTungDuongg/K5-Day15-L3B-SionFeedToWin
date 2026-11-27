@@ -1,0 +1,56 @@
+.root {
+  aspect-ratio: 1;
+}
+
+.still {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.liveImage {
+  width: 100%;
+}
+
+.player {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+}
+
+.player:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+}
+
+.reactionFrame,
+.reaction {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bob {
+    transform-origin: center 72%;
+    animation: bob 5s ease-in-out infinite;
+  }
+
+  .reaction {
+    animation: greet 550ms ease-in-out;
+  }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-3%) rotate(1.5deg); }
+}
+
+@keyframes greet {
+  35% { transform: translateY(-5%) rotate(-5deg); }
+  68% { transform: rotate(3deg); }
+}
