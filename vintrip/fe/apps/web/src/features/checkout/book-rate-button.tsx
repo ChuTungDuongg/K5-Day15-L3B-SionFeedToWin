@@ -50,19 +50,30 @@ export function BookRateButton({
 
   return (
     <div className={styles.adder} data-selected={Boolean(line)}>
-      <select
-        className={styles.qtySelect}
-        aria-label={copy.cartSelectRooms}
-        value={line?.qty ?? 0}
-        disabled={isDisabled}
-        onChange={(event) => selectQty(Number(event.target.value))}
-      >
-        {Array.from({ length: booking.maxQty + 1 }, (_, qty) => (
-          <option key={qty} value={qty}>
-            {qty} {copy.cartRooms}
-          </option>
-        ))}
-      </select>
+      {line ? (
+        <select
+          className={styles.qtySelect}
+          aria-label={copy.cartSelectRooms}
+          value={line.qty}
+          disabled={isDisabled}
+          onChange={(event) => selectQty(Number(event.target.value))}
+        >
+          {Array.from({ length: booking.maxQty + 1 }, (_, qty) => (
+            <option key={qty} value={qty}>
+              {qty} {copy.cartRooms}
+            </option>
+          ))}
+        </select>
+      ) : (
+        <button
+          type="button"
+          className={styles.bookPrimaryBtn}
+          disabled={isDisabled || booking.maxQty < 1}
+          onClick={() => selectQty(1)}
+        >
+          {vi.hotel.chooseRoom}
+        </button>
+      )}
       {notice && (
         <p role="alert" className={styles.warning}>
           {notice}
