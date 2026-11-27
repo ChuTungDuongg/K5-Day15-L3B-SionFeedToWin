@@ -198,6 +198,8 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 
 | 28/11/2026 · FE-04 | Chuyển khung chung và Inter variable sang CHỜ NGHIỆM THU | Chạy lại typecheck/test toàn FE: chỉ còn lỗi route Google đã biết, 576 test web đạt. Glyph tiếng Việt đã kiểm; PM kiểm hiển thị Windows và viewport |
 
+| 28/11/2026 · FE-03 | Ghi điểm chưa thống nhất giữa yêu cầu Teemo của người dùng và brief nhân vật nguyên bản của PM; lấy PNG trực tiếp qua ViniMascot | Giữ chỉ định trực tiếp và prompt trung thực; map expr-happy đã trỏ ảnh welcome. Chờ PM thống nhất nhân vật và kiểm lại cache ảnh đầu trang |
+
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
 | Thời điểm | Đổi gì | Vì sao |

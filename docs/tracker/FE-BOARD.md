@@ -32,9 +32,9 @@
 |---|---|---|---|---|
 | FE-01 | Hệ thiết kế cam pastel: token màu, chữ, bo góc, bóng, trạng thái | **Claude** | — | XONG |
 | FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | XONG |
-| FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | LÀM LẠI |
-| FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | LÀM LẠI |
-| FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | LÀM LẠI |
+| FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | KẸT |
+| FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | ĐANG LÀM |
+| FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | ĐANG LÀM |
 | FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | XONG |
 | FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | ĐANG LÀM |
@@ -85,6 +85,8 @@
 Brief nhân vật và 6 tư thế 3D nền trong suốt: chào, tò mò, lập kế hoạch, hướng dẫn, thành công, buồn (dùng cho trang lỗi). Thay vào `public/brand/vini/`, giữ tên file để không phải sửa code.
 
 **Ghi chú Codex 28/11/2026 — CHỜ NGHIỆM THU.** Theo yêu cầu mới của người dùng, dùng Teemo thay nhân vật nguyên bản; đã tạo 6 PNG trong `public/brand/vini/`, 1024×1024, alpha thật, 171.064–185.984 byte, thêm ảnh buồn vào `not-found.tsx`, ảnh chào trên hero, bỏ 3 PNG Tripi không còn dùng; prompt ở `vini/README.md`. Kiểm PNG bằng Sharp đạt. `pnpm typecheck`: chỉ lỗi route Google đã biết; `pnpm test`: 574 đạt, lỗi route Google và 2 test mặc định Nha Trang/Hà Nội có sẵn thuộc FE-05. Sau FE-05: pnpm test có 576/576 test web đạt, chỉ suite route Google đã biết không nạp được; typecheck chỉ lỗi route này. Người dùng chọn để PM kiểm ảnh 1440px/390px.
+
+**FE-03 · Phản hồi nghiệm thu 28/11 — KẸT: yêu cầu nhân vật chưa thống nhất.** Người dùng đã chỉ định Teemo trực tiếp; giữ tài nguyên và prompt trung thực theo chỉ định đó, không tự đổi sang nhân vật khác. PM yêu cầu nhân vật nguyên bản trong nhật ký nghiệm thu; chờ PM thống nhất lại đặc tả với người dùng. Đã kiểm đường ảnh: AssistantHeaderButton dùng expr-happy, map hiện tại trỏ vini-welcome.png. Thêm unoptimized ở ViniMascot để lấy PNG mới trực tiếp, tránh dùng bản tối ưu cũ còn lưu trong cache; PM kiểm lại ảnh góc phải. Không sửa vùng assistant/auth.
 
 ## FE-04 → FE-09 · Các trang (Codex: FE-04, FE-05, FE-08 · Antigravity: FE-06, FE-07, FE-09)
 

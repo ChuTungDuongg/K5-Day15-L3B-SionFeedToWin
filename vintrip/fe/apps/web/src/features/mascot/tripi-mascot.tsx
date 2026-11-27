@@ -30,6 +30,7 @@ export function ViniMascot({
       alt={alt ?? asset.label}
       width={size}
       height={size}
+      unoptimized
       className={[styles.still, motion && styles.bob, className].filter(Boolean).join(' ')}
       onError={() => setFailedSrc(asset.src)}
     />
