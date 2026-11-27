@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  background: #881337;
+  background: var(--color-warm-mist);
   isolation: isolate;
   min-height: clamp(540px, 40vw, 600px);
   overflow: clip;
@@ -13,9 +13,8 @@
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgb(76 5 25 / 82%) 0%, rgb(136 19 55 / 58%) 32%, transparent 62%),
-    linear-gradient(270deg, rgb(76 5 25 / 46%) 0%, rgb(154 52 18 / 28%) 28%, transparent 58%),
-    linear-gradient(180deg, transparent 34%, rgb(159 18 57 / 22%) 54%, #881337db 100%);
+    linear-gradient(90deg, rgb(8 34 27 / 64%) 0%, rgb(8 34 27 / 36%) 36%, transparent 74%),
+    linear-gradient(180deg, rgb(8 34 27 / 18%) 0%, transparent 52%, rgb(8 34 27 / 8%) 78%, var(--color-sea-mist) 100%);
 }
 
 /* ==========================================================================
@@ -31,7 +30,7 @@
 
 .backdropImg {
   object-fit: cover;
-  object-position: center bottom;
+  object-position: center 62%;
 }
 
 .backdropImageWrapper picture {
@@ -48,13 +47,22 @@
   transform: translate(calc(var(--pointer-x, 0) * 6px), calc(var(--pointer-y, 0) * 3px));
 }
 
-.typographyImage {
+.wordmarkGlass {
+  position: absolute;
+  inset: 0;
+  /* Blur only the letter shapes, preserving the landscape around the logo. */
+  -webkit-backdrop-filter: blur(5px) saturate(1.25);
+  backdrop-filter: blur(5px) saturate(1.25);
+  -webkit-mask: url('/brand/hero-layered-v1/vintrip-wordmark-mask.svg') center / 100% 100% no-repeat;
+  mask: url('/brand/hero-layered-v1/vintrip-wordmark-mask.svg') center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+
+.wordmarkImage {
+  position: relative;
   display: block;
   width: 100%;
   height: auto;
-  max-width: 440px;
-  margin-bottom: 12px;
-  pointer-events: none;
   user-select: none;
 }
 
@@ -73,7 +81,7 @@
   display: block;
   width: 100%;
   height: auto;
-  filter: drop-shadow(0 5px 6px rgb(76 5 25 / 32%));
+  filter: drop-shadow(0 5px 6px rgb(24 36 43 / 14%));
 }
 
 .vectorLayer {
@@ -140,79 +148,6 @@
 }
 
 /* ==========================================================================
-   LỚP TƯƠNG TÁC TỪNG CHỮ CÁI (FIGMA HOTSPOT SYSTEM)
-   Overlay trong suốt khớp hoàn hảo vị trí 8 chữ cái VINTRIP trên nền 3D
-   ========================================================================== */
-.letterHotspots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.letterHotspot {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 8px;
-  background: rgb(76 5 25 / 78%);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 12px;
-  pointer-events: auto;
-  transition: background 200ms ease;
-}
-
-.letterHotspot:hover {
-  background: #9F1239;
-}
-
-.letterHotspot:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 4px;
-}
-
-.letterBadge {
-  position: absolute;
-  top: calc(100% + 4px);
-  z-index: 1;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(76, 5, 25, 0.92);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(251, 113, 133, 0.5);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  opacity: 0;
-  transform: translateY(6px) scale(0.95);
-  transition: all 220ms cubic-bezier(0.2, 0.7, 0.25, 1);
-  pointer-events: none;
-  white-space: nowrap;
-  z-index: 25;
-}
-
-
-.badgeName {
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.letterHotspot:hover .letterBadge,
-.letterHotspot:focus-visible .letterBadge {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* ==========================================================================
    BỐ CỤC 2 CỘT NỬA DƯỚI MẶT BIỂN
    ========================================================================== */
 .bottomSection {
@@ -236,44 +171,37 @@
   width: min(100%, 660px);
 }
 
-/* Be Vietnam Pro giữ cụm dấu tiếng Việt liền mạch ở cỡ chữ lớn. */
+/* Script chỉ dùng cho slogan; chữ chức năng vẫn dùng Nunito. */
 .copy h1 {
   margin-block: 0 16px;
-  font-family: var(--font-sans);
-  font-size: min(clamp(3rem, 5.45vw, 5.3rem), 15.5cqi);
-  font-weight: 900;
-  line-height: 1.04;
-  letter-spacing: -0.052em;
+  font-family: 'Great Vibes', cursive;
+  font-size: min(clamp(3.5rem, 6.6vw, 6rem), 20cqi);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: 0;
   white-space: pre-line;
 }
 
 .titleFirst {
   display: block;
-  color: #ffffff;
+  color: var(--color-background);
   font-style: normal;
   white-space: nowrap;
-  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  text-shadow: 0 2px 18px rgb(8 34 27 / 24%);
 }
 
 .titleSecond {
   position: relative;
   display: inline-block;
-  padding: 0.02em 0.18em 0.16em 0.04em;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.04em;
-  font-weight: 700;
-  font-style: italic;
-  line-height: 1.24;
+  padding: 0.06em 0.16em 0.08em 0;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.18;
   letter-spacing: 0;
   white-space: nowrap;
-  background: linear-gradient(180deg,
-      #fffbed 22%,
-      #ffe5a9 68%,
-      #f3c776 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 3px 9px rgb(76 5 25 / 50%));
+  color: var(--color-teal-soft);
 }
 
 .description {
@@ -382,6 +310,7 @@
 
   .copy {
     margin-top: 17px;
+    width: 48%;
   }
 }
 
@@ -389,6 +318,7 @@
   .typographyLayer {
     top: calc(20% + 32px);
   }
+
 }
 
 @media (max-width: 640px) {
@@ -397,18 +327,20 @@
   }
 
   .hero::after {
-    background: linear-gradient(180deg, rgb(76 5 25 / 86%) 0%, rgb(136 19 55 / 80%) 34%, rgb(159 18 57 / 40%) 56%, #881337 80%);
+    background:
+      linear-gradient(180deg, rgb(8 34 27 / 68%) 0%, rgb(8 34 27 / 38%) 38%, rgb(8 34 27 / 8%) 70%, var(--color-sea-mist) 100%);
   }
 
   .backdropImg {
-    object-position: 48% top;
+    object-position: 52% center;
   }
 
   .typographyLayer {
-    top: 318px;
+    top: 290px;
     left: 8%;
     width: 84%;
   }
+
 
   /* Linh vật nằm trên khoảng biển giữa khẩu hiệu và logo, không đè chữ Vintrip. */
   .rowerLayer {
@@ -421,7 +353,7 @@
   }
 
   .inner {
-    min-height: calc(342px + 18vw);
+    min-height: calc(392px + 18vw);
     padding-block: 24px 40px;
     gap: 16px;
   }
@@ -431,27 +363,8 @@
     padding-bottom: 50px;
   }
 
-  .letterBadge {
-    white-space: normal;
-    width: 130px;
-    border-radius: 12px;
-    text-align: center;
-  }
-
-  .letterHotspot:first-child .letterBadge {
-    left: 0;
-  }
-
-  .letterHotspot:last-child .letterBadge {
-    right: 0;
-  }
-
-  .letterHotspot {
-    min-height: 32px;
-  }
-
   .copy h1 {
-    font-size: min(clamp(2.65rem, 12.5vw, 3.45rem), 15cqi);
+    font-size: min(clamp(3rem, 14.5vw, 3.8rem), 19cqi);
   }
 
   .activities {

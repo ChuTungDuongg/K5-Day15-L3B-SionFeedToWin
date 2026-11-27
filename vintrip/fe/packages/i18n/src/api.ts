@@ -178,8 +178,8 @@ export const api = {
   },
   // Trang đăng nhập và trang đăng ký tách riêng (TF06O)
   // Tiêu đề hai dòng bên trái trang đăng nhập: dòng đầu đen, dòng sau xanh.
-  authHeroFirst: 'Thấy là thích,',
-  authHeroSecond: 'nhích là đi',
+  authHeroFirst: 'Đi để khám phá,',
+  authHeroSecond: 'về để kể',
   authHeroRating: '4,9 · Đà Nẵng',
   authHeroSaved: 'Đã lưu chuyến đi',
   authLoginTitle: 'Đăng nhập Vintrip',

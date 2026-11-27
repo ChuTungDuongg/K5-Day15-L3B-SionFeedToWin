@@ -5,6 +5,22 @@
 @source "../";
 
 @font-face {
+  font-family: 'Great Vibes';
+  src: url('/brand/great-vibes.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/brand/nunito-variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'Be Vietnam Pro';
   src: url('/brand/regular.ttf') format('truetype');
   font-weight: 400;
@@ -86,7 +102,7 @@ h3 {
   /* Căn hai mép header theo cùng lưới nội dung với banner bên dưới. */
   width: var(--ota-container-width);
   margin: 12px auto;
-  border: 1px solid rgb(194 65 12 / 24%);
+  border: 1px solid rgb(22 101 83 / 22%);
   border-radius: 999px;
   background: transparent;
   box-shadow: none;
@@ -604,7 +620,9 @@ h3 {
 
 /* Ignore hero markup inside hidden streaming segments until it joins the page. */
 body:has(> [data-living-home] [data-home-hero]) .ota-header {
-  border-color: rgb(255 255 255 / 48%);
+  border-color: rgb(255 255 255 / 85%);
+  background: rgb(255 255 255 / 88%);
+  box-shadow: 0 4px 24px rgb(24 36 43 / 5%);
 }
 @media (min-width: 641px) {
   body:has(> [data-living-home] [data-home-hero]) .ota-header {
@@ -616,25 +634,25 @@ body:has(> [data-living-home] [data-home-hero]) .ota-header {
     z-index: 50;
   }
 }
-body:has(> [data-living-home] [data-home-hero]) .header-logo-dark { display: none; }
-body:has(> [data-living-home] [data-home-hero]) .header-logo-light { display: block; }
-body:has(> [data-living-home] [data-home-hero]) .header-brand { filter: drop-shadow(0 2px 5px rgb(0 35 45 / 46%)); }
+body:has(> [data-living-home] [data-home-hero]) .header-logo-dark { display: block; }
+body:has(> [data-living-home] [data-home-hero]) .header-logo-light { display: none; }
+body:has(> [data-living-home] [data-home-hero]) .header-brand { filter: none; }
 body:has(> [data-living-home] [data-home-hero]) .header-content nav a,
 body:has(> [data-living-home] [data-home-hero]) .header-icon-button,
 body:has(> [data-living-home] [data-home-hero]) .header-actions > a:not(.header-login) {
-  color: #fff;
-  text-shadow: 0 1px 5px rgb(0 35 45 / 58%);
+  color: var(--color-ink);
+  text-shadow: none;
 }
 body:has(> [data-living-home] [data-home-hero]) .header-content nav {
-  --nav-tray-fill: rgb(255 255 255 / 7%);
-  --nav-indicator-fill: rgb(255 255 255 / 17%);
-  --nav-current-color: #fff;
+  --nav-tray-fill: var(--color-surface);
+  --nav-indicator-fill: var(--color-coral-tint);
+  --nav-current-color: var(--color-coral-ink);
 }
 body:has(> [data-living-home] [data-home-hero]) .header-content nav a:hover,
 body:has(> [data-living-home] [data-home-hero]) .header-icon-button:is(:hover, :focus-visible, [aria-expanded='true']),
 body:has(> [data-living-home] [data-home-hero]) .header-actions > a:not(.header-login):hover {
-  color: #fff;
-  background: rgb(255 255 255 / 14%);
+  color: var(--color-coral-ink);
+  background: var(--color-coral-tint);
 }
 .header-account {
   position: relative;
@@ -3441,12 +3459,12 @@ body:has([class*="feedPageWrapper"]) #content {
 }
 .account-page :is(.profile-aside, .profile-card):focus-within {
   border-color: var(--color-teal-soft);
-  box-shadow: 0 0 22px rgb(154 52 18 / 11%);
+  box-shadow: 0 0 22px rgb(22 77 67 / 11%);
 }
 @media (hover: hover) {
   .account-page :is(.profile-aside, .profile-card):hover {
     border-color: var(--color-teal-soft);
-    box-shadow: 0 0 22px rgb(154 52 18 / 11%);
+    box-shadow: 0 0 22px rgb(22 77 67 / 11%);
   }
 }
 .profile-card h2 {
