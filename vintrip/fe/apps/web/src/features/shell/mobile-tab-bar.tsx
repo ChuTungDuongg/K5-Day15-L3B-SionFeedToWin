@@ -10,7 +10,7 @@ import styles from './mobile-tab-bar.module.css';
 
 /**
  * Thanh điều hướng đáy trên điện thoại (TF98): Trang chủ · Đặt chỗ · ⊕ · Cảm hứng · Tôi.
- * Chỉ hiện dưới 768px bằng CSS (không dùng matchMedia) để server và client render giống nhau.
+ * Chỉ hiện dưới 1024px bằng CSS (không dùng matchMedia) để server và client render giống nhau.
  */
 export function MobileTabBar() {
   const pathname = usePathname();

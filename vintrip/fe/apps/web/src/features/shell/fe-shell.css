@@ -1,0 +1,77 @@
+/* FE-04: common shell; existing public class names remain stable. */
+body {
+  background: var(--color-surface);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.5;
+}
+h1, h2, h3 { font-family: var(--font-sans); font-weight: 700; letter-spacing: -0.02em; }
+:root { --ota-container-width: min(1440px, calc(100% - 48px)); }
+:is(body, body:has([data-living-home] [data-home-hero])) .ota-header {
+  position: sticky;
+  inset: 0 auto auto;
+  z-index: 40;
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-border);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--color-background) 85%, transparent);
+  backdrop-filter: blur(12px);
+  transform: none;
+  box-shadow: none;
+  color: var(--color-text);
+}
+:is(body, body:has([data-living-home] [data-home-hero])) .ota-header[data-header-scrolled] {
+  box-shadow: var(--shadow-soft);
+}
+body .ota-header .header-content {
+  width: var(--ota-container-width);
+  min-height: 72px;
+  padding-block: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 20px;
+}
+body .ota-header .header-brand { filter: none; }
+body .ota-header .header-logo-dark { display: block; }
+body .ota-header .header-logo-light { display: none; }
+body .ota-header .header-content nav { width: auto; display: flex; justify-content: center; }
+body .ota-header .header-content nav a {
+  position: relative;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  color: var(--color-text);
+  text-shadow: none;
+  background: transparent;
+  transition: background 180ms ease-out, color 180ms ease-out;
+}
+body .ota-header .header-content nav a:hover { background: var(--color-coral-tint); }
+body .ota-header .header-content nav a[aria-current='page'] { color: var(--color-coral-ink); font-weight: 700; }
+body .ota-header .header-actions { --header-control-size: 44px; gap: 4px; background: transparent; border: 0; padding: 0; box-shadow: none; }
+body .ota-header .header-icon-button,
+body .ota-header .header-actions > a:not(.header-login) { color: var(--color-text); text-shadow: none; }
+body .ota-header .header-login { min-height: 44px; background: var(--color-coral-tint); color: var(--color-coral-ink); }
+body .primary-button { min-height: 44px; border-radius: var(--radius-pill); background: var(--color-coral); color: var(--color-background); }
+@media (max-width: 1023px) {
+  :root { --ota-container-width: calc(100% - 32px); }
+  :is(body, body:has([data-living-home] [data-home-hero])) .ota-header { padding-top: env(safe-area-inset-top); background: var(--color-background); }
+  body .ota-header .header-content { min-height: 56px; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+  body .ota-header .header-content nav { display: none; }
+  body .ota-header .header-brand { width: 112px; height: 34px; flex-basis: 112px; }
+  body .ota-header .header-actions > :not(a[href='/cart']) { display: none; }
+  body .ota-header .header-actions > a[href='/cart'] { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+  :is(body, body:has([data-living-home] [data-home-hero])) .ota-header[data-header-hidden] { translate: 0 -100%; }
+  :is(body, body:has([data-living-home] [data-home-hero])) .ota-header { transition: translate 180ms ease-out; }
+  body:has([data-mobile-tab-bar]) { --mobile-tab-bar-height: 56px; --mobile-tab-bar-space: calc(56px + env(safe-area-inset-bottom)); }
+  body:has([data-mobile-tab-bar]):not(:has(.auth-fullscreen, [class*='feedPageWrapper'])) { padding-bottom: var(--mobile-tab-bar-space); }
+}
+@media (prefers-reduced-motion: reduce) {
+  :is(body, body:has([data-living-home] [data-home-hero])) .ota-header,
+  body .ota-header .header-content nav a { transition: none; }
+}

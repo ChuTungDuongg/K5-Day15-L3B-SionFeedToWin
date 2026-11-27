@@ -6,6 +6,7 @@ import type { ReactNode } from 'react';
 import './globals.css';
 // Sau globals.css để header điện thoại (TF98) thắng các rule header cũ.
 import '@/features/shell/mobile-header.css';
+import '@/features/shell/fe-shell.css';
 import { HeaderAccount } from '@/features/auth/header-account';
 import { AssistantHeaderButton } from '@/features/assistant/assistant-widget';
 import { CartLink } from '@/features/checkout/cart-link';

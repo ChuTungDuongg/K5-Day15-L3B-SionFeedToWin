@@ -71,8 +71,8 @@ describe('MobileTabBar', () => {
 describe('mobile tab bar CSS', () => {
   const css = readFileSync(resolve(dirname(fileURLToPath(import.meta.url)), 'mobile-tab-bar.module.css'), 'utf8');
 
-  it('is hidden by default and only shown below 768px', () => {
-    const [beforeMedia = '', phoneBlock = ''] = css.split('@media (max-width: 767px)');
+  it('is hidden by default and only shown below 1024px', () => {
+    const [beforeMedia = '', phoneBlock = ''] = css.split('@media (max-width: 1023px)');
     expect(beforeMedia).toMatch(/\.bar\s*\{\s*display:\s*none;\s*\}/);
     expect(phoneBlock).toMatch(/\.bar\s*\{[^}]*position:\s*fixed[^}]*display:\s*grid/);
     expect(phoneBlock).toMatch(/padding-bottom:\s*env\(safe-area-inset-bottom\)/);

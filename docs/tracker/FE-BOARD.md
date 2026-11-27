@@ -90,7 +90,7 @@ Brief nhân vật và 6 tư thế 3D nền trong suốt: chào, tò mò, lập k
 
 Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket kèm ảnh chụp trước và sau ở 1440px và 390px (lưu tạm, không commit ảnh), và danh sách file đã sửa.
 
-- **FE-04 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục khung chung (header/footer/mobile nav) trong `fe-redesign.md`; chưa sửa giao diện. Đã kiểm phụ thuộc và phạm vi file.
+- **FE-04 · Codex 28/11/2026 — ĐANG LÀM, đã có mã khung và font.** `fe-shell.css`, globals/layout, menu/footer và shell: header 72/56px, mốc 1024px, giỏ trên mobile, vùng bấm 44px, focus/reduced-motion; giữ tên class và liên kết pháp lý. Inter variable từ rsms/inter kèm OFL, wght 100–900, kiểm cmap chuỗi tiếng Việt đạt; bỏ Be Vietnam Pro/Playfair trong khai báo đang dùng. 65 test shell đạt. Chờ chạy lại kiểm tra chung sau khi xử lý 2 test tìm kiếm cũ ở FE-05; ảnh trang và font Windows do PM kiểm theo lựa chọn người dùng.
 - **FE-05 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Mục 1.3 mới liệt kê điểm lệch màu, chưa có đặc tả trang chủ về bố cục, câu chữ và các trạng thái. FE-04 cũng đang kẹt; chưa sửa trang chủ.
 - **FE-08 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục cảm hứng/bảng tin/reels/lịch trình/hồ sơ trong tài liệu; FE-04 đang kẹt. Chưa sửa vùng social/discovery hoặc các trang tương ứng.
 

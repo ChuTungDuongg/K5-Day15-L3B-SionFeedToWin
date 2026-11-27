@@ -236,7 +236,7 @@
   width: min(100%, 660px);
 }
 
-/* Be Vietnam Pro giữ cụm dấu tiếng Việt liền mạch ở cỡ chữ lớn. */
+/* Tiêu đề dùng cùng font sans với giao diện iOS. */
 .copy h1 {
   margin-block: 0 16px;
   font-family: var(--font-sans);
@@ -259,7 +259,9 @@
   position: relative;
   display: inline-block;
   padding: 0.02em 0.18em 0.16em 0.04em;
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  letter-spacing: -0.02em;
   font-size: 1.04em;
   font-weight: 700;
   font-style: italic;

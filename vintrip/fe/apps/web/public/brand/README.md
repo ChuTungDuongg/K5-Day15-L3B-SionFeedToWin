@@ -2,7 +2,7 @@
 
 Bundled from the approved mobile/design handoff. Font and photo attribution is recorded in `apps/mobile/assets/brand/README.md`.
 
-- `regular.ttf` and `bold.ttf` preserve the original Be Vietnam Pro font bytes.
+- The active web font is [Inter variable](fonts/README.md), with the system SF Pro stack on Apple devices. Legacy `regular.ttf` and `bold.ttf` remain for existing public-asset test references; they are not loaded by `globals.css`.
 - Mascot PNGs in `vini/` were replaced for FE-03; prompts and the user's Teemo direction are recorded in [`vini/README.md`](vini/README.md). The Vintrip SVG retains the existing brand asset.
 - Destination and hotel photographs illustrate the UI; they are not verified catalog media.
 - `home-hoi-an-lanterns.jpg` is [Khoi Tran’s photograph of Hội An](https://unsplash.com/photos/a-tree-with-a-bunch-of-colorful-paper-lanterns-hanging-from-its-branches-NPIJb6T4tO4), available under the Unsplash License.
