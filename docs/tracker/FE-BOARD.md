@@ -24,7 +24,7 @@
 - **Không dùng chữ trắng trên cam pastel** (chỉ đạt 3:1).
 - Cần chữ trắng thì dùng nền `#C2560F` (4.5:1).
 
-**Linh vật:** nhân vật **nguyên bản** của VinTrip, tên vẫn là Vini. Một sinh vật nhỏ lanh lợi kiểu "trinh sát du lịch": mắt to, mũ thám hiểm tông cam pastel, ba lô bản đồ, ống nhòm. Không sao chép nhân vật có bản quyền: không dùng kiểu mũ, ống thổi hay nấm đặc trưng của Teemo.
+**Linh vật:** Teemo, giữ tên file `vini-*`. Người dùng quyết định ngày 28/11 (bài làm trong trường, không thương mại). Đặc tả gốc yêu cầu nhân vật nguyên bản; PM đã nêu rủi ro: repo nằm trên GitHub, ai có đường dẫn cũng xem được. Không dùng bộ ảnh này nếu đưa VinTrip ra ngoài phạm vi lớp học.
 
 ## Chia việc
 
@@ -32,12 +32,12 @@
 |---|---|---|---|---|
 | FE-01 | Hệ thiết kế cam pastel: token màu, chữ, bo góc, bóng, trạng thái | **Claude** | — | XONG |
 | FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | XONG |
-| FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | KẸT |
-| FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | CHỜ NGHIỆM THU |
-| FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | CHỜ NGHIỆM THU |
+| FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | XONG |
+| FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | XONG |
+| FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | XONG |
 | FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | XONG |
-| FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
-| FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | CHỜ NGHIỆM THU |
+| FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | LÀM LẠI |
+| FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | LÀM LẠI |
 | FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
@@ -109,3 +109,9 @@ Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket k
 | 28/11 | FE-03 | LÀM LẠI | 6 ảnh đúng kỹ thuật (1024², nền trong suốt, < 400KB, có `vini-sad.png`, đã bỏ `tripi-*`). **Không đạt đặc tả mục 2:** ảnh là Teemo (mũ xanh có kính và lông đỏ, nhân vật của Riot Games), prompt trong `brand/vini/README.md` ghi rõ tên Teemo và League of Legends. Đặc tả và bảng việc yêu cầu nhân vật nguyên bản. Repo nằm trên GitHub và bài được trình bày công khai, không chỉ chạy trên máy. Làm lại theo brief mục 2, xoá dòng Teemo trong README. Thêm: ảnh linh vật nhỏ ở góc phải đầu trang vẫn là ảnh cũ, đổi sang `vini-welcome.png`. |
 | 28/11 | FE-04 | LÀM LẠI | Đạt: đầu trang 72px, token, chân trang, trang 404 có nút chính, Inter tự lưu trữ, bỏ Playfair/Be Vietnam Pro, test shell đạt. Cần sửa: (1) `.empty-state p` trong `globals.css` có `max-width: 440px` làm chữ tràn ở 390px (thấy ở `/hotels/[id]` khi lỗi) → thêm `max-width: min(440px, 100%)` hoặc tương đương; (2) ảnh đại diện góc phải đầu trang (xem FE-03). Ghi chú: bảng nhật ký `spec.md` §10 có dòng trống giữa các hàng làm vỡ bảng, xoá các dòng trống đó. |
 | 28/11 | FE-05 | LÀM LẠI | Đạt: hero có lớp phủ, ô tìm kiếm nổi, nhãn hiện rõ, gợi ý 4 cột, bỏ nền nước, `/search` có trạng thái rỗng kèm Vini, sửa 2 test điểm đến mặc định cho khớp commit `9832c08` (hợp lệ). Cần sửa: (1) **tràn ngang ở 390px** trên trang chủ và `/search`: thẻ tìm kiếm và hero rộng quá màn hình, cột "Ngày trả phòng" bị cắt; (2) nút "Tìm phòng trống" chữ trắng trên nền cam nhạt (kiểu bị làm mờ), không đạt 4.5:1. Nếu đây là trạng thái chưa chọn điểm đến thì dùng nền `--color-surface-muted` chữ `--color-text-muted`; bình thường thì dùng `--color-coral`. |
+| 28/11 | Đính chính | — | Lỗi "tràn ngang ở 390px" ghi cho FE-05 và FE-06, và lỗi "`.empty-state p` bị cắt" ghi cho FE-04, là **sai do cách chụp**: Chrome trên Windows không thu cửa sổ nhỏ hơn khoảng 500px. Đo lại bằng giả lập thiết bị qua CDP (`scrollWidth` = 390) cho thấy trang chủ, `/search`, `/hotels/[id]`, `/flights`, 404 đều không tràn. Từ nay PM chụp 390px bằng CDP. |
+| 28/11 | FE-03 | XONG (theo quyết định của người dùng) | 6 ảnh Teemo `vini-*.png`: 1024², nền trong suốt, < 400KB, có `vini-sad.png`, đã bỏ `tripi-*`, thêm `unoptimized` để tránh ảnh cũ trong cache; ảnh góc phải đầu trang đã là ảnh mới. Người dùng chọn giữ Teemo cho bài làm trong trường. PM không coi đây là nhân vật nguyên bản; rủi ro đã ghi ở mục "Linh vật". |
+| 28/11 | FE-04 | XONG | Commit `ea716a0`. typecheck chỉ lỗi Google cũ; test web 576/576. Không sửa ngoài vùng. Đầu trang 72px có gạch dưới mục đang mở, chân trang, 404 có Vini và nút chính, Inter tự lưu trữ. Đã xoá dòng trống trong bảng §10 của `spec.md`. 404 ở 390px (CDP) không tràn. |
+| 28/11 | FE-05 | XONG | Commit `bf501b2`. Đo màu nút "Tìm phòng trống" khi chưa chọn điểm đến: chữ `#8A5A44` trên `#FFF1E6`, đạt khoảng 5.2:1. Trang chủ và `/search` ở 390px (CDP) không tràn; các thẻ vượt mép ở trang chủ là băng cuộn ngang, đúng đặc tả. |
+| 28/11 | FE-08 | LÀM LẠI | Commit `3cb0f0f`, test đạt, không sửa ngoài vùng, 1440 và 390 không tràn, nút tạo bài có icon nâu trên dải compose (đúng). **Thiếu trạng thái:** khi backend không chạy, vùng bảng tin chỉ có ảnh nền, không hiện đang tải, lỗi (`ApiErrorNotice` + "Thử lại") hay rỗng (`vini-guide.png` + "Chưa có bài nào" + nút). Theo đặc tả, mỗi trang phải có đủ 3 trạng thái. Kiểm thêm: ở 390px, tab `segmented-tabs` của thanh trên vượt mép phải. |
+| 28/11 | FE-07 | LÀM LẠI | Chưa commit (4 file trong `features/flights`). Đạt: 0 mã màu viết cứng, không còn class nào bị `app/search` dùng, 1440 và 390 không tràn (CDP), test đạt. Cần sửa: (1) **bỏ ảnh linh vật khỏi `flight-banner.tsx`** (người dùng yêu cầu; ở 390px ảnh còn đè lên dòng giới thiệu); (2) nút "Tìm chuyến bay" khi bị khoá đang là chữ trắng trên `--color-coral` mờ 50%, khó đọc. Dùng kiểu khoá giống trang chủ: nền `--color-surface-muted`, chữ `--color-text-muted`, không dùng opacity; (3) ô ngày `.calendarGrid button` cao 36px, nâng lên 44px; (4) commit `[FE-07]`. |
