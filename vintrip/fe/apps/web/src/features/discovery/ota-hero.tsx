@@ -98,7 +98,7 @@ export function OtaHero() {
       </div>
 
       <div className={styles.rowerLayer} data-hero-layer="rower" aria-hidden="true">
-        <ViniMascot pose="action-depart" size={160} alt="" className={styles.rowerImage} />
+        <ViniMascot pose="hero-welcome" size={160} alt="" className={styles.rowerImage} />
       </div>
 
       <div className={styles.vectorLayer} data-hero-layer="vectors" aria-hidden="true">

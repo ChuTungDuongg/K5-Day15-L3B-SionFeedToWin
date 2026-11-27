@@ -1,5 +1,11 @@
 // Giữ ID pose để các màn hình hiện có tiếp tục dùng chung bộ ảnh Vini.
 export const VINI_ASSETS = {
+  'ui-sad': {
+    src: '/brand/vini/vini-sad.png',
+    label: 'Linh vật buồn',
+    category: 'ui',
+    use: 'Trang lỗi, không tìm thấy trang',
+  },
   'hero-welcome': {
     src: '/brand/vini/vini-welcome.png',
     label: 'Vini chào đón',
