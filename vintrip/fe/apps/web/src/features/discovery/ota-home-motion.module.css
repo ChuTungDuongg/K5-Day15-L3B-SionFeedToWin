@@ -1,11 +1,11 @@
 .layeredCanvas {
-  --water-ink: #3b0a1f;
-  --water-muted: #6b2a3c;
-  --water-accent: #8c360b;
-  --water-panel: rgb(255 250 247 / 75%);
-  --water-heading-glow: rgb(255 228 230 / 44%);
-  --water-shadow: 0 10px 30px rgb(76 5 25 / 14%);
-  --water-glass: rgb(255 250 247 / 78%);
+  --water-ink: var(--color-ink);
+  --water-muted: var(--color-text-muted);
+  --water-accent: var(--color-coral-ink);
+  --water-panel: rgb(246 251 247 / 75%);
+  --water-heading-glow: rgb(240 246 240 / 44%);
+  --water-shadow: 0 10px 30px rgb(24 36 43 / 12%);
+  --water-glass: rgb(246 251 247 / 78%);
   position: relative;
   color: var(--water-ink);
 }
@@ -26,23 +26,23 @@
 }
 
 .layeredCanvas[data-water-act='1'] {
-  --water-panel: rgb(255 245 242 / 78%);
+  --water-panel: rgb(237 246 239 / 78%);
 }
 
 .layeredCanvas[data-water-act='2'] {
-  --water-panel: rgb(255 250 235 / 78%);
+  --water-panel: rgb(246 248 232 / 78%);
 }
 
 .layeredCanvas[data-water-act='3'] {
-  --water-panel: rgb(255 247 240 / 75%);
+  --water-panel: rgb(239 247 241 / 75%);
 }
 
 .layeredCanvas[data-water-act='4'] {
-  --water-ink: #fff5f7;
-  --water-muted: #f6dfe4;
-  --water-accent: #ffd0a6;
-  --water-panel: rgb(59 10 31 / 62%);
-  --water-heading-glow: rgb(59 10 31 / 54%);
+  --water-ink: #F3F8F5;
+  --water-muted: #D9EBE4;
+  --water-accent: #CFE7BC;
+  --water-panel: rgb(11 48 55 / 75%);
+  --water-heading-glow: rgb(11 48 55 / 54%);
 }
 
 .layeredCanvas::before,
@@ -55,7 +55,7 @@
 
 .layeredCanvas::before {
   content: '';
-  background: radial-gradient(ellipse at 20% 10%, #fde2d8, #d9466f);
+  background: var(--color-sea-mist);
 }
 
 .layeredCanvas[data-water-visible]::before {

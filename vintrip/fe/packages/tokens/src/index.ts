@@ -1,45 +1,45 @@
-// Màu, font, khoảng cách theo brand Vintrip: tông hoàng hôn cam hồng.
+// Màu, font, khoảng cách theo brand Vintrip: xanh rừng, xanh ngọc và nền sương sáng.
 // Web đọc qua CSS variables trong tokens.css; mobile import object này.
 // Sửa ở đây thì sửa cả tokens.css (test kiểm hai file khớp nhau).
 
 export const colors = {
   // Brand
-  coral: '#D9365A', // màu chính: nút, điểm nhấn
-  coralSoft: '#FB7185',
+  coral: '#166553', // giữ tên token để tương thích; màu chính xanh rừng
+  coralSoft: '#79B89B',
   sun: '#FFC531', // vàng mặt trời: huy hiệu, ưu đãi
-  teal: '#C2410C', // cam đất hoàng hôn: màu phụ, đường đi
-  tealSoft: '#FFEDD5',
-  navy: '#141B3D', // chữ chính, logo chữ
+  teal: '#1D7A70', // xanh ngọc: màu phụ, đường đi
+  tealSoft: '#D9EFD9',
+  navy: '#173D35', // chữ chính, logo chữ
   // Nền và chữ
   background: '#FFFFFF',
-  surface: '#F8FAFC',
-  surfaceMuted: '#F1F5F9',
-  border: '#E2E8F0',
-  text: '#141B3D',
-  textMuted: '#64748B',
-  textSubtle: '#94A3B8',
+  surface: '#F5F8F5',
+  surfaceMuted: '#EBF1EC',
+  border: '#D5E2D9',
+  text: '#173D35',
+  textMuted: '#5F7469',
+  textSubtle: '#8A9E92',
   // Trạng thái
   success: '#15803D',
   warning: '#FFC531',
   danger: '#E5484D',
-  ink: '#18242B',
-  warmMist: '#FFF7ED',
-  seaMist: '#FFF4EC',
-  tealInk: '#9A3412',
-  coralInk: '#BE123C',
-  sunSoft: '#FFF6D8',
-  coralTint: '#FFE4E6',
-  overlay: '#18242B80',
-  overlayHeavy: '#18242BCC',
+  ink: '#183B32',
+  warmMist: '#F7F8EE',
+  seaMist: '#F0F6F0',
+  tealInk: '#164D43',
+  coralInk: '#12513F',
+  sunSoft: '#F7F3DC',
+  coralTint: '#E4F0E5',
+  overlay: '#153D3580',
+  overlayHeavy: '#153D35CC',
   tabBar: '#000000',
-  composeStart: '#F97316',
-  composeEnd: '#E11D48',
-  composeIconShadow: '#60180E47',
+  composeStart: '#3C9171',
+  composeEnd: '#166553',
+  composeIconShadow: '#103B2C47',
   transparent: 'transparent',
 } as const;
 
 export const fonts = {
-  sans: '"Be Vietnam Pro", "Segoe UI", system-ui, sans-serif',
+  sans: '"Nunito", "Segoe UI", system-ui, sans-serif',
   mono: '"JetBrains Mono", ui-monospace, Consolas, monospace',
 } as const;
 

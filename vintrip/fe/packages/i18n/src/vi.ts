@@ -47,7 +47,7 @@ export const vi = {
   demo,
   app: {
     name: 'Vintrip',
-    slogan: 'Thấy là thích, nhích là đi',
+    slogan: 'Đi để khám phá, về để kể',
   },
   tabs: {
     feed: 'Lướt',

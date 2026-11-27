@@ -6,11 +6,11 @@ import styles from './ota-home-motion.module.css';
 const TAU = Math.PI * 2;
 const HOLD_MS = 480;
 const ACTS = [
-  { name: 'Vịnh Hạ Long', shallow: '#fdd5c0', deep: '#d9466f', light: 0.5 },
-  { name: 'Hồ Đà Lạt', shallow: '#f6c1c7', deep: '#9f2d55', light: 0.3 },
-  { name: 'Sông Hoài, Hội An', shallow: '#f5b26b', deep: '#b4472f', light: 0.45 },
-  { name: 'Bờ biển Nha Trang', shallow: '#ffe4d1', deep: '#f0788a', light: 0.9 },
-  { name: 'Vịnh đêm', shallow: '#7a3550', deep: '#3f1830', light: 0.12 },
+  { name: 'Vịnh Hạ Long', shallow: '#E8F7EF', deep: '#79B7A5', light: 0.5 },
+  { name: 'Hồ Đà Lạt', shallow: '#D9F2EE', deep: '#75A99A', light: 0.3 },
+  { name: 'Sông Hoài, Hội An', shallow: '#EAF0DA', deep: '#93AB72', light: 0.45 },
+  { name: 'Bờ biển Nha Trang', shallow: '#E8F6F7', deep: '#8FC4CA', light: 0.9 },
+  { name: 'Vịnh đêm', shallow: '#174E52', deep: '#0B3037', light: 0.12 },
 ];
 const BOUNDARIES = [0.18, 0.38, 0.58, 0.78];
 const VARIETIES = [

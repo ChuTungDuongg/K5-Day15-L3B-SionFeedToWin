@@ -138,14 +138,14 @@
 }
 
 .tapeCoral {
-  background: color-mix(in srgb, var(--color-coral, #D9365A) 75%, transparent);
-  color: color-mix(in srgb, var(--color-coral, #D9365A) 75%, transparent);
+  background: color-mix(in srgb, var(--color-coral, #166553) 75%, transparent);
+  color: color-mix(in srgb, var(--color-coral, #166553) 75%, transparent);
   border-block: 1px dashed rgba(255, 255, 255, 0.5);
 }
 
 .tapeTeal {
-  background: color-mix(in srgb, var(--color-teal, #C2410C) 75%, transparent);
-  color: color-mix(in srgb, var(--color-teal, #C2410C) 75%, transparent);
+  background: color-mix(in srgb, var(--color-teal, #1D7A70) 75%, transparent);
+  color: color-mix(in srgb, var(--color-teal, #1D7A70) 75%, transparent);
   border-block: 1px dashed rgba(255, 255, 255, 0.5);
 }
 
@@ -157,7 +157,7 @@
   width: 78px;
   height: 78px;
   border-radius: 50%;
-  border: 1.5px dashed var(--color-coral, #D9365A);
+  border: 1.5px dashed var(--color-coral, #166553);
   padding: 3px;
   display: flex;
   align-items: center;
@@ -166,19 +166,19 @@
   pointer-events: none;
   user-select: none;
   opacity: 0.85;
-  filter: drop-shadow(0 2px 4px rgba(217, 54, 90, 0.15));
+  filter: drop-shadow(0 2px 4px rgba(22, 101, 83, 0.15));
 }
 
 .postmarkInner {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  border: 1px solid var(--color-coral, #D9365A);
+  border: 1px solid var(--color-coral, #166553);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--color-coral-ink, #BE123C);
+  color: var(--color-coral-ink, #12513F);
   text-align: center;
 }
 
@@ -194,7 +194,7 @@
   font-weight: 900;
   letter-spacing: 0.08em;
   margin-block: 2px;
-  border-block: 0.5px solid var(--color-coral, #D9365A);
+  border-block: 0.5px solid var(--color-coral, #166553);
   padding-block: 1px;
   width: 85%;
 }
