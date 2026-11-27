@@ -154,8 +154,8 @@ def deterministic_understanding(request: ChatRequest) -> Understanding | None:
     if cancellation or POLICY_CODE.search(message):
         return Understanding(intent="cancel_policy")
     if re.search(
-        r"\b(doi (?:hang )?phong|nang hang(?: phong)?|yeu cau ho tro|"
-        r"(?:ho tro|lien he|nhan tin).{0,24}khach san)\b", folded,
+        r"\b(doi (?:sang |hang )?phong|nang hang(?: phong)?|soan(?: ban)? nhap|yeu cau ho tro|"
+        r"(?:ho tro|lien he|nhan tin|gui).{0,24}khach san)\b", folded,
     ):
         return Understanding(intent="booking_draft")
 

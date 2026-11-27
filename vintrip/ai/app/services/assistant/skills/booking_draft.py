@@ -34,6 +34,23 @@ async def booking_draft(core: httpx.AsyncClient, message: str) -> Answer:
         if rooms:
             current = current or rooms[1].strip()[:120]
             target = target or rooms[2].strip()[:120]
+    if not target:
+        m_target = re.search(
+            r"\b(?:sang|lên|đổi thành)\s+(?:phòng\s+)?([^,;()\n]+?)"
+            r"(?=\s+(?:\d+\s*(?:đêm|dem|nights?)|từ|và|để)\b|[,;()\n]|$)",
+            message,
+            re.I,
+        )
+        if m_target:
+            target = m_target[1].strip()[:120]
+    if not current:
+        m_curr = re.search(
+            r"\btừ\s+(?:phòng\s+)?([^,;()\n]+?)(?=\s+(?:sang|lên|và|với|\d+\s*(?:đêm|dem))|[,;()\n]|$)",
+            message,
+            re.I,
+        )
+        if m_curr:
+            current = m_curr[1].strip()[:120]
     note = _slot(message, r"ghi chú|guest[_ ]?note")
     nights = int(nights_match[1]) if nights_match else None
     booking_code = code[0].upper() if code else ""

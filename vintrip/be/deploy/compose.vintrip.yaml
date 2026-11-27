@@ -72,19 +72,22 @@ services:
       retries: 20
 
   migrate:
-    mem_limit: 1024m
+    mem_limit: 2048m
     restart: "no"
     build: { context: .., dockerfile: apps/core-api/Dockerfile, target: dev }
     command: ['sh', '-c', 'pnpm turbo run build --filter=@tripflix/core-api... && pnpm --filter @tripflix/core-api db:migrate && pnpm --filter @tripflix/core-api db:seed']
-    environment: *be-env
+    environment:
+      <<: *be-env
+      NODE_OPTIONS: "--max-old-space-size=1536"
     depends_on:
       postgres: { condition: service_healthy }
 
   core-api:
-    mem_limit: 1024m
+    mem_limit: 1280m
     build: { context: .., dockerfile: apps/core-api/Dockerfile, target: dev }
     environment:
       <<: *be-env
+      NODE_OPTIONS: "--max-old-space-size=896"
       APP_ROLE: all
       ENABLE_MOCK_PAYMENT: "true"
       PORT: 3000
@@ -127,10 +130,11 @@ services:
       core-api: { condition: service_healthy }
 
   web:
-    mem_limit: 1024m
+    mem_limit: 1280m
     build: { context: '../../fe', dockerfile: apps/web/Dockerfile, target: dev }
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8080
+      NODE_OPTIONS: "--max-old-space-size=896"
     ports: ['3100:3100']
     depends_on:
       core-api: { condition: service_healthy }
