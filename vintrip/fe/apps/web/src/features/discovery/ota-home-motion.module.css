@@ -7,3 +7,6 @@
 @media (prefers-reduced-motion: reduce) {
   .layeredCanvas *, .layeredCanvas *::before, .layeredCanvas *::after { animation: none !important; transition: none !important; }
 }
+
+.layeredCanvas { width: 100%; max-width: 100%; min-width: 0; }
+.layeredCanvas > * { min-width: 0; box-sizing: border-box; }

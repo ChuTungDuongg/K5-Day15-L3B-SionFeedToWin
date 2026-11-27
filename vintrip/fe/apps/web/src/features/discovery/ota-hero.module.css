@@ -33,3 +33,6 @@
   .mascot { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .hero * { animation: none; transition: none; } }
+
+.hero, .copy, .copy h1 { min-width: 0; box-sizing: border-box; }
+.copy h1 { max-width: 100%; overflow-wrap: anywhere; }

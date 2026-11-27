@@ -879,3 +879,6 @@ main.page { padding-block: 24px 48px; }
 @media (prefers-reduced-motion: reduce) { .page * { animation: none !important; transition: none !important; } }
 
 @media (max-width: 1023px) { .filterSheet[open]:not(:modal) { display: none; } }
+
+main.page { min-width: 0; box-sizing: border-box; }
+.page > :global(.ota-container) { width: 100%; }
