@@ -4,6 +4,8 @@
 
 ## Các lượt chạy gpt-6-luna
 
+> **Cần nhóm quyết:** bốn lượt `run-1..4` có đánh số được chạy trước khi biết luật trên [`docs/tracker/BOARD.md`](../docs/tracker/BOARD.md) ("không chạy `python run.py eval` bản đầy đủ"). Không lượt nào bị xoá hay sửa. Nhóm chọn lượt dùng để chấm và ghi vào `spec.md` §7 / §10.
+
 | Lượt | Run ID | Kết quả |
 |---|---|---|
 | [Run-1](run-1.csv) | `run-1@20261127-231617` | Nháp 25/30. C1-21 gặp một lỗi timeout khi đọc phản hồi model. |

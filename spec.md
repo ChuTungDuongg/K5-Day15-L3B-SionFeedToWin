@@ -180,7 +180,9 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| 27/11/2026, sau CP2 · C1-00 | Dừng C3 trong chỗ làm C1; cất 25 file C3 đã sửa/thêm vào stash `7f7aaaa` (gồm file chưa theo dõi), giữ nhánh `vintrip`; chuyển ticket sang `CHỜ NGHIỆM THU` | Theo `docs/tracker/BOARD.md`: tách C3 khỏi C1, không xoá công việc đã làm. Stash C1 cũ `24d4494` được giữ nguyên; không chạy eval đầy đủ hoặc gọi model |
+| 27/11/2026, sau CP2 · C1-01 | Phục hồi nguyên bản `data/park_mau.json` từ stash C1 `24d4494`, cập nhật Dataset 1 và thêm test dữ liệu | Kiểm hai tổng 1.370.000đ / 1.270.000đ và đủ 7 trường hợp bắt buộc trong ticket; kiểm thêm giờ show, metadata và ma trận đi bộ. Dữ liệu mô phỏng, không đổi §7, benchmark hay metric |
+| 27/11/2026, sau CP2 · C1 (commit `f42e681`) | Thêm luồng C1 đủ 6 công cụ (`codebase/park_engine.py`, `tools.py`, `c1_flow.py`) trên snapshot `data/cong_vien_mau.json`; chạy model thật gpt-6-luna `eval/run-1..4` (run-4: 30/30 không lỗi), `cost/simulate-1`; trang web `/c1`. Giữ `park_mau.json` (C1-01) làm bản thay thế | Câu thử `C1-01`…`C1-30`; chấm nháp `eval/run-4-cham-nhap.csv` 29/30 chờ nhóm duyệt. Các lượt `run-N` có đánh số được chạy trước khi biết luật trên `docs/tracker/BOARD.md`; nhóm chọn lượt dùng để chấm, không xoá lượt nào |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
