@@ -194,6 +194,8 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 
 | 28/11/2026 · FE-05 | Làm lại hero, form, gợi ý và kết quả khách sạn bằng token; bỏ nền nước; thêm bộ lọc modal và trạng thái chưa chọn điểm đến | 576 test web và các package đạt; typecheck/test chỉ còn route Google đã biết. Sửa kỳ vọng mặc định theo dữ liệu PM, giữ API/parser. Người dùng chọn PM kiểm ảnh |
 
+| 28/11/2026 · FE-03 | Chuyển linh vật sang CHỜ NGHIỆM THU sau khi gỡ lỗi kiểm tra phụ thuộc FE-05 | 576 test web đạt; typecheck/test chỉ còn route Google đã được chấp nhận. PM kiểm ảnh theo lựa chọn người dùng |
+
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
 | Thời điểm | Đổi gì | Vì sao |

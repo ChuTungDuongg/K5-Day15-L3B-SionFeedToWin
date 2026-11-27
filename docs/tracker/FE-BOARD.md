@@ -32,7 +32,7 @@
 |---|---|---|---|---|
 | FE-01 | Hệ thiết kế cam pastel: token màu, chữ, bo góc, bóng, trạng thái | **Claude** | — | XONG |
 | FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | XONG |
-| FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | KẸT |
+| FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | CHỜ NGHIỆM THU |
 | FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | ĐANG LÀM |
 | FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | CHỜ NGHIỆM THU |
 | FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | ĐANG LÀM |
@@ -84,7 +84,7 @@
 
 Brief nhân vật và 6 tư thế 3D nền trong suốt: chào, tò mò, lập kế hoạch, hướng dẫn, thành công, buồn (dùng cho trang lỗi). Thay vào `public/brand/vini/`, giữ tên file để không phải sửa code.
 
-**Ghi chú Codex 28/11/2026 — KẸT: kiểm tra chung còn lỗi tìm kiếm (FE-05).** Theo yêu cầu mới của người dùng, dùng Teemo thay nhân vật nguyên bản; đã tạo 6 PNG trong `public/brand/vini/`, 1024×1024, alpha thật, 171.064–185.984 byte, thêm ảnh buồn vào `not-found.tsx`, ảnh chào trên hero, bỏ 3 PNG Tripi không còn dùng; prompt ở `vini/README.md`. Kiểm PNG bằng Sharp đạt. `pnpm typecheck`: chỉ lỗi route Google đã biết; `pnpm test`: 574 đạt, lỗi route Google và 2 test mặc định Nha Trang/Hà Nội có sẵn thuộc FE-05. Người dùng chọn để PM kiểm ảnh 1440px/390px; chưa tự chuyển CHỜ NGHIỆM THU khi test chung chưa đạt.
+**Ghi chú Codex 28/11/2026 — CHỜ NGHIỆM THU.** Theo yêu cầu mới của người dùng, dùng Teemo thay nhân vật nguyên bản; đã tạo 6 PNG trong `public/brand/vini/`, 1024×1024, alpha thật, 171.064–185.984 byte, thêm ảnh buồn vào `not-found.tsx`, ảnh chào trên hero, bỏ 3 PNG Tripi không còn dùng; prompt ở `vini/README.md`. Kiểm PNG bằng Sharp đạt. `pnpm typecheck`: chỉ lỗi route Google đã biết; `pnpm test`: 574 đạt, lỗi route Google và 2 test mặc định Nha Trang/Hà Nội có sẵn thuộc FE-05. Sau FE-05: pnpm test có 576/576 test web đạt, chỉ suite route Google đã biết không nạp được; typecheck chỉ lỗi route này. Người dùng chọn để PM kiểm ảnh 1440px/390px.
 
 ## FE-04 → FE-09 · Các trang (Codex: FE-04, FE-05, FE-08 · Antigravity: FE-06, FE-07, FE-09)
 
