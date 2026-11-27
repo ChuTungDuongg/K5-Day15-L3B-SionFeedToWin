@@ -7,7 +7,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import type { AuthUser } from '@tripflix/auth';
+import type { AuthUser } from '@vintrip/auth';
 import type { z } from 'zod';
 import { ZodBody } from '../../media/api/http.js';
 import { OptionalAuthenticated, OptionalCurrentUser } from '../../social/api/optional-auth.guard.js';

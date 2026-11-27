@@ -2,8 +2,8 @@ import { FlightBanner } from '@/features/flights/flight-banner';
 import { FlightResults } from '@/features/flights/flight-results';
 import { FlightSearchForm } from '@/features/flights/flight-search-form';
 import styles from '@/features/flights/flights.module.css';
-import { getFlightToday, parseFlightReturnDate, parseFlightSearch } from '@tripflix/api-client/flight-search';
-import { vi } from '@tripflix/i18n';
+import { getFlightToday, parseFlightReturnDate, parseFlightSearch } from '@vintrip/api-client/flight-search';
+import { vi } from '@vintrip/i18n';
 import type { Metadata } from 'next';
 
 const copy = vi.flights;

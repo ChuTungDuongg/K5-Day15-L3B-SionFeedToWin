@@ -9,8 +9,8 @@ BEGIN;
 
 DO $$
 BEGIN
-  IF (SELECT count(*) FROM access.users WHERE email LIKE 'bench-_@tripflix.local') < 5 THEN
-    RAISE EXCEPTION 'Chưa có đủ 5 tài khoản bench-1..5@tripflix.local: chạy setup-users.mjs trước';
+  IF (SELECT count(*) FROM access.users WHERE email LIKE 'bench-_@vintrip.local') < 5 THEN
+    RAISE EXCEPTION 'Chưa có đủ 5 tài khoản bench-1..5@vintrip.local: chạy setup-users.mjs trước';
   END IF;
 END $$;
 
@@ -23,11 +23,11 @@ INSERT INTO content.posts (id, author_id, post_type, title, body, status, visibi
 SELECT :'bench_post_id', u.id, 'vlog', '[BENCH] Bài thử tải bình luận',
   'Bài dùng cho benchmark TF99. Xoá bằng tools/bench/comments/cleanup.sql.',
   'published', 'public', now() - interval '31 days', now() - interval '31 days', now()
-FROM access.users u WHERE u.email = 'bench-1@tripflix.local';
+FROM access.users u WHERE u.email = 'bench-1@vintrip.local';
 
 CREATE TEMP TABLE bench_authors ON COMMIT DROP AS
 SELECT row_number() OVER (ORDER BY email) - 1 AS slot, id
-FROM access.users WHERE email LIKE 'bench-_@tripflix.local';
+FROM access.users WHERE email LIKE 'bench-_@vintrip.local';
 
 -- 8.000 bình luận gốc.
 INSERT INTO content.comments (post_id, author_id, body, created_at, updated_at)

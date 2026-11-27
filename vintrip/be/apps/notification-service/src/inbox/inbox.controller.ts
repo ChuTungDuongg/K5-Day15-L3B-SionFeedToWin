@@ -11,7 +11,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import { z } from 'zod';
 import { RealtimeService } from '../realtime/realtime.service.js';
 import { decodeInboxCursor, InboxRepository, toInboxItemDto, type InboxItemDto } from './inbox.repository.js';

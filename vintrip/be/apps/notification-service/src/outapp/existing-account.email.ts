@@ -1,8 +1,8 @@
-import type { AccessRegistrationAttemptedExistingV1 } from '@tripflix/contracts';
+import type { AccessRegistrationAttemptedExistingV1 } from '@vintrip/contracts';
 import { emailButton, escapeHtml, renderEmailShell } from './html.js';
 import type { EmailMessage } from './mailer.js';
 
-/** Đường dẫn trên web (tripflix-fe/apps/web/src/app): trang đăng nhập và quên mật khẩu. */
+/** Đường dẫn trên web (vintrip-fe/apps/web/src/app): trang đăng nhập và quên mật khẩu. */
 const LOGIN_PATH = '/login';
 const FORGOT_PASSWORD_PATH = '/forgot-password';
 
@@ -27,7 +27,7 @@ export function buildExistingAccountEmail(payload: AccessRegistrationAttemptedEx
 
   const content = [
     `<p style="margin:0 0 16px;font-size:15px">Chào <strong>${escapeHtml(payload.displayName)}</strong>,</p>`,
-    `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#334155">Có người vừa nhập email <strong>${escapeHtml(payload.email)}</strong> để đăng ký tài khoản Tripflix. Do email này đã được sử dụng cho một tài khoản hiện có, chúng tôi không gửi mã đăng ký mới.</p>`,
+    `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#334155">Có người vừa nhập email <strong>${escapeHtml(payload.email)}</strong> để đăng ký tài khoản Vintrip. Do email này đã được sử dụng cho một tài khoản hiện có, chúng tôi không gửi mã đăng ký mới.</p>`,
     emailButton(loginUrl, 'Đăng nhập ngay'),
     '<div style="margin:20px 0;padding:16px 20px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px">',
     `  <p style="margin:0 0 6px;font-size:14px;color:#334155">${escapeHtml(signIn)}</p>`,
@@ -38,25 +38,25 @@ export function buildExistingAccountEmail(payload: AccessRegistrationAttemptedEx
 
   return {
     to: payload.email,
-    subject: 'Email này đã có tài khoản Tripflix',
+    subject: 'Email này đã có tài khoản Vintrip',
     text: [
       `Chào ${payload.displayName},`,
       '',
-      `Có người vừa đăng ký Tripflix bằng ${payload.email}, nhưng email này đã có tài khoản nên chúng tôi không gửi mã đăng ký.`,
+      `Có người vừa đăng ký Vintrip bằng ${payload.email}, nhưng email này đã có tài khoản nên chúng tôi không gửi mã đăng ký.`,
       '',
       `Đăng nhập: ${loginUrl}`,
       `${signIn} ${forgotUrl}`,
       '',
       warning,
       '',
-      'Tripflix · Chạm cảm hứng, trọn hành trình.',
+      'Vintrip · Chạm cảm hứng, trọn hành trình.',
     ].join('\n'),
     html: renderEmailShell({
-      title: 'Bạn đã có tài khoản Tripflix',
+      title: 'Bạn đã có tài khoản Vintrip',
       badge: { text: 'THÔNG BÁO TÀI KHOẢN', bg: '#D9F4F1', color: '#006C63' },
-      heading: 'Bạn đã có tài khoản Tripflix',
+      heading: 'Bạn đã có tài khoản Vintrip',
       content,
-      footerNote: 'Email bảo mật gửi đến địa chỉ đã đăng ký tại Tripflix.',
+      footerNote: 'Email bảo mật gửi đến địa chỉ đã đăng ký tại Vintrip.',
     }),
   };
 }

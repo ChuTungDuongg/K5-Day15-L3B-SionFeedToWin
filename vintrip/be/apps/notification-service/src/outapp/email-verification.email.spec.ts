@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { EventRouter, MemoryProcessedEvents } from '../consumers/event-router.js';
 import { buildEmailVerificationEmail } from './email-verification.email.js';
 import { MemoryMailer } from './mailer.js';
@@ -8,7 +8,7 @@ const payload = (reason: 'signup' | 'resend') => ({
   userId: randomUUID(),
   email: 'lan@example.com',
   displayName: 'Lan <img src=x onerror=alert(1)>',
-  verifyUrl: 'https://tripflix.io.vn/xac-thuc-email?token=abc_DEF-123&x="1"',
+  verifyUrl: 'https://vintrip.io.vn/xac-thuc-email?token=abc_DEF-123&x="1"',
   expiresAt: new Date(Date.now() + 24 * 3600_000).toISOString(),
   reason,
 });
@@ -17,9 +17,9 @@ describe('TF05D: buildEmailVerificationEmail', () => {
   it('đăng ký: gộp lời chào mừng và nút xác nhận, gửi đúng người, link nguyên vẹn trong bản chữ', () => {
     const mail = buildEmailVerificationEmail(payload('signup'));
     expect(mail.to).toBe('lan@example.com');
-    expect(mail.subject).toBe('Chào mừng bạn đến với Tripflix, hãy xác nhận email');
-    expect(mail.text).toContain('Cảm ơn bạn đã tạo tài khoản Tripflix');
-    expect(mail.text).toContain('https://tripflix.io.vn/xac-thuc-email?token=abc_DEF-123&x="1"');
+    expect(mail.subject).toBe('Chào mừng bạn đến với Vintrip, hãy xác nhận email');
+    expect(mail.text).toContain('Cảm ơn bạn đã tạo tài khoản Vintrip');
+    expect(mail.text).toContain('https://vintrip.io.vn/xac-thuc-email?token=abc_DEF-123&x="1"');
     expect(mail.text).toMatch(/24 giờ/);
     expect(mail.html).toContain('Xác nhận email</a>');
     expect(mail.html).toContain('Lưu chuyến đi');
@@ -27,7 +27,7 @@ describe('TF05D: buildEmailVerificationEmail', () => {
 
   it('gửi lại: không có lời chào mừng, tiêu đề riêng', () => {
     const mail = buildEmailVerificationEmail(payload('resend'));
-    expect(mail.subject).toBe('Xác nhận email Tripflix của bạn');
+    expect(mail.subject).toBe('Xác nhận email Vintrip của bạn');
     expect(mail.text).not.toContain('Cảm ơn bạn đã tạo tài khoản');
     expect(mail.html).not.toContain('Lưu chuyến đi');
     expect(mail.text).toContain('Nếu không phải bạn yêu cầu');
@@ -38,7 +38,7 @@ describe('TF05D: buildEmailVerificationEmail', () => {
     expect(mail.html).not.toContain('<img');
     expect(mail.html).toContain('Lan &lt;img src=x onerror=alert(1)&gt;');
     expect(mail.html).toContain(
-      'href="https://tripflix.io.vn/xac-thuc-email?token=abc_DEF-123&amp;x=&quot;1&quot;"',
+      'href="https://vintrip.io.vn/xac-thuc-email?token=abc_DEF-123&amp;x=&quot;1&quot;"',
     );
   });
 

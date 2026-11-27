@@ -11,7 +11,7 @@ import { UndiciInstrumentation } from '@opentelemetry/instrumentation-undici';
 import { createDatabaseInstrumentations } from './tracing.js';
 
 // Một tiến trình chỉ một SDK: register (--import) bật trước, app gọi lại thì nhận đúng SDK đó (TF99).
-const STARTED_SDK = Symbol.for('tripflix.observability.sdk');
+const STARTED_SDK = Symbol.for('vintrip.observability.sdk');
 type GlobalWithSdk = typeof globalThis & { [STARTED_SDK]?: NodeSDK };
 
 /** Explicit HTTP spans avoid ESM loader hooks and never capture bodies, query strings or raw URLs. */
@@ -54,7 +54,7 @@ export function startTelemetry(serviceName: string): NodeSDK | undefined {
     ],
     views: [
       {
-        instrumentName: 'tripflix.http.server.duration',
+        instrumentName: 'vintrip.http.server.duration',
         aggregation: {
           type: AggregationType.EXPLICIT_BUCKET_HISTOGRAM,
           options: { boundaries: [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10] },
@@ -64,15 +64,15 @@ export function startTelemetry(serviceName: string): NodeSDK | undefined {
   });
   sdk.start();
   (globalThis as GlobalWithSdk)[STARTED_SDK] = sdk;
-  const meter = metrics.getMeter('tripflix-runtime');
+  const meter = metrics.getMeter('vintrip-runtime');
   meter
-    .createObservableGauge('tripflix.service.heartbeat')
+    .createObservableGauge('vintrip.service.heartbeat')
     .addCallback((observer) => observer.observe(Date.now() / 1000));
   meter
-    .createObservableGauge('tripflix.process.memory', { unit: 'By' })
+    .createObservableGauge('vintrip.process.memory', { unit: 'By' })
     .addCallback((observer) => observer.observe(process.memoryUsage().rss));
   meter
-    .createObservableGauge('tripflix.process.uptime', { unit: 's' })
+    .createObservableGauge('vintrip.process.uptime', { unit: 's' })
     .addCallback((observer) => observer.observe(process.uptime()));
   return sdk;
 }
@@ -98,10 +98,10 @@ function isSuccessfulCorsPreflight(req: IncomingMessage, res: ServerResponse, st
 }
 
 export function createTelemetryMiddleware() {
-  const tracer = trace.getTracer('tripflix-http');
+  const tracer = trace.getTracer('vintrip-http');
   const duration = metrics
-    .getMeter('tripflix-http')
-    .createHistogram('tripflix.http.server.duration', { unit: 's' });
+    .getMeter('vintrip-http')
+    .createHistogram('vintrip.http.server.duration', { unit: 's' });
   return (req: RoutedRequest, res: ServerResponse, next: () => void): void => {
     if (req.url?.split('?')[0] === '/health') {
       next();

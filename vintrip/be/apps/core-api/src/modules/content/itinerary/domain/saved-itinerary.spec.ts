@@ -21,7 +21,7 @@ describe('fromTripi', () => {
   it('ngày theo thứ tự, sắp theo buổi; chỗ ở và chặng đi ở Ngày 1, chặng về ở ngày cuối; bỏ ngày thật', () => {
     const draft = fromTripi({
       place: 'Đà Nẵng',
-      stay: { source: 'tripflix', id: 'H1', name: 'Vinpearl' },
+      stay: { source: 'vintrip', id: 'H1', name: 'Vinpearl' },
       transport: { mode: 'flight', summary: 'VN123', fromAirport: 'SGN', toAirport: 'DAD' },
       returnTransport: { mode: 'flight', summary: 'VN124', fromAirport: 'DAD', toAirport: 'SGN' },
       days: [
@@ -46,7 +46,7 @@ describe('fromTripi', () => {
     expect(JSON.stringify(draft)).not.toContain('VN123');
   });
 
-  it('chỗ ở ngoài Tripflix không gắn hotelId', () => {
+  it('chỗ ở ngoài Vintrip không gắn hotelId', () => {
     const draft = fromTripi({ place: 'Huế', stay: { source: 'external', id: 'x', name: 'Homestay' }, days: [[{ id: 'a', name: 'Đại Nội' }]] });
     expect(draft.items[0]).not.toHaveProperty('hotel');
   });

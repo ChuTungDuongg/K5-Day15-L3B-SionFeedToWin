@@ -1,4 +1,4 @@
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 
 export const OTA_DESTINATIONS = [
   { id: 'nha-trang', image: '/brand/sea.jpg', ...vi.ota.destinations['nha-trang'] },

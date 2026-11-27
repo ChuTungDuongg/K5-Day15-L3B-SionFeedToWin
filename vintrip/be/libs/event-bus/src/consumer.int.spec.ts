@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { startRedis, type RedisFixture } from '@tripflix/testing';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { startRedis, type RedisFixture } from '@vintrip/testing';
 import { Redis } from 'ioredis';
 import { RedisStreamsConsumer, type EventHandler } from './consumer.js';
 import { RedisStreamsEventBus, STREAMS, type StreamName } from './index.js';

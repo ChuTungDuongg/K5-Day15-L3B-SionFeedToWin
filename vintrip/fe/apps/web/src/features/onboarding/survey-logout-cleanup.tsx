@@ -1,5 +1,5 @@
 'use client';
-import { useApiSession } from '@tripflix/api-client';
+import { useApiSession } from '@vintrip/api-client';
 import { useEffect, useRef } from 'react';
 import { clearSurveyRecord } from './survey-storage';
 

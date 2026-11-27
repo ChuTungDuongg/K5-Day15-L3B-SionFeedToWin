@@ -76,8 +76,8 @@ class SummaryPage {
   async goto() {
     const base =
       this.mode === 'web'
-        ? process.env.TRIPFLIX_WEB_URL || 'http://localhost:3100'
-        : process.env.TRIPFLIX_MOBILE_WEB_URL || 'http://localhost:8083';
+        ? process.env.VINTRIP_WEB_URL || 'http://localhost:3100'
+        : process.env.VINTRIP_MOBILE_WEB_URL || 'http://localhost:8083';
     await this.page.goto(
       `${base}/${this.mode === 'web' ? 'trips/' + postId : this.mode === 'reels' ? '(tabs)' : 'trip/' + postId}`,
     );
@@ -228,7 +228,7 @@ async function main() {
   await fs.mkdir(output, { recursive: true });
   const checks = [];
   try {
-    for (const mode of ['web', ...(process.env.TRIPFLIX_MOBILE_WEB_URL ? ['mobile', 'reels'] : [])]) {
+    for (const mode of ['web', ...(process.env.VINTRIP_MOBILE_WEB_URL ? ['mobile', 'reels'] : [])]) {
       process.stdout.write(`Checking ${mode}: summary-only flow\n`);
       const { page, context, state, ui } = await mount(browser, mode);
       try {

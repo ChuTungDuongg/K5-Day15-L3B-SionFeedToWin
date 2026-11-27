@@ -8,7 +8,7 @@ function runtime(isFocused = true) {
   const memory = new Map<string, unknown>();
   const seen = new Set<string>();
   const client = {
-    url: 'https://tripflix.test/account',
+    url: 'https://vintrip.test/account',
     visibilityState: isFocused ? 'visible' : 'hidden',
     focused: isFocused,
     postMessage: vi.fn(),
@@ -25,7 +25,7 @@ function runtime(isFocused = true) {
     memory,
     seen,
     self: {
-      location: { origin: 'https://tripflix.test' },
+      location: { origin: 'https://vintrip.test' },
       registration,
       clients: { matchAll: vi.fn().mockResolvedValue([client]), openWindow: vi.fn(), claim: vi.fn() },
       addEventListener: (event: string, handler: (event: unknown) => void) => listeners.set(event, handler),

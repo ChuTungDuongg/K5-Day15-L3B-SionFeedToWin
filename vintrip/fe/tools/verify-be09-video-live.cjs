@@ -13,7 +13,7 @@ const output = path.resolve(process.env.BE09_FRAME_PROOF_DIR || '../be09-video-a
 const sql = (q) =>
   execFileSync(
     'docker',
-    ['exec', 'tripflix-postgres-1', 'psql', '-U', 'postgres', '-d', 'core', '-At', '-c', q],
+    ['exec', 'vintrip-postgres-1', 'psql', '-U', 'postgres', '-d', 'core', '-At', '-c', q],
     { encoding: 'utf8' },
   ).trim();
 async function main() {
@@ -31,9 +31,9 @@ async function main() {
     .toBe(200);
   const password = process.env.CREATOR_QA_PASSWORD?.trim();
   assert.ok(password);
-  const owner = (await api('/auth/login', null, 'POST', { email: 'member@tripflix.local', password }))
+  const owner = (await api('/auth/login', null, 'POST', { email: 'member@vintrip.local', password }))
     .accessToken;
-  const staff = (await api('/auth/login', null, 'POST', { email: 'moderator@tripflix.local', password }))
+  const staff = (await api('/auth/login', null, 'POST', { email: 'moderator@vintrip.local', password }))
     .accessToken;
   const authorId = JSON.parse(Buffer.from(owner.split('.')[1], 'base64url')).sub;
   assert.match(authorId, /^[0-9a-f-]{36}$/);
@@ -94,7 +94,7 @@ async function main() {
   };
   execFileSync('docker', [
     'exec',
-    'tripflix-redis-1',
+    'vintrip-redis-1',
     'redis-cli',
     'XADD',
     'stream:media',
@@ -163,7 +163,7 @@ async function main() {
         },
       });
     });
-    await login(page, 'moderator@tripflix.local', postId);
+    await login(page, 'moderator@vintrip.local', postId);
     const region = page.getByRole('region', { name: 'Kết quả quét caption và ảnh' });
     await expect(region.getByText('Phạm vi lấy mẫu video', { exact: true })).toBeVisible();
     await expect(region.getByText('3/3 khung hình đã có kết quả', { exact: true })).toBeVisible();

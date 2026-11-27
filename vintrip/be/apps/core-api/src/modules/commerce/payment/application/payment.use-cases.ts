@@ -1,8 +1,8 @@
 import { randomBytes, randomUUID } from 'node:crypto';
 import { Inject, Injectable, Logger, Optional } from '@nestjs/common';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { getRefundStatus, type RefundSummaryStatus } from '../../booking/domain/refund-summary.js';
-import type { OutboxWriter } from '@tripflix/outbox';
+import type { OutboxWriter } from '@vintrip/outbox';
 import { CheckoutUseCases, listRequiredPassengers, listSortedCells, passengerMixOf, type CheckoutView } from '../../booking/application/checkout.use-cases.js';
 import { COMMERCE_CLOCK, ORDER_STORE, type Clock, type OrderItemRecord, type OrderRecord, type OrderStore, type PaymentRecord, type RefundRecord } from '../../booking/application/ports.js';
 import {

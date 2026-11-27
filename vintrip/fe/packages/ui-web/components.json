@@ -11,10 +11,10 @@
   },
   "iconLibrary": "lucide",
   "aliases": {
-    "components": "@tripflix/ui-web/components",
-    "ui": "@tripflix/ui-web/components",
-    "utils": "@tripflix/ui-web/lib/cn",
-    "lib": "@tripflix/ui-web/lib",
-    "hooks": "@tripflix/ui-web/hooks"
+    "components": "@vintrip/ui-web/components",
+    "ui": "@vintrip/ui-web/components",
+    "utils": "@vintrip/ui-web/lib/cn",
+    "lib": "@vintrip/ui-web/lib",
+    "hooks": "@vintrip/ui-web/hooks"
   }
 }

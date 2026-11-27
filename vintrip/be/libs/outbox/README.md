@@ -1,6 +1,6 @@
 # libs/outbox
 
-Ghi sự kiện vào bảng `outbox_events` **trong cùng transaction** với thay đổi nghiệp vụ, rồi relay gửi sang Redis Streams qua `@tripflix/event-bus` (docs/architecture/10 §3.3). Thay đổi rollback thì sự kiện cũng không đi.
+Ghi sự kiện vào bảng `outbox_events` **trong cùng transaction** với thay đổi nghiệp vụ, rồi relay gửi sang Redis Streams qua `@vintrip/event-bus` (docs/architecture/10 §3.3). Thay đổi rollback thì sự kiện cũng không đi.
 
 - Phụ trách: Dũng (backup Duy)
 - Chưa có: dead-letter khi gửi lỗi nhiều lần.
@@ -29,7 +29,7 @@ Cách truyền `tx` tay bên dưới vẫn dùng được.
 
 ```ts
 // apps/core-api/src/modules/content/db/schema/outbox.ts
-import { createOutboxTable } from '@tripflix/outbox';
+import { createOutboxTable } from '@vintrip/outbox';
 import { contentSchema } from './content-schema.js';
 
 export const contentOutboxEvents = createOutboxTable(contentSchema); // bảng content.outbox_events
@@ -38,7 +38,7 @@ export const contentOutboxEvents = createOutboxTable(contentSchema); // bảng c
 **2. Ghi sự kiện** bằng `tx` của transaction đang mở:
 
 ```ts
-import { addOutboxEvent } from '@tripflix/outbox';
+import { addOutboxEvent } from '@vintrip/outbox';
 
 await db.transaction(async (tx) => {
   await tx.update(mediaAssets).set({ status: 'uploaded' }).where(eq(mediaAssets.id, mediaId));

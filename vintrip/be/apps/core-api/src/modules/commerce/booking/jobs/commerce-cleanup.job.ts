@@ -5,8 +5,8 @@ import {
   type OnApplicationBootstrap,
   type OnApplicationShutdown,
 } from '@nestjs/common';
-import { createDb, type Db } from '@tripflix/db';
-import { deletePublishedBefore } from '@tripflix/outbox';
+import { createDb, type Db } from '@vintrip/db';
+import { deletePublishedBefore } from '@vintrip/outbox';
 import { and, lt, sql } from 'drizzle-orm';
 import type { CoreEnv } from '../../../../platform/env.js';
 import { CORE_ENV, DB_POOLS, type DbPools } from '../../../../platform/tokens.js';

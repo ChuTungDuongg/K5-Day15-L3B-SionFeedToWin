@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { MemoryMailer } from '../outapp/mailer.js';
 import { buildPasswordResetEmail } from '../outapp/password-reset.email.js';
 import { buildWelcomeEmail } from '../outapp/welcome.email.js';
@@ -29,7 +29,7 @@ describe('buildPasswordResetEmail', () => {
   it('gửi tới đúng email, có link, tiêu đề tiếng Việt, chống chèn HTML', () => {
     const mail = buildPasswordResetEmail(resetPayload());
     expect(mail.to).toBe('khang@example.com');
-    expect(mail.subject).toBe('Đặt lại mật khẩu Tripflix');
+    expect(mail.subject).toBe('Đặt lại mật khẩu Vintrip');
     expect(mail.text).toContain('http://localhost:3100/dat-lai-mat-khau?token=abc');
     expect(mail.text).toMatch(/30 phút/);
     expect(mail.html).toContain('Khang &lt;script&gt;');
@@ -46,11 +46,11 @@ const welcomePayload = (provider: 'password' | 'google') => ({
 
 describe('buildWelcomeEmail', () => {
   it('gửi tới đúng email, tiêu đề tiếng Việt, có nút mở web, chống chèn HTML', () => {
-    const mail = buildWelcomeEmail(welcomePayload('password'), 'https://tripflix.vn');
+    const mail = buildWelcomeEmail(welcomePayload('password'), 'https://vintrip.vn');
     expect(mail.to).toBe('an@example.com');
-    expect(mail.subject).toBe('Chào mừng bạn đến với Tripflix');
-    expect(mail.text).toContain('https://tripflix.vn');
-    expect(mail.html).toContain('href="https://tripflix.vn"');
+    expect(mail.subject).toBe('Chào mừng bạn đến với Vintrip');
+    expect(mail.text).toContain('https://vintrip.vn');
+    expect(mail.html).toContain('href="https://vintrip.vn"');
     expect(mail.html).toContain('An &lt;b&gt;');
     expect(mail.html).not.toContain('An <b>');
     expect(mail.text).toContain('email an@example.com và mật khẩu');
@@ -58,7 +58,7 @@ describe('buildWelcomeEmail', () => {
 
   it('đăng ký bằng Google: nói rõ đăng nhập bằng Google và cách tạo mật khẩu', () => {
     const mail = buildWelcomeEmail(welcomePayload('google'), 'http://localhost:3100');
-    expect(mail.text).toContain('tạo tài khoản Tripflix bằng Google');
+    expect(mail.text).toContain('tạo tài khoản Vintrip bằng Google');
     expect(mail.text).toContain('Quên mật khẩu');
   });
 });
@@ -69,19 +69,19 @@ describe('EventRouter', () => {
   it('access.user.welcome_email_requested thì gửi email chào mừng với link WEB_APP_URL, giao lại không gửi lần hai', async () => {
     const mailer = new MemoryMailer();
     const router = new EventRouter(mailer, new MemoryProcessedEvents(), log, {
-      webAppUrl: 'https://tripflix.vn',
+      webAppUrl: 'https://vintrip.vn',
     });
     const event = createEvent('access.user.welcome_email_requested', welcomePayload('google'));
     expect(await router.route(event)).toBe('handled');
     expect(await router.route(event)).toBe('duplicate');
-    expect(mailer.sent.map((m) => m.subject)).toEqual(['Chào mừng bạn đến với Tripflix']);
-    expect(mailer.sent[0]?.text).toContain('https://tripflix.vn');
+    expect(mailer.sent.map((m) => m.subject)).toEqual(['Chào mừng bạn đến với Vintrip']);
+    expect(mailer.sent[0]?.text).toContain('https://vintrip.vn');
   });
 
   it('access.registration_attempted_existing thì gửi email báo đã có tài khoản, giao lại không gửi lần hai', async () => {
     const mailer = new MemoryMailer();
     const router = new EventRouter(mailer, new MemoryProcessedEvents(), log, {
-      webAppUrl: 'https://tripflix.vn',
+      webAppUrl: 'https://vintrip.vn',
     });
     const event = createEvent('access.registration_attempted_existing', {
       userId: randomUUID(),
@@ -91,13 +91,13 @@ describe('EventRouter', () => {
     });
     expect(await router.route(event)).toBe('handled');
     expect(await router.route(event)).toBe('duplicate');
-    expect(mailer.sent.map((m) => m.subject)).toEqual(['Email này đã có tài khoản Tripflix']);
+    expect(mailer.sent.map((m) => m.subject)).toEqual(['Email này đã có tài khoản Vintrip']);
     expect(mailer.sent[0]?.to).toBe('binh@example.com');
   });
 
   it('access.session_reuse_detected thì gửi email báo phiên bị đăng xuất, giao lại không gửi lần hai', async () => {
     const mailer = new MemoryMailer();
-    const router = new EventRouter(mailer, new MemoryProcessedEvents(), log, { webAppUrl: 'https://tripflix.vn' });
+    const router = new EventRouter(mailer, new MemoryProcessedEvents(), log, { webAppUrl: 'https://vintrip.vn' });
     const event = createEvent('access.session_reuse_detected', {
       userId: randomUUID(),
       email: 'binh@example.com',
@@ -106,7 +106,7 @@ describe('EventRouter', () => {
     });
     expect(await router.route(event)).toBe('handled');
     expect(await router.route(event)).toBe('duplicate');
-    expect(mailer.sent.map((m) => m.subject)).toEqual(['Phiên đăng nhập Tripflix của bạn đã bị đăng xuất']);
+    expect(mailer.sent.map((m) => m.subject)).toEqual(['Phiên đăng nhập Vintrip của bạn đã bị đăng xuất']);
   });
 
   it('access.password_reset_requested thì gửi email, sự kiện giao lại không gửi lần hai', async () => {
@@ -129,7 +129,7 @@ describe('EventRouter', () => {
     });
     expect(await router.route(event)).toBe('handled');
     expect(mailer.sent).toHaveLength(1);
-    expect(mailer.sent[0]?.subject).toBe('Mã xác thực đăng nhập Tripflix');
+    expect(mailer.sent[0]?.subject).toBe('Mã xác thực đăng nhập Vintrip');
     expect(mailer.sent[0]?.text).toContain('12345678');
   });
 
@@ -167,11 +167,11 @@ describe('EventRouter', () => {
   it('email xác nhận có link mở lại đơn trên web', async () => {
     const mailer = new MemoryMailer();
     const router = new EventRouter(mailer, new MemoryProcessedEvents(), log, {
-      webAppUrl: 'https://tripflix.io.vn/',
+      webAppUrl: 'https://vintrip.io.vn/',
     });
     const payload = paidPayload('an@example.com');
     await router.route(createEvent('commerce.order.paid', payload));
-    const orderUrl = `https://tripflix.io.vn/checkout/${payload.orderId}`;
+    const orderUrl = `https://vintrip.io.vn/checkout/${payload.orderId}`;
     expect(mailer.sent[0]!.text).toContain(`Xem đơn: ${orderUrl}`);
     expect(mailer.sent[0]!.html).toContain(`href="${orderUrl}"`);
   });

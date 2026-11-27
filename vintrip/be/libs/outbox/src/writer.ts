@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import { eventEnvelopeSchema, type EventEnvelope } from '@tripflix/contracts';
-import type { Db } from '@tripflix/db';
+import { eventEnvelopeSchema, type EventEnvelope } from '@vintrip/contracts';
+import type { Db } from '@vintrip/db';
 import type { OutboxTable } from './table.js';
 
 export interface NewOutboxEvent {

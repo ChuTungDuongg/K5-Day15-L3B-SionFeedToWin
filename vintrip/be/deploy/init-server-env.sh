@@ -30,7 +30,7 @@ SEED_PASSWORD=$(secret)
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
 AWS_REGION=ap-southeast-2
-S3_MEDIA_BUCKET=tripflix-media-dev
+S3_MEDIA_BUCKET=vintrip-media-dev
 S3_KEY_PREFIX=staging/
 MEDIA_CDN_URL=https://d399hxccn6y84z.cloudfront.net
 
@@ -49,7 +49,7 @@ GOOGLE_CLIENT_IDS=
 
 # Gửi email qua Amazon SES (profile mail, deploy/SERVER.md Giai đoạn 4). Điền sau khi xác thực tên miền trên SES.
 SMTP_URL=
-MAIL_FROM=Tripflix <no-reply@tripflix.io.vn>
+MAIL_FROM=Vintrip <no-reply@vintrip.io.vn>
 WEB_APP_URL=
 # Push mobile qua Expo: bật khi app đã gửi Expo push token lên. EXPO_ACCESS_TOKEN chỉ cần khi bật Enhanced Push Security.
 PUSH_ENABLED=false

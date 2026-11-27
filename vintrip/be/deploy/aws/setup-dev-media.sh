@@ -3,7 +3,7 @@
 # Cần quyền quản trị S3 và CloudFront, nên chạy trong AWS CloudShell. Dùng: ./setup-dev-media.sh
 set -euo pipefail
 
-BUCKET="${S3_MEDIA_BUCKET:-tripflix-media-dev}"
+BUCKET="${S3_MEDIA_BUCKET:-vintrip-media-dev}"
 REGION="${AWS_REGION:-ap-southeast-2}"
 OAC_NAME="$BUCKET-oac"
 DIR="$(cd "$(dirname "$0")" && pwd)"

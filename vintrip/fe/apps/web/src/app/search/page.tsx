@@ -3,7 +3,7 @@ import { parseSearchParams } from '@/features/discovery/search-params';
 import { isStayInteger, MAX_STAY_GUESTS } from '@/features/discovery/stay-search-validation';
 import styles from '@/features/discovery/hotel-listing.module.css';
 import banner from '@/features/flights/flights.module.css';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';

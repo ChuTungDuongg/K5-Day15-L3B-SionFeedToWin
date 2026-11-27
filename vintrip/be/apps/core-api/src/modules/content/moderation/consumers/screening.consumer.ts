@@ -6,8 +6,8 @@ import {
   type OnApplicationBootstrap,
   type OnApplicationShutdown,
 } from '@nestjs/common';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { RedisStreamsConsumer, STREAMS } from '@tripflix/event-bus';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { RedisStreamsConsumer, STREAMS } from '@vintrip/event-bus';
 import type { Redis } from 'ioredis';
 import { z } from 'zod';
 import type { CoreEnv } from '../../../../platform/env.js';

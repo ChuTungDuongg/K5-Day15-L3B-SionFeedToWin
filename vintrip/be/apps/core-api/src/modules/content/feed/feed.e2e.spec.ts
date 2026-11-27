@@ -3,9 +3,9 @@ import { registerTestAccount } from '../../../platform/registration.fixture.js';
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
-import { InMemoryObjectStorage } from '@tripflix/storage';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
+import { InMemoryObjectStorage } from '@vintrip/storage';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import type { CoreEnv } from '../../../platform/env.js';
@@ -24,13 +24,13 @@ import { MEDIA_ASSET_STORE, OBJECT_STORAGE } from '../media/application/ports.js
 import { MemoryMediaAssetStore } from '../media/infra/memory/memory-media-asset.store.js';
 import { FEED_STORE, type FeedPostRow, type FeedStore } from './application/ports.js';
 import { FEED_EVENT_BUS } from './application/feed-events.use-cases.js';
-import type { EventBus, StreamName } from '@tripflix/event-bus';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventBus, StreamName } from '@vintrip/event-bus';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { randomUUID } from 'node:crypto';
 import { encodeFeedCursor, type FeedCursor } from './domain/feed-cursor.js';
 
 // E2E chạy app Nest thật (controller, guard, jose), chỉ thay database, Redis và S3 bằng bản bộ nhớ.
-const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'tripflix-core', AUTH_JWT_AUDIENCE: 'tripflix' } as CoreEnv;
+const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'vintrip-core', AUTH_JWT_AUDIENCE: 'vintrip' } as CoreEnv;
 const ASSET_ID = '018d9f10-0000-7000-8000-000000000001';
 const buildPostId = (n: number) => `018d9f20-0000-7000-8000-00000000000${n}`;
 

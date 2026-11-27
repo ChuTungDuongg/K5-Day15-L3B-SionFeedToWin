@@ -7,7 +7,7 @@ import {
   ContentPostHiddenV1Schema,
   ContentPostRestoredV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 import { toInboxItemDto, type InboxRepository, type InboxRow } from '../../inbox/inbox.repository.js';
 import type { FollowerPostWorker } from '../../inbox/follower-post.worker.js';
 import type { PostNotificationRepository } from '../../inbox/post-notification.repository.js';

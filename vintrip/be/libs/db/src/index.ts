@@ -75,7 +75,7 @@ function ignoreCheckedOutClientError(): void {}
 
 /** Ghi cảnh báo khi một kết nối rảnh của pool bị lỗi; tách riêng để test được. */
 export function warnIdleClientError(applicationName: string, error: Error & { code?: string }): void {
-  process.emitWarning(`Kết nối rảnh của pool ${applicationName} bị ngắt (${error.code ?? 'không mã'}): ${error.message}`, { code: 'TRIPFLIX_PG_IDLE_ERROR' });
+  process.emitWarning(`Kết nối rảnh của pool ${applicationName} bị ngắt (${error.code ?? 'không mã'}): ${error.message}`, { code: 'VINTRIP_PG_IDLE_ERROR' });
 }
 
 export function createDb(pool: pg.Pool) {

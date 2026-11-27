@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 
 /**
  * Ba chấm màu nhảy thay cho chữ "Đang tải…"; trình đọc màn hình vẫn đọc chữ.

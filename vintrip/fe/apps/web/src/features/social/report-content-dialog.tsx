@@ -2,8 +2,8 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { moderationApi } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+import { moderationApi } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import styles from './report-content-dialog.module.css';
 

@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Get, Header, Inject, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiOperation, ApiProperty, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import { z } from 'zod';
 import { ExploreUseCases, QUERY_GRAMS_RETENTION_DAYS } from '../application/explore.use-cases.js';
 

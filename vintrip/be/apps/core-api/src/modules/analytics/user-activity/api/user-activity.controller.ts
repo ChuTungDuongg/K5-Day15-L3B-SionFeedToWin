@@ -9,7 +9,7 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import { z } from 'zod';
 import { UserActivityQueries } from '../application/user-activity-queries.use-cases.js';
 import type { UserActivityEventRow } from '../application/user-activity.use-cases.js';

@@ -1,7 +1,7 @@
 import { PLACES } from '../../../search/domain/places.js';
 import { round4, type Candidate, type RankedItem, type Ranker } from '../contracts.js';
 
-export const TRENDING = { code: 'trending', text: 'Bài viết thịnh hành trên TripFlix' };
+export const TRENDING = { code: 'trending', text: 'Bài viết thịnh hành trên VinTrip' };
 
 export type Scored = { candidate: Candidate; final: number; item: Omit<RankedItem, 'authorId'> };
 

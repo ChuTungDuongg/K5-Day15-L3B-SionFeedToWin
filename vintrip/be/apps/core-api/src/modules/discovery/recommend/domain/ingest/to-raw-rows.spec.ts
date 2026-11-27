@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { toOrderCancellation, toRawRows } from './to-raw-rows.js';
 
 const U = '11111111-1111-4111-8111-111111111111';

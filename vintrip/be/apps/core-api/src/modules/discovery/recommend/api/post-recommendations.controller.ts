@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Get, Inject, Query, ServiceUnavailableException } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiOperation, ApiProperty, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { OptionalAuthenticated, OptionalCurrentUser, type AuthUser } from '@tripflix/auth';
+import { OptionalAuthenticated, OptionalCurrentUser, type AuthUser } from '@vintrip/auth';
 import { z } from 'zod';
 import {
   InvalidRecommendCursorError,

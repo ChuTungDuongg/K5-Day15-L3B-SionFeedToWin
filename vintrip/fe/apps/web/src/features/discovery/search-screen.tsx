@@ -1,5 +1,5 @@
-import { searchDemoTrips, type DemoCategory } from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+import { searchDemoTrips, type DemoCategory } from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SearchForm } from '@/features/discovery/search-form';

@@ -3,8 +3,8 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { SocialPostDto } from '@tripflix/api-client/core-api/model/index';
-import { vi, t } from '@tripflix/i18n';
+import type { SocialPostDto } from '@vintrip/api-client/core-api/model/index';
+import { vi, t } from '@vintrip/i18n';
 import {
   SocialIcon,
   formatAuthorDisplay,

@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import type { Redis } from 'ioredis';
 
 /** Stream theo nguồn phát (docs/architecture/10 §3.9). */

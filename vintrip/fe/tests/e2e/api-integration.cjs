@@ -9,13 +9,13 @@ const WEB = process.env.WEB_PREVIEW_URL || 'http://localhost:3100';
 const ADMIN = process.env.ADMIN_PREVIEW_URL || 'http://localhost:3200';
 const MOBILE = process.env.MOBILE_PREVIEW_URL || 'http://localhost:8084';
 const API = process.env.API_PREVIEW_URL || 'http://localhost:8080';
-const OUTPUT = process.env.TRIPFLIX_EVIDENCE_DIR || join(tmpdir(), 'tripflix-api-integration');
+const OUTPUT = process.env.VINTRIP_EVIDENCE_DIR || join(tmpdir(), 'vintrip-api-integration');
 for (const url of [WEB, ADMIN, MOBILE, API])
   assert.ok(
     ['localhost', '127.0.0.1'].includes(new URL(url).hostname),
     'This test only runs against local services',
   );
-const password = process.env.TRIPFLIX_TEST_PASSWORD || 'tripflix-dev-123';
+const password = process.env.VINTRIP_TEST_PASSWORD || 'vintrip-dev-123';
 let memberPassword = password;
 const email = `integration-${Date.now()}@example.test`;
 const displayName = 'Kiểm thử tích hợp';
@@ -104,14 +104,14 @@ function dateAfter(days) {
     });
     await check('Tải lại trang khôi phục phiên bằng cookie HttpOnly', async () => {
       const before = (await web.page.context().cookies(`${API}/api/auth`)).find(
-        (cookie) => cookie.name === 'tripflix_refresh',
+        (cookie) => cookie.name === 'vintrip_refresh',
       );
       assert.equal(before.httpOnly, true);
       assert.equal(before.path, '/api/auth');
       await web.page.reload();
       await web.page.getByRole('heading', { name: displayName, exact: true }).waitFor();
       const after = (await web.page.context().cookies(`${API}/api/auth`)).find(
-        (cookie) => cookie.name === 'tripflix_refresh',
+        (cookie) => cookie.name === 'vintrip_refresh',
       );
       assert.notEqual(after.value, before.value);
       assert.equal(
@@ -227,8 +227,8 @@ function dateAfter(days) {
       assert.equal(await web.button('Tìm phòng trống').isDisabled(), true);
     });
     await check('Admin dùng đăng nhập thật và quản lý quyền, khóa/mở khóa tài khoản', async () => {
-      adminToken = await loginApi('superadmin@tripflix.local');
-      await admin.login('superadmin@tripflix.local', password);
+      adminToken = await loginApi('superadmin@vintrip.local');
+      await admin.login('superadmin@vintrip.local', password);
       await admin.page.getByRole('heading', { name: 'Kiểm duyệt', exact: true }).waitFor();
       await admin.visit('/staff');
       await admin.fill('Tìm kiếm', email);
@@ -247,7 +247,7 @@ function dateAfter(days) {
       await admin.page.screenshot({ path: join(OUTPUT, 'admin-staff.png'), fullPage: true });
     });
     await check('Admin sửa lịch giá và đọc lại từ database', async () => {
-      const roomId = process.env.TRIPFLIX_TEST_ROOM_TYPE || 'P-h-dn-01--DLX';
+      const roomId = process.env.VINTRIP_TEST_ROOM_TYPE || 'P-h-dn-01--DLX';
       const date = dateAfter(7);
       const url = `/api/admin/commerce/room-types/${encodeURIComponent(roomId)}/calendar`;
       const original = await api(`${url}?from=${date}&to=${date}`, 'GET', undefined, adminToken);
@@ -338,7 +338,7 @@ function dateAfter(days) {
     });
     await check('Moderator chỉ xem kiểm duyệt; member bị chặn trang quản trị', async () => {
       const moderator = await screen(ADMIN);
-      await moderator.login('moderator@tripflix.local', password);
+      await moderator.login('moderator@vintrip.local', password);
       await moderator.page.getByRole('heading', { name: 'Kiểm duyệt', exact: true }).waitFor();
       assert.equal(await moderator.page.getByRole('link', { name: 'Nhân sự', exact: true }).count(), 0);
       await moderator.visit('/staff');

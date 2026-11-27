@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Inject, Param, Patch, Query, UseFilters } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiConflictResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { CurrentUser, Roles, type AuthUser } from '@tripflix/auth';
+import { CurrentUser, Roles, type AuthUser } from '@vintrip/auth';
 import type { z } from 'zod';
 import { CalendarAdminUseCases } from '../application/calendar-admin.use-cases.js';
 import {

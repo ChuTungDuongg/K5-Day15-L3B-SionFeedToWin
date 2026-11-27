@@ -16,7 +16,7 @@ function load(path, sandbox = {}) {
 const survey = load('../packages/app-core/src/travel-survey.ts');
 const moduleExports = load('../apps/mobile/src/features/onboarding/onboarding-model.ts', {
   require: (id) => {
-    assert.equal(id, '@tripflix/app-core');
+    assert.equal(id, '@vintrip/app-core');
     return survey;
   },
 });

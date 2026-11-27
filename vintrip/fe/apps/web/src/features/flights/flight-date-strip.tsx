@@ -1,7 +1,7 @@
 'use client';
 
-import { getFlightToday, useFlightCalendar, type FlightSearch } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { getFlightToday, useFlightCalendar, type FlightSearch } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { useState } from 'react';
 import { FlightIcon } from './flight-icon';

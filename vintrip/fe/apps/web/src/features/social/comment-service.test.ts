@@ -1,12 +1,12 @@
 import { QueryClient } from '@tanstack/react-query';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { socialApi } from '@tripflix/api-client';
-import type { SocialCommentDto, SocialCommentPageDto } from '@tripflix/api-client/core-api/model/index';
+import { socialApi } from '@vintrip/api-client';
+import type { SocialCommentDto, SocialCommentPageDto } from '@vintrip/api-client/core-api/model/index';
 import { addCommentToCache, replaceCommentInCache } from './comment-cache';
 import { createCommentWithMentions, editCommentWithMentions } from './comment-service';
 import { updateMentionsOnTextChange, validateMentions } from './mention-input';
 
-vi.mock('@tripflix/api-client', () => ({
+vi.mock('@vintrip/api-client', () => ({
   socialApi: {
     addComment: vi.fn(),
     editComment: vi.fn(),

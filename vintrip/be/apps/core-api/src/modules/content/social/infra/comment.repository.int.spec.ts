@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { createDb, createPool } from '@tripflix/db';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+import { createDb, createPool } from '@vintrip/db';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import type pg from 'pg';
 import { commentReactions, comments, posts } from '../../db/schema/index.js';
 import { CommentRepository } from './comment.repository.js';

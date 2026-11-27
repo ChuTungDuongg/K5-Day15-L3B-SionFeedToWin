@@ -1,6 +1,6 @@
 import { isValidElement, type ReactElement, type ReactNode } from 'react';
 import { describe, expect, it, vi } from 'vitest';
-import { vi as viText } from '@tripflix/i18n';
+import { vi as viText } from '@vintrip/i18n';
 
 vi.mock('react', async () => {
   const actual = await vi.importActual<typeof import('react')>('react');

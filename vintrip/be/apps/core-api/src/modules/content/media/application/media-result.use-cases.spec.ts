@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Test } from '@nestjs/testing';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
-import { InMemoryObjectStorage } from '@tripflix/storage';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
+import { InMemoryObjectStorage } from '@vintrip/storage';
 import { ClsModule } from 'nestjs-cls';
 import { MemoryMediaAssetStore } from '../infra/memory/memory-media-asset.store.js';
 import { MediaFacade } from '../media.facade.js';

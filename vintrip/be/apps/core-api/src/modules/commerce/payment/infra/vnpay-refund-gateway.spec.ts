@@ -116,7 +116,7 @@ describe('VnpayRefundClient', () => {
       vnp_TransactionNo: INPUT.transactionNo,
       vnp_TransactionDate: '20261105100405',
       vnp_CreateDate: '20261110112233',
-      vnp_CreateBy: 'tripflix-system',
+      vnp_CreateBy: 'vintrip-system',
       vnp_IpAddr: '127.0.0.1',
     });
     expect(body.vnp_RequestId).toMatch(/^[A-Za-z0-9]{1,32}$/);

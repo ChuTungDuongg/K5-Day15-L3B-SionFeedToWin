@@ -248,7 +248,7 @@ it('validates filters before making upstream requests, and restricts all endpoin
   expect(() => controller.getOverview({ service: 'x"} or up{' })).toThrow(BadRequestException);
   expect(() => controller.listTraces({ minDurationMs: '-1' })).toThrow(BadRequestException);
   expect(() => controller.getTrace('../metrics')).toThrow(BadRequestException);
-  expect(Reflect.getMetadata('tripflix:roles', ObservabilityController)).toEqual(['superadmin']);
+  expect(Reflect.getMetadata('vintrip:roles', ObservabilityController)).toEqual(['superadmin']);
   expect(() => TelemetryEnvSchema.parse({ ANALYTICS_TEMPO_URL: 'file:///etc/passwd' })).toThrow();
 });
 

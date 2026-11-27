@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useSyncExternalStore } from 'react';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { publishNoticeStore } from './published-post';
 import styles from './publish-toast.module.css';
 

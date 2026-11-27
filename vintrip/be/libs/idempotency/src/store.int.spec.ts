@@ -1,5 +1,5 @@
-import { createDb, createPool } from '@tripflix/db';
-import { startPostgres, type PostgresFixture } from '@tripflix/testing';
+import { createDb, createPool } from '@vintrip/db';
+import { startPostgres, type PostgresFixture } from '@vintrip/testing';
 import { pgSchema } from 'drizzle-orm/pg-core';
 import type pg from 'pg';
 import { DrizzleIdempotencyStore } from './store.js';

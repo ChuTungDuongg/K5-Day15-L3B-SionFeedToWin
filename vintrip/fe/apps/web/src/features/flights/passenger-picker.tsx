@@ -1,7 +1,7 @@
 'use client';
 
-import { MAX_FLIGHT_SEATS, type FlightPassengerMix } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { MAX_FLIGHT_SEATS, type FlightPassengerMix } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import { useEffect, useId, useRef, useState } from 'react';
 import { FlightIcon } from './flight-icon';
 import styles from './flights.module.css';

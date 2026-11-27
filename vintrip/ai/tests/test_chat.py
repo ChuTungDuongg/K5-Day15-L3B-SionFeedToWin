@@ -53,8 +53,8 @@ def test_rejects_invalid_user_claims(monkeypatch, change):
         "role": "member",
         "iat": now,
         "exp": now + timedelta(minutes=15),
-        "aud": "tripflix",
-        "iss": "tripflix-core",
+        "aud": "vintrip",
+        "iss": "vintrip-core",
     } | change
 
     class Keys:

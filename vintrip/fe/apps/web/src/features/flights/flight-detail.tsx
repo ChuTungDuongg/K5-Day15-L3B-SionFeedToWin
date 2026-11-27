@@ -6,8 +6,8 @@ import {
   useApiSession,
   useFlightOffer,
   type FlightSearch,
-} from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ApiErrorNotice } from '@/features/shared/api-state';

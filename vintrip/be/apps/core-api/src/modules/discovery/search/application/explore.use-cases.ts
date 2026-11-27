@@ -189,7 +189,7 @@ const POI_TAG_WORDS: Record<string, string> = {
   indoor: 'trong nhà',
 };
 
-/** Điểm OSM -> nhánh Ăn uống (food, cafe) hoặc Tham quan (see). Chỗ ở ngoài Tripflix thì null: không trộn với khách sạn đặt được. */
+/** Điểm OSM -> nhánh Ăn uống (food, cafe) hoặc Tham quan (see). Chỗ ở ngoài Vintrip thì null: không trộn với khách sạn đặt được. */
 export function pointToObject(p: PointOfInterestSeed, city: string): ExploreObject | null {
   if (p.kind === 'lodging') return null;
   return {

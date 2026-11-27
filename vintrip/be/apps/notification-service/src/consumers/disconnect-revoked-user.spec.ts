@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { disconnectRevokedUser } from './notification-consumer.js';
 
 const envelope = (type: string, payload: Record<string, unknown>): EventEnvelope => ({

@@ -20,7 +20,7 @@ const requestBody = (value: z.ZodType) => ({
 const security = [{ bearerAuth: [] }];
 const document = {
   openapi: '3.0.3',
-  info: { title: 'Tripflix Web Push', version: '1.0.0' },
+  info: { title: 'Vintrip Web Push', version: '1.0.0' },
   components: { securitySchemes: { bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' } } },
   paths: {
     '/notifications/web-push': {

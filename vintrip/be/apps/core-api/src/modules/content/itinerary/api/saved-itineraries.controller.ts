@@ -19,7 +19,7 @@ import {
 } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
 import { ApiBearerAuth, ApiBody, ApiQuery, ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import type { z } from 'zod';
 import { EmptyItineraryError, SavedItineraryNotFoundError, SavedItineraryUseCases } from '../application/saved-itinerary.use-cases.js';
 import {

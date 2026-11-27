@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Build với context là gốc repo: docker build -f apps/video-worker/Dockerfile --target prod .
 # Stage dev dùng cho máy local (pnpm stack:up / stack:watch); stage prod là image đẩy lên GHCR.
-ARG APP=@tripflix/video-worker
+ARG APP=@vintrip/video-worker
 
 FROM node:24-slim AS base
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg && rm -rf /var/lib/apt/lists/*

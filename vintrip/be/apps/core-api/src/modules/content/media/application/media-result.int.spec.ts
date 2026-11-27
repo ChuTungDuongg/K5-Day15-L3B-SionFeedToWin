@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { Global, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { eventEnvelopeSchema, type EventEnvelope } from '@tripflix/contracts';
+import { eventEnvelopeSchema, type EventEnvelope } from '@vintrip/contracts';
 import {
   MODULES,
   buildDrizzleToken,
@@ -13,10 +13,10 @@ import {
   createTransactionalPlugins,
   type Db,
   type ModuleTransactionHost,
-} from '@tripflix/db';
-import { STREAMS, type StreamName } from '@tripflix/event-bus';
-import { InMemoryObjectStorage } from '@tripflix/storage';
-import { migrateModule, startPostgres, startRedis, type PostgresFixture, type RedisFixture } from '@tripflix/testing';
+} from '@vintrip/db';
+import { STREAMS, type StreamName } from '@vintrip/event-bus';
+import { InMemoryObjectStorage } from '@vintrip/storage';
+import { migrateModule, startPostgres, startRedis, type PostgresFixture, type RedisFixture } from '@vintrip/testing';
 import { Redis } from 'ioredis';
 import { ClsModule } from 'nestjs-cls';
 import type pg from 'pg';

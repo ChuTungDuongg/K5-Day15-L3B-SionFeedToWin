@@ -6,8 +6,8 @@ const { mkdir } = require('node:fs/promises');
 const { join } = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
 const base = process.env.WEB_URL || 'http://localhost:3100';
-const output = process.env.WEB_EVIDENCE_DIR || join(require('node:os').tmpdir(), 'tripflix-web-onboarding');
-const KEY = 'tripflix.onboarding.v1';
+const output = process.env.WEB_EVIDENCE_DIR || join(require('node:os').tmpdir(), 'vintrip-web-onboarding');
+const KEY = 'vintrip.onboarding.v1';
 const results = [];
 const pass = (name) => {
   results.push(name);

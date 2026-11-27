@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { ModerationSignals } from './moderation-signals.js';
 
 const change = (payload: Record<string, unknown>, version = 1): EventEnvelope => ({

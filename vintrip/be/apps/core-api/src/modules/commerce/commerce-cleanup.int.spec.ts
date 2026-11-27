@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { fileURLToPath } from 'node:url';
-import { createDb, createPool, type Db } from '@tripflix/db';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+import { createDb, createPool, type Db } from '@vintrip/db';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import type pg from 'pg';
 import { deleteExpiredCommerceIdempotencyBatch } from './booking/jobs/commerce-cleanup.job.js';
 import { commerceIdempotencyKeys } from './db/schema/index.js';

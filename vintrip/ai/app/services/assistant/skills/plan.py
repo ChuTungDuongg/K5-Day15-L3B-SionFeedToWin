@@ -50,7 +50,7 @@ from app.services.summary.vi_text import normalize_text
 RAIN_SECONDS = 2.5
 DEFAULT_DAYS = 2  # "đi Vũng Tàu" alone: plan 2 days and say so [HIỆU CHỈNH]
 MAX_DAYS = 7
-TRIPFLIX_OPTIONS = 3
+VINTRIP_OPTIONS = 3
 EXTERNAL_OPTIONS = 1
 COORD_DIGITS = 5  # about 1 m; keeps the trip memory small
 logger = logging.getLogger(__name__)
@@ -246,7 +246,7 @@ class TripPlanner:
             return None
         try:
             async with asyncio.timeout(STAY_SECONDS):
-                found = await self.stay_options(understood, tripflix_only=True)
+                found = await self.stay_options(understood, vintrip_only=True)
                 if self.trip.pending:
                     choice = self.trip.pending[0]
                     response = await self.core.get(f"/api/hotels/{choice.id}")
@@ -310,7 +310,7 @@ class TripPlanner:
             self.trip.days = []
             return Answer(
                 kind="no_result",
-                text=f"Tripflix chưa có điểm tham quan có tọa độ ở {self.trip.place} để xếp "
+                text=f"Vintrip chưa có điểm tham quan có tọa độ ở {self.trip.place} để xếp "
                 "lộ trình. Bạn xem các reel về nơi này nha.",
                 suggestions=[f"Reel {self.trip.place}"],
             )
@@ -398,7 +398,7 @@ class TripPlanner:
                         )
                     ]
                     if self.trip.stay
-                    and self.trip.stay.source == "tripflix"
+                    and self.trip.stay.source == "vintrip"
                     and self.trip.transport
                     and self.trip.transport.flight_id
                     and self.trip.transport.fare_code
@@ -441,7 +441,7 @@ class TripPlanner:
             params["startDate"] = start.isoformat()
         if self.trip.days:
             params["days"] = str(len(self.trip.days))
-        if stay and stay.source == "tripflix" and self.trip.date_from and self.trip.date_to:
+        if stay and stay.source == "vintrip" and self.trip.date_from and self.trip.date_to:
             params.update(
                 hotelId=stay.id,
                 hotelName=stay.name,
@@ -470,10 +470,10 @@ class TripPlanner:
             return Answer(kind="no_result", text=f"Tripi chưa định vị được {self.trip.place}.")
         return self._itinerary_answer(*base, ["Quãng đường và thời gian là ước tính."])
 
-    # ---- stays: Tripflix first, outside ones after and labelled (X1, Bảo 16/11)
+    # ---- stays: Vintrip first, outside ones after and labelled (X1, Bảo 16/11)
 
     async def stay_options(
-        self, understood: Understanding, *, tripflix_only: bool = False
+        self, understood: Understanding, *, vintrip_only: bool = False
     ) -> Answer:
         place = understood.place or self.trip.place
         if not place:
@@ -493,20 +493,20 @@ class TripPlanner:
         assert dates is not None
         self.trip.date_from, self.trip.date_to = dates
         wanted = wanted.model_copy(update={"check_in": dates[0], "check_out": dates[1]})
-        if not tripflix_only:
+        if not vintrip_only:
             self.trip.pending_flights = []
         found = await search_stays(self.core, wanted)
         current = self.trip.stay.id if self.trip.stay else ""
         options = [
-            DraftChoice(ref="", source="tripflix", id=c.id, name=c.title[:120])
+            DraftChoice(ref="", source="vintrip", id=c.id, name=c.title[:120])
             for c in found.cards
             if c.kind == "stay" and c.id != current
-        ][:TRIPFLIX_OPTIONS]
+        ][:VINTRIP_OPTIONS]
         prices = {c.id: c.price_from for c in found.cards}
         taken = {normalize_text(o.name) for o in options}
         lodging = (
             []
-            if tripflix_only
+            if vintrip_only
             else await self.places.search(city=place, kinds=["lodging"], limit=5)
         )
         outside = [
@@ -530,12 +530,12 @@ class TripPlanner:
 
         def detail(option: DraftChoice) -> str:
             if option.source == "external":
-                return "Ngoài Tripflix · tham khảo, chưa đặt được trên Tripflix"
+                return "Ngoài Vintrip · tham khảo, chưa đặt được trên Vintrip"
             price = prices.get(option.id)
-            return f"Tripflix · từ {vnd(int(price))}/đêm" if price is not None else "Tripflix"
+            return f"Vintrip · từ {vnd(int(price))}/đêm" if price is not None else "Vintrip"
 
         lines = [CardLine(label=o.name, detail=detail(o), ref=o.ref) for o in options]
-        lead = f"Đây là mấy chỗ ở {place} bạn chọn thử nha, chỗ có trên Tripflix xếp trước."
+        lead = f"Đây là mấy chỗ ở {place} bạn chọn thử nha, chỗ có trên Vintrip xếp trước."
         return Answer(
             kind="answer",
             text=" ".join([lead, *self.notes]),
@@ -589,10 +589,10 @@ class TripPlanner:
             choice = pending[ordinal - 1]
         if choice is None:
             return Answer(kind="clarify", text="Bạn chọn chỗ nào trong danh sách vừa rồi nè?")
-        if choice.source == "tripflix":
+        if choice.source == "vintrip":
             response = await self.core.get(f"/api/hotels/{choice.id}")
             if response.status_code == httpx.codes.NOT_FOUND:
-                return Answer(kind="no_result", text=f"{choice.name} không còn bán trên Tripflix.")
+                return Answer(kind="no_result", text=f"{choice.name} không còn bán trên Vintrip.")
             response.raise_for_status()
             location = response.json().get("location") or {}
             if location.get("lat") is not None and location.get("lng") is not None:
@@ -615,7 +615,7 @@ class TripPlanner:
         )
 
     def _review(self, answer: Answer) -> Answer:
-        if not (self.trip.stay and self.trip.stay.source == "tripflix") and not (
+        if not (self.trip.stay and self.trip.stay.source == "vintrip") and not (
             self.trip.transport and self.trip.transport.flight_id
         ):
             return answer
@@ -627,12 +627,12 @@ class TripPlanner:
 
     async def confirm(self) -> Answer:
         stay, flight = self.trip.stay, self.trip.transport
-        has_stay = stay is not None and stay.source == "tripflix"
+        has_stay = stay is not None and stay.source == "vintrip"
         has_flight = flight is not None and flight.mode == "flight" and bool(flight.flight_id)
         if not has_stay and not has_flight:
             return Answer(
                 kind="clarify",
-                text="Bạn chọn chỗ ở trên Tripflix hoặc một chuyến bay trước khi chốt nha.",
+                text="Bạn chọn chỗ ở trên Vintrip hoặc một chuyến bay trước khi chốt nha.",
                 suggestions=["Đổi chỗ ở", "Đổi chuyến bay"],
             )
         lines: list[CardLine] = []
@@ -914,7 +914,7 @@ class TripPlanner:
                 self.trip.awaiting = Awaiting(intent="change_transport", missing="dates")
                 return Answer(
                     kind="clarify",
-                    text=f"Có chuyến bay {origin} – {destination} trên Tripflix, bạn bay ngày nào?",
+                    text=f"Có chuyến bay {origin} – {destination} trên Vintrip, bạn bay ngày nào?",
                 )
             flights = await search_flights(
                 self.core,
@@ -956,7 +956,7 @@ class TripPlanner:
         lead = f"Từ {origin} đi {destination} bạn có thể đi xe khách nè."
         return Answer(
             kind="answer",
-            text=f"{lead} Đây là thông tin tham khảo, chưa đặt được trên Tripflix.",
+            text=f"{lead} Đây là thông tin tham khảo, chưa đặt được trên Vintrip.",
             lead=lead,
             cards=[
                 Card(

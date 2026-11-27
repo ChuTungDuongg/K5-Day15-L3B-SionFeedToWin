@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Param, ParseUUIDPipe, Post, Query, Req, UseFilters } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiHeader, ApiOkResponse, ApiProperty, ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
-import { Idempotent } from '@tripflix/idempotency';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
+import { Idempotent } from '@vintrip/idempotency';
 import type { Request } from 'express';
 import { z } from 'zod';
 import { CommerceErrorFilter, IDEMPOTENCY_KEY_HEADER, ZodQuery } from '../../inventory/api/http.js';

@@ -1,4 +1,4 @@
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { Comment, CommentNotFoundException } from '../../domain/index.js';
 import { CommentRepository } from '../../infra/comment.repository.js';
 import { PostRepository } from '../../infra/post.repository.js';

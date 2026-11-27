@@ -35,7 +35,7 @@ export interface HotelReview {
 export interface HotelReviewPage {
   hotelId: string;
   summary: {
-    /** Điểm trung bình đánh giá trên Tripflix, 1 chữ số thập phân; null khi chưa có đánh giá. */
+    /** Điểm trung bình đánh giá trên Vintrip, 1 chữ số thập phân; null khi chưa có đánh giá. */
     average: number | null;
     count: number;
     /** Số đánh giá theo từng mức sao, từ 5 sao xuống 1 sao. */

@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { STREAMS } from '@tripflix/event-bus';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { STREAMS } from '@vintrip/event-bus';
 import { DeadLetterReplayer } from './dead-letter-replay.js';
 
 class MemoryReplayRedis {

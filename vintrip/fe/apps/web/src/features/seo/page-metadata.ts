@@ -2,8 +2,8 @@ import type {
   HotelDetailDto,
   PublicProfileDto,
   SocialPostDto,
-} from '@tripflix/api-client/core-api/model/index';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/api-client/core-api/model/index';
+import { t, vi } from '@vintrip/i18n';
 import type { Metadata } from 'next';
 
 const BRAND_SUFFIX = ' | Vintrip';

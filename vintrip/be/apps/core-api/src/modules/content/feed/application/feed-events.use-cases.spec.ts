@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
-import type { StreamName } from '@tripflix/event-bus';
+import type { EventEnvelope } from '@vintrip/contracts';
+import type { StreamName } from '@vintrip/event-bus';
 import { describe, expect, it, vi } from 'vitest';
 import { FeedEventsUseCases } from './feed-events.use-cases.js';
 import type { FeedCard, FeedUseCases } from './feed.use-cases.js';

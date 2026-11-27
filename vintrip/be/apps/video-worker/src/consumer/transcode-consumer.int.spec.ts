@@ -1,10 +1,10 @@
 import { randomUUID } from 'node:crypto';
 import { writeFile } from 'node:fs/promises';
-import { FRAME_POLICY, MediaFramesCompletedV1Schema } from '@tripflix/contracts';
-import { eventEnvelopeSchema, type EventEnvelope } from '@tripflix/contracts';
-import { STREAMS } from '@tripflix/event-bus';
-import { InMemoryObjectStorage } from '@tripflix/storage';
-import { startRedis, type RedisFixture } from '@tripflix/testing';
+import { FRAME_POLICY, MediaFramesCompletedV1Schema } from '@vintrip/contracts';
+import { eventEnvelopeSchema, type EventEnvelope } from '@vintrip/contracts';
+import { STREAMS } from '@vintrip/event-bus';
+import { InMemoryObjectStorage } from '@vintrip/storage';
+import { startRedis, type RedisFixture } from '@vintrip/testing';
 import { Redis } from 'ioredis';
 import { FakeTranscoder } from '../testing/fake-transcoder.js';
 import { TranscodeConsumer, MAX_TRANSCODE_ATTEMPTS } from './transcode-consumer.js';

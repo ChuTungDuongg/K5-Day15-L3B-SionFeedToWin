@@ -1,4 +1,4 @@
-import type { MediaQualityLevel } from '@tripflix/contracts';
+import type { MediaQualityLevel } from '@vintrip/contracts';
 import type { TripAttachmentData, TripItineraryItem } from '../../schema/index.js';
 import type { ContentSeed } from '../seed-content.js';
 import { REEL_DESTINATIONS, type ReelDestination } from './reel-destinations.js';
@@ -469,7 +469,7 @@ export function generateReelSeed(input: GenerateReelsInput): ContentSeed {
     const hashtags = [
       ...(destination?.hashtags ?? [toTag(place), 'dulichnuocngoai']),
       toTag(video.category.replace(/_/g, ' ')),
-      ...random.sample(['dulichvietnam', 'reviewdulich', 'tripflix', 'checkin', 'xuhuong', 'dulichtutuc', 'reels', 'amthuc', 'dulichgiare', 'chill'], random.int(2, 4)),
+      ...random.sample(['dulichvietnam', 'reviewdulich', 'vintrip', 'checkin', 'xuhuong', 'dulichtutuc', 'reels', 'amthuc', 'dulichgiare', 'chill'], random.int(2, 4)),
     ].filter((tag, index, all) => tag && all.indexOf(tag) === index);
 
     const postId = reelSeedId('post', i + 1);

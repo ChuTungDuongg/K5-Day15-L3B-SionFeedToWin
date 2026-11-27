@@ -1,7 +1,7 @@
 import { calculateJwkThumbprint, decodeProtectedHeader, importJWK, jwtVerify } from 'jose';
 import { z } from 'zod';
 
-export const BROWSER_PROOF_HEADER = 'X-Tripflix-Session-Proof';
+export const BROWSER_PROOF_HEADER = 'X-Vintrip-Session-Proof';
 export const BROWSER_PROOF_TTL_SECONDS = 90;
 export type BrowserProofPurpose = 'login' | 'google' | 'refresh';
 export interface BrowserProof {
@@ -20,12 +20,12 @@ export async function verifyBrowserProof(proof: BrowserProof, purpose: BrowserPr
   if (!proof.value || proof.value.length > 1024 || !proof.origin) return null;
   try {
     const header = decodeProtectedHeader(proof.value);
-    if (header.alg !== 'ES256' || header.typ !== 'tripflix-session+jwt') return null;
+    if (header.alg !== 'ES256' || header.typ !== 'vintrip-session+jwt') return null;
     const jwk = PublicKeySchema.parse(header.jwk);
     const key = await importJWK(jwk, 'ES256');
     const { payload } = await jwtVerify(proof.value, key, {
       algorithms: ['ES256'],
-      audience: `tripflix-session:${proof.origin}`,
+      audience: `vintrip-session:${proof.origin}`,
       subject: purpose,
       currentDate: now,
       maxTokenAge: 60,

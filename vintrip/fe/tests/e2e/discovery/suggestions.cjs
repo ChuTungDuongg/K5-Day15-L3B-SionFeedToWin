@@ -7,7 +7,7 @@ const { chromium } = require(runtime);
 const { expect } = require(runtime + '/test');
 const { IntegrationPage } = require('../../pages/integration-page.cjs');
 const WEB = process.env.WEB_PREVIEW_URL || 'http://localhost:3100';
-const OUTPUT = process.env.DISCOVERY_EVIDENCE_DIR || join(tmpdir(), 'tripflix-commerce');
+const OUTPUT = process.env.DISCOVERY_EVIDENCE_DIR || join(tmpdir(), 'vintrip-commerce');
 assert.ok(['localhost', '127.0.0.1'].includes(new URL(WEB).hostname));
 
 (async () => {

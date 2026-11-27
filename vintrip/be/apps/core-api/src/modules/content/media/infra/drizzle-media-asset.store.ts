@@ -1,6 +1,6 @@
-import type { MediaAspect, MediaQualityLevel } from '@tripflix/contracts';
-import type { Db } from '@tripflix/db';
-import { OutboxWriter } from '@tripflix/outbox';
+import type { MediaAspect, MediaQualityLevel } from '@vintrip/contracts';
+import type { Db } from '@vintrip/db';
+import { OutboxWriter } from '@vintrip/outbox';
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import { contentOutboxEvents, mediaAssets, renditions } from '../../db/schema/index.js';
 import type {

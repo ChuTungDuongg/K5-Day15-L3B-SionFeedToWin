@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { CONTENT_VIEW_SURFACES, MAX_WATCHED_MS } from '@tripflix/contracts';
+import { CONTENT_VIEW_SURFACES, MAX_WATCHED_MS } from '@vintrip/contracts';
 import { z } from 'zod';
 
 /** Lô lớn nhất app được gửi một lần (docs/architecture/10-nghiep-vu-kien-truc-feed.md mục 3.2, F4). */

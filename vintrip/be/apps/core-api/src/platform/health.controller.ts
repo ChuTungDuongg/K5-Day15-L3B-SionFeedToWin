@@ -1,5 +1,5 @@
 import { Controller, Get, Inject, ServiceUnavailableException } from '@nestjs/common';
-import { ping } from '@tripflix/db';
+import { ping } from '@vintrip/db';
 import type { Redis } from 'ioredis';
 import type { CoreEnv } from './env.js';
 import { CORE_ENV, DB_POOLS, REDIS, type DbPools } from './tokens.js';

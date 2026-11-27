@@ -1,7 +1,7 @@
-import { InMemoryObjectStorage } from '@tripflix/storage';
+import { InMemoryObjectStorage } from '@vintrip/storage';
 import 'reflect-metadata';
 import { Test, type TestingModule } from '@nestjs/testing';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import { MediaError } from '../domain/errors.js';
 import { MAX_IMAGE_FILE_SIZE_BYTES, detectImageMimeType } from '../domain/upload-rules.js';

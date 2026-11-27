@@ -11,9 +11,9 @@ import {
   createPool,
   createTransactionalPlugins,
   type ModuleTransactionHost,
-} from '@tripflix/db';
-import { OutboxWriter } from '@tripflix/outbox';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+} from '@vintrip/db';
+import { OutboxWriter } from '@vintrip/outbox';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import { ClsModule } from 'nestjs-cls';
 import type pg from 'pg';
 import { contentOutboxEvents } from '../../db/schema/index.js';
@@ -44,7 +44,7 @@ import {
 } from './moderation.use-cases.js';
 
 const AUTHOR = '11111111-1111-4111-8111-111111111111';
-const CONFIG = { aiThreshold: 0.8, reportThreshold: 3, allowedDomains: ['tripflix.vn'] };
+const CONFIG = { aiThreshold: 0.8, reportThreshold: 3, allowedDomains: ['vintrip.vn'] };
 describe('TF91 giữ trước khi public trên Postgres thật', () => {
   let postgres: PostgresFixture;
   let pool: pg.Pool;

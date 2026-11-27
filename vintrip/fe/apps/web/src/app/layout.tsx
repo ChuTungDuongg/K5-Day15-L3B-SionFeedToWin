@@ -1,4 +1,4 @@
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import type { Metadata, Viewport } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';

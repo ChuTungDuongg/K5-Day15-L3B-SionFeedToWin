@@ -1,7 +1,7 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { z } from 'zod';
 
-/** Sự kiện ai-service phát sau mỗi lần gọi LLM hoặc kiểm duyệt (hợp đồng ở tripflix-ai: app/services/usage_events.py). */
+/** Sự kiện ai-service phát sau mỗi lần gọi LLM hoặc kiểm duyệt (hợp đồng ở vintrip-ai: app/services/usage_events.py). */
 export const AI_USAGE_EVENT = 'ai.usage.recorded';
 export const AI_FEATURES = ['chat', 'summary', 'moderation', 'cover_ocr'] as const;
 export type AiFeature = (typeof AI_FEATURES)[number];

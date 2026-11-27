@@ -50,10 +50,10 @@ describe('Luật kiểm duyệt tiếng Việt', () => {
     'vinpearl.com',
     'https://www.vinpearl.com/tour',
     'https://maps.google.com/a',
-    'https://tripflix.vn',
+    'https://vintrip.vn',
   ])('bỏ qua whitelist chính xác %s', (text) => {
     expect(
-      evaluateRules(text, ['vinpearl.com', 'maps.google.com', 'tripflix.vn']).some(
+      evaluateRules(text, ['vinpearl.com', 'maps.google.com', 'vintrip.vn']).some(
         (hit) => hit.code === 'LINK',
       ),
     ).toBe(false);
@@ -387,7 +387,7 @@ describe('Dụ chuyển khoản/đặt cọc ngoài app không kèm số tài kh
   });
 
   it.each([
-    'chuyển khoản qua app Tripflix nhé',
+    'chuyển khoản qua app Vintrip nhé',
     'đặt cọc trên app được không',
     'khách sạn yêu cầu đặt cọc 30%',
     'nhắn zalo cho bạn mình hỏi đường',

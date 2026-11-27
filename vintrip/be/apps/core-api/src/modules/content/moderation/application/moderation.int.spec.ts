@@ -11,15 +11,15 @@ import {
   createPool,
   createTransactionalPlugins,
   type ModuleTransactionHost,
-} from '@tripflix/db';
-import { OutboxWriter } from '@tripflix/outbox';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+} from '@vintrip/db';
+import { OutboxWriter } from '@vintrip/outbox';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import { ClsModule } from 'nestjs-cls';
-import { InMemoryObjectStorage } from '@tripflix/storage';
+import { InMemoryObjectStorage } from '@vintrip/storage';
 import { MediaFacade } from '../../media/media.facade.js';
 import { DrizzleMediaAssetStore } from '../../media/infra/drizzle-media-asset.store.js';
 import { MediaFramesUseCases } from '../../media/application/media-frames.use-cases.js';
-import { FRAME_POLICY, sampleFrameTimes, type MediaFramesCompletedV1 } from '@tripflix/contracts';
+import { FRAME_POLICY, sampleFrameTimes, type MediaFramesCompletedV1 } from '@vintrip/contracts';
 import { PostPartsScreeningUseCase } from './post-parts-screening.use-case.js';
 import type { PartVerdict } from '../../db/schema/moderation-parts.js';
 import type { ModerationPartInput } from './ports.js';
@@ -51,7 +51,7 @@ import {
 } from './moderation.use-cases.js';
 
 const AUTHOR = '11111111-1111-4111-8111-111111111111';
-const CONFIG = { aiThreshold: 0.8, reportThreshold: 3, allowedDomains: ['tripflix.vn'] };
+const CONFIG = { aiThreshold: 0.8, reportThreshold: 3, allowedDomains: ['vintrip.vn'] };
 describe('TF32 moderation: transaction Postgres thật', () => {
   let postgres: PostgresFixture;
   let pool: pg.Pool;

@@ -9,7 +9,7 @@ Bật Postgres và Redis **thật** trong Docker (Testcontainers) cho test cần
 
 ```sh
 pnpm test:int          # mọi package có *.int.spec.ts, lần lượt từng package (cần Docker Desktop đang chạy)
-pnpm --filter @tripflix/testing test:int
+pnpm --filter @vintrip/testing test:int
 ```
 
 `pnpm test` không chạy các file `*.int.spec.ts`, nên không cần Docker. CI chạy cả hai.
@@ -17,7 +17,7 @@ pnpm --filter @tripflix/testing test:int
 ## Dùng trong test
 
 ```ts
-import { migrateModule, startPostgres, startRedis, type PostgresFixture } from '@tripflix/testing';
+import { migrateModule, startPostgres, startRedis, type PostgresFixture } from '@vintrip/testing';
 
 let postgres: PostgresFixture;
 beforeAll(async () => {

@@ -1,6 +1,6 @@
 # TF32 — Bộ câu test mới v1
 
-Bộ dữ liệu có 300 câu tổng hợp tiếng Việt được viết mới cho ngữ cảnh Tripflix. Người dùng xác nhận toàn bộ nhãn hiện có trong chat ngày 11/11/2026, sau khi đã nhận kết quả model. Bản đã xác nhận nằm ở `reviewed/test.jsonl` và `reviewed/manifest.json`. File ở thư mục gốc giữ nguyên snapshot đề xuất để truy vết.
+Bộ dữ liệu có 300 câu tổng hợp tiếng Việt được viết mới cho ngữ cảnh Vintrip. Người dùng xác nhận toàn bộ nhãn hiện có trong chat ngày 11/11/2026, sau khi đã nhận kết quả model. Bản đã xác nhận nằm ở `reviewed/test.jsonl` và `reviewed/manifest.json`. File ở thư mục gốc giữ nguyên snapshot đề xuất để truy vết.
 
 ## Dùng với Colab
 
@@ -40,7 +40,7 @@ Mỗi câu được xét theo toàn bộ nội dung. Lời kể sự cố, tríc
 
 ## Sau khi có dự đoán ViSoBERT
 
-Lưu file test.jsonl và visobert-test.json trong `C:\Users\ADMIN\Downloads\tf32-visobert-round2`. Từ PowerShell ở repo tripflix-ai, chạy các lệnh trong HUONG-DAN.md của gói vòng hai để lấy cache OpenAI, tạo test-pack.json và chấm bằng cấu hình đã khóa.
+Lưu file test.jsonl và visobert-test.json trong `C:\Users\ADMIN\Downloads\tf32-visobert-round2`. Từ PowerShell ở repo vintrip-ai, chạy các lệnh trong HUONG-DAN.md của gói vòng hai để lấy cache OpenAI, tạo test-pack.json và chấm bằng cấu hình đã khóa.
 
 Nếu sửa nội dung sau khi đã chạy suy luận, cần tạo dự đoán lại cho đúng nội dung mới. Sửa nhãn mà giữ nguyên văn bản thì có thể dùng lại điểm dự đoán theo đúng ID/nội dung.
 

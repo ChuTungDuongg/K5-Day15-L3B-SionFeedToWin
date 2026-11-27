@@ -1,7 +1,7 @@
 'use client';
 
-import { useApiSession } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+import { useApiSession } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import { useState } from 'react';
 import { AvatarPhoto } from '@/features/shared/avatar-photo';
 import { ComposerModal } from './live-posts';

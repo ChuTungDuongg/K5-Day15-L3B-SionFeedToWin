@@ -1,8 +1,8 @@
 'use client';
 
-import { readEntity, useApiSession } from '@tripflix/api-client';
-import { emailVerificationControllerResend } from '@tripflix/api-client/core-api/auth/auth';
-import { vi } from '@tripflix/i18n';
+import { readEntity, useApiSession } from '@vintrip/api-client';
+import { emailVerificationControllerResend } from '@vintrip/api-client/core-api/auth/auth';
+import { vi } from '@vintrip/i18n';
 import { useMutation } from '@tanstack/react-query';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { BusyLabel } from '@/features/shared/loading-dots';

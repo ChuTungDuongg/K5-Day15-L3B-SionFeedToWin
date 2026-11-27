@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, Get, Header, HttpCode, HttpStatus, Inject, NotFoundException, Param, Post, Put, Query } from '@nestjs/common';
 import { ApiAcceptedResponse, ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiParam, ApiProperty, ApiPropertyOptional, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import { z } from 'zod';
 import { RECOMMEND_STORE, type RecommendStore } from '../recommend/application/ports.js';
 import { BUILD_FEATURES_EVERY_MS, BuildFeaturesJob } from '../recommend/jobs/build-features.job.js';

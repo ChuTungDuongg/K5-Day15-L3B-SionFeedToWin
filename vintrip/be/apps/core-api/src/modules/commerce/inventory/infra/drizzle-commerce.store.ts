@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectTransactionHost, type Db } from '@tripflix/db';
+import { InjectTransactionHost, type Db } from '@vintrip/db';
 import { and, asc, desc, eq, gt, gte, inArray, lte, max, or, sql, type SQL } from 'drizzle-orm';
 import { auditLogs, flightInventory, flights, properties, reviews, roomInventory, roomRates, roomTypes, type FlightRow, type PropertyRow, type ReviewRow, type RoomTypeRow } from '../../db/schema/index.js';
 import type {

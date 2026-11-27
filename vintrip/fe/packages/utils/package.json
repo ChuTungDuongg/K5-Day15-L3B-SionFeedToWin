@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/utils",
+  "name": "@vintrip/utils",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@tripflix/config": "workspace:*",
+    "@vintrip/config": "workspace:*",
     "oxlint": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"

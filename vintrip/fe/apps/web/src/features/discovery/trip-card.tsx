@@ -1,5 +1,5 @@
-import type { DemoTrip } from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+import type { DemoTrip } from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 

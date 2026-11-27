@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import type { AddressInfo } from 'node:net';
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
+import { MemorySidBlocklist } from '@vintrip/auth';
 import { generateKeyPair } from 'jose';
 import type { Socket as ClientSocket } from 'socket.io-client';
 import { AppModule, ENV, RealtimeService, SID_BLOCKLIST_PROVIDER } from '../app.module.js';

@@ -5,7 +5,7 @@
 # Dùng: ./add-playback-key.sh <public-key.pem>
 set -euo pipefail
 
-KEY_GROUP_NAME="${KEY_GROUP_NAME:-tripflix-playback}"
+KEY_GROUP_NAME="${KEY_GROUP_NAME:-vintrip-playback}"
 PUBLIC_KEY_FILE="${1:?Cần đường dẫn public key, ví dụ ./add-playback-key.sh cloudfront-playback.pub.pem}"
 if ! grep -q 'BEGIN PUBLIC KEY' "$PUBLIC_KEY_FILE"; then
   echo "$PUBLIC_KEY_FILE không phải public key PEM. Không đưa khoá riêng lên đây." >&2

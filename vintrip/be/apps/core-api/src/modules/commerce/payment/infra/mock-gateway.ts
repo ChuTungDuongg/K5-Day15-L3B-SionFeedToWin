@@ -1,5 +1,5 @@
 import { randomBytes } from 'node:crypto';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { eq } from 'drizzle-orm';
 import { mockGatewayOps } from '../../db/schema/index.js';
 import { MOCK_PAYMENT_GATEWAY, type ChargeResult, type PaymentGateway } from '../application/gateway.port.js';

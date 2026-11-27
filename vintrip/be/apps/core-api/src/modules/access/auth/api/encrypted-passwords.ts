@@ -37,7 +37,7 @@ export interface EncryptedPasswordsOptions {
   subjectField?: string;
 }
 
-const ENCRYPTED_PASSWORDS = 'tripflix:encrypted-passwords';
+const ENCRYPTED_PASSWORDS = 'vintrip:encrypted-passwords';
 
 /**
  * Giải mã encPassword... thành password... TRƯỚC khi ZodBody kiểm (interceptor chạy trước pipe), nên luật mật khẩu,

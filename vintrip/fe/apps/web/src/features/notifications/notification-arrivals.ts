@@ -1,4 +1,4 @@
-import type { InboxNotification } from '@tripflix/api-client';
+import type { InboxNotification } from '@vintrip/api-client';
 
 /** Chỉ báo mục mới sau lần tải đầu; tải lịch sử hoặc đổi tài khoản không bật lại thẻ cũ. */
 export function createNotificationArrivals() {

@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import type { FeedCardDto } from '@tripflix/api-client/core-api/model/index';
+import type { FeedCardDto } from '@vintrip/api-client/core-api/model/index';
 import {
   computeReelEngagement,
   getReelBufferSeconds,

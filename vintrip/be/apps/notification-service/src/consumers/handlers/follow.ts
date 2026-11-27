@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { z } from 'zod';
 import type { FollowerPostWorker } from '../../inbox/follower-post.worker.js';
 import { toInboxItemDto, type InboxRepository } from '../../inbox/inbox.repository.js';

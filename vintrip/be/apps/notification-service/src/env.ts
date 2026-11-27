@@ -1,4 +1,4 @@
-import { baseEnvSchema } from '@tripflix/config';
+import { baseEnvSchema } from '@vintrip/config';
 import { z } from 'zod';
 
 const DEV_SMTP_URL = 'smtp://localhost:1025';
@@ -13,12 +13,12 @@ export const envSchema = baseEnvSchema
     FOLLOWER_NOTIFICATION_SECRET: z.string().min(1).optional(),
     // Khoá công khai của module access; service tự kiểm chữ ký access token.
     JWKS_URL: z.url().default('http://localhost:3000/.well-known/jwks.json'),
-    AUTH_JWT_ISSUER: z.string().default('tripflix-core'),
-    AUTH_JWT_AUDIENCE: z.string().default('tripflix'),
+    AUTH_JWT_ISSUER: z.string().default('vintrip-core'),
+    AUTH_JWT_AUDIENCE: z.string().default('vintrip'),
     // Email (out-app): dev đi qua Mailpit, xem ở http://localhost:8025. Production: SMTP của Amazon SES.
     // Chuỗi rỗng (compose.server.yaml khi chưa điền) coi như không đặt.
     SMTP_URL: z.preprocess((v) => (v === '' ? undefined : v), z.string().default(DEV_SMTP_URL)),
-    MAIL_FROM: z.string().default('Tripflix <no-reply@tripflix.local>'),
+    MAIL_FROM: z.string().default('Vintrip <no-reply@vintrip.local>'),
     // Trang web mở từ nút trong email chào mừng.
     WEB_APP_URL: z.url().default('http://localhost:3100'),
     // Web, admin gọi /notifications từ trình duyệt qua gateway (khác origin): danh sách origin được phép, cách nhau dấu phẩy.

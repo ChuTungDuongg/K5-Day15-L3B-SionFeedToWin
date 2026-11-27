@@ -608,7 +608,7 @@ class Turn:
             place = trip_planner.trip.place
             found = await self._discover()
             if found.kind == "answer":
-                note = f"Tripflix chưa có đủ điểm ở {place} để xếp lịch theo ngày, xem reel nè."
+                note = f"Vintrip chưa có đủ điểm ở {place} để xếp lịch theo ngày, xem reel nè."
                 found.text = f"{note} {found.text}"
                 found.lead = f"{note} {found.lead}" if found.lead else note
                 return found

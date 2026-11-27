@@ -4,8 +4,8 @@ import type {
   ContentMediaReadyV1,
   MediaRenditionCompletedV1,
   MediaTranscodeFailedV1,
-} from '@tripflix/contracts';
-import { Transactional } from '@tripflix/db';
+} from '@vintrip/contracts';
+import { Transactional } from '@vintrip/db';
 import { MEDIA_ASSET_STORE, type MediaAssetStore } from './ports.js';
 
 // Video phát được từ mức này, nên đây là lúc chuyển ready. Các mức cao hơn chỉ thêm lựa chọn chất lượng.

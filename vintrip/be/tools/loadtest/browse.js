@@ -1,5 +1,5 @@
 // Kịch bản 2: N người đang dùng app (đăng nhập 1 lần, rồi lướt feed, xem bài, thả cảm xúc, xem thông báo).
-//   k6 run -e BASE=https://api.tripflix.io.vn -e PASSWORD=... -e USERS=20 \
+//   k6 run -e BASE=https://api.vintrip.io.vn -e PASSWORD=... -e USERS=20 \
 //     --summary-export results/browse-20.json tools/loadtest/browse.js
 import http from 'k6/http';
 import { check, sleep } from 'k6';
@@ -39,7 +39,7 @@ const json = { 'Content-Type': 'application/json' };
 let session = null;
 
 function login() {
-  const email = `loadtest${String(__VU).padStart(4, '0')}@tripflix.local`;
+  const email = `loadtest${String(__VU).padStart(4, '0')}@vintrip.local`;
   const res = http.post(`${__ENV.BASE}/api/auth/login`, JSON.stringify({ email, password: __ENV.PASSWORD, deviceName: 'k6 load test' }), {
     headers: json,
     tags: { name: 'login' },

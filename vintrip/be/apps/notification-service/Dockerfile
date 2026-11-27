@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Build với context là gốc repo: docker build -f apps/notification-service/Dockerfile --target prod .
 # Stage dev dùng cho máy local (pnpm stack:up / stack:watch); stage prod là image đẩy lên GHCR.
-ARG APP=@tripflix/notification-service
+ARG APP=@vintrip/notification-service
 
 FROM node:24-slim AS base
 ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH CI=true

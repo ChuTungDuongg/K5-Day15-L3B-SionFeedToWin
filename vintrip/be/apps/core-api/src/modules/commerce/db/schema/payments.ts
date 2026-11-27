@@ -1,5 +1,5 @@
-import { createIdempotencyKeysTable } from '@tripflix/idempotency';
-import { createOutboxTable } from '@tripflix/outbox';
+import { createIdempotencyKeysTable } from '@vintrip/idempotency';
+import { createOutboxTable } from '@vintrip/outbox';
 import { sql } from 'drizzle-orm';
 import { bigint, boolean, check, foreignKey, index, integer, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
 import { commerceSchema } from './commerce-schema.js';

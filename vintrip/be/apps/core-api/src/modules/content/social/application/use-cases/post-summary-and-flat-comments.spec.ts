@@ -1,7 +1,7 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Test } from '@nestjs/testing';
 import { ClsModule } from 'nestjs-cls';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { PostNotFoundException } from '../../domain/index.js';
 import {
   AddCommentUseCase,

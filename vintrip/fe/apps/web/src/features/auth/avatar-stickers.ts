@@ -1,5 +1,5 @@
-import { vi } from '@tripflix/i18n';
-import { colors } from '@tripflix/tokens';
+import { vi } from '@vintrip/i18n';
+import { colors } from '@vintrip/tokens';
 
 export type AvatarStickerCategory = 'accessories' | 'travel';
 
@@ -51,7 +51,7 @@ export const MIN_NORM_POS = -0.18;
 export const MAX_NORM_POS = 1.18;
 
 // Bản cũ chỉ lưu trong máy (trước khi có API); chỉ còn đọc để chuyển lên server một lần.
-const STORAGE_KEY = 'tripflix:avatar-decor:v1';
+const STORAGE_KEY = 'vintrip:avatar-decor:v1';
 
 function toSvgDataUrl(svgBody: string, viewBox = '0 0 120 120'): string {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" fill="none">${svgBody}</svg>`;

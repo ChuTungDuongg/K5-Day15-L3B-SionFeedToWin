@@ -1,5 +1,5 @@
 /* TF46: không cache trang/API và không giữ token đăng nhập trong worker. */
-const DATABASE = 'tripflix-notifications-v1';
+const DATABASE = 'vintrip-notifications-v1';
 const MAX_AGE = 24 * 60 * 60 * 1000;
 let messageQueue = Promise.resolve();
 
@@ -107,7 +107,7 @@ async function present(message, isPush) {
     await self.registration.showNotification(message.item.title.slice(0, 160), {
       body: message.item.body.slice(0, 300),
       icon: '/brand/vintrip-mark.svg',
-      tag: `tripflix:${owner.userId}:${message.item.id}`,
+      tag: `vintrip:${owner.userId}:${message.item.id}`,
       data: { userId: owner.userId, id: message.item.id, href: safeHref(message.href) },
     });
   }

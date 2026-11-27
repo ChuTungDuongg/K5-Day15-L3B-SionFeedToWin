@@ -4,8 +4,8 @@
 # Chạy trong AWS CloudShell, sau setup-dev-media.sh. Dùng: ./setup-media-domain.sh
 set -euo pipefail
 
-BUCKET="${S3_MEDIA_BUCKET:-tripflix-media-dev}"
-MEDIA_DOMAIN="${MEDIA_DOMAIN:-media.tripflix.io.vn}"
+BUCKET="${S3_MEDIA_BUCKET:-vintrip-media-dev}"
+MEDIA_DOMAIN="${MEDIA_DOMAIN:-media.vintrip.io.vn}"
 DIR="$(cd "$(dirname "$0")" && pwd)"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT

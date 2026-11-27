@@ -1,5 +1,5 @@
 import { and, eq, sql } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { postSummaries, type NewPostSummaryRecord, type PostSummaryRecord } from '../../db/schema/index.js';
 
 export class PostSummaryRepository {

@@ -172,7 +172,7 @@ class TagCountDto {
 }
 
 class ReviewSummaryDto {
-  @ApiProperty({ type: Number, nullable: true, example: 4.6, description: 'Điểm trung bình đánh giá trên Tripflix' }) average!: number | null;
+  @ApiProperty({ type: Number, nullable: true, example: 4.6, description: 'Điểm trung bình đánh giá trên Vintrip' }) average!: number | null;
   @ApiProperty({ example: 24 }) count!: number;
   @ApiProperty({ type: [RatingCountDto], description: 'Từ 5 sao xuống 1 sao' }) distribution!: RatingCountDto[];
   @ApiProperty({ type: [TagCountDto], description: 'Tag nhiều nhất trước, tối đa 10' }) tags!: TagCountDto[];

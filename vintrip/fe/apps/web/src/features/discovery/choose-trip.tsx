@@ -1,6 +1,6 @@
 'use client';
 
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { useState } from 'react';
 
 export function ChooseTrip() {

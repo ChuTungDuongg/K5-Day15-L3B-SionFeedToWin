@@ -1,4 +1,4 @@
-import type { CommerceOrderDepartureReminderV1 } from '@tripflix/contracts';
+import type { CommerceOrderDepartureReminderV1 } from '@vintrip/contracts';
 import { escapeHtml } from './html.js';
 import type { EmailMessage } from './mailer.js';
 
@@ -29,12 +29,12 @@ export function buildDepartureReminderEmail(payload: CommerceOrderDepartureRemin
   return {
     to: email,
     subject: `Chuyến đi của bạn bắt đầu lúc ${startText}`,
-    text: [greeting, '', `Chuyến đi của bạn sắp bắt đầu lúc ${startText}.`, `Mã xác nhận: ${code}`, '', ...items.map((item) => `- ${item}`), '', `Xem đơn: ${orderUrl}`, '', 'Tripflix · Chạm cảm hứng, trọn hành trình.'].join('\n'),
+    text: [greeting, '', `Chuyến đi của bạn sắp bắt đầu lúc ${startText}.`, `Mã xác nhận: ${code}`, '', ...items.map((item) => `- ${item}`), '', `Xem đơn: ${orderUrl}`, '', 'Vintrip · Chạm cảm hứng, trọn hành trình.'].join('\n'),
     html: [
       '<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="margin:0;padding:0;background:#FFF7F2">',
       '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FFF7F2;font-family:\'Be Vietnam Pro\',Segoe UI,Arial,sans-serif;color:#18242B;line-height:1.7"><tr><td align="center" style="padding:28px 12px">',
       '<table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:16px">',
-      '<tr><td style="padding:28px 24px 22px;border-bottom:1px solid #E2E8F0"><p style="margin:0;color:#FF5A3C;font-size:32px;font-weight:800">Tripflix</p></td></tr>',
+      '<tr><td style="padding:28px 24px 22px;border-bottom:1px solid #E2E8F0"><p style="margin:0;color:#FF5A3C;font-size:32px;font-weight:800">Vintrip</p></td></tr>',
       '<tr><td style="padding:28px 24px;overflow-wrap:anywhere">',
       '<h1 style="margin:0 0 12px;font-size:24px;line-height:1.3">Chuyến đi sắp bắt đầu</h1>',
       `<p style="margin:0 0 8px;font-size:15px">${escapeHtml(greeting)}</p>`,

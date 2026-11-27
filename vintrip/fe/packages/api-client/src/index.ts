@@ -1,7 +1,7 @@
 export { commentControlsApi, useCommentPermissions } from './comment-controls';
 // Hook và type sinh ra import theo đường dẫn con, ví dụ:
-//   import { useHealthControllerCheck } from '@tripflix/api-client/core-api/health/health';
-//   import type { ParseQueryResponse } from '@tripflix/api-client/ai-service/model';
+//   import { useHealthControllerCheck } from '@vintrip/api-client/core-api/health/health';
+//   import type { ParseQueryResponse } from '@vintrip/api-client/ai-service/model';
 export { configureHttp, http, httpRaw, HttpError, type HttpConfig, type HttpResponse } from './http';
 export { readPublicAsset } from './public-asset';
 export { ApiSessionProvider, useApiSession } from './session';

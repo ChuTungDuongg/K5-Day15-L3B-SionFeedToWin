@@ -64,7 +64,7 @@ describe('TF05C: credentials', () => {
     expect(buildDisplayName(null, 'lan.nguyen@example.com')).toBe('lan.nguyen');
     expect(buildDisplayName('   ', 'lan@example.com')).toBe('lan');
     expect(buildDisplayName(ch(0x200b), 'lan@example.com')).toBe('lan');
-    expect(buildDisplayName(null, '@example.com')).toBe('Thành viên Tripflix');
+    expect(buildDisplayName(null, '@example.com')).toBe('Thành viên Vintrip');
   });
 
   it('buildDisplayName: cắt còn 30 ký tự, không cắt đôi emoji, không để dấu cách ở cuối', () => {

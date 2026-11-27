@@ -1,7 +1,7 @@
 'use client';
-import { evictPostFromCache, socialApi, useApiSession } from '@tripflix/api-client';
+import { evictPostFromCache, socialApi, useApiSession } from '@vintrip/api-client';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { ApiErrorNotice } from '@/features/shared/api-state';

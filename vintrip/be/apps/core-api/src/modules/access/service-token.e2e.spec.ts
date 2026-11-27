@@ -3,8 +3,8 @@ import { registerTestAccount } from '../../platform/registration.fixture.js';
 import 'reflect-metadata';
 import { Controller, Get, Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { CurrentService, MemorySidBlocklist, ServiceOnly, type ServiceCaller } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { CurrentService, MemorySidBlocklist, ServiceOnly, type ServiceCaller } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { decodeJwt } from 'jose';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
@@ -24,7 +24,7 @@ import { MemoryLoginRateLimiter } from './auth/infra/memory/memory-login-rate-li
 import { disableServiceClient, registerServiceClient } from './service/application/service-token.use-cases.js';
 import { INVALID_SERVICE_CREDENTIALS_MESSAGE } from './service/domain/service-client-rules.js';
 
-const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'tripflix-core', AUTH_JWT_AUDIENCE: 'tripflix' } as CoreEnv;
+const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'vintrip-core', AUTH_JWT_AUDIENCE: 'vintrip' } as CoreEnv;
 
 @Global()
 @Module({
@@ -97,7 +97,7 @@ describe('TF058: token giữa các service', () => {
       ['retired-service', ['core-api']],
       ['bruteforce-target', ['core-api']],
     ] as const) {
-      secrets[clientId] = (await registerServiceClient({ store, hasher, userAudience: 'tripflix' }, { clientId, audiences: [...audiences] })).clientSecret;
+      secrets[clientId] = (await registerServiceClient({ store, hasher, userAudience: 'vintrip' }, { clientId, audiences: [...audiences] })).clientSecret;
     }
   });
 
@@ -109,7 +109,7 @@ describe('TF058: token giữa các service', () => {
     const res = await issue('ai-service').expect(200);
     expect(res.body).toMatchObject({ tokenType: 'Bearer', expiresIn: 300 });
     const claims = decodeJwt(res.body.accessToken);
-    expect(claims).toMatchObject({ typ: 'service', sub: 'ai-service', aud: 'core-api', iss: 'tripflix-core' });
+    expect(claims).toMatchObject({ typ: 'service', sub: 'ai-service', aud: 'core-api', iss: 'vintrip-core' });
     expect(claims.exp! - claims.iat!).toBe(300);
     expect(claims).not.toHaveProperty('role');
     expect(claims).not.toHaveProperty('sid');
@@ -171,10 +171,10 @@ describe('TF058: token giữa các service', () => {
   });
 
   it('tạo client: từ chối aud trùng aud người dùng và clientId đã có', async () => {
-    await expect(registerServiceClient({ store, hasher, userAudience: 'tripflix' }, { clientId: 'sneaky', audiences: ['tripflix'] })).rejects.toThrow(
+    await expect(registerServiceClient({ store, hasher, userAudience: 'vintrip' }, { clientId: 'sneaky', audiences: ['vintrip'] })).rejects.toThrow(
       /trùng aud/,
     );
-    await expect(registerServiceClient({ store, hasher, userAudience: 'tripflix' }, { clientId: 'ai-service', audiences: ['core-api'] })).rejects.toThrow(
+    await expect(registerServiceClient({ store, hasher, userAudience: 'vintrip' }, { clientId: 'ai-service', audiences: ['core-api'] })).rejects.toThrow(
       /đã có/,
     );
   });

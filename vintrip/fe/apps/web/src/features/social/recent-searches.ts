@@ -1,6 +1,6 @@
 /** Số từ khoá "Tìm gần đây" giữ lại trên máy. */
 export const MAX_RECENT_SEARCHES = 10;
-const RECENT_SEARCHES_STORAGE_KEY = 'tripflix:inspiration-recent-searches';
+const RECENT_SEARCHES_STORAGE_KEY = 'vintrip:inspiration-recent-searches';
 
 function toComparableKeyword(keyword: string): string {
   return keyword.trim().toLocaleLowerCase('vi');

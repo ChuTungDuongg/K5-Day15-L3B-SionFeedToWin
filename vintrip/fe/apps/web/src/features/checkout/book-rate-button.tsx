@@ -7,8 +7,8 @@ import {
   setBookingCartItemQty,
   type BookingCartGuests,
   type BookingCartItem,
-} from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+} from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import { saveBookingSelection, useBookingSelection } from './cart-store';
 import styles from './cart.module.css';
 

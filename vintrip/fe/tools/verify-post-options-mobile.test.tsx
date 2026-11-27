@@ -8,7 +8,7 @@ import {
 import { PostOptionsMenu } from '../apps/mobile/src/features/feed/post-options-menu';
 
 const state = vi.hoisted(() => ({ user: { id: 'viewer' } as { id: string } | null }));
-vi.mock('../apps/mobile/node_modules/@tripflix/api-client', () => ({
+vi.mock('../apps/mobile/node_modules/@vintrip/api-client', () => ({
   useApiSession: () => ({ user: state.user }),
   socialApi: {},
   evictPostFromCache: vi.fn(),

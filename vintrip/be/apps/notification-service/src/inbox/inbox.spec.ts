@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
-import type { AuthUser } from '@tripflix/auth';
+import type { AuthUser } from '@vintrip/auth';
 import { RealtimeService } from '../realtime/realtime.service.js';
 import { InboxController, InboxQuerySchema } from './inbox.controller.js';
 import { decodeInboxCursor, encodeInboxCursor, InboxRepository, type InboxRow } from './inbox.repository.js';

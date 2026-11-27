@@ -1,4 +1,4 @@
-import type { Role } from '@tripflix/contracts';
+import type { Role } from '@vintrip/contracts';
 import type { AvatarDecor } from '../../account/domain/avatar-decor.js';
 import type { UserRecord } from './ports.js';
 

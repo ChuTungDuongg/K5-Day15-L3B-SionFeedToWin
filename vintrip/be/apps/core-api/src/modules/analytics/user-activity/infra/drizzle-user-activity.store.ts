@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { and, desc, eq, gte, lt, sql } from 'drizzle-orm';
 import { userActivityEvents } from '../../db/schema/index.js';
 import type { UserActivityEventRow, UserActivityStore, UserActivitySummaryRow } from '../application/user-activity.use-cases.js';

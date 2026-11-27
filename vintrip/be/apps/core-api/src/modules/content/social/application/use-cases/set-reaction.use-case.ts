@@ -1,4 +1,4 @@
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { InvalidReactionTypeException, Post, PostNotFoundException } from '../../domain/index.js';
 import { PostRepository } from '../../infra/post.repository.js';
 import { ReactionRepository } from '../../infra/reaction.repository.js';

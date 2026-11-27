@@ -1,6 +1,6 @@
 'use client';
 
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import styles from './reply-quote.module.css';
 
 const QUOTE_HIGHLIGHT_MS = 1_500;

@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
-import { startPostgres, type PostgresFixture } from '@tripflix/testing';
-import { MemorySidBlocklist, type AuthUser } from '@tripflix/auth';
+import { startPostgres, type PostgresFixture } from '@vintrip/testing';
+import { MemorySidBlocklist, type AuthUser } from '@vintrip/auth';
 import pg from 'pg';
 import * as webPush from 'web-push';
 import { envSchema } from '../env.js';

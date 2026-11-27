@@ -1,5 +1,5 @@
 import { and, eq, inArray } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { comments, type CommentRecord, type PostRecord } from '../../../db/schema/index.js';
 
 type PublicationComment = Pick<

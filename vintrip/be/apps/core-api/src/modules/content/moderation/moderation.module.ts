@@ -3,9 +3,9 @@ import { CONTENT_GATE_PORT } from '../social/application/ports/content-gate.port
 import { RulesContentGate } from './application/content-gate.js';
 import { Module } from '@nestjs/common';
 import { AccessModule } from '../../access/index.js';
-import { buildTransactionHostToken, createDb, type ModuleTransactionHost } from '@tripflix/db';
-import { DrizzleIdempotencyStore, IdempotencyModule } from '@tripflix/idempotency';
-import { OutboxWriter } from '@tripflix/outbox';
+import { buildTransactionHostToken, createDb, type ModuleTransactionHost } from '@vintrip/db';
+import { DrizzleIdempotencyStore, IdempotencyModule } from '@vintrip/idempotency';
+import { OutboxWriter } from '@vintrip/outbox';
 import type { CoreEnv } from '../../../platform/env.js';
 import { CORE_ENV, DB_POOLS, type DbPools } from '../../../platform/tokens.js';
 import { contentIdempotencyKeys, contentOutboxEvents } from '../db/schema/index.js';
@@ -87,7 +87,7 @@ const CONFIG = Symbol('MODERATION_CONFIG');
       useFactory: (env: CoreEnv): ScreeningConfig => ({
         aiThreshold: env.MODERATION_AI_THRESHOLD ?? 0.8,
         reportThreshold: env.MODERATION_REPORT_THRESHOLD ?? 3,
-        allowedDomains: (env.MODERATION_ALLOWED_DOMAINS ?? 'tripflix.vn,maps.google.com,maps.app.goo.gl')
+        allowedDomains: (env.MODERATION_ALLOWED_DOMAINS ?? 'vintrip.vn,maps.google.com,maps.app.goo.gl')
           .split(',')
           .map((domain) => domain.trim())
           .filter(Boolean),

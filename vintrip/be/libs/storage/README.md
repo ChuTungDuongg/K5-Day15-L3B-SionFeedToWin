@@ -1,13 +1,13 @@
 # libs/storage
 
-Interface `ObjectStorage`: ký URL tải lên nhiều phần, đọc, ghi, tạo link CDN. Adapter S3 (bucket dev `tripflix-media-dev`) và adapter bộ nhớ cho test (docs/architecture/11 Q9).
+Interface `ObjectStorage`: ký URL tải lên nhiều phần, đọc, ghi, tạo link CDN. Adapter S3 (bucket dev `vintrip-media-dev`) và adapter bộ nhớ cho test (docs/architecture/11 Q9).
 
 - Phụ trách: Phong
 
 ## Dùng trong app
 
 ```ts
-import { S3ObjectStorage } from '@tripflix/storage';
+import { S3ObjectStorage } from '@vintrip/storage';
 
 const storage = new S3ObjectStorage({
   region: env.AWS_REGION,

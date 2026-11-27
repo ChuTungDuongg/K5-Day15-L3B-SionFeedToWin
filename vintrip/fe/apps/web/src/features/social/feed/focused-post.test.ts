@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { SocialPostDetailDto, SocialPostDto } from '@tripflix/api-client/core-api/model/index';
+import type { SocialPostDetailDto, SocialPostDto } from '@vintrip/api-client/core-api/model/index';
 import { getFocusedFeedPosts } from './focused-post';
 
 const post: SocialPostDto = {

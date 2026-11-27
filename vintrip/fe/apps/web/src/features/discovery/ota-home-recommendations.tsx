@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useHomeRecommendations } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+import { useHomeRecommendations } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import {
   DEFAULT_DESTINATION_IMAGE,
   DEFAULT_EXPERIENCE_IMAGE,

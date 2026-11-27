@@ -1,7 +1,7 @@
 import { BadRequestException, Controller, Get, HttpException, HttpStatus, Inject, Query, Res } from '@nestjs/common';
 import type { Response } from 'express';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { OptionalAuthenticated, OptionalCurrentUser, type AuthUser } from '@tripflix/auth';
+import { OptionalAuthenticated, OptionalCurrentUser, type AuthUser } from '@vintrip/auth';
 import { CommerceError, DATABASE_UNAVAILABLE_MESSAGE, RETRY_AFTER_SECONDS, isDatabaseUnavailable } from '../../../commerce/index.js';
 import { SearchEventsPublisher } from '../application/search-events.publisher.js';
 import { StaysUseCases } from '../application/stays.use-cases.js';

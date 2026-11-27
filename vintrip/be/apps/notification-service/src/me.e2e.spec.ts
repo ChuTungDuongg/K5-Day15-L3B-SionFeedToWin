@@ -3,7 +3,7 @@ import { createServer, type Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
+import { MemorySidBlocklist } from '@vintrip/auth';
 import { SignJWT, exportJWK, generateKeyPair, type CryptoKey, type JWK } from 'jose';
 import request from 'supertest';
 import { AppModule, ENV, SID_BLOCKLIST_PROVIDER, type Env } from './app.module.js';
@@ -20,8 +20,8 @@ function accessToken(key: CryptoKey, { sid = 's-1', exp = '15m' as string | numb
   return new SignJWT({ role: 'moderator', sid })
     .setProtectedHeader({ alg: 'ES256', kid: 'k1' })
     .setSubject('u-1')
-    .setIssuer('tripflix-core')
-    .setAudience('tripflix')
+    .setIssuer('vintrip-core')
+    .setAudience('vintrip')
     .setIssuedAt()
     .setExpirationTime(exp)
     .sign(key);
@@ -49,10 +49,10 @@ describe('notification-service kiểm access token qua JWKS', () => {
       REDIS_URL: 'redis://127.0.0.1:6379',
       DATABASE_URL_NOTIFICATION: 'postgres://unused@127.0.0.1:5432/unused',
       JWKS_URL: `http://127.0.0.1:${port}/.well-known/jwks.json`,
-      AUTH_JWT_ISSUER: 'tripflix-core',
-      AUTH_JWT_AUDIENCE: 'tripflix',
+      AUTH_JWT_ISSUER: 'vintrip-core',
+      AUTH_JWT_AUDIENCE: 'vintrip',
       SMTP_URL: 'smtp://127.0.0.1:1025',
-      MAIL_FROM: 'Tripflix <no-reply@tripflix.local>',
+      MAIL_FROM: 'Vintrip <no-reply@vintrip.local>',
       WEB_APP_URL: 'http://localhost:3100',
       WEB_ORIGINS: ['http://localhost:3100'],
       // Test này chỉ kiểm JWKS, không có Redis nên tắt consumer.

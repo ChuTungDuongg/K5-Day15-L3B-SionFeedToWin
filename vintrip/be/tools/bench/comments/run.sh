@@ -6,7 +6,7 @@
 # Biến môi trường:
 #   BASE_URL      core-api nhìn từ máy chạy lệnh (mặc định http://localhost:3000)
 #   K6_BASE_URL   core-api nhìn từ container k6 (mặc định http://host.docker.internal:3000)
-#   PG_CONTAINER  container Postgres (mặc định tripflix-postgres-1), PG_DB (mặc định core)
+#   PG_CONTAINER  container Postgres (mặc định vintrip-postgres-1), PG_DB (mặc định core)
 #   RUNS          số lần chạy mỗi kịch bản (mặc định 3)
 #   SOAK_MINUTES  thời gian soak (mặc định 30)
 set -euo pipefail
@@ -19,7 +19,7 @@ MODE="${1:-all}"
 BASE_URL="${BASE_URL:-http://localhost:3000}"
 K6_BASE_URL="${K6_BASE_URL:-http://host.docker.internal:3000}"
 K6_IMAGE="${K6_IMAGE:-grafana/k6:2.4.0}"
-PG_CONTAINER="${PG_CONTAINER:-tripflix-postgres-1}"
+PG_CONTAINER="${PG_CONTAINER:-vintrip-postgres-1}"
 PG_DB="${PG_DB:-core}"
 RUNS="${RUNS:-3}"
 SOAK_MINUTES="${SOAK_MINUTES:-30}"

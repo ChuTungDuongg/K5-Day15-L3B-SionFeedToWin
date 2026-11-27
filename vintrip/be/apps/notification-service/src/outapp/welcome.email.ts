@@ -1,4 +1,4 @@
-import type { AccessUserWelcomeEmailRequestedV1 } from '@tripflix/contracts';
+import type { AccessUserWelcomeEmailRequestedV1 } from '@vintrip/contracts';
 import { emailButton, escapeHtml, renderEmailShell } from './html.js';
 import type { EmailMessage } from './mailer.js';
 
@@ -30,7 +30,7 @@ export function buildWelcomeEmail(payload: AccessUserWelcomeEmailRequestedV1, we
 
   const content = [
     `<p style="margin:0 0 16px;font-size:15px">Chào <strong>${name}</strong>,</p>`,
-    `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#334155">Cảm ơn bạn đã tạo tài khoản Tripflix${via}. Từ giờ bạn có thể trải nghiệm đầy đủ các tính năng hấp dẫn:</p>`,
+    `<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#334155">Cảm ơn bạn đã tạo tài khoản Vintrip${via}. Từ giờ bạn có thể trải nghiệm đầy đủ các tính năng hấp dẫn:</p>`,
     `<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:16px 0 20px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:12px 16px">`,
     benefitsListHtml,
     '</table>',
@@ -44,11 +44,11 @@ export function buildWelcomeEmail(payload: AccessUserWelcomeEmailRequestedV1, we
 
   return {
     to: payload.email,
-    subject: 'Chào mừng bạn đến với Tripflix',
+    subject: 'Chào mừng bạn đến với Vintrip',
     text: [
       `Chào ${payload.displayName},`,
       '',
-      `Cảm ơn bạn đã tạo tài khoản Tripflix${via}. Từ giờ bạn có thể:`,
+      `Cảm ơn bạn đã tạo tài khoản Vintrip${via}. Từ giờ bạn có thể:`,
       ...BENEFITS.map((benefit) => `- ${benefit}`),
       '',
       `Bắt đầu khám phá: ${webAppUrl}`,
@@ -56,14 +56,14 @@ export function buildWelcomeEmail(payload: AccessUserWelcomeEmailRequestedV1, we
       describeSignIn(payload),
       'Nếu không phải bạn tạo tài khoản này, hãy bỏ qua email này.',
       '',
-      'Tripflix · Chạm cảm hứng, trọn hành trình.',
+      'Vintrip · Chạm cảm hứng, trọn hành trình.',
     ].join('\n'),
     html: renderEmailShell({
-      title: 'Chào mừng bạn đến với Tripflix',
+      title: 'Chào mừng bạn đến với Vintrip',
       badge: { text: 'CHÀO MỪNG BẠN', bg: '#D9F4F1', color: '#006C63' },
-      heading: 'Chào mừng bạn đến với Tripflix 👋',
+      heading: 'Chào mừng bạn đến với Vintrip 👋',
       content,
-      footerNote: 'Email này được gửi tự động khi tài khoản Tripflix của bạn được kích hoạt thành công.',
+      footerNote: 'Email này được gửi tự động khi tài khoản Vintrip của bạn được kích hoạt thành công.',
     }),
   };
 }

@@ -1,5 +1,5 @@
-import type { EventEnvelope } from '@tripflix/contracts';
-import type { EventBus, StreamName } from '@tripflix/event-bus';
+import type { EventEnvelope } from '@vintrip/contracts';
+import type { EventBus, StreamName } from '@vintrip/event-bus';
 import type { OutboxStore } from './store.js';
 
 export interface OutboxRelayOptions {

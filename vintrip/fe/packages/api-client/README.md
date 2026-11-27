@@ -1,23 +1,23 @@
-# @tripflix/api-client
+# @vintrip/api-client
 
 Client gọi backend cho mobile, web, admin. Code trong `src/generated/` do [Orval](https://orval.dev) sinh từ hợp đồng OpenAPI: hook TanStack Query + type cho từng API. **Không sửa tay** `src/generated/`, không tự viết `fetch` gọi backend.
 
 ## Sinh lại client
 
-Cần 3 repo đặt cạnh nhau (`tripflix/tripflix-be`, `tripflix/tripflix-ai`):
+Cần 3 repo đặt cạnh nhau (`vintrip/vintrip-be`, `vintrip/vintrip-ai`):
 
 ```
 pnpm gen:api
 ```
 
-Lệnh đọc `../tripflix-be/contracts/openapi/core-api.json` và `../tripflix-ai/contracts/openapi/ai-service.json`, rồi ghi vào `src/generated/`. Commit kết quả cùng PR dùng API mới.
+Lệnh đọc `../vintrip-be/contracts/openapi/core-api.json` và `../vintrip-ai/contracts/openapi/ai-service.json`, rồi ghi vào `src/generated/`. Commit kết quả cùng PR dùng API mới.
 
 ## Dùng trong app
 
 Cấu hình một lần lúc khởi động:
 
 ```ts
-import { configureHttp } from '@tripflix/api-client';
+import { configureHttp } from '@vintrip/api-client';
 
 configureHttp({
   baseUrl: process.env.NEXT_PUBLIC_API_URL!, // mobile: EXPO_PUBLIC_API_URL
@@ -40,7 +40,7 @@ Token gần hết hạn được refresh trước khi gửi, kể cả endpoint 
 Đổi tài khoản hoặc đăng xuất sẽ xóa cache QueryClient để dữ liệu tài khoản cũ không còn hiển thị.
 
 `socialApi`, `useSocialPosts` và `useStaySearch` gọi các hàm Orval đã sinh; app không tự `fetch` backend.
-Import model theo đường dẫn `@tripflix/api-client/core-api/model/index` (đúng package export hiện có).
+Import model theo đường dẫn `@vintrip/api-client/core-api/model/index` (đúng package export hiện có).
 BE giữ một số field social dạng snake_case; adapter gửi đúng hợp đồng đó, không đổi tên field trên dây.
 
 Quy trình sinh client: chạy `pnpm contracts:build` ở BE trước, sau đó `pnpm gen:api` ở FE.

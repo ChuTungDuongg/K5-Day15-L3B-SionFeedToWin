@@ -12,23 +12,23 @@ describe('buildLoginNotificationEmail', () => {
         location: 'TP. Hồ Chí Minh',
         loginAt: '2026-11-12T14:30:00Z',
       },
-      'https://tripflix.vn',
+      'https://vintrip.vn',
     );
 
     expect(mail.to).toBe('dung@example.com');
-    expect(mail.subject).toBe('Thông báo đăng nhập tài khoản Tripflix');
+    expect(mail.subject).toBe('Thông báo đăng nhập tài khoản Vintrip');
     expect(mail.text).toContain('Đức Dũng <script>');
     expect(mail.text).toContain('MacBook Pro M3 <img src=x>');
     expect(mail.text).toContain('14.161.22.10');
     expect(mail.text).toContain('TP. Hồ Chí Minh');
-    expect(mail.text).toContain('https://tripflix.vn/account');
-    expect(mail.text).toContain('https://tripflix.vn/forgot-password');
+    expect(mail.text).toContain('https://vintrip.vn/account');
+    expect(mail.text).toContain('https://vintrip.vn/forgot-password');
 
     expect(mail.html).toContain('Đức Dũng &lt;script&gt;');
     expect(mail.html).toContain('MacBook Pro M3 &lt;img src=x&gt;');
     expect(mail.html).not.toContain('<script>');
     expect(mail.html).not.toContain('<img src=x>');
-    expect(mail.html).toContain('Tripflix');
+    expect(mail.html).toContain('Vintrip');
     expect(mail.html).toContain('Quản lý phiên đăng nhập');
   });
 

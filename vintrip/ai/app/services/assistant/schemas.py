@@ -39,10 +39,10 @@ class DraftStop(WireModel):
 
 
 class DraftChoice(WireModel):
-    """A stay the user picked or may pick: on Tripflix (bookable) or outside (for reference)."""
+    """A stay the user picked or may pick: on Vintrip (bookable) or outside (for reference)."""
 
     ref: str = Field(default="", max_length=4)  # o1, o2… on the comparison card
-    source: Literal["tripflix", "external"]
+    source: Literal["vintrip", "external"]
     id: str = Field(max_length=100)
     name: str = Field(max_length=120)
     lat: float | None = Field(default=None, ge=-90, le=90)

@@ -60,7 +60,7 @@ async function overpass(city) {
   for (let attempt = 0; attempt < 6; attempt++) {
     const response = await fetch(MIRRORS[attempt % MIRRORS.length], {
       method: 'POST',
-      headers: { 'content-type': 'application/x-www-form-urlencoded', 'user-agent': 'tripflix-seed/1.0' },
+      headers: { 'content-type': 'application/x-www-form-urlencoded', 'user-agent': 'vintrip-seed/1.0' },
       body: `data=${encodeURIComponent(query(city))}`,
     });
     // Quá giờ thì Overpass vẫn trả 200 kèm `remark` và danh sách rỗng: coi như lỗi.

@@ -1,4 +1,4 @@
-import type { ExploreItemDto, FeedCardDto, SocialPostDto, UserSearchItemDto } from '@tripflix/api-client/core-api/model/index';
+import type { ExploreItemDto, FeedCardDto, SocialPostDto, UserSearchItemDto } from '@vintrip/api-client/core-api/model/index';
 import { getPostImages } from './post-cover';
 import { isReelPost } from './post-type-filter';
 import { formatSearchCardDate, getSearchCardCaption } from './search-result-card';

@@ -11,7 +11,7 @@ import {
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import type { z } from 'zod';
 import { MediaUploadUseCases } from '../application/media-upload.use-cases.js';
 import {

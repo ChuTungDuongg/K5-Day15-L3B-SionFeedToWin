@@ -510,8 +510,8 @@ export const ContentPostSharedV1Schema = z.object({
 
 /**
  * ai.chat.turn.recorded v1 (stream:ai, TF177): một lượt chat của người đã đăng nhập; khách không có sự kiện.
- * Khớp contracts/events/ai.chat.turn.recorded.v1.schema.json bên tripflix-ai. intent và answerKind là chuỗi để dễ thêm giá trị mới.
- * Mô tả cả phong bì (eventId, userId…) vì tripflix-ai phát sự kiện này theo phong bì đầy đủ, như ai.usage.recorded.
+ * Khớp contracts/events/ai.chat.turn.recorded.v1.schema.json bên vintrip-ai. intent và answerKind là chuỗi để dễ thêm giá trị mới.
+ * Mô tả cả phong bì (eventId, userId…) vì vintrip-ai phát sự kiện này theo phong bì đầy đủ, như ai.usage.recorded.
  */
 export const AiChatTurnRecordedV1Schema = z.object({
   eventId: z.uuid(),
@@ -522,7 +522,7 @@ export const AiChatTurnRecordedV1Schema = z.object({
   userId: z.uuid(),
   payload: z.strictObject({
     conversationId: z.uuid(),
-    // Đếm theo ký tự (code point) như tripflix-ai cắt; .max(240) chặn chuỗi quá dài trước khi đếm (emoji tính 2 đơn vị UTF-16).
+    // Đếm theo ký tự (code point) như vintrip-ai cắt; .max(240) chặn chuỗi quá dài trước khi đếm (emoji tính 2 đơn vị UTF-16).
     question: z.string().max(240).refine((text) => [...text].length <= 120, 'question tối đa 120 ký tự'),
     intent: z.string().nullable(),
     answerKind: z.string(),

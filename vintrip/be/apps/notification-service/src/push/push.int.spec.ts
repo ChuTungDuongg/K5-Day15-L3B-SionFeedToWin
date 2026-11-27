@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
-import { startPostgres, type PostgresFixture } from '@tripflix/testing';
+import { startPostgres, type PostgresFixture } from '@vintrip/testing';
 import pg from 'pg';
 import { envSchema } from '../env.js';
 import { InboxRepository } from '../inbox/inbox.repository.js';

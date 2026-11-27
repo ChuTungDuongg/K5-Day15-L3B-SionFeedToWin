@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException, ServiceUnavailableException } from '@nestjs/common';
 import { z } from 'zod';
-import { SUCCESSFUL_CORS_PREFLIGHT_SPAN_NAME } from '@tripflix/observability';
+import { SUCCESSFUL_CORS_PREFLIGHT_SPAN_NAME } from '@vintrip/observability';
 import {
   RANGE_SECONDS,
   type ObservabilityDto,
@@ -20,7 +20,7 @@ import {
 } from '../infra/telemetry-store.js';
 
 export const TELEMETRY_ENV = Symbol('TELEMETRY_ENV');
-const HISTOGRAM = 'tripflix_http_server_duration_seconds';
+const HISTOGRAM = 'vintrip_http_server_duration_seconds';
 const EMPTY_SUMMARY = {
   requests: null,
   requestRate: null,
@@ -146,13 +146,13 @@ export class ObservabilityService {
     ];
     const vectorQuery = [
       ...metricsFor('by (service_name)'),
-      stat(`max by (service_name)(tripflix_service_heartbeat${selector})`, 'heartbeat'),
+      stat(`max by (service_name)(vintrip_service_heartbeat${selector})`, 'heartbeat'),
       stat(
-        `sum by (service_name)(tripflix_process_memory_bytes${selector} and on (service_name,service_instance_id) (tripflix_service_heartbeat${selector} > time() - 60))`,
+        `sum by (service_name)(vintrip_process_memory_bytes${selector} and on (service_name,service_instance_id) (vintrip_service_heartbeat${selector} > time() - 60))`,
         'memory',
       ),
       stat(
-        `min by (service_name)(tripflix_process_uptime_seconds${selector} and on (service_name,service_instance_id) (tripflix_service_heartbeat${selector} > time() - 60))`,
+        `min by (service_name)(vintrip_process_uptime_seconds${selector} and on (service_name,service_instance_id) (vintrip_service_heartbeat${selector} > time() - 60))`,
         'uptime',
       ),
       // Global quantiles must use merged buckets, never averages of per-service quantiles.

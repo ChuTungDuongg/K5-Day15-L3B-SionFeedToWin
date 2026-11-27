@@ -3,7 +3,7 @@ import './telemetry.js';
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from 'nestjs-pino';
-import { createTelemetryMiddleware } from '@tripflix/observability';
+import { createTelemetryMiddleware } from '@vintrip/observability';
 import { AppModule, ENV, type Env } from './app.module.js';
 import { useRedisRealtime } from './realtime/redis-io.adapter.js';
 

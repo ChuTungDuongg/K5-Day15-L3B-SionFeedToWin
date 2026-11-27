@@ -19,9 +19,9 @@ concurrency:
 
 env:
   # Next gắn địa chỉ này vào bundle lúc build. Hiện chỉ có một server là staging.
-  STAGING_API_URL: https://api.tripflix.io.vn
-  STAGING_WEB_URL: https://tripflix.io.vn
-  STAGING_ADMIN_URL: https://admin.tripflix.io.vn
+  STAGING_API_URL: https://api.vintrip.io.vn
+  STAGING_WEB_URL: https://vintrip.io.vn
+  STAGING_ADMIN_URL: https://admin.vintrip.io.vn
 
 jobs:
   # Tag mobile-v* chỉ build APK, không chạy lại CI và không build image web, admin.
@@ -108,7 +108,7 @@ jobs:
     secrets:
       DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
 
-  # Back Office ở https://admin.tripflix.io.vn. Hai job dùng chung concurrency nên chạy lần lượt.
+  # Back Office ở https://admin.vintrip.io.vn. Hai job dùng chung concurrency nên chạy lần lượt.
   deploy-admin:
     needs: [web, changes]
     if: github.ref == 'refs/heads/develop' && contains(fromJSON(needs.changes.outputs.apps), 'admin')
@@ -135,4 +135,4 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @tripflix/mobile build:apk --non-interactive
+      - run: pnpm --filter @vintrip/mobile build:apk --non-interactive

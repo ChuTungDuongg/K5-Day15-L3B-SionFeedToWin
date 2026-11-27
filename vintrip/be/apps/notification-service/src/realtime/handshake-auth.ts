@@ -4,7 +4,7 @@ import {
   type AccessTokenVerifier,
   type AuthUser,
   type SidBlocklist,
-} from '@tripflix/auth';
+} from '@vintrip/auth';
 import type { Socket } from 'socket.io';
 import { WS_ERROR } from './realtime.constants.js';
 

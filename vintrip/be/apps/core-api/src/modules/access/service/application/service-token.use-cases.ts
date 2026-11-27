@@ -83,7 +83,7 @@ export class ServiceTokenUseCases {
   }
 
   private getDummyHash(): Promise<string> {
-    this.dummyHash ??= this.hasher.hash('tripflix-dummy-service-secret-for-timing');
+    this.dummyHash ??= this.hasher.hash('vintrip-dummy-service-secret-for-timing');
     return this.dummyHash;
   }
 }

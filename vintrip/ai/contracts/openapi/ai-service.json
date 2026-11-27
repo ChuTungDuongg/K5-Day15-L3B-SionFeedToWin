@@ -618,7 +618,7 @@
       },
       "DraftChoice": {
         "additionalProperties": false,
-        "description": "A stay the user picked or may pick: on Tripflix (bookable) or outside (for reference).",
+        "description": "A stay the user picked or may pick: on Vintrip (bookable) or outside (for reference).",
         "properties": {
           "id": {
             "maxLength": 100,
@@ -664,7 +664,7 @@
           },
           "source": {
             "enum": [
-              "tripflix",
+              "vintrip",
               "external"
             ],
             "title": "Source",
@@ -1513,7 +1513,7 @@
     }
   },
   "info": {
-    "title": "Tripflix AI Service",
+    "title": "Vintrip AI Service",
     "version": "0.1.0"
   },
   "openapi": "3.1.0",

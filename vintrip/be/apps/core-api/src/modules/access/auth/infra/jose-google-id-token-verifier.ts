@@ -8,7 +8,7 @@ export const GOOGLE_ISSUERS = ['https://accounts.google.com', 'accounts.google.c
 
 /**
  * Kiểm Google ID token mà app, web lấy từ Google Sign-In: chữ ký qua JWKS của Google, iss, aud là một trong
- * GOOGLE_CLIENT_IDS (của Tripflix), exp, email_verified. Không gọi API Google nào khác.
+ * GOOGLE_CLIENT_IDS (của Vintrip), exp, email_verified. Không gọi API Google nào khác.
  */
 export class JoseGoogleIdTokenVerifier implements GoogleIdTokenVerifier {
   constructor(

@@ -1,4 +1,4 @@
-# Duyệt nhãn test Tripflix v1
+# Duyệt nhãn test Vintrip v1
 
 300 câu tổng hợp được viết mới ngày 11/11/2026. Hai người duyệt điền nhãn độc lập `clean`, `toxic` hoặc `needs_context`, sau đó thống nhất cột Nhãn cuối. ID giữ nguyên để cập nhật lại test.jsonl. Nhãn đề xuất nằm trong test.jsonl và chưa được xác nhận bởi người duyệt.
 

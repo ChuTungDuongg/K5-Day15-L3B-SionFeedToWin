@@ -1,7 +1,7 @@
 'use client';
 
-import { getFlightPassengerMix, useFlightRoutes, type FlightSearch } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { getFlightPassengerMix, useFlightRoutes, type FlightSearch } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import { useState } from 'react';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { AirportPicker, type AirportOption } from './airport-picker';

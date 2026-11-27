@@ -1,7 +1,7 @@
 'use client';
-import { getRetryAfterSeconds, useApiSession, useResendCooldown } from '@tripflix/api-client';
-import { REGISTRATION_CODE_PATTERN } from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+import { getRetryAfterSeconds, useApiSession, useResendCooldown } from '@vintrip/api-client';
+import { REGISTRATION_CODE_PATTERN } from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';

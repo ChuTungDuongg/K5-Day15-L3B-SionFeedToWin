@@ -12,7 +12,7 @@ import {
   type AccessTokenVerifier,
   type AuthUser,
   type SidBlocklist,
-} from '@tripflix/auth';
+} from '@vintrip/auth';
 
 interface AuthRequest {
   headers: Record<string, string | string[] | undefined>;

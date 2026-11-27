@@ -9,8 +9,8 @@ import {
   useNotificationsRealtime,
   webPushApi,
   type InboxNotification,
-} from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+} from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import { useRouter } from 'next/navigation';
 import {
   createContext,
@@ -246,7 +246,7 @@ export function WebNotifications({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!userId) return;
     const reload = () => void queryClient.invalidateQueries({ queryKey: ['notifications', userId] });
-    const broadcast = 'BroadcastChannel' in window ? new BroadcastChannel(`tripflix-inbox:${userId}`) : null;
+    const broadcast = 'BroadcastChannel' in window ? new BroadcastChannel(`vintrip-inbox:${userId}`) : null;
     channel.current = broadcast;
     if (broadcast) broadcast.onmessage = reload;
     if (!('serviceWorker' in navigator))

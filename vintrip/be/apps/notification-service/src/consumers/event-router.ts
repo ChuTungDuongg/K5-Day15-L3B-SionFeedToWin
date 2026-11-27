@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import type { Redis } from 'ioredis';
 import type { DirectoryRepository } from '../directory/directory.repository.js';
 import type { ReactionNotificationRepository } from '../grouping/reaction-notification.repository.js';

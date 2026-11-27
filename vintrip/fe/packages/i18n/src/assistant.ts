@@ -109,7 +109,7 @@ export const assistant = {
   bookHotel: 'Đặt phòng',
   bookFlight: 'Đặt vé',
   /** Nhãn trên dòng chuyến bay, khách sạn Vintrip lồng trong lộ trình. */
-  tripflixService: 'Dịch vụ Vintrip',
+  vintripService: 'Dịch vụ Vintrip',
   choose: 'Chọn',
   undo: 'Hoàn tác',
   // Thiết kế lại khung chat mobile (SCRUM-167): chỉ thêm khoá, các khoá cũ giữ nguyên.

@@ -1,7 +1,7 @@
 import {
   AccessUserProfileUpdatedV1Schema,
   AccessUserRegisteredV1Schema,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 import { z } from 'zod';
 import type { DirectoryRepository } from '../../directory/directory.repository.js';
 import type { FollowerPostWorker } from '../../inbox/follower-post.worker.js';

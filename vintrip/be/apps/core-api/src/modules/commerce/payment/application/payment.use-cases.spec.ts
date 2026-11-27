@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Logger } from '@nestjs/common';
-import type { OutboxWriter } from '@tripflix/outbox';
+import type { OutboxWriter } from '@vintrip/outbox';
 import type { CheckoutUseCases } from '../../booking/application/checkout.use-cases.js';
 import type { OrderItemRecord, OrderRecord, OrderStore, PaymentRecord, RefundRecord } from '../../booking/application/ports.js';
 import { VNPAY_GATEWAY } from '../domain/vnpay-signature.js';
@@ -8,8 +8,8 @@ import type { PaymentGateway } from './gateway.port.js';
 import { PaymentUseCases } from './payment.use-cases.js';
 import { ACCEPTED_REFUND_REF, SUBMITTED_REFUND_REF, type RefundClient, type RefundOutcome, type RefundQueryOutcome } from './refund-gateways.port.js';
 
-vi.mock('@tripflix/db', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@tripflix/db')>()),
+vi.mock('@vintrip/db', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@vintrip/db')>()),
   Transactional: () => () => undefined,
 }));
 

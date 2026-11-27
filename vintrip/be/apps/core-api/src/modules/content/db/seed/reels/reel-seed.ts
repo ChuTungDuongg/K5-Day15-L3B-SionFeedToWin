@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { sql } from 'drizzle-orm';
 import { seedContentData, type ContentSeed } from '../seed-content.js';
 import {

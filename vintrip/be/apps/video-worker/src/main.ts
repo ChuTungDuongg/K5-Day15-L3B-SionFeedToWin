@@ -1,8 +1,8 @@
 import { existsSync } from 'node:fs';
 import { hostname } from 'node:os';
-import { baseEnvSchema, loadEnv } from '@tripflix/config';
-import { createLogger } from '@tripflix/observability';
-import { S3ObjectStorage } from '@tripflix/storage';
+import { baseEnvSchema, loadEnv } from '@vintrip/config';
+import { createLogger } from '@vintrip/observability';
+import { S3ObjectStorage } from '@vintrip/storage';
 import { Redis } from 'ioredis';
 import { z } from 'zod';
 import { TranscodeConsumer } from './consumer/transcode-consumer.js';
@@ -14,7 +14,7 @@ const env = loadEnv(
   baseEnvSchema.extend({
     REDIS_URL: z.string().default('redis://localhost:6379'),
     AWS_REGION: z.string().default('ap-southeast-2'),
-    S3_MEDIA_BUCKET: z.string().default('tripflix-media-dev'),
+    S3_MEDIA_BUCKET: z.string().default('vintrip-media-dev'),
     S3_KEY_PREFIX: z.string().default('dev/unknown/'),
     VIDEO_WORKER_CONSUMER_NAME: z.string().optional(),
   }),

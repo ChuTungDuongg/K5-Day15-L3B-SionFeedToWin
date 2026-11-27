@@ -1,4 +1,4 @@
-# @tripflix/observability
+# @vintrip/observability
 
 Log (pino) và distributed tracing (OpenTelemetry) dùng chung cho các service Node: core-api, notification-service, video-worker.
 
@@ -11,7 +11,7 @@ Muốn thấy thêm **từng câu SQL và lệnh Redis** thì nạp qua `--impor
 ```bash
 OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 \
 OTEL_SERVICE_NAME=core-api \
-NODE_OPTIONS="--import @tripflix/observability/register" \
+NODE_OPTIONS="--import @vintrip/observability/register" \
 node dist/main.js
 ```
 
@@ -26,9 +26,9 @@ node dist/main.js
 ### Xem trace ở local (Jaeger)
 
 ```bash
-docker run -d --name tripflix-jaeger -p 16686:16686 -p 4318:4318 jaegertracing/jaeger:2.10.0
+docker run -d --name vintrip-jaeger -p 16686:16686 -p 4318:4318 jaegertracing/jaeger:2.10.0
 # chạy service với các biến ở trên, gọi vài request, mở http://localhost:16686
-docker rm -f tripflix-jaeger   # xong thì xoá
+docker rm -f vintrip-jaeger   # xong thì xoá
 ```
 
 ### Bật trên server

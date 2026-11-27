@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { SocialIcon } from '../live-posts';
 import styles from './social-feed.module.css';
 

@@ -1,4 +1,4 @@
-import { eventEnvelopeSchema, type EventEnvelope } from '@tripflix/contracts';
+import { eventEnvelopeSchema, type EventEnvelope } from '@vintrip/contracts';
 import type { Redis } from 'ioredis';
 import { CONSUMER_GROUPS, STREAMS, type StreamName } from './index.js';
 

@@ -1,6 +1,6 @@
-# Tripflix — Quy chuẩn Gán nhãn Kiểm duyệt Dữ liệu Tiếng Việt (Annotation Policy)
+# Vintrip — Quy chuẩn Gán nhãn Kiểm duyệt Dữ liệu Tiếng Việt (Annotation Policy)
 
-Tài liệu này là quy chuẩn chính thức dùng để gán nhãn, giải quyết bất đồng và xây dựng bộ dữ liệu đánh giá kiểm duyệt (evaluation benchmark) cho dịch vụ AI Kiểm duyệt (`POST /moderate`) của Tripflix.
+Tài liệu này là quy chuẩn chính thức dùng để gán nhãn, giải quyết bất đồng và xây dựng bộ dữ liệu đánh giá kiểm duyệt (evaluation benchmark) cho dịch vụ AI Kiểm duyệt (`POST /moderate`) của Vintrip.
 
 ---
 
@@ -44,7 +44,7 @@ Tài liệu này là quy chuẩn chính thức dùng để gán nhãn, giải qu
 
 ### Điểm 3: Phạm vi phát ngôn thù ghét & Danh sách nhóm được bảo vệ
 Phát ngôn thù ghét (Hate Speech) là hành vi xúc phạm, phi nhân hóa (*"sâu bọ", "cặn bã", "hạ đẳng"*), bài trừ hoặc xua đuổi nhắm vào một nhóm người dựa trên các đặc điểm bảo vệ sau:
-1. **Vùng miền / Địa phương:** Đặc biệt quan trọng tại Việt Nam và nền tảng du lịch Tripflix. Tuyệt đối nghiêm cấm miệt thị người miền Bắc, miền Trung, miền Nam, hoặc dân cư tại các địa phương cụ thể.
+1. **Vùng miền / Địa phương:** Đặc biệt quan trọng tại Việt Nam và nền tảng du lịch Vintrip. Tuyệt đối nghiêm cấm miệt thị người miền Bắc, miền Trung, miền Nam, hoặc dân cư tại các địa phương cụ thể.
 2. **Giới tính & Bản dạng giới / LGBTQ+:** Nghiêm cấm kỳ thị người đồng tính, song tính, chuyển giới hoặc phân biệt đối xử giới.
 3. **Người khuyết tật & Thể trạng:** Nghiêm cấm sử dụng các từ ngữ chỉ bệnh lý/khuyết tật (*thiểu năng, tàn tật, bại não, câm điếc*) làm từ ngữ sỉ nhục.
 4. **Dân tộc & Quốc tịch:** Nghiêm cấm bài ngoại, phân biệt đối xử với du khách nước ngoài hoặc đồng bào dân tộc thiểu số.

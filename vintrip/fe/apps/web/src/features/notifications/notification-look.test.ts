@@ -1,12 +1,12 @@
 import { expect, test } from 'vitest';
 import { formatNotificationTime, getNotificationKind } from './notification-look';
 
-test('nhóm thông báo theo type, còn lại là của Tripflix', () => {
+test('nhóm thông báo theo type, còn lại là của Vintrip', () => {
   expect(getNotificationKind('comment.replied')).toBe('comment');
   expect(getNotificationKind('reaction.post')).toBe('reaction');
   expect(getNotificationKind('follow.post.published')).toBe('follow');
-  expect(getNotificationKind('moderation.comment.hide')).toBe('tripflix');
-  expect(getNotificationKind('booking.paid')).toBe('tripflix');
+  expect(getNotificationKind('moderation.comment.hide')).toBe('vintrip');
+  expect(getNotificationKind('booking.paid')).toBe('vintrip');
 });
 
 test('thời gian hiện kiểu tương đối', () => {

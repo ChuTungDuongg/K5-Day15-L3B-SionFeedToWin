@@ -1,6 +1,6 @@
 import { BadRequestException, Body, Controller, HttpCode, HttpStatus, Inject, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { OptionalAuthenticated, OptionalCurrentUser, type AuthUser } from '@tripflix/auth';
+import { OptionalAuthenticated, OptionalCurrentUser, type AuthUser } from '@vintrip/auth';
 import { ExploreUseCases } from '../application/explore.use-cases.js';
 import { SearchEventsPublisher } from '../application/search-events.publisher.js';
 import {
@@ -101,7 +101,7 @@ export class ExploreController {
     description: [
       'Cho các tab riêng của trang tìm web Cảm hứng. Công khai. Cùng bộ hiểu câu và chỉ mục với `POST /api/search`.',
       '',
-      '- `kind`: `stay` (khách sạn đặt được, `refId` là mã khách sạn), `see`, `food`, `cafe` (địa điểm ngoài Tripflix từ OpenStreetMap, không đặt được, có `location`).',
+      '- `kind`: `stay` (khách sạn đặt được, `refId` là mã khách sạn), `see`, `food`, `cafe` (địa điểm ngoài Vintrip từ OpenStreetMap, không đặt được, có `location`).',
       '- Có điểm OpenStreetMap thì `attribution` khác null và phải hiện kèm danh sách.',
       '- Phân trang, `isFallback`, `dropped`, `fallbackRelaxed` như `POST /api/search/posts`.',
     ].join('\n'),

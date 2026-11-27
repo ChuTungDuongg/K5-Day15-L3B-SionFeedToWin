@@ -5,7 +5,7 @@
 \set bench_post_id '0000be0c-0000-4000-8000-000000000001'
 \pset pager off
 
-SELECT id AS viewer_id FROM access.users WHERE email = 'bench-1@tripflix.local' \gset
+SELECT id AS viewer_id FROM access.users WHERE email = 'bench-1@vintrip.local' \gset
 
 \echo '== Trang 1 bình luận gốc =='
 EXPLAIN (ANALYZE, BUFFERS, COSTS OFF)

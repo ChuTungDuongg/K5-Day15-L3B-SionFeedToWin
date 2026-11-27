@@ -8,7 +8,7 @@ export const REGISTRATION_CODE_PATTERN = /^[0-9]{8}$/;
 
 // Phản hồi ngay khi nhập. Core API kiểm lại cùng quy tắc trước khi gửi mã và tạo tài khoản.
 const COMMON_PASSWORD =
-  /^(?:password|matkhau|mat-khau|tripflix|qwerty|admin|letmein|iloveyou|welcome)[\d!@#$%^&*._-]*$/i;
+  /^(?:password|matkhau|mat-khau|vintrip|qwerty|admin|letmein|iloveyou|welcome)[\d!@#$%^&*._-]*$/i;
 const REPEATED_PATTERN = /^(.{1,4})\1+$/u;
 const VISIBLE_CHARACTER = /[^\p{White_Space}\p{Default_Ignorable_Code_Point}\p{Cc}]/u;
 

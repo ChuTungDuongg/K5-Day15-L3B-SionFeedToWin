@@ -1,1 +1,1 @@
-"""Tripflix AI service."""
+"""Vintrip AI service."""

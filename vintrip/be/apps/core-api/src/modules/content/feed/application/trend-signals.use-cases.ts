@@ -3,7 +3,7 @@ import {
   ContentPostBookingClickedV1Schema,
   ContentPostViewedV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 import {
   toBookingClickSignal,
   toViewSignal,

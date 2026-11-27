@@ -1,15 +1,15 @@
 'use client';
 
 import { TripStopIcon } from '../feed/trip-plan-timeline';
-import { commerceApi, socialApi, useApiSession, usePostSearchFeed } from '@tripflix/api-client';
-import { tripPlanPostQueryKey } from '@tripflix/api-client/profile-query-keys';
+import { commerceApi, socialApi, useApiSession, usePostSearchFeed } from '@vintrip/api-client';
+import { tripPlanPostQueryKey } from '@vintrip/api-client/profile-query-keys';
 import type {
   SocialPostDto,
   TripAttachmentDto,
   TripItineraryItemDto,
-} from '@tripflix/api-client/core-api/model/index';
-import { getBookableTripPlan, getTripNights, getTripPlanStays, type TripPlanStay } from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/api-client/core-api/model/index';
+import { getBookableTripPlan, getTripNights, getTripPlanStays, type TripPlanStay } from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import { useMutation, useQueries, useQuery, useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';

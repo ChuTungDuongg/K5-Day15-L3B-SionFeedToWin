@@ -10,8 +10,8 @@ import {
   AccessUserLockedV1Schema,
   AccessUserRoleChangedV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
-import { RedisStreamsConsumer, STREAMS } from '@tripflix/event-bus';
+} from '@vintrip/contracts';
+import { RedisStreamsConsumer, STREAMS } from '@vintrip/event-bus';
 import type { Redis } from 'ioredis';
 import type { Env } from '../env.js';
 import type { Mailer } from '../outapp/mailer.js';

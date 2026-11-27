@@ -9,7 +9,7 @@ Chống xử lý hai lần khi app gửi lại cùng một lệnh ghi (mất m�
 **1. Khai báo bảng** trong `db/schema` của module, rồi `pnpm db:generate commerce`:
 
 ```ts
-import { createIdempotencyKeysTable } from '@tripflix/idempotency';
+import { createIdempotencyKeysTable } from '@vintrip/idempotency';
 export const commerceIdempotencyKeys = createIdempotencyKeysTable(commerceSchema); // commerce.idempotency_keys
 ```
 
@@ -51,7 +51,7 @@ App tạo key ngẫu nhiên (UUID) **một lần cho mỗi thao tác** của ng�
 | Lần đầu lỗi (ném exception) | Xoá chỗ đã giữ; gửi lại cùng key thì xử lý lại |
 | Quá 24 giờ | Coi như key mới |
 
-Phạm vi của key: người dùng (`req.user.userId` từ `@tripflix/auth`) + method + đường dẫn, nên hai người dùng trùng key không ảnh hưởng nhau.
+Phạm vi của key: người dùng (`req.user.userId` từ `@vintrip/auth`) + method + đường dẫn, nên hai người dùng trùng key không ảnh hưởng nhau.
 
 ## Giới hạn
 
@@ -59,4 +59,4 @@ Lưu kết quả là một lệnh riêng **sau** khi handler xong, không nằm 
 
 ## Test
 
-`MemoryIdempotencyStore` cùng quy tắc với bản Drizzle. Test với Postgres thật: `pnpm --filter @tripflix/idempotency test:int` (10 request cùng lúc cùng key thì chỉ 1 được xử lý).
+`MemoryIdempotencyStore` cùng quy tắc với bản Drizzle. Test với Postgres thật: `pnpm --filter @vintrip/idempotency test:int` (10 request cùng lúc cùng key thì chỉ 1 được xử lý).

@@ -6,7 +6,7 @@ export interface ReelPlayback {
   levels: readonly number[];
 }
 
-/** The Tripflix worker publishes each rendition beside the unsigned master playlist. */
+/** The Vintrip worker publishes each rendition beside the unsigned master playlist. */
 export function getReelPlaybackSources(
   { hlsUrl, levels }: Pick<ReelPlayback, 'hlsUrl' | 'levels'>,
   maxLevel = Infinity,

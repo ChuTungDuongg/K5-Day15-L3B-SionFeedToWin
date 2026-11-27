@@ -9,7 +9,7 @@ class PostsPage {
   constructor(page) { this.page = page; this.panel = page.getByRole('region', { name: 'Quản lý bài viết', exact: true }); }
   async open() {
     await this.page.goto(`${base}/login?returnTo=%2Fmoderation`);
-    await this.page.getByLabel('Email', { exact: true }).fill('moderator@tripflix.local');
+    await this.page.getByLabel('Email', { exact: true }).fill('moderator@vintrip.local');
     await this.page.getByLabel('Mật khẩu', { exact: true }).fill(process.env.POSTS_QA_PASSWORD.trim());
     await this.page.getByRole('button', { name: 'Đăng nhập', exact: true }).click();
     await this.page.getByRole('button', { name: 'Quản lý bài viết', exact: true }).click();

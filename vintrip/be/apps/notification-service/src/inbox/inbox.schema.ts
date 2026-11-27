@@ -5,7 +5,7 @@ export async function ensureInboxSchema(pool: pg.Pool): Promise<void> {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
-    await client.query("SELECT pg_advisory_xact_lock(hashtext('tripflix.notification.migrations'))");
+    await client.query("SELECT pg_advisory_xact_lock(hashtext('vintrip.notification.migrations'))");
     await client.query(`
       CREATE TABLE IF NOT EXISTS __migrations (
         version integer PRIMARY KEY,

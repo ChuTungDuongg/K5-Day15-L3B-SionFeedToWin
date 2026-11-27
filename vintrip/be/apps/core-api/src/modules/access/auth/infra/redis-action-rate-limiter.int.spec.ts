@@ -1,4 +1,4 @@
-import { startRedis, type RedisFixture } from '@tripflix/testing';
+import { startRedis, type RedisFixture } from '@vintrip/testing';
 import { Redis } from 'ioredis';
 import { RedisActionRateLimiter } from './redis-action-rate-limiter.js';
 

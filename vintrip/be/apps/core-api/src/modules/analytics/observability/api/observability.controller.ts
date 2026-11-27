@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Get, Header, Inject, Param, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import { ObservabilityService } from '../application/observability.service.js';
 import {
   ObservabilityDto,

@@ -1,10 +1,10 @@
 import { CONTENT_GATE_PORT, type ContentGatePort } from './social/application/ports/content-gate.port.js';
 import { ModuleRef } from '@nestjs/core';
 import { Module } from '@nestjs/common';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { buildTransactionHostToken, createDb, type Db, type ModuleTransactionHost } from '@tripflix/db';
-import { RedisStreamsEventBus, STREAMS } from '@tripflix/event-bus';
-import { OutboxWriter } from '@tripflix/outbox';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { buildTransactionHostToken, createDb, type Db, type ModuleTransactionHost } from '@vintrip/db';
+import { RedisStreamsEventBus, STREAMS } from '@vintrip/event-bus';
+import { OutboxWriter } from '@vintrip/outbox';
 import { Redis } from 'ioredis';
 import type { CoreEnv } from '../../platform/env.js';
 import { CORE_ENV, DB_POOLS, REDIS, type DbPools } from '../../platform/tokens.js';
@@ -15,7 +15,7 @@ import { DrizzleSavedItineraryStore } from './itinerary/infra/saved-itinerary.re
 import { AccessFacade, AccessModule } from '../access/index.js';
 import { createCommerceServicePort } from './social/infra/commerce-service.adapter.js';
 import { FollowsController } from './social/api/follows.controller.js';
-import { DrizzleIdempotencyStore, IdempotencyModule } from '@tripflix/idempotency';
+import { DrizzleIdempotencyStore, IdempotencyModule } from '@vintrip/idempotency';
 import { contentIdempotencyKeys } from './db/schema/index.js';
 import { CommentControlsController } from './social/api/comment-controls.controller.js';
 import { CommentControlsUseCases } from './social/application/comment-controls.use-cases.js';

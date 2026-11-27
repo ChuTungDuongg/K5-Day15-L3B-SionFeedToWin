@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { randomBytes, randomInt, randomUUID, timingSafeEqual } from 'node:crypto';
-import type { AuthUser, SidBlocklist } from '@tripflix/auth';
+import type { AuthUser, SidBlocklist } from '@vintrip/auth';
 import type {
   AccessUserGuestMergedV1,
   AccessRegistrationAttemptedExistingV1,
@@ -9,8 +9,8 @@ import type {
   AccessUserProfileUpdatedV1,
   AccessUserRegisteredV1,
   AccessUserWelcomeEmailRequestedV1,
-} from '@tripflix/contracts';
-import { Transactional } from '@tripflix/db';
+} from '@vintrip/contracts';
+import { Transactional } from '@vintrip/db';
 import type { CoreEnv } from '../../../../platform/env.js';
 import { CORE_ENV } from '../../../../platform/tokens.js';
 import {
@@ -635,7 +635,7 @@ export class AuthUseCases {
   }
 
   private getDummyHash(): Promise<string> {
-    this.dummyHash ??= this.hasher.hash('tripflix-dummy-password-for-timing');
+    this.dummyHash ??= this.hasher.hash('vintrip-dummy-password-for-timing');
     return this.dummyHash;
   }
 }

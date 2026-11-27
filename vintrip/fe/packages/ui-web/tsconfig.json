@@ -1,4 +1,4 @@
 {
-  "extends": "@tripflix/config/tsconfig/react-library.json",
+  "extends": "@vintrip/config/tsconfig/react-library.json",
   "include": ["src"]
 }

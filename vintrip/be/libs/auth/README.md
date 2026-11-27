@@ -8,7 +8,7 @@ Kiểm access token của module `access` (JWT ES256) và chặn theo vai trò, 
 ## Dùng trong app
 
 ```ts
-import { AuthModule, RedisSidBlocklist, createAccessTokenVerifier } from '@tripflix/auth';
+import { AuthModule, RedisSidBlocklist, createAccessTokenVerifier } from '@vintrip/auth';
 import { createRemoteJWKSet } from 'jose';
 
 AuthModule.forRootAsync({

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { LiveSearchScreen } from '@/features/discovery/live-search-screen';
 import { OtaHero } from '@/features/discovery/ota-hero';
 import { OtaHomeMotion } from '@/features/discovery/ota-home-motion';

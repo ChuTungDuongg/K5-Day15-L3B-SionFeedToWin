@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { Global, Inject, Module, type OnApplicationShutdown } from '@nestjs/common';
-import { loadEnv } from '@tripflix/config';
-import { APP_IDLE_IN_TRANSACTION_TIMEOUT_MS, APP_STATEMENT_TIMEOUT_MS, DEFAULT_POOL_SIZE, MODULES, buildDrizzleToken, createDb, createPool, createTransactionalPlugins } from '@tripflix/db';
+import { loadEnv } from '@vintrip/config';
+import { APP_IDLE_IN_TRANSACTION_TIMEOUT_MS, APP_STATEMENT_TIMEOUT_MS, DEFAULT_POOL_SIZE, MODULES, buildDrizzleToken, createDb, createPool, createTransactionalPlugins } from '@vintrip/db';
 import { Redis } from 'ioredis';
 import { ClsModule } from 'nestjs-cls';
 import { coreEnvSchema, dbUrlOf, type CoreEnv } from './env.js';

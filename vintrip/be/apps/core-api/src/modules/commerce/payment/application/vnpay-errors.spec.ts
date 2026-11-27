@@ -6,15 +6,15 @@ import { VNPAY_GATEWAY, buildVnpayTxnRef } from '../domain/vnpay-signature.js';
 import type { PaymentUseCases } from './payment.use-cases.js';
 import { VnpayUseCases, type VnpayConfig } from './vnpay.use-cases.js';
 
-vi.mock('@tripflix/db', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@tripflix/db')>()),
+vi.mock('@vintrip/db', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@vintrip/db')>()),
   Transactional: () => () => undefined,
 }));
 
 const config: VnpayConfig = {
   tmnCode: 'TESTCODE', hashSecret: 'test-merchant-secret',
   paymentUrl: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
-  returnUrl: 'https://tripflix.example/payment/return',
+  returnUrl: 'https://vintrip.example/payment/return',
 };
 const input = { expectedTotal: 100_000, acceptedPolicyVersion: POLICY_VERSION, clientIp: '127.0.0.1' };
 

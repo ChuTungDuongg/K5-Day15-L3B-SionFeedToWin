@@ -4,9 +4,9 @@ import {
   useNotifications,
   useMarkNotificationRead,
   useMarkAllNotificationsRead,
-} from '@tripflix/api-client';
-import { isSameLocalDay } from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/api-client';
+import { isSameLocalDay } from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -127,12 +127,12 @@ export function HeaderNotifications() {
                       <>
                         <span
                           className="header-notifications-avatar"
-                          data-tone={kind === 'tripflix' ? undefined : getAvatarTone(item.body.split(' ')[0])}
+                          data-tone={kind === 'vintrip' ? undefined : getAvatarTone(item.body.split(' ')[0])}
                         >
-                          {kind === 'tripflix' ? (
+                          {kind === 'vintrip' ? (
                             <Image
                               src={VINTRIP_ICON}
-                              alt={vi.api.notificationsFromTripflix}
+                              alt={vi.api.notificationsFromVintrip}
                               width={44}
                               height={44}
                             />
@@ -142,7 +142,7 @@ export function HeaderNotifications() {
                               <AvatarPhoto userId={getLastActorId(item.data)} />
                             </>
                           )}
-                          {kind !== 'tripflix' && (
+                          {kind !== 'vintrip' && (
                             <span className="header-notifications-kind" data-kind={kind} aria-hidden="true">
                               <svg viewBox="0 0 24 24" width="12" height="12">
                                 <path d={KIND_ICON_PATHS[kind]} />

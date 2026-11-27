@@ -70,7 +70,7 @@ describe('syncGalleryDialogState & GalleryLightbox markup', () => {
   it('render khung cố định có tiêu đề, bộ đếm 2 / 5, stage ảnh và dải thumbnail đánh dấu ảnh đang xem', () => {
     const noop = () => {};
     const images = Array.from({ length: 5 }, (_, idx) => ({
-      src: `https://media.tripflix.io.vn/photo-${idx + 1}.jpg`,
+      src: `https://media.vintrip.io.vn/photo-${idx + 1}.jpg`,
     }));
 
     const closedHtml = renderToStaticMarkup(

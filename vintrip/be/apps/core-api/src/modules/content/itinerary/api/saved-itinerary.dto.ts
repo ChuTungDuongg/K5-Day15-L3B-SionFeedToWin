@@ -64,7 +64,7 @@ export const SaveItineraryRequestSchema = z.discriminatedUnion('source', [
     trip: z.object({
       place: z.string().max(100).optional(),
       days: z.array(z.array(TripiStopSchema).max(12)).max(MAX_ITINERARY_DAYS).optional(),
-      stay: z.object({ source: z.enum(['tripflix', 'external']), id: z.string().max(100), name: z.string().min(1).max(120) }).nullish(),
+      stay: z.object({ source: z.enum(['vintrip', 'external']), id: z.string().max(100), name: z.string().min(1).max(120) }).nullish(),
       transport: TripiTransportSchema.nullish(),
       returnTransport: TripiTransportSchema.nullish(),
     }),

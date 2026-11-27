@@ -1,4 +1,4 @@
-import { loadEnv } from '@tripflix/config';
+import { loadEnv } from '@vintrip/config';
 import { envSchema } from './env.js';
 
 const base = { DATABASE_URL_NOTIFICATION: 'postgres://x' };

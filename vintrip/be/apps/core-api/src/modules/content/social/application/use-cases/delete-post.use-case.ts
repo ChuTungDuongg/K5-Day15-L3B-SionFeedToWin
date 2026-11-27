@@ -1,4 +1,4 @@
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { Post, PostNotFoundException } from '../../domain/index.js';
 import { PostRepository } from '../../infra/post.repository.js';
 import type { ContentOutbox } from '../ports/content-outbox.port.js';

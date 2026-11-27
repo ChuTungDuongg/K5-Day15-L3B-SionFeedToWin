@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useQueryClient, useMutation, useQuery, type InfiniteData } from '@tanstack/react-query';
-import { vi, t } from '@tripflix/i18n';
+import { vi, t } from '@vintrip/i18n';
 import {
   socialApi,
   useApiSession,
   useSocialPosts,
   usePostSearchFeed,
   updateReelSocialCache,
-} from '@tripflix/api-client';
-import type { PostRecommendationsControllerRecommendPostsMode, SearchPostsRequestDtoSort, SocialPostDto } from '@tripflix/api-client/core-api/model/index';
+} from '@vintrip/api-client';
+import type { PostRecommendationsControllerRecommendPostsMode, SearchPostsRequestDtoSort, SocialPostDto } from '@vintrip/api-client/core-api/model/index';
 import { SocialIcon, ComposerModal, RightPanelCommentsSynchronized } from '../live-posts';
 import { refreshCommentsIfStale } from '../comment-cache';
 import { useHasUserInteracted } from '../use-has-user-interacted';

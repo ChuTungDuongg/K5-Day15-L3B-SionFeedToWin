@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { SessionClient } from './session-client';
 
 vi.mock('./browser-session-proof', () => ({
-  BROWSER_PROOF_HEADER: 'X-Tripflix-Session-Proof',
+  BROWSER_PROOF_HEADER: 'X-Vintrip-Session-Proof',
   signBrowserProof: async () => 'signed-proof',
 }));
 import { http, HttpError, type HttpResponse } from './http';
@@ -87,7 +87,7 @@ describe('session integration', () => {
     await session.login({ email: user.email, password: 'example-password' });
     expect(session.getSnapshot().user?.id).toBe(user.id);
     const init = fetchMock.mock.calls[0]![1]!;
-    expect(new Headers(init.headers).get('X-Tripflix-Client')).toBe('web');
+    expect(new Headers(init.headers).get('X-Vintrip-Client')).toBe('web');
     expect(init.credentials).toBe('include');
     expect(init).not.toHaveProperty('skipAuthRefresh');
     expect(init).not.toHaveProperty('skipAuthorization');
@@ -253,7 +253,7 @@ describe('Google sign-in', () => {
       idToken: 'google-id-token',
       deviceName: 'Chrome · Windows',
     });
-    expect(new Headers(init!.headers).get('X-Tripflix-Client')).toBe('web');
+    expect(new Headers(init!.headers).get('X-Vintrip-Client')).toBe('web');
     expect(init!.credentials).toBe('include');
   });
 
@@ -376,7 +376,7 @@ describe('admin handoff', () => {
     const [url, init] = fetchMock.mock.calls[0]!;
     expect(url).toBe('/bff/api/auth/admin-handoff/exchange');
     expect(JSON.parse(String(init!.body))).toEqual({ code: 'handoff-code' });
-    expect(new Headers(init!.headers).get('X-Tripflix-Session-Proof')).toBe('signed-proof');
-    expect(new Headers(init!.headers).get('X-Tripflix-Client')).toBe('web');
+    expect(new Headers(init!.headers).get('X-Vintrip-Session-Proof')).toBe('signed-proof');
+    expect(new Headers(init!.headers).get('X-Vintrip-Client')).toBe('web');
   });
 });

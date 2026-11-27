@@ -41,4 +41,4 @@ Giới hạn theo tài khoản nằm trong module `access` (Redis): đăng nhậ
 
 ## Kiểm JWT
 
-Gateway không kiểm token. `core-api`, `notification-service` tự kiểm chữ ký bằng `@tripflix/auth` qua JWKS, nên request đi thẳng vào service trong mạng nội bộ cũng bị kiểm như nhau.
+Gateway không kiểm token. `core-api`, `notification-service` tự kiểm chữ ký bằng `@vintrip/auth` qua JWKS, nên request đi thẳng vào service trong mạng nội bộ cũng bị kiểm như nhau.

@@ -1,4 +1,4 @@
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
 
 export default function NotFound() {

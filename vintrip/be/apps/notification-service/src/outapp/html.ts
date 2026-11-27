@@ -9,7 +9,7 @@ export const escapeHtml = (value: string) =>
 export const EMAIL_WRAPPER_OPEN =
   '<div style="font-family:\'Be Vietnam Pro\',-apple-system,BlinkMacSystemFont,Segoe UI,Arial,sans-serif;max-width:560px;margin:0 auto;color:#18242B;line-height:1.7">';
 
-/** Nút bấm màu đỏ cam thương hiệu Tripflix (chuẩn bảng email HTML tương thích mọi ứng dụng đọc mail). */
+/** Nút bấm màu đỏ cam thương hiệu Vintrip (chuẩn bảng email HTML tương thích mọi ứng dụng đọc mail). */
 export function emailButton(href: string, label: string): string {
   return [
     '<table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:24px 0 20px">',
@@ -23,7 +23,7 @@ export function emailButton(href: string, label: string): string {
 }
 
 export const EMAIL_FOOTER =
-  '<p style="color:#94A3B8;font-size:12px">Tripflix · Chạm cảm hứng, trọn hành trình.</p>';
+  '<p style="color:#94A3B8;font-size:12px">Vintrip · Chạm cảm hứng, trọn hành trình.</p>';
 
 export interface EmailBadge {
   text: string;
@@ -40,10 +40,10 @@ export interface EmailShellOptions {
 }
 
 /**
- * Khung email giao diện chuẩn thương hiệu Tripflix:
+ * Khung email giao diện chuẩn thương hiệu Vintrip:
  * - Tương thích hoàn hảo mọi ứng dụng email (Gmail, Apple Mail, Outlook, Thunderbird, Webmail).
  * - Sử dụng bảng HTML (table-based layout), nền màu be ấm #FFF7F2, thẻ card trắng bo góc 16px viền #E2E8F0.
- * - Header nhận diện thương hiệu với logo đỏ cam #FF5A3C font 800 và slogan Tripflix.
+ * - Header nhận diện thương hiệu với logo đỏ cam #FF5A3C font 800 và slogan Vintrip.
  * - Footer tự động chuẩn mực, minh bạch.
  */
 export function renderEmailShell(options: EmailShellOptions): string {
@@ -57,7 +57,7 @@ export function renderEmailShell(options: EmailShellOptions): string {
 
   const footerNote = options.footerNote
     ? `<p style="margin:0 0 6px;color:#64748B;font-size:12px">${escapeHtml(options.footerNote)}</p>`
-    : '<p style="margin:0 0 6px;color:#64748B;font-size:12px">Email này được gửi tự động từ hệ thống Tripflix, vui lòng không trả lời thư này.</p>';
+    : '<p style="margin:0 0 6px;color:#64748B;font-size:12px">Email này được gửi tự động từ hệ thống Vintrip, vui lòng không trả lời thư này.</p>';
 
   return [
     '<!DOCTYPE html>',
@@ -74,7 +74,7 @@ export function renderEmailShell(options: EmailShellOptions): string {
     '        <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;table-layout:fixed;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:16px;box-shadow:0 4px 12px rgba(24,36,43,0.04)">',
     '          <tr>',
     '            <td style="padding:28px 24px 22px;border-bottom:1px solid #E2E8F0">',
-    '              <p style="margin:0;color:#FF5A3C;font-size:28px;font-weight:800;letter-spacing:-0.5px">Tripflix</p>',
+    '              <p style="margin:0;color:#FF5A3C;font-size:28px;font-weight:800;letter-spacing:-0.5px">Vintrip</p>',
     '              <p style="margin:4px 0 0;color:#64748B;font-size:12px">Chạm cảm hứng, trọn hành trình.</p>',
     '            </td>',
     '          </tr>',
@@ -88,7 +88,7 @@ export function renderEmailShell(options: EmailShellOptions): string {
     '          <tr>',
     '            <td style="padding:20px 24px;border-top:1px solid #E2E8F0;background:#FAFAFA;border-bottom-left-radius:16px;border-bottom-right-radius:16px">',
     `              ${footerNote}`,
-    '              <p style="margin:0;color:#94A3B8;font-size:12px">Tripflix · Chạm cảm hứng, trọn hành trình.</p>',
+    '              <p style="margin:0;color:#94A3B8;font-size:12px">Vintrip · Chạm cảm hứng, trọn hành trình.</p>',
     '            </td>',
     '          </tr>',
     '        </table>',

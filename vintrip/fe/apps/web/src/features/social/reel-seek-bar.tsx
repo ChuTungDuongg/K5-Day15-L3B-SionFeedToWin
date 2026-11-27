@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type KeyboardEvent, type RefObject } from 'react';
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import { formatReelTime, getReelKeySeekTarget } from './reel-post';
 import styles from './live-posts.module.css';
 

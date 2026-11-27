@@ -6,7 +6,7 @@ import {
   ContentCommentUpdatedV1Schema,
   type EventEnvelope,
   type PostVisibility,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 
 /** Tín hiệu "bình luận của bài vừa đổi": web tải lại danh sách, không có nội dung bình luận. */
 export const POST_COMMENTS_CHANGED_EVENT = 'post.comments.changed';

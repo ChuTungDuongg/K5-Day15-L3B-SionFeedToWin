@@ -6,7 +6,7 @@ import {
 } from '../apps/mobile/node_modules/@tanstack/react-query/build/modern/index.js';
 import { CreatorCommentControls } from '../apps/mobile/src/features/feed/creator-comment-controls';
 
-vi.mock('../apps/mobile/node_modules/@tripflix/api-client', () => ({ commentControlsApi: {} }));
+vi.mock('../apps/mobile/node_modules/@vintrip/api-client', () => ({ commentControlsApi: {} }));
 vi.mock('../apps/mobile/node_modules/react-native', () => ({
   View: ({ children }: { children: ReactNode }) => createElement('div', null, children),
   Switch: () => null,

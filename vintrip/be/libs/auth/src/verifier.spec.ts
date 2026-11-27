@@ -1,8 +1,8 @@
 import { SignJWT, createLocalJWKSet, exportJWK, generateKeyPair, type CryptoKey, type JWK } from 'jose';
 import { InvalidAccessTokenError, createAccessTokenVerifier } from './verifier.js';
 
-const ISSUER = 'tripflix-core';
-const AUDIENCE = 'tripflix';
+const ISSUER = 'vintrip-core';
+const AUDIENCE = 'vintrip';
 
 async function keyPair(kid: string) {
   const { privateKey, publicKey } = await generateKeyPair('ES256', { extractable: true });

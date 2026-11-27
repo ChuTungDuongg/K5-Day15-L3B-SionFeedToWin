@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { and, gte, lt, sql } from 'drizzle-orm';
 import { aiUsageEvents } from '../../db/schema/index.js';
 import type { AiUsageStore } from '../application/ai-usage.use-cases.js';

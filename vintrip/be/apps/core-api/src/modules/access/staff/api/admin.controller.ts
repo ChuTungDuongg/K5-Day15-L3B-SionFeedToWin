@@ -15,7 +15,7 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { CurrentUser, Roles, type AuthUser } from '@tripflix/auth';
+import { CurrentUser, Roles, type AuthUser } from '@vintrip/auth';
 import type { Request } from 'express';
 import type { z } from 'zod';
 import { AuthUseCases } from '../../auth/application/auth.use-cases.js';

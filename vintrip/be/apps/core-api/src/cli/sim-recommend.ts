@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
-import { createDb, createPool, type Db } from '@tripflix/db';
-import { RedisStreamsEventBus } from '@tripflix/event-bus';
+import { createDb, createPool, type Db } from '@vintrip/db';
+import { RedisStreamsEventBus } from '@vintrip/event-bus';
 import { and, eq, inArray, like, notInArray, or, sql, type SQL } from 'drizzle-orm';
 import type { PgTable } from 'drizzle-orm/pg-core';
 import { Redis } from 'ioredis';
@@ -355,7 +355,7 @@ async function deleteRows(step: RemoveStep): Promise<number> {
 
 /**
  * Xoá đúng dữ liệu mô phỏng. Hai lớp chặn: ID phải là uuid v5 tính lại từ bộ dữ liệu, và người dùng phải có
- * email @sim.tripflix.local / bài phải do người dùng mô phỏng đăng. Xoá bài thì Postgres tự xoá theo cảm xúc, lưu,
+ * email @sim.vintrip.local / bài phải do người dùng mô phỏng đăng. Xoá bài thì Postgres tự xoá theo cảm xúc, lưu,
  * bình luận (kể cả của người thật trên bài mô phỏng), bộ đếm, tóm tắt, hành động kiểm duyệt; xoá người dùng thì xoá
  * theo phiên đăng nhập. Không đụng báo cáo/case kiểm duyệt (không có khoá ngoại, của Trang): chỉ đếm để báo.
  */

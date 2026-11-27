@@ -1,4 +1,4 @@
-import type { InboxNotification } from '@tripflix/api-client';
+import type { InboxNotification } from '@vintrip/api-client';
 import { describe, expect, it } from 'vitest';
 import { createNotificationArrivals } from './notification-arrivals';
 

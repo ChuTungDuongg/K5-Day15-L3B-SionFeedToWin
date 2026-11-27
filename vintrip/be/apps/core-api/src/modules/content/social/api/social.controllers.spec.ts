@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { BadRequestException, ForbiddenException, NotFoundException } from '@nestjs/common';
-import type { AuthUser } from '@tripflix/auth';
+import type { AuthUser } from '@vintrip/auth';
 import { PostNotFoundException } from '../domain/errors.js';
 import {
   AdminPostsController,

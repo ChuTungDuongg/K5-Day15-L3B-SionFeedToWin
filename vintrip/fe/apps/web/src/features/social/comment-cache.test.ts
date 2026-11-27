@@ -4,9 +4,9 @@ import type {
   SocialCommentDto,
   SocialCommentPageDto,
   SocialPostDetailDto,
-} from '@tripflix/api-client/core-api/model/index';
+} from '@vintrip/api-client/core-api/model/index';
 import { describe, expect, it, vi } from 'vitest';
-import { socialApi } from '@tripflix/api-client';
+import { socialApi } from '@vintrip/api-client';
 import {
   addCommentToCache,
   refreshCommentsIfStale,
@@ -16,7 +16,7 @@ import {
   reloadPostComments,
 } from './comment-cache';
 
-vi.mock('@tripflix/api-client', () => ({ socialApi: { getPost: vi.fn() } }));
+vi.mock('@vintrip/api-client', () => ({ socialApi: { getPost: vi.fn() } }));
 
 it('realtime tải lại danh sách gốc, trả lời và focus, cập nhật số đếm từ server', async () => {
   const client = new QueryClient();

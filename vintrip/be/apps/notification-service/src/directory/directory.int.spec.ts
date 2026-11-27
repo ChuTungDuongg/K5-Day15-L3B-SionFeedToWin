@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { startPostgres, type PostgresFixture } from '@tripflix/testing';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { startPostgres, type PostgresFixture } from '@vintrip/testing';
 import pg from 'pg';
 import { EventRouter, MemoryProcessedEvents } from '../consumers/event-router.js';
 import { ensureInboxSchema } from '../inbox/inbox.schema.js';

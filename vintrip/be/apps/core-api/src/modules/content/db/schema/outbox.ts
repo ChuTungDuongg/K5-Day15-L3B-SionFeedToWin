@@ -1,4 +1,4 @@
-import { createOutboxTable } from '@tripflix/outbox';
+import { createOutboxTable } from '@vintrip/outbox';
 import { contentSchema } from './content-schema.js';
 
 /**

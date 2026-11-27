@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { buildHotelJsonLd, serializeJsonLd } from './hotel-json-ld';
 import { makeHotel } from './seo-fixtures';
 
-const absolute = (path: string) => `https://tripflix.io.vn${path}`;
+const absolute = (path: string) => `https://vintrip.io.vn${path}`;
 
 describe('buildHotelJsonLd', () => {
   it('khai báo Hotel đủ địa chỉ, toạ độ, hạng sao, đánh giá và giá', () => {
@@ -10,7 +10,7 @@ describe('buildHotelJsonLd', () => {
     expect(hotel).toMatchObject({
       '@type': 'Hotel',
       name: 'Vinpearl Resort Nha Trang',
-      url: 'https://tripflix.io.vn/hotels/hotel-1',
+      url: 'https://vintrip.io.vn/hotels/hotel-1',
       address: { addressLocality: 'Nha Trang', addressRegion: 'Khánh Hòa', addressCountry: 'VN' },
       geo: { latitude: 12.2185, longitude: 109.2465 },
       starRating: { ratingValue: 5 },
@@ -39,7 +39,7 @@ describe('buildHotelJsonLd', () => {
     const items = (breadcrumb as { itemListElement: Array<{ position: number; item: string }> })
       .itemListElement;
     expect(items.map((item) => item.position)).toEqual([1, 2]);
-    expect(items[1]!.item).toBe('https://tripflix.io.vn/hotels/hotel-1');
+    expect(items[1]!.item).toBe('https://vintrip.io.vn/hotels/hotel-1');
   });
 });
 

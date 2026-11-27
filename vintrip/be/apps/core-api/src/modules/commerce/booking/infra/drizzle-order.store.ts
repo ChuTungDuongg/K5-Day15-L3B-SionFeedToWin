@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { TraceContext } from '../../trace-context.js';
-import { InjectTransactionHost, type Db } from '@tripflix/db';
+import { InjectTransactionHost, type Db } from '@vintrip/db';
 import { and, asc, count, desc, eq, exists, gte, inArray, lt, lte, or, sql } from 'drizzle-orm';
 import { flightInventory, flights, orderGuests, orderItems, orders, payments, properties, refunds, roomInventory, roomTypes, type OrderItemRow, type OrderRow, type PaymentRow } from '../../db/schema/index.js';
 import { SUBMITTED_REFUND_REF } from '../../payment/application/refund-gateways.port.js';

@@ -85,7 +85,7 @@ export const hotel = {
   notFound: 'Không tìm thấy khách sạn này.',
   reviewCount: '{count} đánh giá',
   ratingSource: 'Nguồn',
-  tripflix: 'Vintrip',
+  vintrip: 'Vintrip',
   outOfFive: '/ 5',
   reviewSummary: 'Tóm tắt ý kiến khách',
   reviewSummaryHint: 'Tóm tắt từ bộ dữ liệu đánh giá mẫu.',

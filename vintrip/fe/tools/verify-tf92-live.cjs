@@ -19,9 +19,9 @@ const add = (token, body, parent) => api(`/v1/posts/${postId}/comments`, token, 
 async function main() {
   await mkdir(output, { recursive: true });
   const password = process.env.CREATOR_QA_PASSWORD?.trim(); assert.ok(password);
-  owner = (await api('/auth/login', null, 'POST', { email: 'member@tripflix.local', password })).accessToken;
-  staff = (await api('/auth/login', null, 'POST', { email: 'moderator@tripflix.local', password })).accessToken;
-  writer = (await api('/auth/login', null, 'POST', { email: 'superadmin@tripflix.local', password })).accessToken;
+  owner = (await api('/auth/login', null, 'POST', { email: 'member@vintrip.local', password })).accessToken;
+  staff = (await api('/auth/login', null, 'POST', { email: 'moderator@vintrip.local', password })).accessToken;
+  writer = (await api('/auth/login', null, 'POST', { email: 'superadmin@vintrip.local', password })).accessToken;
   postId = (await api('/v1/posts', owner, 'POST', { post_type: 'vlog', title: 'TF92-QA-' + Date.now(), body: 'Kiểm tra ngữ cảnh và thông báo trả lời.' }, 201)).id;
   await api(`/v1/posts/${postId}/publish`, owner, 'POST', undefined, 201);
   const root = await add(owner, 'Bình luận gốc A');
@@ -29,7 +29,7 @@ async function main() {
   browser = await chromium.launch({ channel: 'msedge', headless: true });
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const author = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-  await login(page, 'member@tripflix.local', `/inspiration?open=${postId}`);
+  await login(page, 'member@vintrip.local', `/inspiration?open=${postId}`);
   await page.locator('details > summary').filter({ hasText: /^Quản lý bình luận$/ }).first().waitFor();
   await page.locator(`[data-post-id="${postId}"]`).getByRole('button', { name: 'Tùy chọn bài viết', exact: true }).click();
   await page.getByRole('menuitem', { name: 'Quản lý bình luận', exact: true }).click();
@@ -44,7 +44,7 @@ async function main() {
   await expect(dialog.getByText(first.body, { exact: true })).toBeVisible({ timeout: 20000 });
   await expect(dialog.getByText('Bình luận B được trả lời', { exact: true })).toBeVisible();
   await expect(dialog.getByText('Quản trị viên', { exact: false })).toBeVisible();
-  await login(author, 'superadmin@tripflix.local', `/inspiration?open=${postId}&comment=${first.id}`);
+  await login(author, 'superadmin@vintrip.local', `/inspiration?open=${postId}&comment=${first.id}`);
   await expect(author.getByText('Bình luận được bộ lọc của chủ bài giữ lại, chờ chủ bài duyệt.', { exact: true })).toBeVisible({ timeout: 15000 });
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 1000 });

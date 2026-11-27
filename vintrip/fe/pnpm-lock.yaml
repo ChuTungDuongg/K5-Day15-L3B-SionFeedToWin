@@ -98,22 +98,22 @@ importers:
       '@tanstack/react-query':
         specifier: 'catalog:'
         version: 5.105.3(@types/react@19.3.0)(react@19.3.0)
-      '@tripflix/api-client':
+      '@vintrip/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
-      '@tripflix/app-core':
+      '@vintrip/app-core':
         specifier: workspace:*
         version: link:../../packages/app-core
-      '@tripflix/i18n':
+      '@vintrip/i18n':
         specifier: workspace:*
         version: link:../../packages/i18n
-      '@tripflix/tokens':
+      '@vintrip/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
-      '@tripflix/ui-web':
+      '@vintrip/ui-web':
         specifier: workspace:*
         version: link:../../packages/ui-web
-      '@tripflix/utils':
+      '@vintrip/utils':
         specifier: workspace:*
         version: link:../../packages/utils
       hls.js:
@@ -132,7 +132,7 @@ importers:
       '@tailwindcss/postcss':
         specifier: 'catalog:'
         version: 4.3.4
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../../packages/config
       '@types/node':
@@ -175,7 +175,7 @@ importers:
         specifier: 'catalog:'
         version: 4.8.4
     devDependencies:
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../config
       '@types/react':
@@ -202,7 +202,7 @@ importers:
 
   packages/app-core:
     devDependencies:
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../config
       oxlint:
@@ -219,7 +219,7 @@ importers:
 
   packages/i18n:
     devDependencies:
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../config
       oxlint:
@@ -234,7 +234,7 @@ importers:
 
   packages/tokens:
     devDependencies:
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../config
       '@types/node':
@@ -252,7 +252,7 @@ importers:
 
   packages/ui-web:
     dependencies:
-      '@tripflix/tokens':
+      '@vintrip/tokens':
         specifier: workspace:*
         version: link:../tokens
       class-variance-authority:
@@ -265,7 +265,7 @@ importers:
         specifier: 'catalog:'
         version: 3.7.0
     devDependencies:
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../config
       '@types/react':
@@ -286,7 +286,7 @@ importers:
 
   packages/utils:
     devDependencies:
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../config
       oxlint:

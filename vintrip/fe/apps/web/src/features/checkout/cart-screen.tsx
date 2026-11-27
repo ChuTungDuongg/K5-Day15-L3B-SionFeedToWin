@@ -1,6 +1,6 @@
 'use client';
 import { useEffect } from 'react';
-import { useApiSession } from '@tripflix/api-client';
+import { useApiSession } from '@vintrip/api-client';
 import {
   calculateBookingCartChildDiscount,
   calculateBookingCartTotal,
@@ -9,8 +9,8 @@ import {
   getBookingCartItemKey,
   listBookingCartLineTotals,
   setBookingCartItemQty,
-} from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+} from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { formatPrice } from '@/features/discovery/trip-card';

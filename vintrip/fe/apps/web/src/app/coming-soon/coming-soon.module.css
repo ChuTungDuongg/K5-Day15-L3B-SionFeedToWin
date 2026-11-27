@@ -40,7 +40,7 @@
   height: 8px;
   border-radius: 50%;
   background: var(--color-coral);
-  box-shadow: 0 0 0 5px rgb(255 90 60 / 12%);
+  box-shadow: 0 0 0 5px rgb(217 54 90 / 12%);
 }
 
 .copy h1 {
@@ -168,7 +168,7 @@
 .orbitTwo {
   width: 92%;
   height: 56%;
-  border-color: rgb(255 90 60 / 22%);
+  border-color: rgb(217 54 90 / 22%);
   transform: rotate(39deg);
 }
 
@@ -216,7 +216,7 @@
   width: 94px;
   height: 94px;
   place-content: center;
-  border: 1px solid rgb(188 51 30 / 44%);
+  border: 1px solid rgb(190 18 60 / 44%);
   border-radius: 50%;
   color: var(--color-coral-ink);
   font-size: 0.68rem;

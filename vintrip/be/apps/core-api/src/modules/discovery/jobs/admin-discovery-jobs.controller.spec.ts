@@ -64,7 +64,7 @@ describe('AdminDiscoveryJobsController', () => {
   });
 
   it('quyền: xem cho moderator và superadmin, chạy ngay và đổi chu kỳ chỉ superadmin', () => {
-    const roles = (method: 'list' | 'run' | 'setInterval') => Reflect.getMetadata('tripflix:roles', AdminDiscoveryJobsController.prototype[method]) as string[];
+    const roles = (method: 'list' | 'run' | 'setInterval') => Reflect.getMetadata('vintrip:roles', AdminDiscoveryJobsController.prototype[method]) as string[];
     expect(roles('list')).toEqual(['moderator', 'superadmin']);
     expect(roles('run')).toEqual(['superadmin']);
     expect(roles('setInterval')).toEqual(['superadmin']);

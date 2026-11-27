@@ -1,4 +1,4 @@
-"""HTTP client for core-api: the only way tripflix-ai reads business data (RULES §10).
+"""HTTP client for core-api: the only way vintrip-ai reads business data (RULES §10).
 
 Endpoints agreed with content (Thành, PR be #49 and #54):
 - GET  /api/v1/posts                             public published posts, cursor, max 50 per page

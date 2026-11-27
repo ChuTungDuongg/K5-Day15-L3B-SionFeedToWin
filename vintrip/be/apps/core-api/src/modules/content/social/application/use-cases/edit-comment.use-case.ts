@@ -1,6 +1,6 @@
 import { ConflictException } from '@nestjs/common';
 import type { ContentGatePort } from '../ports/content-gate.port.js';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { Comment, CommentNotFoundException } from '../../domain/index.js';
 import { CommentRepository } from '../../infra/comment.repository.js';
 import type { ContentOutbox } from '../ports/content-outbox.port.js';

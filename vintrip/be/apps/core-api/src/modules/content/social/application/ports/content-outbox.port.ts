@@ -1,4 +1,4 @@
-import type { NewOutboxEvent } from '@tripflix/outbox';
+import type { NewOutboxEvent } from '@vintrip/outbox';
 
 export const CONTENT_OUTBOX = Symbol('CONTENT_OUTBOX');
 

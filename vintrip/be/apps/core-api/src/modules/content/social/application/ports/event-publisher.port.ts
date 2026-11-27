@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 
 /**
  * Port phát sự kiện từ module content ra event bus hoặc lưu vào outbox.

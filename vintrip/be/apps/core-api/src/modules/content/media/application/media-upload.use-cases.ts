@@ -1,14 +1,14 @@
 import { randomUUID } from 'node:crypto';
 import { Inject, Injectable } from '@nestjs/common';
-import type { ContentMediaTranscodeRequestedV1 } from '@tripflix/contracts';
-import { Transactional } from '@tripflix/db';
+import type { ContentMediaTranscodeRequestedV1 } from '@vintrip/contracts';
+import { Transactional } from '@vintrip/db';
 import {
   ObjectNotFoundError,
   UploadExpiredError,
   UploadIncompleteError,
   type ObjectStorage,
   type UploadedPart,
-} from '@tripflix/storage';
+} from '@vintrip/storage';
 import { MediaError } from '../domain/errors.js';
 import {
   IMAGE_SIGNATURE_BYTES,

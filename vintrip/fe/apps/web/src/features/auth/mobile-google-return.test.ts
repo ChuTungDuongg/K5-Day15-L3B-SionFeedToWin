@@ -5,8 +5,8 @@ import { readMobileGoogleReturn } from './mobile-google-return';
 const ID = 'abcdef0123456789abcd';
 const state = (returnTo: string, requestId = ID) => new URLSearchParams({ s: requestId, r: returnTo }).toString();
 
-it('nhận địa chỉ app tripflix:// và Expo Go trong LAN', () => {
-  for (const returnTo of ['tripflix://login', 'exp://192.168.1.5:8081/--/login', 'exp://10.0.0.2:8081/--/login'])
+it('nhận địa chỉ app vintrip:// và Expo Go trong LAN', () => {
+  for (const returnTo of ['vintrip://login', 'exp://192.168.1.5:8081/--/login', 'exp://10.0.0.2:8081/--/login'])
     expect(readMobileGoogleReturn(state(returnTo))?.returnUrl).toBe(returnTo);
 });
 
@@ -20,20 +20,20 @@ it('chặn địa chỉ lạ để token không bị gửi ra ngoài', () => {
     'not a url',
   ])
     expect(readMobileGoogleReturn(state(returnTo))).toBeNull();
-  expect(readMobileGoogleReturn(state('tripflix://login', 'short'))).toBeNull();
+  expect(readMobileGoogleReturn(state('vintrip://login', 'short'))).toBeNull();
   expect(readMobileGoogleReturn(null)).toBeNull();
 });
 
 it('POST của Google chuyển ID token về app sau dấu #, state lạ thì 400', async () => {
   const post = (fields: Record<string, string>) =>
-    POST(new Request('https://tripflix.io.vn/auth/google/mobile', { method: 'POST', body: new URLSearchParams(fields) }));
+    POST(new Request('https://vintrip.io.vn/auth/google/mobile', { method: 'POST', body: new URLSearchParams(fields) }));
 
-  const ok = await post({ state: state('tripflix://login#old'), id_token: 'token.value' });
+  const ok = await post({ state: state('vintrip://login#old'), id_token: 'token.value' });
   expect(ok.status).toBe(303);
-  expect(ok.headers.get('Location')).toBe(`tripflix://login#state=${ID}&id_token=token.value`);
+  expect(ok.headers.get('Location')).toBe(`vintrip://login#state=${ID}&id_token=token.value`);
 
-  const denied = await post({ state: state('tripflix://login'), error: 'access_denied' });
-  expect(denied.headers.get('Location')).toBe(`tripflix://login#state=${ID}&error=access_denied`);
+  const denied = await post({ state: state('vintrip://login'), error: 'access_denied' });
+  expect(denied.headers.get('Location')).toBe(`vintrip://login#state=${ID}&error=access_denied`);
 
   expect((await post({ state: state('https://evil.test'), id_token: 'token.value' })).status).toBe(400);
 });

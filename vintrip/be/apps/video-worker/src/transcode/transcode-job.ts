@@ -3,8 +3,8 @@ import { mkdir, mkdtemp, readFile, readdir, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pipeline } from 'node:stream/promises';
-import type { ContentMediaTranscodeRequestedV1, MediaQualityLevel, MediaRenditionCompletedV1 } from '@tripflix/contracts';
-import { ObjectNotFoundError, type ObjectStorage } from '@tripflix/storage';
+import type { ContentMediaTranscodeRequestedV1, MediaQualityLevel, MediaRenditionCompletedV1 } from '@vintrip/contracts';
+import { ObjectNotFoundError, type ObjectStorage } from '@vintrip/storage';
 import type { Transcoder } from './ffmpeg.js';
 import {
   POSTER_WIDTHS,

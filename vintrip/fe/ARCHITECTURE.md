@@ -1,10 +1,10 @@
-# Tripflix architecture guide — Frontend
+# Vintrip architecture guide — Frontend
 
 AI agents: read this file and [RULES.md](RULES.md) before changing code.
 
 ## Canonical system architecture
 
-![Tripflix system architecture](docs/architecture/06-kien-truc-tong-quan.png)
+![Vintrip system architecture](docs/architecture/06-kien-truc-tong-quan.png)
 
 > The PNG preview above is still v4.5 (it shows a separate `commerce` database). The editable `.drawio` file is v4.7 (2026-11-05, replaces v4.6) and is canonical: `commerce` is a schema in the `core` database. Re-export the PNG from the `.drawio` file.
 
@@ -16,7 +16,7 @@ The [editable diagram](docs/architecture/06-kien-truc-tong-quan.drawio) is the s
 
 - Keep Android, user web, and admin in their respective apps; put shared code in `packages/`.
 - Front Office (`mobile`, `web`) is for guests and members; Back Office (`admin`) is for `moderator` and `superadmin`. Do not treat client-side route hiding as authorization.
-- Call backend and AI APIs through `packages/api-client`. Generate contracts from the sibling `tripflix-be` and `tripflix-ai` repos.
+- Call backend and AI APIs through `packages/api-client`. Generate contracts from the sibling `vintrip-be` and `vintrip-ai` repos.
 - Put user-facing Vietnamese text in `packages/i18n`; use design tokens from `packages/tokens`.
 - Keep platform-specific code inside the app that owns that platform. `packages/app-core` stays independent of React Native and React DOM.
 - Organize app code by feature and follow the ownership rules in `RULES.md`.

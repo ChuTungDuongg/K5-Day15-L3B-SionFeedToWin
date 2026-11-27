@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { Test } from '@nestjs/testing';
-import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist } from '@tripflix/auth';
+import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist } from '@vintrip/auth';
 import type { INestApplication } from '@nestjs/common';
 import request from 'supertest';
 import { envSchema } from '../env.js';

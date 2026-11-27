@@ -1,8 +1,8 @@
 import { writeFile } from 'node:fs/promises';
 import { Readable, Writable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import { InMemoryObjectStorage } from '@tripflix/storage';
-import { MediaFramesCompletedV1Schema, FRAME_POLICY } from '@tripflix/contracts';
+import { InMemoryObjectStorage } from '@vintrip/storage';
+import { MediaFramesCompletedV1Schema, FRAME_POLICY } from '@vintrip/contracts';
 import { FakeTranscoder } from '../testing/fake-transcoder.js';
 import { ModerationFramesJob, buildFrameArgs, limitFrameSourceBytes } from './moderation-frames-job.js';
 const request = {

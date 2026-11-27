@@ -5,7 +5,7 @@ const { join } = require('node:path');
 const { tmpdir } = require('node:os');
 const id = '11111111-1111-4111-8111-111111111111';
 const base = process.env.TF32_MOBILE_WEB_URL || 'http://localhost:8084';
-const output = process.env.TF32_EVIDENCE_DIR || join(tmpdir(), 'tripflix-tf32');
+const output = process.env.TF32_EVIDENCE_DIR || join(tmpdir(), 'vintrip-tf32');
 
 class ReportPage {
   constructor(page) {

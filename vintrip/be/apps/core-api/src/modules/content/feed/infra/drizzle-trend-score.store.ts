@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { inArray, sql, type SQL } from 'drizzle-orm';
 import { bookmarks, comments, posts, reactions, trendScores, trendSignals } from '../../db/schema/index.js';
 import { HOT_GUEST_VIEW_FACTOR, HOT_HALF_LIFE_HOURS, HOT_TREND_WEIGHTS } from '../domain/hot-trend.js';

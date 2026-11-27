@@ -1,14 +1,14 @@
-import { getNotificationAge } from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+import { getNotificationAge } from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 
 /** Thông báo do người khác gây ra thì hiện avatar người đó; còn lại là thông báo của Vintrip (đơn, kiểm duyệt, video). */
-export type NotificationKind = 'comment' | 'reaction' | 'follow' | 'tripflix';
+export type NotificationKind = 'comment' | 'reaction' | 'follow' | 'vintrip';
 
 export function getNotificationKind(type: string): NotificationKind {
   if (type.startsWith('comment.')) return 'comment';
   if (type.startsWith('reaction.')) return 'reaction';
   if (type.startsWith('follow.')) return 'follow';
-  return 'tripflix';
+  return 'vintrip';
 }
 
 export function formatNotificationTime(createdAt: Date, now: Date): string {

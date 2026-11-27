@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/observability",
+  "name": "@vintrip/observability",
   "version": "0.0.0",
   "private": true,
   "type": "module",

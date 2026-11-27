@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { uploadImage, type ImageMimeType } from '@tripflix/api-client';
-import type { PostImageDto } from '@tripflix/api-client/core-api/model/index';
+import { uploadImage, type ImageMimeType } from '@vintrip/api-client';
+import type { PostImageDto } from '@vintrip/api-client/core-api/model/index';
 import { moveItem, selectImageFiles } from './post-image-files';
 
 /** Tải song song tối đa chừng này ảnh: nhanh hơn từng ảnh một mà không nghẽn mạng yếu. */

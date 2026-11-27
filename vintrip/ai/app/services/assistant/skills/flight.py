@@ -55,7 +55,7 @@ async def _airport_or_answer(
     if not airports:
         return Answer(
             kind="no_result",
-            text=f"Tripflix chưa có chuyến bay tới hoặc đi từ {city}. "
+            text=f"Vintrip chưa có chuyến bay tới hoặc đi từ {city}. "
             "Bạn chọn thành phố có sân bay gần đó nha.",
         )
     if len(airports) > 1:
@@ -101,7 +101,7 @@ async def search_flights(
             if not pairs:
                 start = understood.from_city or understood.from_airport
                 end = understood.to_city or understood.to_airport
-                return Answer(kind="no_result", text=f"Tripflix chưa có tuyến bay {start} – {end}.")
+                return Answer(kind="no_result", text=f"Vintrip chưa có tuyến bay {start} – {end}.")
             origins = [a for a in origins if any(a == origin for origin, _ in pairs)]
             destinations = [b for b in destinations if any(b == dest for _, dest in pairs)]
     origin = await _airport_or_answer(
@@ -142,7 +142,7 @@ async def search_flights(
     offers = [offer for offer in all_offers if offer.isAvailable]
     if not all_offers:
         return Answer(
-            kind="no_result", text=f"Tripflix chưa có tuyến bay {origin} – {destination}."
+            kind="no_result", text=f"Vintrip chưa có tuyến bay {origin} – {destination}."
         )
     if not offers:
         nearby = await _nearby_dates(core, understood, origin, destination)

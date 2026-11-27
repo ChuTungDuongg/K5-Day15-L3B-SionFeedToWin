@@ -1,5 +1,5 @@
 import { PostShareLinks } from '../post-share-links.js';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import {
   contentVersion,
   postEvidence,

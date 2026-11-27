@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { and, eq, lt, or, sql } from 'drizzle-orm';
 import type { IdempotencyKeysTable } from './table.js';
 

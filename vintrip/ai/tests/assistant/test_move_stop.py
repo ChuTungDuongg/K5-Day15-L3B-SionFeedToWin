@@ -60,7 +60,7 @@ def draft():
         origin_city="TP.HCM",
         date_from=date(2026, 11, 21),
         date_to=date(2026, 11, 22),
-        stay=DraftChoice(source="tripflix", id="h1", name="Khách sạn", lat=16, lng=108),
+        stay=DraftChoice(source="vintrip", id="h1", name="Khách sạn", lat=16, lng=108),
         days=[
             [
                 stop(

@@ -2,9 +2,9 @@ import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
 import { Global, Module, type INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
-import { IdempotencyModule, MemoryIdempotencyStore } from '@tripflix/idempotency';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
+import { IdempotencyModule, MemoryIdempotencyStore } from '@vintrip/idempotency';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import { vi } from 'vitest';
@@ -40,7 +40,7 @@ import { PostPartsScreeningUseCase } from '../application/post-parts-screening.u
   providers: [
     {
       provide: CORE_ENV,
-      useValue: { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'tripflix-core', AUTH_JWT_AUDIENCE: 'tripflix' },
+      useValue: { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'vintrip-core', AUTH_JWT_AUDIENCE: 'vintrip' },
     },
     { provide: DB_POOLS, useValue: {} },
     { provide: REDIS, useValue: {} },

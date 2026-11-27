@@ -1,8 +1,8 @@
-import { createAccessTokenVerifier } from '@tripflix/auth';
+import { createAccessTokenVerifier } from '@vintrip/auth';
 import { createLocalJWKSet } from 'jose';
 import { JoseTokenIssuer } from './jose-token-issuer.js';
 
-const config = { issuer: 'tripflix-core', audience: 'tripflix' };
+const config = { issuer: 'vintrip-core', audience: 'vintrip' };
 const now = () => new Date();
 const claims = { userId: 'u1', role: 'member', sid: 's1', emailVerified: true } as const;
 

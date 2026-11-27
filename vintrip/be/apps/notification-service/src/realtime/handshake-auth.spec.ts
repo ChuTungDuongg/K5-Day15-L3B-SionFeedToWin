@@ -1,4 +1,4 @@
-import { InvalidAccessTokenError, MemorySidBlocklist, type AuthUser } from '@tripflix/auth';
+import { InvalidAccessTokenError, MemorySidBlocklist, type AuthUser } from '@vintrip/auth';
 import {
   createHandshakeAuth,
   HandshakeError,

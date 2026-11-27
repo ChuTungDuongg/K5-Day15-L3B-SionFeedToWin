@@ -14,7 +14,7 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core';
 import { contentSchema } from './content-schema.js';
-import { createIdempotencyKeysTable } from '@tripflix/idempotency';
+import { createIdempotencyKeysTable } from '@vintrip/idempotency';
 import { moderationActions } from './moderation-actions.js';
 
 export const contentIdempotencyKeys = createIdempotencyKeysTable(contentSchema);

@@ -1,7 +1,7 @@
 /**
  * Đo biên QUERY_MARGIN cho câu tìm (bins.ts) trên query-topics.samples.json bằng ai-service thật.
  * Chạy trong container core-api (có biến môi trường của ai-service), sau khi build:
- *   docker exec tripflix-core-api-1 node apps/core-api/dist/modules/discovery/recommend/eval/measure-query-topics.js
+ *   docker exec vintrip-core-api-1 node apps/core-api/dist/modules/discovery/recommend/eval/measure-query-topics.js
  * Không ghi gì, chỉ in bảng.
  */
 import { readFileSync } from 'node:fs';

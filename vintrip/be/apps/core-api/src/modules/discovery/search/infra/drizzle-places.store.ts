@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { and, eq, notInArray, sql } from 'drizzle-orm';
 import { places, pointsOfInterest } from '../../db/schema/index.js';
 import type { PlacesStore } from '../application/ports.js';

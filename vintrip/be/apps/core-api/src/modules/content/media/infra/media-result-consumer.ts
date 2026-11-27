@@ -1,9 +1,9 @@
 import { hostname } from 'node:os';
 import { Inject, Injectable, Logger, Optional, type OnApplicationBootstrap, type OnApplicationShutdown } from '@nestjs/common';
-import { MediaFramesCompletedV1Schema, MediaFramesFailedV1Schema } from '@tripflix/contracts';
+import { MediaFramesCompletedV1Schema, MediaFramesFailedV1Schema } from '@vintrip/contracts';
 import { MediaFramesUseCases } from '../application/media-frames.use-cases.js';
-import { MediaRenditionCompletedV1Schema, MediaTranscodeFailedV1Schema, type EventEnvelope } from '@tripflix/contracts';
-import { RedisStreamsConsumer, STREAMS } from '@tripflix/event-bus';
+import { MediaRenditionCompletedV1Schema, MediaTranscodeFailedV1Schema, type EventEnvelope } from '@vintrip/contracts';
+import { RedisStreamsConsumer, STREAMS } from '@vintrip/event-bus';
 import type { Redis } from 'ioredis';
 import type { CoreEnv } from '../../../../platform/env.js';
 import { CORE_ENV, REDIS } from '../../../../platform/tokens.js';

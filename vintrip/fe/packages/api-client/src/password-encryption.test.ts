@@ -12,7 +12,7 @@ import {
 import { SessionClient } from './session-client';
 
 vi.mock('./browser-session-proof', () => ({
-  BROWSER_PROOF_HEADER: 'X-Tripflix-Session-Proof',
+  BROWSER_PROOF_HEADER: 'X-Vintrip-Session-Proof',
   signBrowserProof: async () => 'signed-proof',
 }));
 
@@ -34,10 +34,10 @@ function createServerKey(keyId = 'k1') {
     });
     const shared = diffieHellman({ privateKey, publicKey: ephemeral });
     const aesKey = Buffer.from(
-      hkdfSync('sha256', shared, Buffer.concat([ephemeralRaw, publicRaw]), 'tripflix-pwd-v1', 32),
+      hkdfSync('sha256', shared, Buffer.concat([ephemeralRaw, publicRaw]), 'vintrip-pwd-v1', 32),
     );
     const decipher = createDecipheriv('aes-256-gcm', aesKey, iv);
-    decipher.setAAD(Buffer.from(`tripflix-pwd|1|${purpose}|${keyId}|${ts}|${subject}`));
+    decipher.setAAD(Buffer.from(`vintrip-pwd|1|${purpose}|${keyId}|${ts}|${subject}`));
     decipher.setAuthTag(sealed.subarray(sealed.length - 16));
     const plain = Buffer.concat([
       decipher.update(sealed.subarray(0, sealed.length - 16)),

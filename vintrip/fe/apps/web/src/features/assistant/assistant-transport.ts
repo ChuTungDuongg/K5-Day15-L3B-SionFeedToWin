@@ -1,7 +1,7 @@
-import { AssistantError, HttpError, sendAssistantMessage } from '@tripflix/api-client';
-import type { Turn } from '@tripflix/api-client/ai-service/model/index';
-import { buildAssistantHistory } from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+import { AssistantError, HttpError, sendAssistantMessage } from '@vintrip/api-client';
+import type { Turn } from '@vintrip/api-client/ai-service/model/index';
+import { buildAssistantHistory } from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import type { AssistantReply, AssistantTransport } from './assistant-provider';
 
 // Gateway mở AI ở <API>/ai/chat (deploy/traefik/server.yml), nên không cần thêm biến khi deploy.

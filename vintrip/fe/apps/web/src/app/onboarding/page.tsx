@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { OnboardingFlow } from '@/features/onboarding/onboarding-flow';
 import { NOINDEX_ROBOTS } from '@/features/seo/page-metadata';
 

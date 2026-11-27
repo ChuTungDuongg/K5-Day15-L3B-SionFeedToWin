@@ -1,4 +1,4 @@
-// Đọc các dòng thẻ Tripi (do tripflix-ai dựng) thành cấu trúc để vẽ timeline/thời tiết.
+// Đọc các dòng thẻ Tripi (do vintrip-ai dựng) thành cấu trúc để vẽ timeline/thời tiết.
 // Chỉ phục vụ hiển thị: dòng không đọc được vẫn giữ nguyên văn, không bỏ dữ liệu.
 
 export type DayPart = 'morning' | 'noon' | 'afternoon' | 'evening' | 'night';
@@ -13,7 +13,7 @@ export interface ItineraryStop {
   place: string | null;
   distanceKm: number | null;
   minutes: number | null;
-  /** Dịch vụ Tripflix (chuyến bay, khách sạn) lồng trong lộ trình; null là điểm thường. */
+  /** Dịch vụ Vintrip (chuyến bay, khách sạn) lồng trong lộ trình; null là điểm thường. */
   service: 'flight' | 'stay' | null;
 }
 

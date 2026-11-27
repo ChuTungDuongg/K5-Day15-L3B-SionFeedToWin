@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { VnpayReturnScreen } from '@/features/checkout/vnpay-return-screen';
 
 export const metadata: Metadata = { title: `${vi.commerce.vnpay} | Vintrip` };

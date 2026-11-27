@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist } from '@tripflix/auth';
+import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist } from '@vintrip/auth';
 import request from 'supertest';
 import { AnalyticsModule } from '../../analytics.module.js';
 import { AI_USAGE_STORE } from '../../ai-usage/application/ai-usage.use-cases.js';

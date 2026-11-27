@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi as vitestVi } from 'vitest';
-import { configureHttp, normalizeUserSearchQuery, searchUsers } from '@tripflix/api-client';
+import { configureHttp, normalizeUserSearchQuery, searchUsers } from '@vintrip/api-client';
 import { scheduleDebouncedCommit } from '../shared/use-debounced-value';
 import { MENTION_SEARCH_DEBOUNCE_MS, resolveMentionSearchInput } from './mention-picker';
 

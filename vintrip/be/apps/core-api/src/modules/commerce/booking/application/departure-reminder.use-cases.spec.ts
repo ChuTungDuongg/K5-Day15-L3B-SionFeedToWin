@@ -1,10 +1,10 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { OutboxWriter } from '@tripflix/outbox';
+import type { OutboxWriter } from '@vintrip/outbox';
 import type { CheckoutUseCases } from './checkout.use-cases.js';
 import type { OrderItemRecord, OrderRecord, OrderStore } from './ports.js';
 
 // Unit test không mở transaction thật: decorator chỉ chạy thẳng hàm.
-vi.mock('@tripflix/db', () => ({ Transactional: () => (_target: unknown, _key: string, descriptor: PropertyDescriptor) => descriptor }));
+vi.mock('@vintrip/db', () => ({ Transactional: () => (_target: unknown, _key: string, descriptor: PropertyDescriptor) => descriptor }));
 
 const { DepartureReminderUseCases } = await import('./departure-reminder.use-cases.js');
 

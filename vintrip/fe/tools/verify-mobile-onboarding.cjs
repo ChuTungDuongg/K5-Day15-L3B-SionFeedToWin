@@ -4,8 +4,8 @@ const { mkdir, writeFile } = require('node:fs/promises');
 const { join } = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
 const baseUrl = process.env.MOBILE_PREVIEW_URL || 'http://localhost:8082';
-const output = process.env.MOBILE_EVIDENCE_DIR || join(require('node:os').tmpdir(), 'tripflix-onboarding');
-const KEY = 'tripflix.onboarding.v1';
+const output = process.env.MOBILE_EVIDENCE_DIR || join(require('node:os').tmpdir(), 'vintrip-onboarding');
+const KEY = 'vintrip.onboarding.v1';
 
 class OnboardingPage {
   constructor(page) {
@@ -204,7 +204,7 @@ class OnboardingPage {
         const original = Storage.prototype.setItem;
         globalThis.blockOnboardingSave = true;
         Storage.prototype.setItem = function (key, value) {
-          if (key === 'tripflix.onboarding.v1' && globalThis.blockOnboardingSave)
+          if (key === 'vintrip.onboarding.v1' && globalThis.blockOnboardingSave)
             throw new Error('Storage full');
           return original.call(this, key, value);
         };

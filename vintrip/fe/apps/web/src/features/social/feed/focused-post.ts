@@ -1,4 +1,4 @@
-import type { SocialPostDetailDto, SocialPostDto } from '@tripflix/api-client/core-api/model/index';
+import type { SocialPostDetailDto, SocialPostDto } from '@vintrip/api-client/core-api/model/index';
 
 /** Bài mở từ link có thể không nằm trong feed gợi ý; ghim một bản, giữ nguyên thứ tự các bài còn lại. */
 export function getFocusedFeedPosts({

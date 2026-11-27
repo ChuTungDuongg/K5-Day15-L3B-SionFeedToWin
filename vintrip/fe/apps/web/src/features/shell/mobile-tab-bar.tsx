@@ -1,6 +1,6 @@
 'use client';
-import { useApiSession } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+import { useApiSession } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { BookingSheet } from './booking-sheet';

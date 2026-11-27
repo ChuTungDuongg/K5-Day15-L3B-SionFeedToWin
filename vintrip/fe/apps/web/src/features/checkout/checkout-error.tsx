@@ -1,5 +1,5 @@
 'use client';
-import { HttpError } from '@tripflix/api-client';
+import { HttpError } from '@vintrip/api-client';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import styles from './checkout.module.css';
 

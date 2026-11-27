@@ -1,4 +1,4 @@
-import { createOutboxTable } from '@tripflix/outbox';
+import { createOutboxTable } from '@vintrip/outbox';
 import { sql } from 'drizzle-orm';
 import { bigint, check, date, foreignKey, index, jsonb, pgSchema, primaryKey, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import type { AvatarDecor } from '../../account/domain/avatar-decor.js';

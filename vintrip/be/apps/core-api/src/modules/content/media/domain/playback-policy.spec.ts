@@ -2,8 +2,8 @@ import { buildPlaybackPolicy, buildPlaybackResource } from './playback-policy.js
 
 describe('playback policy', () => {
   it('mở mọi file dưới gốc CDN, bỏ dấu / thừa ở cuối', () => {
-    expect(buildPlaybackResource('https://media.tripflix.io.vn/')).toBe('https://media.tripflix.io.vn/*');
-    expect(buildPlaybackResource('https://media.tripflix.io.vn')).toBe('https://media.tripflix.io.vn/*');
+    expect(buildPlaybackResource('https://media.vintrip.io.vn/')).toBe('https://media.vintrip.io.vn/*');
+    expect(buildPlaybackResource('https://media.vintrip.io.vn')).toBe('https://media.vintrip.io.vn/*');
   });
 
   it('hết hạn tính bằng giây, làm tròn xuống', () => {

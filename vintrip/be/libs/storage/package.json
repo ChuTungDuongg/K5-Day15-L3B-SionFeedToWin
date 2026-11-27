@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/storage",
+  "name": "@vintrip/storage",
   "version": "0.0.0",
   "private": true,
   "type": "module",

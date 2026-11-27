@@ -1,5 +1,5 @@
 // Kịch bản 1: N người bấm đăng nhập cùng một lúc (mỗi user ảo đăng nhập đúng 1 lần).
-//   k6 run -e BASE=https://api.tripflix.io.vn -e PASSWORD=... -e USERS=20 \
+//   k6 run -e BASE=https://api.vintrip.io.vn -e PASSWORD=... -e USERS=20 \
 //     --summary-export results/login-20.json tools/loadtest/login.js
 import http from 'k6/http';
 import { check } from 'k6';
@@ -16,10 +16,10 @@ export const options = {
   },
 };
 
-const userEmail = (vu) => `loadtest${String(vu).padStart(4, '0')}@tripflix.local`;
+const userEmail = (vu) => `loadtest${String(vu).padStart(4, '0')}@vintrip.local`;
 
 export default function () {
-  // Không gửi X-Tripflix-Client: web, nên đi luồng mobile (token trả trong body, không cần chữ ký trình duyệt).
+  // Không gửi X-Vintrip-Client: web, nên đi luồng mobile (token trả trong body, không cần chữ ký trình duyệt).
   const res = http.post(
     `${__ENV.BASE}/api/auth/login`,
     JSON.stringify({ email: userEmail(__VU), password: __ENV.PASSWORD, deviceName: 'k6 load test' }),

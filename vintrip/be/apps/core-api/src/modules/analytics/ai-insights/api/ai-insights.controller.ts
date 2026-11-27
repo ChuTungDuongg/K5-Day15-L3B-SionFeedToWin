@@ -9,7 +9,7 @@ import {
   ApiQuery,
   ApiTags,
 } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import { z } from 'zod';
 import { AI_FEATURES } from '../../ai-usage/domain/ai-usage.js';
 import { AiInsightsQueries, type AiTraceItem, type AiUserUsageItem } from '../application/ai-insights-queries.use-cases.js';

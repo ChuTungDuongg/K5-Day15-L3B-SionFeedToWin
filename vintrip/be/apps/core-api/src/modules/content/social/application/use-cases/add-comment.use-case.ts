@@ -1,7 +1,7 @@
 import type { ContentGatePort } from '../ports/content-gate.port.js';
 import { ForbiddenException } from '@nestjs/common';
 import { matchesCommentKeywords } from '../../domain/comment-filter.js';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { Comment, CommentNotFoundException, Post, PostNotFoundException } from '../../domain/index.js';
 import { CommentRepository } from '../../infra/comment.repository.js';
 import { PostRepository } from '../../infra/post.repository.js';

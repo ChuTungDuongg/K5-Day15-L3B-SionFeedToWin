@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, type KeyboardEvent } from 'react';
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import { HASHTAG_MAX, appendHashtags } from './composer-inputs';
 import styles from './hashtag-input.module.css';
 

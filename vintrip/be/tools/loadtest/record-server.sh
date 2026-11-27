@@ -5,7 +5,7 @@
 #   sh record-server.sh browse-100
 set -eu
 NAME=${1:?Cần tên lần chạy, ví dụ browse-100}
-DC="docker compose -f $HOME/tripflix-be/deploy/compose.server.yaml --env-file $HOME/tripflix-be/deploy/.env.server --env-file $HOME/tripflix-be/deploy/.env.web"
+DC="docker compose -f $HOME/vintrip-be/deploy/compose.server.yaml --env-file $HOME/vintrip-be/deploy/.env.server --env-file $HOME/vintrip-be/deploy/.env.web"
 DIR=$HOME/loadtest-results
 mkdir -p "$DIR"
 echo "time,container,cpu,mem,net" > "$DIR/$NAME-docker.csv"

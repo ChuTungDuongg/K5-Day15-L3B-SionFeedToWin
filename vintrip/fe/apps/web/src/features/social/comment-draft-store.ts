@@ -6,7 +6,7 @@ export interface CommentDraft {
   mentions?: CommentMention[];
 }
 
-const STORAGE_KEY = 'tripflix.comment_drafts';
+const STORAGE_KEY = 'vintrip.comment_drafts';
 export const COMMENT_DRAFT_SAVE_DELAY_MS = 400;
 
 export function sameMentionQuery(a: MentionQuery | null, b: MentionQuery | null): boolean {

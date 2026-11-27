@@ -1,6 +1,6 @@
 import { Inject, Injectable, Optional } from '@nestjs/common';
 import { CommerceMetrics, type HoldOutcome } from '../../metrics/commerce-metrics.js';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { COMMERCE_STORE, TODAY, type CommerceStore, type FlightRecord, type RoomTypeRecord, type Today } from '../../inventory/application/ports.js';
 import { CommerceError } from '../../inventory/domain/errors.js';
 import { summarizeRefunds, type RefundSummary } from '../domain/refund-summary.js';

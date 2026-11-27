@@ -61,7 +61,7 @@ export function buildVnpayRefundRequest(input: VnpayMerchantRequestInput): Recor
     ...buildMerchantBody(input, 'refund'),
     vnp_TransactionType: input.amount === input.paidAmount ? '02' : '03',
     vnp_Amount: String(input.amount * 100),
-    vnp_CreateBy: 'tripflix-system',
+    vnp_CreateBy: 'vintrip-system',
   };
   return { ...body, vnp_SecureHash: signMerchantFields(body, REFUND_REQUEST_FIELDS, input.hashSecret) };
 }

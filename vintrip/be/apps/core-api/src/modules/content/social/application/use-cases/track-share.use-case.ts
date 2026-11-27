@@ -1,4 +1,4 @@
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { Post, PostNotFoundException } from '../../domain/index.js';
 import { PostRepository } from '../../infra/post.repository.js';
 import { PostShareLinks } from '../post-share-links.js';

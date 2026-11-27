@@ -1,4 +1,4 @@
-import { CommerceOrderCancelledV1Schema, CommerceOrderDepartureReminderV1Schema, CommerceOrderPaidV1Schema, type EventEnvelope } from '@tripflix/contracts';
+import { CommerceOrderCancelledV1Schema, CommerceOrderDepartureReminderV1Schema, CommerceOrderPaidV1Schema, type EventEnvelope } from '@vintrip/contracts';
 import { toInboxItemDto, type InboxInsert, type InboxRepository } from '../../inbox/inbox.repository.js';
 import type { Mailer } from '../../outapp/mailer.js';
 import { buildDepartureReminderEmail, formatVietnamTime } from '../../outapp/departure-reminder.email.js';

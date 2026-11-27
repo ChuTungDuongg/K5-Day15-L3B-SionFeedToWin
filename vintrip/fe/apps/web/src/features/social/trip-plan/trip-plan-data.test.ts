@@ -1,4 +1,4 @@
-import type { TripItineraryItemDto } from '@tripflix/api-client/core-api/model/index';
+import type { TripItineraryItemDto } from '@vintrip/api-client/core-api/model/index';
 import { describe, expect, it } from 'vitest';
 import {
   addStayStops,

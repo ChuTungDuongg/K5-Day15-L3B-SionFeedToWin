@@ -14,8 +14,8 @@ describe('resolveNotificationHref', () => {
 
   it('không có orderId thì dùng link của thông báo nếu là đường dẫn web', () => {
     expect(resolveNotificationHref({ type: 'account', link: '/account', data: {} })).toBe('/account');
-    expect(resolveNotificationHref({ type: 'account', link: 'https://tripflix.io.vn/a', data: {} })).toBe(
-      'https://tripflix.io.vn/a',
+    expect(resolveNotificationHref({ type: 'account', link: 'https://vintrip.io.vn/a', data: {} })).toBe(
+      'https://vintrip.io.vn/a',
     );
   });
 

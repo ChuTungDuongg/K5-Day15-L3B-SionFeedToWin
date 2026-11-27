@@ -7,7 +7,7 @@ const item = (postId: string, score: number, authorId = `a-${postId}`): RankedIt
   score,
   source: 'hot',
   breakdown: { hot: score },
-  reason: { code: 'trending', text: 'Bài viết thịnh hành trên TripFlix' },
+  reason: { code: 'trending', text: 'Bài viết thịnh hành trên VinTrip' },
 });
 const viewer = (over: Partial<ViewerSignals> = {}): ViewerSignals => ({
   userId: 'me',

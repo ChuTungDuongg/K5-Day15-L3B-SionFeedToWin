@@ -1,7 +1,7 @@
 # Mở hoặc khoá lại video của máy dev (`dev/*`) trên CloudFront (TF82). Dùng trong set-dev-video.sh.
 # Vào: kết quả get-distribution-config, $mode là "open" hoặc "close". Ra: DistributionConfig mới.
 # open: thêm 3 behavior lên đầu danh sách, vì CloudFront chọn behavior khớp đầu tiên:
-# - `dev/*.m3u8`, `dev/*.ts`: chép từ behavior `*.m3u8`, `*.ts` (giữ CORS có credentials `tripflix-video-cors`, vì
+# - `dev/*.m3u8`, `dev/*.ts`: chép từ behavior `*.m3u8`, `*.ts` (giữ CORS có credentials `vintrip-video-cors`, vì
 #   hls.js gửi cookie và trình duyệt không nhận `*`), chỉ bỏ khoá cookie.
 # - `dev/*`: chép từ behavior mặc định (ảnh: công khai, Managed-SimpleCORS).
 # close: gỡ mọi behavior bắt đầu bằng `dev/`.

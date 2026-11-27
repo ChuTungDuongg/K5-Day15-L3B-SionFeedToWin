@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { SidBlocklist } from '@tripflix/auth';
-import type { AccessPasswordResetRequestedV1 } from '@tripflix/contracts';
-import { Transactional } from '@tripflix/db';
+import type { SidBlocklist } from '@vintrip/auth';
+import type { AccessPasswordResetRequestedV1 } from '@vintrip/contracts';
+import { Transactional } from '@vintrip/db';
 import { DEFAULT_PASSWORD_RESET_URL, type CoreEnv } from '../../../../platform/env.js';
 import { CORE_ENV } from '../../../../platform/tokens.js';
 import {

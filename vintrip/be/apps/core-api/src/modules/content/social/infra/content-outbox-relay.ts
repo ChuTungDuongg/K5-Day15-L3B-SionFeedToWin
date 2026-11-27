@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger, type OnApplicationBootstrap, type OnApplicationShutdown } from '@nestjs/common';
-import { createDb } from '@tripflix/db';
-import { RedisStreamsEventBus, STREAMS } from '@tripflix/event-bus';
-import { DrizzleOutboxStore, OutboxRelay } from '@tripflix/outbox';
+import { createDb } from '@vintrip/db';
+import { RedisStreamsEventBus, STREAMS } from '@vintrip/event-bus';
+import { DrizzleOutboxStore, OutboxRelay } from '@vintrip/outbox';
 import type { Redis } from 'ioredis';
 import type { CoreEnv } from '../../../../platform/env.js';
 import { CORE_ENV, DB_POOLS, REDIS, type DbPools } from '../../../../platform/tokens.js';

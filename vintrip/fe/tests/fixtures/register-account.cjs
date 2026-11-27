@@ -11,7 +11,7 @@ async function registerAccount(api, credentials) {
     const result = await fetch(search);
     if (!result.ok) throw new Error(`Mailpit search failed (${result.status})`);
     const { messages } = await result.json();
-    const latest = messages?.find((message) => message.Subject === 'Mã xác thực đăng ký Tripflix');
+    const latest = messages?.find((message) => message.Subject === 'Mã xác thực đăng ký Vintrip');
     if (latest) {
       const response = await fetch(new URL(`/api/v1/message/${latest.ID}`, mailbox));
       if (!response.ok) throw new Error(`Mailpit message failed (${response.status})`);

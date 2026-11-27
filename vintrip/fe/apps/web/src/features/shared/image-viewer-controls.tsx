@@ -1,7 +1,7 @@
 'use client';
 
 import { type ReactNode, type RefObject } from 'react';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 
 import {
   formatZoomPercentage,

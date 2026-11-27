@@ -7,7 +7,7 @@ const { chromium } = require(runtime);
 const { expect } = require(runtime + '/test');
 
 const URL = process.env.MOBILE_PREVIEW_URL || 'http://127.0.0.1:8081';
-const OUTPUT = process.env.COMMENTS_EVIDENCE_DIR || join(tmpdir(), 'tripflix-reel-comments');
+const OUTPUT = process.env.COMMENTS_EVIDENCE_DIR || join(tmpdir(), 'vintrip-reel-comments');
 const errors = [];
 const checks = [];
 
@@ -93,7 +93,7 @@ class ReelCommentsPage {
       view.dialog.getByText('Phố lên đèn đẹp quá, muốn đi Hội An ngay!', { exact: true }),
     ).toBeVisible();
     await view.dialog.getByRole('button', { name: 'Xem 2 câu trả lời', exact: true }).click();
-    await expect(view.dialog.getByText('Cộng đồng Tripflix', { exact: true })).toBeVisible();
+    await expect(view.dialog.getByText('Cộng đồng Vintrip', { exact: true })).toBeVisible();
     await view.close();
     await page.getByRole('button', { name: 'Bài trước', exact: true }).click();
     await view.open(9);

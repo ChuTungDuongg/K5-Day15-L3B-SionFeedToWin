@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Build với context là gốc repo: docker build -f apps/web/Dockerfile --target prod .
-# Stage dev dùng cho máy local (tripflix-be: pnpm stack:up / stack:watch); stage prod là image đẩy lên GHCR.
-ARG APP=@tripflix/web
+# Stage dev dùng cho máy local (vintrip-be: pnpm stack:up / stack:watch); stage prod là image đẩy lên GHCR.
+ARG APP=@vintrip/web
 
 FROM node:24-slim AS base
 ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH CI=true NEXT_TELEMETRY_DISABLED=1

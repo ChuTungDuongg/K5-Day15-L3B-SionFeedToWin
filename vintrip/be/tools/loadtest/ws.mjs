@@ -1,6 +1,6 @@
 // Kịch bản 3: N kết nối WebSocket (Socket.IO) giữ mở cùng lúc vào notification-service.
 //   cd tools/loadtest && npm install
-//   BASE=https://api.tripflix.io.vn PASSWORD=... USERS=20 RAMP_S=60 HOLD_S=300 node ws.mjs
+//   BASE=https://api.vintrip.io.vn PASSWORD=... USERS=20 RAMP_S=60 HOLD_S=300 node ws.mjs
 // In kết quả JSON ra màn hình và ghi vào results/ws-<USERS>-<giờ>.json.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { io } from 'socket.io-client';
@@ -12,7 +12,7 @@ const RAMP_S = Number(process.env.RAMP_S || 60);
 const HOLD_S = Number(process.env.HOLD_S || 300);
 if (!BASE || !PASSWORD) throw new Error('Cần BASE và PASSWORD');
 
-const email = (n) => `loadtest${String(n).padStart(4, '0')}@tripflix.local`;
+const email = (n) => `loadtest${String(n).padStart(4, '0')}@vintrip.local`;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const percentile = (values, p) => {
   if (values.length === 0) return null;

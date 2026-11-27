@@ -3,8 +3,8 @@
 import { useState, type ReactNode } from 'react';
 import Link from 'next/link';
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { moderationApi, useApiSession } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { moderationApi, useApiSession } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { LoadingDots } from '@/features/shared/loading-dots';
 import { getAppealDaysLeft } from './appeal-days';

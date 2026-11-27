@@ -1,4 +1,4 @@
-// Sinh users.sql tạo N tài khoản loadtestNNNN@tripflix.local (đuôi .local: không gửi được email thật).
+// Sinh users.sql tạo N tài khoản loadtestNNNN@vintrip.local (đuôi .local: không gửi được email thật).
 // Chạy trên laptop trong repo (dùng argon2 của core-api):
 //   LOADTEST_PASSWORD=... node tools/loadtest/gen-users-sql.mjs 1000 > users.sql
 import { createRequire } from 'node:module';
@@ -16,8 +16,8 @@ const hash = await argon2.hash(password, { type: argon2.argon2id });
 
 process.stdout.write(`-- ${count} tài khoản load test. Chạy lại không tạo trùng.
 INSERT INTO access.users (email, password_hash, display_name, email_verified_at)
-SELECT format('loadtest%s@tripflix.local', lpad(i::text, 4, '0')), '${hash}', 'Load test ' || i, now()
+SELECT format('loadtest%s@vintrip.local', lpad(i::text, 4, '0')), '${hash}', 'Load test ' || i, now()
 FROM generate_series(1, ${count}) AS i
 ON CONFLICT (email) DO NOTHING;
-SELECT count(*) AS loadtest_users FROM access.users WHERE email LIKE 'loadtest%@tripflix.local';
+SELECT count(*) AS loadtest_users FROM access.users WHERE email LIKE 'loadtest%@vintrip.local';
 `);

@@ -38,7 +38,7 @@ export default async function ComingSoonPage({
               Quay lại lộ trình <span aria-hidden="true">→</span>
             </Link>
             {postId && (
-              <a className={styles.secondaryButton} href={`tripflix://trip-plans/${encodeURIComponent(postId)}`}>
+              <a className={styles.secondaryButton} href={`vintrip://trip-plans/${encodeURIComponent(postId)}`}>
                 Đã cài app? Mở để đặt
               </a>
             )}

@@ -9,7 +9,7 @@ import {
   WebSocketGateway,
 } from '@nestjs/websockets';
 import { z } from 'zod';
-import { AUTH_VERIFIER, SID_BLOCKLIST, type AccessTokenVerifier, type SidBlocklist } from '@tripflix/auth';
+import { AUTH_VERIFIER, SID_BLOCKLIST, type AccessTokenVerifier, type SidBlocklist } from '@vintrip/auth';
 import type { Server } from 'socket.io';
 import { createHandshakeAuth, type RealtimeSocket } from './handshake-auth.js';
 import {

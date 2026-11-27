@@ -1,5 +1,5 @@
-import { ACCESS_TOKEN_ALG, SERVICE_TOKEN_TTL_SECONDS, SERVICE_TOKEN_TYPE } from '@tripflix/auth';
-import type { Role } from '@tripflix/contracts';
+import { ACCESS_TOKEN_ALG, SERVICE_TOKEN_TTL_SECONDS, SERVICE_TOKEN_TYPE } from '@vintrip/auth';
+import type { Role } from '@vintrip/contracts';
 import {
   SignJWT,
   calculateJwkThumbprint,

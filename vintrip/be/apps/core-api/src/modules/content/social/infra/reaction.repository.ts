@@ -1,5 +1,5 @@
 import { and, eq, inArray, sql } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import {
   reactions,
   type ReactionRecord,

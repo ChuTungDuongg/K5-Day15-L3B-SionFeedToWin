@@ -6,7 +6,7 @@ const { tmpdir } = require('node:os');
 const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
 
 const BASE_URL = process.env.MOBILE_PREVIEW_URL || 'http://localhost:8081';
-const EVIDENCE_DIR = process.env.MOBILE_EVIDENCE_DIR || join(tmpdir(), 'tripflix-mobile-review');
+const EVIDENCE_DIR = process.env.MOBILE_EVIDENCE_DIR || join(tmpdir(), 'vintrip-mobile-review');
 const checks = [];
 const errors = [];
 let screenshotCount = 0;

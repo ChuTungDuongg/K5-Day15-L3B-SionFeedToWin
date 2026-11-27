@@ -3,8 +3,8 @@ import { registerTestAccount } from '../../platform/registration.fixture.js';
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import type { CoreEnv } from '../../platform/env.js';
@@ -17,7 +17,7 @@ import { createTestPasswordHasher } from './auth/infra/test-password-hasher.js';
 import { MemoryAccessStore } from './auth/infra/memory/memory-access.store.js';
 import { MemoryLoginRateLimiter } from './auth/infra/memory/memory-login-rate-limiter.js';
 
-const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'tripflix-core', AUTH_JWT_AUDIENCE: 'tripflix' } as CoreEnv;
+const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'vintrip-core', AUTH_JWT_AUDIENCE: 'vintrip' } as CoreEnv;
 
 @Global()
 @Module({

@@ -1,6 +1,6 @@
-# tripflix-fe
+# vintrip-fe
 
-Frontend Tripflix: mobile (Expo), web và trang quản trị (Next.js), dùng pnpm + Turborepo.
+Frontend Vintrip: mobile (Expo), web và trang quản trị (Next.js), dùng pnpm + Turborepo.
 
 ## Cài đặt và chạy
 
@@ -10,16 +10,16 @@ pnpm install
 pnpm dev
 ```
 
-Web chạy ở `http://localhost:3100`, admin ở `http://localhost:3200`. Chạy `pnpm --filter @tripflix/mobile start` để mở Expo.
+Web chạy ở `http://localhost:3100`, admin ở `http://localhost:3200`. Chạy `pnpm --filter @vintrip/mobile start` để mở Expo.
 
 ## Chạy cả hệ thống và Expo Go trên iPhone (Windows)
 
-Các lệnh dưới đây dùng PowerShell. Mở Docker Desktop trước; cần có ba repo `tripflix-be`, `tripflix-fe`, `tripflix-ai` cạnh nhau, đã cài dependencies và cấu hình môi trường local theo README của BE. Thay đường dẫn nếu clone ở vị trí khác.
+Các lệnh dưới đây dùng PowerShell. Mở Docker Desktop trước; cần có ba repo `vintrip-be`, `vintrip-fe`, `vintrip-ai` cạnh nhau, đã cài dependencies và cấu hình môi trường local theo README của BE. Thay đường dẫn nếu clone ở vị trí khác.
 
 ### Terminal 1: backend, Web và Admin
 
 ```powershell
-cd D:\Sukem\VinUni\VSF\tripflix\tripflix-be
+cd D:\Sukem\VinUni\VSF\vintrip\vintrip-be
 pnpm stack:up
 pnpm stack:ps
 ```
@@ -63,9 +63,9 @@ Get-NetIPAddress -AddressFamily IPv4 -InterfaceAlias "Wi-Fi" | Select-Object IPA
 Ví dụ máy có IP `192.168.1.105`, chạy:
 
 ```powershell
-cd D:\Sukem\VinUni\VSF\tripflix\tripflix-fe
+cd D:\Sukem\VinUni\VSF\vintrip\vintrip-fe
 $env:EXPO_PUBLIC_API_URL="http://192.168.1.105:8080"
-pnpm --filter @tripflix/mobile start --go --lan --port 8082 --clear
+pnpm --filter @vintrip/mobile start --go --lan --port 8082 --clear
 ```
 
 - Thay `192.168.1.105` bằng IP vừa kiểm tra; địa chỉ có thể thay đổi khi đổi mạng hoặc khởi động lại router.
@@ -77,7 +77,7 @@ pnpm --filter @tripflix/mobile start --go --lan --port 8082 --clear
 
 ### Xem log và dừng hệ thống
 
-Chạy trong thư mục `tripflix-be`:
+Chạy trong thư mục `vintrip-be`:
 
 ```powershell
 pnpm stack:logs
@@ -88,7 +88,7 @@ pnpm stack:down
 
 ### Khi muốn sửa Web/Admin với hot reload
 
-Dùng `pnpm stack:be` thay cho `pnpm stack:up`, rồi chạy `pnpm dev` trong `tripflix-fe`. Nếu toàn bộ stack đang chạy, dùng `pnpm stack:down` trước khi chuyển cách chạy để giải phóng cổng `3100` và `3200`. Terminal Expo vẫn chạy riêng như trên.
+Dùng `pnpm stack:be` thay cho `pnpm stack:up`, rồi chạy `pnpm dev` trong `vintrip-fe`. Nếu toàn bộ stack đang chạy, dùng `pnpm stack:down` trước khi chuyển cách chạy để giải phóng cổng `3100` và `3200`. Terminal Expo vẫn chạy riêng như trên.
 
 ## Kiểm tra
 

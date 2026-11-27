@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
 import { Test } from '@nestjs/testing';
-import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist } from '@tripflix/auth';
-import { startPostgres, type PostgresFixture } from '@tripflix/testing';
+import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist } from '@vintrip/auth';
+import { startPostgres, type PostgresFixture } from '@vintrip/testing';
 import pg from 'pg';
 import request from 'supertest';
 import { RealtimeService } from '../realtime/realtime.service.js';

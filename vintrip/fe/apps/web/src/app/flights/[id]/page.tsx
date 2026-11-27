@@ -1,7 +1,7 @@
 import { FlightDetail } from '@/features/flights/flight-detail';
 import styles from '@/features/flights/flights.module.css';
-import { getFlightToday, isValidFlightPassengerMix } from '@tripflix/api-client/flight-search';
-import { vi } from '@tripflix/i18n';
+import { getFlightToday, isValidFlightPassengerMix } from '@vintrip/api-client/flight-search';
+import { vi } from '@vintrip/i18n';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = { title: vi.flights.detailTitle + ' | Vintrip' };

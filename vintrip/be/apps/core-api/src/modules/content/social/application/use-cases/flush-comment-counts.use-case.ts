@@ -1,4 +1,4 @@
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import type { FlushedCounterDeltas, PostCounterDeltaRepository } from '../../infra/post-counter-delta.repository.js';
 
 /** Mỗi lượt cộng tối đa ngần này dòng đệm; còn nữa thì lượt sau (1 giây sau) cộng tiếp. */

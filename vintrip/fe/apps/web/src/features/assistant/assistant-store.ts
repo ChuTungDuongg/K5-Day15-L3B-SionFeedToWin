@@ -1,5 +1,5 @@
 // Chỉ người đã đăng nhập mới lưu; cùng khoá với bản web của app mobile.
-const CHAT_KEY = 'tripflix.assistantChat.v1';
+const CHAT_KEY = 'vintrip.assistantChat.v1';
 
 export function readStoredChat(): string | null {
   return globalThis.localStorage?.getItem(CHAT_KEY) ?? null;

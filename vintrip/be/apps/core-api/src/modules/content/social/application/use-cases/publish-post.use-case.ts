@@ -1,7 +1,7 @@
 import type { PostRecord } from '../../../db/schema/index.js';
 import type { ContentGatePort } from '../ports/content-gate.port.js';
 import { assertPrecheckedPost, postGateText } from '../common/content-precheck.js';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { InvalidPostStatusTransitionException, Post, PostNotFoundException } from '../../domain/index.js';
 import { PostRepository } from '../../infra/post.repository.js';
 import { assertPostMediaAllowed } from '../common/post-media.js';

@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { and, desc, eq, inArray, isNull, sql, type SQL } from 'drizzle-orm';
 import { bookmarks, mediaAssets, posts, reactions, renditions, trendScores } from '../../db/schema/index.js';
 import type { FeedCursor } from '../domain/feed-cursor.js';

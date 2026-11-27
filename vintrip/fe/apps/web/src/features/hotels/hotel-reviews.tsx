@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getHotelReviews, useApiSession, type HotelReviewFilters } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { getHotelReviews, useApiSession, type HotelReviewFilters } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { SoftSelect } from '@/features/shared/soft-select';
 import { HotelGallery } from './hotel-gallery';
@@ -41,7 +41,7 @@ export function HotelReviews({ id }: { id: string }) {
         <h2>{copy.reviews}</h2>
         {summary && (
           <span>
-            {t('hotel.reviewCount', { count: summary.count })} · {copy.tripflix}
+            {t('hotel.reviewCount', { count: summary.count })} · {copy.vintrip}
           </span>
         )}
       </div>

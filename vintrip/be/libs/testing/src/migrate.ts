@@ -1,4 +1,4 @@
-import { createDb, createPool, type ModuleName } from '@tripflix/db';
+import { createDb, createPool, type ModuleName } from '@vintrip/db';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 
 /**

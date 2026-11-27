@@ -14,7 +14,7 @@ async function main() {
     const errors = [];
     page.on('pageerror', (error) => errors.push(error.message));
     await page.goto('http://localhost:3200/login?returnTo=%2Fmoderation');
-    await page.getByLabel('Email', { exact: true }).fill('moderator@tripflix.local');
+    await page.getByLabel('Email', { exact: true }).fill('moderator@vintrip.local');
     await page.getByLabel('Mật khẩu', { exact: true }).fill(process.env.OPERATIONS_QA_PASSWORD.trim());
     await page.getByRole('button', { name: 'Đăng nhập', exact: true }).click();
     for (const tab of ['Nhật ký thao tác', 'Scan cần phục hồi']) {

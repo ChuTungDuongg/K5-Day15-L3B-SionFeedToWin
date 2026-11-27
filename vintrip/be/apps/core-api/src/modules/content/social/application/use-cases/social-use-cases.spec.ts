@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { describe, expect, it, vi, beforeEach, beforeAll } from 'vitest';
 import { Test } from '@nestjs/testing';
 import { ClsModule } from 'nestjs-cls';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import {
   AddCommentUseCase,
   AdminModeratePostUseCase,
@@ -229,14 +229,14 @@ describe('Social Application Use Cases', () => {
       mockPostRepo.update.mockResolvedValue({ ...post, status: 'published', isVerified: true });
       (mockCommerceService.verifyCompletedBooking as any).mockResolvedValue(true);
 
-      const shareLinks = new PostShareLinks('https://tripflix.io.vn');
+      const shareLinks = new PostShareLinks('https://vintrip.io.vn');
       const useCase = new PublishPostUseCase(mockPostRepo, mockOutbox, mockCommerceService, shareLinks);
       const result = await useCase.execute({ postId, userId: authorId });
 
       expect(result.status).toBe('published');
       expect(result.isVerified).toBe(true);
       // Bài mẫu là Reel (video): link mở trình xem Reels trên web theo WEB_APP_URL.
-      expect(result.shareUrl).toBe(`https://tripflix.io.vn/inspiration?open=${postId}&kind=reel`);
+      expect(result.shareUrl).toBe(`https://vintrip.io.vn/inspiration?open=${postId}&kind=reel`);
       expect(mockOutbox.add).toHaveBeenCalledWith(
         expect.objectContaining({
           type: 'content.post.published',
@@ -1217,11 +1217,11 @@ describe('Social Application Use Cases', () => {
       const post = samplePostRecord({ status: 'published', shareCount: 10 });
       mockPostRepo.findById.mockResolvedValueOnce(post).mockResolvedValueOnce({ ...post, shareCount: 11 });
 
-      const useCase = new TrackShareUseCase(mockPostRepo, mockOutbox, new PostShareLinks('https://tripflix.io.vn'));
+      const useCase = new TrackShareUseCase(mockPostRepo, mockOutbox, new PostShareLinks('https://vintrip.io.vn'));
       const result = await useCase.execute({ postId, userId: otherUserId });
 
       expect(result.shareCount).toBe(11);
-      expect(result.shareUrl).toBe(`https://tripflix.io.vn/inspiration?open=${postId}&kind=reel`);
+      expect(result.shareUrl).toBe(`https://vintrip.io.vn/inspiration?open=${postId}&kind=reel`);
       expect(mockPostRepo.incrementCounter).toHaveBeenCalledWith(postId, 'shareCount', 1);
       expect(mockOutbox.add).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -1240,7 +1240,7 @@ describe('Social Application Use Cases', () => {
       async (status) => {
         mockPostRepo.findById.mockResolvedValue(samplePostRecord({ status, shareCount: 10 }));
         const outbox = { add: vi.fn() };
-        const useCase = new TrackShareUseCase(mockPostRepo, outbox, new PostShareLinks('https://tripflix.io.vn'));
+        const useCase = new TrackShareUseCase(mockPostRepo, outbox, new PostShareLinks('https://vintrip.io.vn'));
 
         // Người đã đăng nhập khác tác giả và khách chưa đăng nhập đều không chia sẻ được.
         await expect(useCase.execute({ postId, userId: otherUserId })).rejects.toBeInstanceOf(PostNotFoundException);
@@ -1261,7 +1261,7 @@ describe('Social Application Use Cases', () => {
       mockPostRepo.findById.mockResolvedValue(samplePostRecord(overrides));
       const outbox = { add: vi.fn() };
 
-      const useCase = new TrackShareUseCase(mockPostRepo, outbox, new PostShareLinks('https://tripflix.io.vn'));
+      const useCase = new TrackShareUseCase(mockPostRepo, outbox, new PostShareLinks('https://vintrip.io.vn'));
 
       await expect(useCase.execute({ postId, userId: otherUserId })).rejects.toThrow(PostNotFoundException);
       expect(mockPostRepo.incrementCounter).not.toHaveBeenCalled();
@@ -1272,7 +1272,7 @@ describe('Social Application Use Cases', () => {
       const post = samplePostRecord({ status: 'published', shareCount: 2 });
       mockPostRepo.findById.mockResolvedValueOnce(post).mockResolvedValueOnce({ ...post, shareCount: 3 });
 
-      const useCase = new TrackShareUseCase(mockPostRepo, mockOutbox, new PostShareLinks('https://tripflix.io.vn'));
+      const useCase = new TrackShareUseCase(mockPostRepo, mockOutbox, new PostShareLinks('https://vintrip.io.vn'));
 
       await expect(useCase.execute({ postId })).resolves.toMatchObject({ shareCount: 3 });
     });

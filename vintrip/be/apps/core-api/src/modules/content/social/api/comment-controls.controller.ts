@@ -7,8 +7,8 @@ import {
   ApiPropertyOptional,
   ApiTags,
 } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
-import { Idempotent } from '@tripflix/idempotency';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
+import { Idempotent } from '@vintrip/idempotency';
 import { z } from 'zod';
 import { CommentControlsUseCases } from '../application/comment-controls.use-cases.js';
 import { normalizeCommentKeyword } from '../domain/comment-filter.js';

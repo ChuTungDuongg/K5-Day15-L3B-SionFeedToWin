@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { Global, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import type { CoreEnv } from '../../platform/env.js';
@@ -34,8 +34,8 @@ const PASSWORD = 'mat-khau-an-toan';
 async function createApp(extraEnv: Partial<CoreEnv> = {}) {
   const env = {
     NODE_ENV: 'test',
-    AUTH_JWT_ISSUER: 'tripflix-core',
-    AUTH_JWT_AUDIENCE: 'tripflix',
+    AUTH_JWT_ISSUER: 'vintrip-core',
+    AUTH_JWT_AUDIENCE: 'vintrip',
     ...extraEnv,
   } as CoreEnv;
 
@@ -286,24 +286,24 @@ describe('TF056: mật khẩu mã hoá trước khi gửi', () => {
     const create = (body: Record<string, unknown>) =>
       t.http().post('/api/admin/users').set('Authorization', `Bearer ${adminToken}`).send(body);
 
-    it('bỏ trống mật khẩu: tài khoản chưa có mật khẩu, nhân sự nhận email đặt mật khẩu, "Tripflix@2025" không đăng nhập được', async () => {
-      const res = await create({ email: 'Mod1@Tripflix.vn', displayName: 'Kiểm duyệt 1' }).expect(201);
+    it('bỏ trống mật khẩu: tài khoản chưa có mật khẩu, nhân sự nhận email đặt mật khẩu, "Vintrip@2025" không đăng nhập được', async () => {
+      const res = await create({ email: 'Mod1@Vintrip.vn', displayName: 'Kiểm duyệt 1' }).expect(201);
       expect(t.store.userRows.get(res.body.id)!.passwordHash).toBeNull();
       const mail = t.store.outboxRows.find(
         (e) => e.type === 'access.password_reset_requested' && e.userId === res.body.id,
       );
-      expect(mail?.payload).toMatchObject({ email: 'mod1@tripflix.vn' });
+      expect(mail?.payload).toMatchObject({ email: 'mod1@vintrip.vn' });
       await t
         .http()
         .post('/api/auth/login')
-        .send({ email: 'mod1@tripflix.vn', password: 'Tripflix@2025' })
+        .send({ email: 'mod1@vintrip.vn', password: 'Vintrip@2025' })
         .expect(401);
     });
 
     it('gửi kèm password hoặc encPassword: bị bỏ qua, tài khoản vẫn chưa có mật khẩu và vẫn nhận email đặt mật khẩu', async () => {
-      const encPassword = await t.enc('mat-khau-nhan-su', 'login', 'mod2@tripflix.vn');
+      const encPassword = await t.enc('mat-khau-nhan-su', 'login', 'mod2@vintrip.vn');
       const res = await create({
-        email: 'mod2@tripflix.vn',
+        email: 'mod2@vintrip.vn',
         displayName: 'Kiểm duyệt 2',
         password: 'mat-khau-nhan-su',
         encPassword,
@@ -317,22 +317,22 @@ describe('TF056: mật khẩu mã hoá trước khi gửi', () => {
       await t
         .http()
         .post('/api/auth/login')
-        .send({ email: 'mod2@tripflix.vn', password: 'mat-khau-nhan-su' })
+        .send({ email: 'mod2@vintrip.vn', password: 'mat-khau-nhan-su' })
         .expect(401);
     });
 
     it.each(['superadmin', 'member'])('role %s: 400, chỉ tạo được kiểm duyệt viên', async (role) => {
       const res = await create({
-        email: `role-${role}@tripflix.vn`,
+        email: `role-${role}@vintrip.vn`,
         displayName: 'Thử vai trò',
         role,
       }).expect(400);
       expect(res.body.errors).toEqual([expect.objectContaining({ field: 'role' })]);
-      expect([...t.store.userRows.values()].some((u) => u.email === `role-${role}@tripflix.vn`)).toBe(false);
+      expect([...t.store.userRows.values()].some((u) => u.email === `role-${role}@vintrip.vn`)).toBe(false);
     });
 
     it('không ghi role: tạo kiểm duyệt viên', async () => {
-      const res = await create({ email: 'mod4@tripflix.vn', displayName: 'Kiểm duyệt 4' }).expect(201);
+      const res = await create({ email: 'mod4@vintrip.vn', displayName: 'Kiểm duyệt 4' }).expect(201);
       expect(res.body.role).toBe('moderator');
     });
   });

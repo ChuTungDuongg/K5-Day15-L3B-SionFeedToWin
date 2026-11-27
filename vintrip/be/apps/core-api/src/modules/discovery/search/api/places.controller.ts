@@ -17,7 +17,7 @@ export class PlacesController {
       'Dữ liệu © OpenStreetMap contributors (ODbL), nạp sẵn cho các thành phố demo. App phải hiện `attribution` kèm danh sách.',
       '',
       '- Cần `city` (tên có dấu hay không đều được, hoặc id như `vung-tau`) hoặc `near=lat,lng`. Tỉnh gồm cả điểm đến con ("Lâm Đồng" ra điểm của Đà Lạt) và không lọc bán kính.',
-      '- `lodging` là chỗ ở ngoài Tripflix: chỉ để tham khảo, không có giá, không đặt được.',
+      '- `lodging` là chỗ ở ngoài Vintrip: chỉ để tham khảo, không có giá, không đặt được.',
       '- Không khớp thành phố thì `items: []` (không phải lỗi).',
     ].join('\n'),
   })

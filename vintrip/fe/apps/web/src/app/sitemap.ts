@@ -1,4 +1,4 @@
-import { seoApi } from '@tripflix/api-client/seo';
+import { seoApi } from '@vintrip/api-client/seo';
 import type { MetadataRoute } from 'next';
 import { unstable_cache } from 'next/cache';
 import { collectSitemapEntries } from '@/features/seo/sitemap-entries';

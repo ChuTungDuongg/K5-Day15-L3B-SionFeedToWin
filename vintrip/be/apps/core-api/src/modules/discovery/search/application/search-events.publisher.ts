@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { Inject, Injectable, Logger, Optional } from '@nestjs/common';
-import { DiscoverySearchPerformedV1Schema, DiscoveryStaysSearchedV1Schema, type EventEnvelope } from '@tripflix/contracts';
-import { STREAMS, type EventBus } from '@tripflix/event-bus';
+import { DiscoverySearchPerformedV1Schema, DiscoveryStaysSearchedV1Schema, type EventEnvelope } from '@vintrip/contracts';
+import { STREAMS, type EventBus } from '@vintrip/event-bus';
 import type { ZodType } from 'zod';
 import { QueryTopicUseCases } from '../../recommend/application/query-topics.use-cases.js';
 import { placeIdOfName } from '../domain/places.js';

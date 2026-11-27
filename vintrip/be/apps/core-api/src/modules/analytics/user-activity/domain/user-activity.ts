@@ -5,7 +5,7 @@ import {
   ContentPostViewedV1Schema,
   ContentReactionUpdatedV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 import { z } from 'zod';
 
 export const USER_ACTIVITY_KINDS = ['reaction', 'comment', 'share', 'view', 'chat', 'post'] as const;

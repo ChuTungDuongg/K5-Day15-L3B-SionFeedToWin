@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist, type AuthUser } from '@tripflix/auth';
-import { MODULES, buildDrizzleToken, createTransactionalPlugins, type Db } from '@tripflix/db';
+import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist, type AuthUser } from '@vintrip/auth';
+import { MODULES, buildDrizzleToken, createTransactionalPlugins, type Db } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import type { CoreEnv } from '../../platform/env.js';

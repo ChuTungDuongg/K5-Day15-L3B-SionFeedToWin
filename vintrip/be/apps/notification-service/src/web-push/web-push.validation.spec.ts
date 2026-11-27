@@ -18,7 +18,7 @@ describe('Web Push validation', () => {
       }),
     ).toEqual({ postId: 'p', actorIds: ['a'] });
     expect(
-      webNotificationHref({ type: 'x', link: '/' + 'x'.repeat(3000), data: {} }, 'https://tripflix.test'),
+      webNotificationHref({ type: 'x', link: '/' + 'x'.repeat(3000), data: {} }, 'https://vintrip.test'),
     ).toBe('/');
   });
 
@@ -48,13 +48,13 @@ describe('Web Push validation', () => {
     expect(
       webNotificationHref(
         { type: 'comment.replied', link: null, data: { postId: 'p', commentId: 'c' } },
-        'https://tripflix.test',
+        'https://vintrip.test',
       ),
     ).toBe('/inspiration?open=p&comment=c');
     expect(
-      webNotificationHref({ type: 'x', link: 'javascript:alert(1)', data: {} }, 'https://tripflix.test'),
+      webNotificationHref({ type: 'x', link: 'javascript:alert(1)', data: {} }, 'https://vintrip.test'),
     ).toBe('/');
-    expect(webNotificationHref({ type: 'x', link: '//evil.test', data: {} }, 'https://tripflix.test')).toBe(
+    expect(webNotificationHref({ type: 'x', link: '//evil.test', data: {} }, 'https://vintrip.test')).toBe(
       '/',
     );
   });

@@ -17,7 +17,7 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import type { Request, Response } from 'express';
 import type { z } from 'zod';
 import { AvatarDecorDto, MyProfileDto } from '../../auth/api/dto.js';

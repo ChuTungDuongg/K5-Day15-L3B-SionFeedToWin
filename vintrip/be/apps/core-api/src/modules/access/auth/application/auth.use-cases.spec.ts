@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import { AccessError } from '../domain/errors.js';
 import { REFRESH_GRACE_MS, SESSION_MAX_AGE_MS } from '../domain/refresh-rotation.js';

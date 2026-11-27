@@ -1,5 +1,5 @@
 'use client';
-import { useApiSession } from '@tripflix/api-client';
+import { useApiSession } from '@vintrip/api-client';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';

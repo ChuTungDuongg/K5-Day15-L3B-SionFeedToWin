@@ -392,7 +392,7 @@ quyết định Excel trở lại dataset tự động.
 
 ## Tái tạo và nguồn
 
-Chạy `uv run python -m evals.moderation.prepare_quality_review` trong tripflix-ai để tái tạo
+Chạy `uv run python -m evals.moderation.prepare_quality_review` trong vintrip-ai để tái tạo
 snapshot và CSV/JSON. Lệnh này ghi đè các file review được sinh; lưu bản Excel đã duyệt riêng
 trước khi tái tạo. Workbook được tạo riêng từ review_data.json.
 

@@ -1,5 +1,5 @@
 'use client';
-import { useApiSession } from '@tripflix/api-client';
+import { useApiSession } from '@vintrip/api-client';
 import { useMutation } from '@tanstack/react-query';
 import { ADMIN_URL } from './account-helpers';
 

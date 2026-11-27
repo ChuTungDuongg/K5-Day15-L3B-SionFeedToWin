@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import type { InboxInsert, InboxRow } from '../inbox/inbox.repository.js';
 import { MemoryMailer } from '../outapp/mailer.js';
 import { EventRouter, MemoryProcessedEvents } from './event-router.js';

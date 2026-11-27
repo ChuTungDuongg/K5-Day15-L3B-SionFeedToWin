@@ -288,8 +288,8 @@ def write_evidence_file(
         "# SCRUM-75 — Đánh giá chất lượng kiểm duyệt tiếng Việt (3.000 mẫu)",
         "",
         (
-            "- Jira: [SCRUM-75](https://tripflix.atlassian.net/browse/SCRUM-75) "
-            "(liên quan: [SCRUM-36](https://tripflix.atlassian.net/browse/SCRUM-36) · TF32) · "
+            "- Jira: [SCRUM-75](https://vintrip.atlassian.net/browse/SCRUM-75) "
+            "(liên quan: [SCRUM-36](https://vintrip.atlassian.net/browse/SCRUM-36) · TF32) · "
             "Nhánh: `trang/TF32-eval-moderation-vi-3k` · Người làm: Trang (dùng AI: có) · "
             "Ngày: 2026-11-10"
         ),
@@ -425,7 +425,7 @@ def write_evidence_file(
             "## Cách kiểm lại",
             "",
             "```bash",
-            "cd tripflix/tripflix-ai",
+            "cd vintrip/vintrip-ai",
             "uv run python -m evals.run_moderation_eval --data evals/moderation/vi_3k.jsonl",
             "```",
         ]

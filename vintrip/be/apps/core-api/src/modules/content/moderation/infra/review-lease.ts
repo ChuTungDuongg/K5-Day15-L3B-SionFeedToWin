@@ -1,5 +1,5 @@
 import { ConflictException } from '@nestjs/common';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { and, eq } from 'drizzle-orm';
 import { moderationCases, type ModerationTarget } from '../../db/schema/index.js';
 

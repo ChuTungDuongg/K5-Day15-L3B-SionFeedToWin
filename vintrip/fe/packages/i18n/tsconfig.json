@@ -1,4 +1,4 @@
 {
-  "extends": "@tripflix/config/tsconfig/library.json",
+  "extends": "@vintrip/config/tsconfig/library.json",
   "include": ["src"]
 }

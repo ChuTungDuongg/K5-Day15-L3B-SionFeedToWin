@@ -24,8 +24,8 @@ async function api(url, token, method = 'GET', body, expected = 200) {
 }
 async function main() {
   assert.ok(password, 'REPORT_QA_PASSWORD is required');
-  member = (await api('/auth/login', null, 'POST', { email: 'member@tripflix.local', password })).accessToken;
-  moderator = (await api('/auth/login', null, 'POST', { email: 'moderator@tripflix.local', password }))
+  member = (await api('/auth/login', null, 'POST', { email: 'member@vintrip.local', password })).accessToken;
+  moderator = (await api('/auth/login', null, 'POST', { email: 'moderator@vintrip.local', password }))
     .accessToken;
   postId = (
     await api(
@@ -65,7 +65,7 @@ async function main() {
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     await page.goto(`${web}/login?returnTo=${encodeURIComponent(`/trips/${postId}`)}`);
-    await page.getByLabel('Email', { exact: true }).fill('member@tripflix.local');
+    await page.getByLabel('Email', { exact: true }).fill('member@vintrip.local');
     await page.getByLabel('Mật khẩu', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Đăng nhập', exact: true }).click();
     const row = page

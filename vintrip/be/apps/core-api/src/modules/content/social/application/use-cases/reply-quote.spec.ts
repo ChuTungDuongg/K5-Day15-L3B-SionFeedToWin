@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { Test } from '@nestjs/testing';
 import { ClsModule } from 'nestjs-cls';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { AddCommentUseCase } from './add-comment.use-case.js';
 import { ListCommentsUseCase } from './list-comments.use-case.js';
 import { formatReplyExcerpt, isPublicReplyTarget } from '../common/reply-excerpt.js';

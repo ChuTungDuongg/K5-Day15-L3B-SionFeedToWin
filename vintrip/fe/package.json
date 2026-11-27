@@ -1,5 +1,5 @@
 {
-  "name": "tripflix-fe",
+  "name": "vintrip-fe",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@10.32.1",
@@ -14,7 +14,7 @@
     "test": "turbo run test",
     "check": "pnpm lint && pnpm typecheck && pnpm test",
     "format": "prettier --write .",
-    "gen:api": "pnpm --filter @tripflix/api-client gen"
+    "gen:api": "pnpm --filter @vintrip/api-client gen"
   },
   "devDependencies": {
     "prettier": "catalog:",

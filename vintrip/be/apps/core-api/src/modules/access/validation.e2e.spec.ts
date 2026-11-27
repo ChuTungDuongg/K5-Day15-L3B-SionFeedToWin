@@ -3,8 +3,8 @@ import { TERMS_VERSION } from './auth/domain/registration.js';
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import type { CoreEnv } from '../../platform/env.js';
@@ -26,9 +26,9 @@ import { MemoryLoginRateLimiter } from './auth/infra/memory/memory-login-rate-li
 
 const env = {
   NODE_ENV: 'test',
-  AUTH_JWT_ISSUER: 'tripflix-core',
-  AUTH_JWT_AUDIENCE: 'tripflix',
-  AUTH_PASSWORD_RESET_URL: 'https://tripflix.example/dat-lai-mat-khau',
+  AUTH_JWT_ISSUER: 'vintrip-core',
+  AUTH_JWT_AUDIENCE: 'vintrip',
+  AUTH_PASSWORD_RESET_URL: 'https://vintrip.example/dat-lai-mat-khau',
   // File này đăng ký nhiều tài khoản từ cùng một IP; giới hạn đăng ký kiểm ở email-verification.e2e.spec.ts.
   AUTH_REGISTER_MAX_PER_IP_HOUR: 1000,
 } as CoreEnv;

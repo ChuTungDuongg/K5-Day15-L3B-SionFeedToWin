@@ -20,7 +20,7 @@ export interface TravelPreferencesSnapshot {
 }
 
 /** Bản nháp/kết quả khảo sát lưu trên máy (khách, hoặc bản sao đang làm dở của tài khoản). */
-export const ONBOARDING_KEY = 'tripflix.onboarding.v1';
+export const ONBOARDING_KEY = 'vintrip.onboarding.v1';
 export type OnboardingStep = 'welcome' | 'interests' | 'pace' | 'review';
 const ONBOARDING_STEPS: readonly OnboardingStep[] = ['welcome', 'interests', 'pace', 'review'];
 const ONBOARDING_STATUSES = ['unseen', 'draft', 'skipped', 'completed'] as const;

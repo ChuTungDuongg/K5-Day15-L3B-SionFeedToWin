@@ -16,7 +16,7 @@ export type DbTransactionalAdapter = TransactionalAdapterDrizzleOrm<Db>;
 export type ModuleTransactionHost = TransactionHost<DbTransactionalAdapter>;
 
 /** Token Nest của instance Drizzle theo module; platform của app cung cấp giá trị. */
-export const buildDrizzleToken = (module: ModuleName): symbol => Symbol.for(`tripflix:drizzle:${module}`);
+export const buildDrizzleToken = (module: ModuleName): symbol => Symbol.for(`vintrip:drizzle:${module}`);
 
 /**
  * Mỗi module một ClsPluginTransactional có connectionName riêng (docs/architecture/11 §3.3), nên

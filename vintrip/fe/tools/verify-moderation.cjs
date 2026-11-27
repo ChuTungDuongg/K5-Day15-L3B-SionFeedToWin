@@ -5,7 +5,7 @@ const { mkdir } = require('node:fs/promises');
 const { join } = require('node:path');
 const { tmpdir } = require('node:os');
 const base = process.env.TF32_ADMIN_URL || 'http://localhost:3201';
-const output = process.env.TF32_EVIDENCE_DIR || join(tmpdir(), 'tripflix-tf32');
+const output = process.env.TF32_EVIDENCE_DIR || join(tmpdir(), 'vintrip-tf32');
 const id = '11111111-1111-4111-8111-111111111111';
 const timestamp = '2026-11-09T05:00:00Z';
 
