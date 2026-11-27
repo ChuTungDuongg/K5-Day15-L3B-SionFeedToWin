@@ -6,6 +6,7 @@ import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useState } from 'react';
 import { AuthErrorNotice, PasswordField } from './auth-fields';
+import styles from './auth.module.css';
 
 /** Trang mở từ link trong email: /dat-lai-mat-khau?token=... (khớp AUTH_PASSWORD_RESET_URL của BE). */
 export function ResetPassword({ token }: { token: string | undefined }) {
@@ -20,20 +21,20 @@ export function ResetPassword({ token }: { token: string | undefined }) {
 
   return (
     <>
-      <h2>{vi.api.resetTitle}</h2>
+      <h2 className={styles.title}>{vi.api.resetTitle}</h2>
       {reset.isSuccess ? (
         <>
-          <output className="auth-success">{vi.api.resetSuccess}</output>
-          <Link prefetch={false} className="primary-button auth-submit" href="/login">
+          <output className={styles.successBox}>{vi.api.resetSuccess}</output>
+          <Link prefetch={false} className={`primary-button auth-submit ${styles.submitBtn}`} href="/login">
             {vi.api.login}
           </Link>
         </>
       ) : isLinkInvalid ? (
         <>
-          <p role="alert" className="auth-error">
+          <p role="alert" className={styles.errorBox}>
             {token ? vi.api.resetLinkInvalid : vi.api.resetMissingToken}
           </p>
-          <Link prefetch={false} className="primary-button auth-submit" href="/forgot-password">
+          <Link prefetch={false} className={`primary-button auth-submit ${styles.submitBtn}`} href="/forgot-password">
             {vi.api.requestNewLink}
           </Link>
         </>
@@ -69,17 +70,17 @@ export function ResetPassword({ token }: { token: string | undefined }) {
             onValueChange={setConfirmation}
           />
           {isMismatch && (
-            <p role="alert" className="auth-error">
+            <p role="alert" className={styles.errorBox}>
               {vi.api.passwordMismatch}
             </p>
           )}
           <AuthErrorNotice error={reset.error} action="resetPassword" />
-          <button className="primary-button auth-submit" disabled={reset.isPending}>
+          <button className={`primary-button auth-submit ${styles.submitBtn}`} disabled={reset.isPending}>
             {reset.isPending ? vi.api.saving : vi.api.resetSubmit}
           </button>
         </form>
       )}
-      <Link prefetch={false} className="auth-link auth-switch" href="/login">
+      <Link prefetch={false} className={styles.switchLink} href="/login">
         {vi.api.backToLogin}
       </Link>
     </>

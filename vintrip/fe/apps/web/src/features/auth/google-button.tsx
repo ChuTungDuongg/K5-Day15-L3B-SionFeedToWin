@@ -3,6 +3,7 @@ import { vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Script from 'next/script';
 import { useEffect, useRef, useState } from 'react';
+import styles from './auth.module.css';
 
 // Google Identity Services nạp thẳng từ Google (không cần thư viện npm). Chỉ dùng phần nút đăng nhập.
 interface GoogleCredentialResponse {
@@ -79,20 +80,19 @@ export function GoogleButton({ onCredential }: { onCredential: (idToken: string)
 
   if (!clientId) return null;
   return (
-    <>
+    <div className={styles.googleWrap}>
       {/* onReady chạy cả khi script đã nạp từ lần trước (quay lại trang đăng nhập). */}
       <Script src={GOOGLE_SCRIPT_URL} strategy="afterInteractive" onReady={() => setScriptReady(true)} />
-      <div className="auth-divider" aria-hidden="true">
-        <span>{vi.api.orContinueWith}</span>
-      </div>
-      <div className="auth-google">
-        <div className="auth-google-tile">
-          <Image className="auth-google-mark" src="/brand/google-g.svg" alt="" width={22} height={22} />
-          {/* Google tự vẽ nút vào thẻ này (phủ trên logo, nhận chuột); React không đặt phần tử con bên trong. */}
-          <div ref={container} className="auth-google-button" aria-busy={!isScriptReady} />
-        </div>
+      <div className={styles.googleBtn}>
+        <Image src="/brand/google-g.svg" alt="" width={20} height={20} />
+        <span>Google</span>
+        {/* Google tự vẽ nút vào thẻ này (phủ kín nút, nhận chuột); React không đặt phần tử con bên trong. */}
+        <div ref={container} className={styles.googleBtnOverlay} aria-busy={!isScriptReady} />
       </div>
       {!isScriptReady && <p className="auth-hint">{vi.api.googleLoading}</p>}
-    </>
+      <div className={styles.divider} aria-hidden="true">
+        <span>{vi.api.orContinueWith}</span>
+      </div>
+    </div>
   );
 }
