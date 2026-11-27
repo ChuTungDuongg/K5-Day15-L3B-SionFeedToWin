@@ -33,9 +33,9 @@
 | FE-01 | Hệ thiết kế cam pastel: token màu, chữ, bo góc, bóng, trạng thái | **Claude** | — | XONG |
 | FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | XONG |
 | FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | KẸT |
-| FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | TODO |
+| FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | ĐANG LÀM |
 | FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | TODO |
-| FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | TODO |
+| FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | ĐANG LÀM |
 | FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | TODO |
 | FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | TODO |
@@ -102,3 +102,4 @@ Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket k
 |---|---|---|---|
 | 27/11 | FE-01 | XONG | Token cam pastel ở `index.ts` + `tokens.css` (khớp nhau, test token đạt). Thêm `--radius-*`, `--shadow-*`, `--text-*`. Mọi cặp chữ/nền đã đo ≥ 4.5:1, riêng `text-subtle` 3.8:1 chỉ dùng trang trí. Chụp trang chủ và /hotels: token đã áp. Phần còn lệch ghi ở `docs/design/fe-redesign.md` mục 1.3. |
 | 28/11 | FE-02 | XONG | Đặc tả mục 2–8 trong `docs/design/fe-redesign.md`: quy ước chung, linh vật (6 tư thế, thêm `vini-sad.png`), khung chung, trang chủ + `/search`, chi tiết khách sạn, vé máy bay, cảm hứng, trợ lý/giỏ/thanh toán/đặt chỗ/tài khoản/đăng nhập. Mọi token được nhắc đều có trong `tokens.css`. Chuyển `/search` sang FE-05 (Codex) vì dùng chung `features/discovery` với trang chủ; FE-06 còn trang chi tiết. Thêm `packages/i18n`, `packages/ui-web` vào vùng cấm sửa. Mở khoá FE-03, FE-04, FE-05, FE-08. |
+| 28/11 | FE-06 | Rà sớm (chưa nộp) | Antigravity còn ĐANG LÀM, 6 file chưa commit, toàn bộ trong vùng của mình. Không thêm mã màu viết cứng; chữ trắng chỉ trên nền `coral`, `coral-ink`, `overlay-heavy` (đạt). typecheck: chỉ lỗi cũ `app/auth/google/mobile/route.ts`. test web 574/576: 2 test trượt ở `features/discovery/search-params.test.ts` (vùng Codex, có từ trước, Antigravity đã báo). Cần sửa trước khi nộp: `.barActions button` trong `cart.module.css` cao 36px, phải ≥ 44px. |
