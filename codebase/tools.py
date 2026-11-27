@@ -11,6 +11,7 @@ import unicodedata
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from tracing import tool
+from park_validation import validate as _validate_park
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -26,6 +27,16 @@ class _DefaultTimezone(str):
 
 
 DEFAULT_TIMEZONE = _DefaultTimezone("Asia/Ho_Chi_Minh")
+
+
+@tool
+def validate_park_plan(plan: dict, request: dict, snapshot: dict | None = None) -> dict:
+    """Tên: validate_park_plan · kiểm lịch một gia đình tại Công viên Mẫu.
+    Input: timeline, ràng buộc chuẩn hoá (phút nguyên/VND), snapshot tuỳ chọn.
+    Output: valid, danh sách vi phạm, tổng tiền tính lại, bảng tiền và điều kiện từng bé.
+    Tác động ra ngoài: Không; chỉ đọc snapshot và tính, không sửa đầu vào.
+    """
+    return _validate_park(snapshot if snapshot is not None else _load("park_mau.json"), request, plan)
 
 
 @lru_cache
