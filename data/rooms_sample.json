@@ -128,5 +128,33 @@
       "Hồ bơi riêng"
     ],
     "source": "Giá và tiện ích mô phỏng (tự ước tính)"
+  },
+  {
+    "code": "OP-STUDIO",
+    "city": "Ocean Park",
+    "hotel": "Masteri Waterfront Homestay",
+    "name": "Studio Ocean Park",
+    "nightly_rate_vnd": 650000,
+    "change_surcharge_vnd": 0,
+    "amenities": [
+      "View VinUni",
+      "Bếp riêng",
+      "Check-in 24/7"
+    ],
+    "source": "Tham khảo homestay gần VinUni (tự ước tính)"
+  },
+  {
+    "code": "OP-LAGOON",
+    "city": "Ocean Park",
+    "hotel": "Masteri Waterfront Homestay",
+    "name": "Căn hộ View Biển Hồ",
+    "nightly_rate_vnd": 1100000,
+    "change_surcharge_vnd": 100000,
+    "amenities": [
+      "Ban công Hồ Ngọc Trai",
+      "2 phòng ngủ",
+      "Bể bơi 4 mùa"
+    ],
+    "source": "Tham khảo homestay gần VinUni (tự ước tính)"
   }
 ]

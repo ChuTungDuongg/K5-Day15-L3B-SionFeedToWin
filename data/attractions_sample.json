@@ -229,5 +229,49 @@
     "estimated_cost_vnd": 100000,
     "weather_sensitive": true,
     "source": "Giờ và chi phí mô phỏng (tự ước tính)"
+  },
+  {
+    "city": "Ocean Park",
+    "name": "Khuôn viên Đại học VinUni & Hồ Ngọc Trai",
+    "category": "tham quan",
+    "open_hour": 7.5,
+    "close_hour": 18,
+    "duration_hours": 2,
+    "estimated_cost_vnd": 50000,
+    "weather_sensitive": true,
+    "source": "Địa điểm thực tế gần VinUni (chi phí tự ước tính)"
+  },
+  {
+    "city": "Ocean Park",
+    "name": "Bếp Thái Koh Yam (Hải Âu 01-01)",
+    "category": "ăn uống",
+    "open_hour": 10.5,
+    "close_hour": 22,
+    "duration_hours": 1.5,
+    "estimated_cost_vnd": 180000,
+    "weather_sensitive": false,
+    "source": "Địa điểm thực tế gần VinUni (chi phí tự ước tính)"
+  },
+  {
+    "city": "Ocean Park",
+    "name": "Làng gốm cổ Bát Tràng",
+    "category": "trải nghiệm",
+    "open_hour": 8,
+    "close_hour": 17.5,
+    "duration_hours": 2,
+    "estimated_cost_vnd": 150000,
+    "weather_sensitive": false,
+    "source": "Địa điểm thực tế cách VinUni 10 phút (chi phí tự ước tính)"
+  },
+  {
+    "city": "Ocean Park",
+    "name": "Mega Grand World (The Venice & K-Town)",
+    "category": "trải nghiệm",
+    "open_hour": 9,
+    "close_hour": 23,
+    "duration_hours": 2.5,
+    "estimated_cost_vnd": 250000,
+    "weather_sensitive": true,
+    "source": "Địa điểm thực tế Ocean City (chi phí tự ước tính)"
   }
 ]

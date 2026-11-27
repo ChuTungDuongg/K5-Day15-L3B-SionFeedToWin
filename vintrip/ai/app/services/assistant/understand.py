@@ -138,7 +138,7 @@ def get_role_llm(role: Role) -> GuardedLlmClient:
 
 
 COMMERCE_INTENTS = {"cancel_policy", "booking_draft", "verified_itinerary"}
-DESTINATIONS = ("Đà Nẵng", "Hà Nội", "TP.HCM", "Đà Lạt", "Hội An", "Vũng Tàu", "Huế",
+DESTINATIONS = ("Ocean Park", "VinUni", "Mega Grand World", "Bát Tràng", "Đà Nẵng", "Hà Nội", "TP.HCM", "Đà Lạt", "Hội An", "Vũng Tàu", "Huế",
                 "Nha Trang", "Phú Quốc", "Quy Nhơn", "Hạ Long", "Sa Pa", "Ninh Bình")
 
 

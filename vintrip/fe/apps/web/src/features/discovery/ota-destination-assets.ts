@@ -104,10 +104,22 @@ export const DESTINATION_ASSET_REGISTRY: Record<string, DestinationAssetEntry> =
     stayFallback: '/brand/home-shore.jpg',
   },
   'ha-noi': {
-    spotlight: '/brand/destinations/ha-noi-spotlight.jpg',
-    experience: '/brand/destinations/ha-noi-experience.jpg',
-    view: '/brand/destinations/ha-noi-view.jpg',
-    stayFallback: '/brand/hotel.jpg',
+    spotlight: '/brand/ocean-park/mega-grand-world-venice.jpg',
+    experience: '/brand/ocean-park/food-ocean-park-1.jpg',
+    view: '/brand/ocean-park/vincom-ocean-city.jpg',
+    stayFallback: '/brand/ocean-park/stay-masteri-vinuni.jpg',
+  },
+  'ocean-park': {
+    spotlight: '/brand/ocean-park/mega-grand-world-venice.jpg',
+    experience: '/brand/ocean-park/food-ocean-park-1.jpg',
+    view: '/brand/ocean-park/ocean-park-lagoon.jpg',
+    stayFallback: '/brand/ocean-park/stay-masteri-vinuni.jpg',
+  },
+  vinuni: {
+    spotlight: '/brand/ocean-park/vincom-ocean-city.jpg',
+    experience: '/brand/ocean-park/bat-trang-village.jpg',
+    view: '/brand/ocean-park/mega-grand-world-venice.jpg',
+    stayFallback: '/brand/ocean-park/stay-sapphire-ocean.jpg',
   },
   'ho-chi-minh': {
     spotlight: '/brand/destinations/ho-chi-minh-spotlight.jpg',

@@ -176,3 +176,14 @@ def test_openai_defaults_apply_to_both_roles(monkeypatch):
     finally:
         get_role_llm.cache_clear()
         get_chat_settings.cache_clear()
+
+
+def test_ocean_park_vinuni_verified_itinerary(demo):
+    client, _calls = demo
+    output = events(client, "Lập lịch trình 1 ngày VinUni Ocean Park ngân sách 1 triệu")
+    cards = output["cards"]["items"]
+    assert len(cards) == 1
+    assert cards[0]["kind"] == "verified_itinerary"
+    assert "Ocean Park" in cards[0]["title"]
+    assert cards[0]["priceFrom"] == 630_000
+    assert cards[0]["totalPrice"] == 1_000_000

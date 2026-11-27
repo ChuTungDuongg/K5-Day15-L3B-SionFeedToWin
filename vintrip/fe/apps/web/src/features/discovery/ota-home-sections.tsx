@@ -6,9 +6,85 @@ import { HomeStayPreview, HomeStoryPreview } from './ota-home-previews';
 import { WashiTape, TravelPostmarkStamp } from './torn-paper';
 import styles from './ota-home.module.css';
 
+const OCEAN_PARK_SPOTS = [
+  {
+    tag: 'Lưu trú sát VinUni',
+    title: 'Masteri Waterfront Homestay',
+    subtitle: 'Tòa H1–H2 đối diện VinUni · Từ 650.000đ/đêm',
+    image: '/brand/ocean-park/stay-masteri-vinuni.jpg',
+    href: '/search?placeId=ha-noi&q=Ocean%20Park',
+  },
+  {
+    tag: 'Căn hộ Staycation',
+    title: 'The Sapphire Ocean Park',
+    subtitle: 'Sát Hồ Ngọc Trai 24,5ha · Từ 550.000đ/đêm',
+    image: '/brand/ocean-park/stay-sapphire-ocean.jpg',
+    href: '/search?placeId=ha-noi&q=Ocean%20Park',
+  },
+  {
+    tag: 'Ẩm thực quanh VinUni',
+    title: 'Hải Sản & Bếp Thái Hải Âu – San Hô',
+    subtitle: 'Trọng Hải Sản, Koh Yam, HaoChi · 3 phút từ VinUni',
+    image: '/brand/ocean-park/food-ocean-park-1.jpg',
+    href: '/inspiration',
+  },
+  {
+    tag: 'Trải nghiệm 10 phút',
+    title: 'Mega Grand World & Làng Gốm Bát Tràng',
+    subtitle: 'Kênh Venice, Biển hồ cát trắng & vuốt gốm cổ truyền',
+    image: '/brand/ocean-park/bat-trang-village.jpg',
+    href: '/inspiration',
+  },
+] as const;
+
 export function OtaHomeSections() {
   return (
     <>
+      <section className={`ota-container ${styles.section}`} aria-labelledby="ocean-park-nearby-title" data-home-reveal>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 12, marginBottom: 18, flexWrap: 'wrap' }}>
+          <div>
+            <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#0B4F56', margin: 0 }}>
+              Gần VinUni · Vinhomes Ocean Park
+            </p>
+            <h2 id="ocean-park-nearby-title" style={{ margin: '4px 0 0' }}>
+              Ăn ngon, nghỉ đẹp quanh Ocean Park
+            </h2>
+          </div>
+          <Link prefetch={false} href="/search?placeId=ha-noi&q=Ocean%20Park" style={{ fontSize: 14, fontWeight: 600, color: '#0B4F56' }}>
+            Xem nơi lưu trú gần VinUni →
+          </Link>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: 16 }}>
+          {OCEAN_PARK_SPOTS.map((spot) => (
+            <Link
+              key={spot.title}
+              prefetch={false}
+              href={spot.href}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                borderRadius: 16,
+                overflow: 'hidden',
+                border: '1px solid rgba(11, 79, 86, 0.14)',
+                background: '#fff',
+                textDecoration: 'none',
+                color: 'inherit',
+              }}
+            >
+              <div style={{ position: 'relative', aspectRatio: '16 / 10', width: '100%' }}>
+                <Image src={spot.image} alt={spot.title} fill sizes="(max-width: 760px) 100vw, 25vw" style={{ objectFit: 'cover' }} />
+              </div>
+              <div style={{ padding: '12px 14px 14px' }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#0F6B75', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  {spot.tag}
+                </span>
+                <p style={{ margin: '4px 0 4px', fontWeight: 700, fontSize: 15, color: '#102A30' }}>{spot.title}</p>
+                <p style={{ margin: 0, fontSize: 13, color: '#536A70', lineHeight: 1.4 }}>{spot.subtitle}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
       <OtaHomeRecommendations />
       <HomeStayPreview />
       <section
@@ -33,24 +109,24 @@ export function OtaHomeSections() {
             <div className={`${styles.tripiPostcard} ${styles.tripiBeach}`}>
               <WashiTape color="gold" angle={-8} className={styles.tripiTapeBeach} />
               <div className={styles.tripiPrint}>
-                <Image src="/brand/home-shore.jpg" alt="" fill sizes="(max-width: 760px) 42vw, 240px" />
+                <Image src="/brand/ocean-park/ocean-park-lagoon.jpg" alt="" fill sizes="(max-width: 760px) 42vw, 240px" />
               </div>
-              <span>{vi.api.otaActivities.beach}</span>
+              <span>Hồ Ngọc Trai</span>
             </div>
             <div className={`${styles.tripiPostcard} ${styles.tripiTown}`}>
               <WashiTape color="teal" angle={6} className={styles.tripiTapeTown} />
               <div className={styles.tripiPrint}>
                 <Image
-                  src="/brand/home-hoi-an-lanterns.jpg"
+                  src="/brand/ocean-park/vincom-ocean-city.jpg"
                   alt=""
                   fill
                   sizes="(max-width: 760px) 42vw, 240px"
                 />
               </div>
-              <span>{vi.ota.destinations['hoi-an'].name}</span>
+              <span>Ocean City</span>
             </div>
             {/* Con dấu bưu chính du lịch đóng đè phong cách Scrapbook */}
-            <TravelPostmarkStamp city="HỘI AN" year="2026" className={styles.tripiPostmark} />
+            <TravelPostmarkStamp city="OCEAN PARK" year="2026" className={styles.tripiPostmark} />
             <Image
               className={styles.tripiMascot}
               src="/brand/vini/vini-curious.png"
