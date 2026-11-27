@@ -103,7 +103,7 @@ export function HomeStayPreview() {
           </div>
           <Image
             className={styles.stayMascot}
-            src="/brand/vini/vini-rowing.png"
+            src="/brand/vini/vini-guide.png"
             alt=""
             width={210}
             height={210}

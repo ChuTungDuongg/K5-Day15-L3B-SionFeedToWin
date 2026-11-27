@@ -76,20 +76,6 @@
   filter: drop-shadow(0 5px 6px rgb(76 5 25 / 32%));
 }
 
-.rowerLayer::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  left: -13%;
-  bottom: 0;
-  width: 54%;
-  height: 16%;
-  border: 1px solid rgb(255 228 230 / 52%);
-  border-radius: 50%;
-  transform: rotate(-12deg);
-  opacity: 0.28;
-}
-
 .vectorLayer {
   position: absolute;
   inset: 0;
@@ -419,14 +405,15 @@
   }
 
   .typographyLayer {
-    top: 300px;
+    top: 318px;
     left: 8%;
     width: 84%;
   }
 
+  /* Linh vật nằm trên khoảng biển giữa khẩu hiệu và logo, không đè chữ Vintrip. */
   .rowerLayer {
-    top: clamp(225px, 62vw, 275px);
-    width: clamp(110px, 32vw, 145px);
+    top: clamp(196px, 44vw, 222px);
+    width: clamp(96px, 24vw, 112px);
   }
 
   .vectorLayer {
@@ -473,18 +460,8 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .rowerLayer {
-    animation: rowerVoyage 48s linear infinite;
-    animation-play-state: var(--home-animation-state, running);
-  }
-
   .rowerImage {
     animation: rowerBob 4.8s ease-in-out infinite;
-    animation-play-state: var(--home-animation-state, running);
-  }
-
-  .rowerLayer::before {
-    animation: paddleRipple 4.8s ease-out infinite;
     animation-play-state: var(--home-animation-state, running);
   }
 
@@ -498,26 +475,6 @@
 }
 
 /* Travel across the water; turn at each bank before rowing back. */
-@keyframes rowerVoyage {
-
-  0%,
-  100% {
-    transform: translateX(0) scaleX(1);
-  }
-
-  49% {
-    transform: translateX(calc(100vw - 100% - 32px)) scaleX(1);
-  }
-
-  50% {
-    transform: translateX(calc(100vw - 100% - 32px)) scaleX(-1);
-  }
-
-  99% {
-    transform: translateX(0) scaleX(-1);
-  }
-}
-
 @keyframes rowerBob {
 
   0%,
@@ -527,18 +484,6 @@
 
   50% {
     transform: translateY(-6px) rotate(2deg);
-  }
-}
-
-@keyframes paddleRipple {
-  from {
-    transform: rotate(-12deg) scale(0.35);
-    opacity: 0.62;
-  }
-
-  to {
-    transform: rotate(-12deg) scale(1.4);
-    opacity: 0;
   }
 }
 

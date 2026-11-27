@@ -6,11 +6,11 @@ import styles from './ota-home-motion.module.css';
 const TAU = Math.PI * 2;
 const HOLD_MS = 480;
 const ACTS = [
-  { name: 'Vịnh Hạ Long', shallow: '#a6ddd3', deep: '#2c7a7b', light: 0.44 },
-  { name: 'Hồ Đà Lạt', shallow: '#81b6ae', deep: '#1e4d57', light: 0.26 },
-  { name: 'Sông Hoài, Hội An', shallow: '#c98a3d', deep: '#3b6e6a', light: 0.4 },
-  { name: 'Bờ biển Nha Trang', shallow: '#dcebcf', deep: '#46b6b0', light: 0.9 },
-  { name: 'Vịnh đêm', shallow: '#3d747c', deep: '#244d58', light: 0.12 },
+  { name: 'Vịnh Hạ Long', shallow: '#fdd5c0', deep: '#d9466f', light: 0.5 },
+  { name: 'Hồ Đà Lạt', shallow: '#f6c1c7', deep: '#9f2d55', light: 0.3 },
+  { name: 'Sông Hoài, Hội An', shallow: '#f5b26b', deep: '#b4472f', light: 0.45 },
+  { name: 'Bờ biển Nha Trang', shallow: '#ffe4d1', deep: '#f0788a', light: 0.9 },
+  { name: 'Vịnh đêm', shallow: '#7a3550', deep: '#3f1830', light: 0.12 },
 ];
 const BOUNDARIES = [0.18, 0.38, 0.58, 0.78];
 const VARIETIES = [
@@ -274,59 +274,11 @@ function drawFish(ctx: Brush, fish: Fish, tropical: boolean, scale: number, acce
   if (tropical) ellipse(ctx, x, y, 1.2 * scale, 0.8 * scale, accent, heading);
 }
 
-function drawBoat(
-  ctx: Brush,
-  x: number,
-  y: number,
-  tilt: number,
-  speed: number,
-  time: number,
-  size: number,
-  rower: HTMLImageElement,
-) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(tilt);
-  ctx.save();
-  ctx.rotate(0.65);
-  const wake = ctx.createLinearGradient(0, 10, 0, 138);
-  wake.addColorStop(0, `rgb(238 255 246 / ${0.34 + speed * 0.32})`);
-  wake.addColorStop(1, 'transparent');
-  ctx.strokeStyle = wake;
-  for (const side of [-1, 1]) {
-    for (let i = 0; i < 3; i++) {
-      ctx.beginPath();
-      ctx.moveTo(side * (13 + i * 2), 8 + i * 10);
-      ctx.quadraticCurveTo(side * (20 + i * 5), 52 + Math.sin(time * 3 + i) * 4, side * (51 + speed * 22 + i * 10), 132);
-      ctx.lineWidth = 1.35 - i * 0.23;
-      ctx.stroke();
-    }
-  }
-  ctx.restore();
-  ellipse(ctx, 5, 8, size * 0.42, size * 0.21, '#082c3750');
-  if (rower.complete && rower.naturalWidth) {
-    const height = size * rower.naturalHeight / rower.naturalWidth;
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(-size * 0.04, size * 0.22 - height / 2, size / 2, 0, Math.PI * 2);
-    ctx.clip();
-    ctx.drawImage(rower, -size * 0.54, size * 0.22 - height, size, height);
-    ctx.restore();
-    const stroke = time ? (time * 0.66) % 1 : 0.4;
-    ring(ctx, -size * 0.4, size * 0.23, 3 + stroke * 16, (1 - stroke) * 0.55);
-  } else {
-    ellipse(ctx, 0, 0, size * 0.28, size * 0.2, '#e4b675');
-    ellipse(ctx, 0, -2, size * 0.23, size * 0.16, '#926447');
-  }
-  ctx.restore();
-}
-
 function mountWater(canvas: HTMLCanvasElement, controls: HTMLButtonElement, hover: HTMLSpanElement) {
   const home = canvas.closest<HTMLElement>('main');
   const ctx = canvas.getContext('2d', { alpha: false });
   if (!ctx || !home) return;
 
-  const rower = new Image();
   const caustics = document.createElement('canvas');
   const floor = caustics.getContext('2d');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -376,7 +328,6 @@ function mountWater(canvas: HTMLCanvasElement, controls: HTMLButtonElement, hove
     home!.toggleAttribute('data-water-visible', visible);
     if (visible) {
       camera = scrollTarget;
-      if (!rower.src) rower.src = '/brand/vini/vini-rowing.png';
     } else {
       cancelAnimationFrame(frame);
       frame = 0;
@@ -831,7 +782,6 @@ function mountWater(canvas: HTMLCanvasElement, controls: HTMLButtonElement, hove
     boatSteer += ((pointer ? clamp((pointer.x / width - 0.64) * 40, -22, 22) : 0) - boatSteer) * 0.035;
     const boatX = reduced ? width * 0.64 : -40 + (width * 0.64 + 40) * ease(entrance / 2.4) + Math.sin(motion * 0.48) * 14 + boatSteer;
     const boatY = (small ? Math.min(400, height * 0.62) : height * 0.48) + Math.cos(motion * 0.71) * 9;
-    drawBoat(brush, boatX, boatY, reduced ? 0 : Math.sin(motion * 1.2) * 0.1 + boatSteer * 0.006, reduced ? 0 : wake, motion, small ? 60 : 78, rower);
     drawPointer(brush, now, current, boatX, boatY);
     if (!reduced || press || ripples.length || pellets.length || weight(2) > 0.02 || weight(3) > 0.02) {
       requestFrame();
@@ -989,7 +939,6 @@ function mountWater(canvas: HTMLCanvasElement, controls: HTMLButtonElement, hove
   }, passive);
   document.addEventListener('visibilitychange', visibility, passive);
   reducedMotion.addEventListener('change', requestFrame, passive);
-  rower.addEventListener('load', requestFrame, passive);
   controls.addEventListener('keydown', keyboard, { signal: listeners.signal });
   controls.addEventListener('click', () => splash({ x: width * 0.62, y: height * 0.58 }), passive);
   const observer = new ResizeObserver(measureScroll);

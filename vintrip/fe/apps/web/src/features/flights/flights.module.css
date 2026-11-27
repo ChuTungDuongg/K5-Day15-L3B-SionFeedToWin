@@ -245,7 +245,7 @@
   border: 1px solid #dce9e6;
   border-radius: 26px;
   background: rgb(255 255 255 / 97%);
-  box-shadow: 0 24px 60px -24px rgb(0 76 68 / 35%);
+  box-shadow: 0 24px 60px -24px rgb(124 45 18 / 35%);
 }
 
 .searchHeading {
@@ -312,7 +312,7 @@
 .field:focus-within,
 .field[data-open] {
   border-color: var(--color-teal-ink);
-  box-shadow: 0 0 0 4px rgb(0 108 99 / 10%);
+  box-shadow: 0 0 0 4px rgb(154 52 18 / 10%);
 }
 
 .airportField {
@@ -419,7 +419,7 @@
   border-radius: 50%;
   background: white;
   color: var(--color-teal-ink);
-  box-shadow: 0 6px 16px -6px rgb(0 76 68 / 40%);
+  box-shadow: 0 6px 16px -6px rgb(124 45 18 / 40%);
   transform: translate(-50%, -50%);
   transition:
     transform 384ms,
@@ -801,7 +801,7 @@
 .calendarGrid button[aria-pressed='true'] {
   background: var(--color-teal-ink);
   color: white;
-  box-shadow: 0 8px 18px -8px rgb(0 108 99 / 70%);
+  box-shadow: 0 8px 18px -8px rgb(154 52 18 / 70%);
 }
 
 .calendarGrid button[aria-pressed='true']::after {
@@ -1325,7 +1325,7 @@
 }
 
 .card[data-open] {
-  box-shadow: 0 14px 32px -22px rgb(0 76 68 / 50%);
+  box-shadow: 0 14px 32px -22px rgb(124 45 18 / 50%);
 }
 
 .row {
@@ -1630,7 +1630,7 @@
   background: white;
   box-shadow:
     0 1px 2px rgb(24 36 43 / 4%),
-    0 16px 34px -22px rgb(0 76 68 / 50%);
+    0 16px 34px -22px rgb(124 45 18 / 50%);
 }
 
 .cardBody {
@@ -2235,7 +2235,7 @@
 .roundLeg[data-active] {
   border: 1px solid var(--color-teal-ink);
   background: white;
-  box-shadow: 0 14px 30px -20px rgb(0 76 68 / 55%);
+  box-shadow: 0 14px 30px -20px rgb(124 45 18 / 55%);
 }
 
 .roundLeg[data-done] {

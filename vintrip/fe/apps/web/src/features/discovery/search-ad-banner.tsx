@@ -15,7 +15,7 @@ export function SearchAdBanner() {
         <Image src="/brand/beach.jpg" alt="" fill sizes="(max-width: 840px) 1px, 640px" />
       </div>
       <div className={styles.adContent}>
-        <Image className={styles.adTripi} src="/brand/vini/vini-rowing.png" alt="" width={84} height={84} />
+        <Image className={styles.adTripi} src="/brand/vini/vini-guide.png" alt="" width={84} height={84} />
         <p className={styles.adEyebrow}>{vi.ota.adEyebrow}</p>
         <h2>{vi.ota.adTitle}</h2>
         <p>{vi.ota.adBody}</p>

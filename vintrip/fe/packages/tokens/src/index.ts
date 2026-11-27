@@ -7,8 +7,8 @@ export const colors = {
   coral: '#D9365A', // màu chính: nút, điểm nhấn
   coralSoft: '#FB7185',
   sun: '#FFC531', // vàng mặt trời: huy hiệu, ưu đãi
-  teal: '#00B2A3', // xanh biển: thành công, đường đi
-  tealSoft: '#D9F4F1',
+  teal: '#C2410C', // cam đất hoàng hôn: màu phụ, đường đi
+  tealSoft: '#FFEDD5',
   navy: '#141B3D', // chữ chính, logo chữ
   // Nền và chữ
   background: '#FFFFFF',
@@ -19,13 +19,13 @@ export const colors = {
   textMuted: '#64748B',
   textSubtle: '#94A3B8',
   // Trạng thái
-  success: '#00B2A3',
+  success: '#15803D',
   warning: '#FFC531',
   danger: '#E5484D',
   ink: '#18242B',
   warmMist: '#FFF7ED',
-  seaMist: '#E7F7F4',
-  tealInk: '#006C63',
+  seaMist: '#FFF4EC',
+  tealInk: '#9A3412',
   coralInk: '#BE123C',
   sunSoft: '#FFF6D8',
   coralTint: '#FFE4E6',

@@ -115,7 +115,7 @@ export const VINI_ASSETS = {
     use: 'Đăng video, tạo bài chia sẻ',
   },
   'action-depart': {
-    src: '/brand/vini/vini-rowing.png',
+    src: '/brand/vini/vini-guide.png',
     label: 'Lên đường',
     category: 'activities',
     use: 'Chuyến sắp đi, chuẩn bị hành lý',

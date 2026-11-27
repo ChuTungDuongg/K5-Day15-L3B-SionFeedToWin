@@ -9,7 +9,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
   min-height: 590px;
   overflow: hidden;
-  border: 1px solid rgb(0 108 99 / 14%);
+  border: 1px solid rgb(154 52 18 / 14%);
   border-radius: 32px;
   background:
     radial-gradient(ellipse at 83% 42%, rgb(255 255 255 / 72%) 0, rgb(255 255 255 / 0%) 36%),
@@ -68,7 +68,7 @@
   max-width: 510px;
   margin-top: 24px;
   padding: 15px 17px;
-  border: 1px solid rgb(0 108 99 / 12%);
+  border: 1px solid rgb(154 52 18 / 12%);
   border-radius: 16px;
   background: rgb(255 255 255 / 62%);
 }
@@ -120,7 +120,7 @@
 }
 
 .secondaryButton {
-  border: 1px solid rgb(0 108 99 / 24%);
+  border: 1px solid rgb(154 52 18 / 24%);
   background: rgb(255 255 255 / 42%);
   color: var(--color-teal-ink);
 }
@@ -137,7 +137,7 @@
   position: absolute;
   width: min(82%, 450px);
   aspect-ratio: 1;
-  border: 1px solid rgb(0 108 99 / 12%);
+  border: 1px solid rgb(154 52 18 / 12%);
   border-radius: 50%;
   background: rgb(255 255 255 / 24%);
   content: '';
@@ -150,7 +150,7 @@
   left: 7%;
   height: 17%;
   border-radius: 50%;
-  background: rgb(0 108 99 / 10%);
+  background: rgb(154 52 18 / 10%);
   filter: blur(25px);
   content: '';
 }
@@ -160,7 +160,7 @@
   z-index: 1;
   width: 78%;
   height: 44%;
-  border: 1px dashed rgb(0 108 99 / 24%);
+  border: 1px dashed rgb(154 52 18 / 24%);
   border-radius: 50%;
   transform: rotate(-24deg);
 }
