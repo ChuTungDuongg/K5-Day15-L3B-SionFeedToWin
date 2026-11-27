@@ -72,26 +72,19 @@ function AssistantPanel({
   const [isConfirming, setIsConfirming] = useState(false);
   const revealingReplyId = chat.replyPreview?.id;
 
-  // Đo vị trí mép dưới của .ota-header để neo khung chat chính xác theo thanh điều hướng
+  // Đo khoảng trống khả dụng trên desktop để khung chat neo góc phải dưới không vượt chiều cao viewport.
   useLayoutEffect(() => {
-    const headerEl = document.querySelector('.ota-header');
     const panelEl = panel.current;
-    if (!headerEl || !panelEl) return;
-    const updateAnchor = () => {
-      const isMobile = window.matchMedia('(max-width: 640px)').matches;
-      const top = isMobile ? 0 : Math.max(12, Math.min(Math.ceil(headerEl.getBoundingClientRect().bottom) + 8, window.innerHeight - 160));
-      panelEl.style.setProperty('--panel-top', `${top}px`);
-      panelEl.style.setProperty('--panel-max-height', `${Math.max(0, window.innerHeight - top - 16)}px`);
+    if (!panelEl) return;
+    const updateBounds = () => {
+      const isMobile = window.matchMedia('(max-width: 767px)').matches;
+      const maxH = isMobile ? window.innerHeight : Math.max(320, window.innerHeight - 104);
+      panelEl.style.setProperty('--panel-max-height', `${maxH}px`);
     };
-    updateAnchor();
-    const observer = new ResizeObserver(updateAnchor);
-    observer.observe(headerEl);
-    window.addEventListener('resize', updateAnchor, { passive: true });
-    window.addEventListener('scroll', updateAnchor, { passive: true });
+    updateBounds();
+    window.addEventListener('resize', updateBounds, { passive: true });
     return () => {
-      observer.disconnect();
-      window.removeEventListener('resize', updateAnchor);
-      window.removeEventListener('scroll', updateAnchor);
+      window.removeEventListener('resize', updateBounds);
     };
   }, [pathname]);
 
@@ -438,7 +431,8 @@ export function AssistantWidget() {
       if (!target) return;
       const panelEl = document.getElementById('tripi-assistant-panel');
       const buttonEl = document.getElementById('header-assistant-button');
-      if (panelEl?.contains(target) || buttonEl?.contains(target)) return;
+      const fabEl = document.getElementById('tripi-assistant-fab');
+      if (panelEl?.contains(target) || buttonEl?.contains(target) || fabEl?.contains(target)) return;
       chat.close();
     };
     const onKeyDown = (event: KeyboardEvent) => {
@@ -458,9 +452,30 @@ export function AssistantWidget() {
 
   const handleClosed = useCallback(() => setIsExiting(false), []);
 
-  if (isAssistantHidden(pathname) || !rendered) return null;
+  if (isAssistantHidden(pathname)) return null;
 
-  return <AssistantPanel isClosing={isClosing} onClosed={handleClosed} />;
+  return (
+    <>
+      {!rendered && (
+        <button
+          id="tripi-assistant-fab"
+          type="button"
+          className={styles.fab}
+          aria-expanded={chat.isOpen}
+          aria-controls="tripi-assistant-panel"
+          aria-haspopup="dialog"
+          aria-label={`${copy.name}, ${copy.open}`}
+          data-tooltip={copy.name}
+          onClick={() => chat.open()}
+        >
+          {/* oxlint-disable-next-line nextjs/no-img-element -- avatar Vini cắt tròn cố định trong nút tròn 56px */}
+          <img className={styles.fabAvatar} src="/brand/vini/vini-planning.png" alt="" width={46} height={46} />
+          {chat.isPending && <span className={styles.headerPendingDot} aria-hidden="true" />}
+        </button>
+      )}
+      {rendered && <AssistantPanel isClosing={isClosing} onClosed={handleClosed} />}
+    </>
+  );
 }
 
 /**

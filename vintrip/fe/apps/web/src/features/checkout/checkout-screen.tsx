@@ -27,7 +27,7 @@ import { CancelOrder } from './cancel-order';
 import { CheckoutError } from './checkout-error';
 import { CheckoutIcon, type CheckoutIconName } from './checkout-icon';
 import styles from './checkout-form.module.css';
-import { BusyLabel, LoadingDots } from '@/features/shared/loading-dots';
+import { BusyLabel } from '@/features/shared/loading-dots';
 
 const copy = vi.commerce;
 type Order = Awaited<ReturnType<typeof commerceApi.getCheckout>>;
@@ -85,8 +85,12 @@ export function CheckoutScreen({ id }: { id: string }) {
 
   if (!isReady || !user)
     return (
-      <main className={`ota-container ${styles.page}`}>
-        <LoadingDots isBlock />
+      <main className={`ota-container ${styles.page}`} aria-busy="true">
+        <div className={styles.skeletonBar} style={{ width: '240px', height: '32px', marginBottom: '20px' }} />
+        <div className={styles.layout}>
+          <div className={styles.skeletonCard} />
+          <div className={styles.skeletonAside} />
+        </div>
       </main>
     );
   return <CheckoutForm key={`${user?.id}:${id}`} id={id} isEnabled={isReady && !!user} />;
@@ -135,6 +139,7 @@ function CheckoutForm({ id, isEnabled }: { id: string; isEnabled: boolean }) {
   const [newTotal, setNewTotal] = useState<number>();
   const [acceptedTotal, setAcceptedTotal] = useState<number>();
   const [cardAttempt, setCardAttempt] = useState(0);
+  const [isSummaryExpanded, setSummaryExpanded] = useState(false);
 
   useEffect(() => {
     if (order?.status === 'paid') void client.invalidateQueries({ queryKey: ['commerce', 'trips'] });
@@ -249,8 +254,12 @@ function CheckoutForm({ id, isEnabled }: { id: string; isEnabled: boolean }) {
 
   if (query.isPending && isEnabled)
     return (
-      <main className={`ota-container ${styles.page}`}>
-        <LoadingDots isBlock />
+      <main className={`ota-container ${styles.page}`} aria-busy="true">
+        <div className={styles.skeletonBar} style={{ width: '240px', height: '32px', marginBottom: '20px' }} />
+        <div className={styles.layout}>
+          <div className={styles.skeletonCard} />
+          <div className={styles.skeletonAside} />
+        </div>
       </main>
     );
   if (!order)
@@ -565,9 +574,25 @@ function CheckoutForm({ id, isEnabled }: { id: string; isEnabled: boolean }) {
           )}
         </section>
         <aside className={styles.aside}>
-          <OrderSummary order={order} total={total}>
-            <CheckoutPromo />
-          </OrderSummary>
+          <button
+            type="button"
+            className={styles.summaryToggle}
+            aria-expanded={isSummaryExpanded}
+            onClick={() => setSummaryExpanded((open) => !open)}
+          >
+            <span className={styles.summaryToggleLead}>
+              <span>{copy.summaryTitle}</span>
+              <strong className={styles.summaryToggleTotal}>{formatPrice(total)}</strong>
+            </span>
+            <svg className={styles.summaryToggleChevron} data-open={isSummaryExpanded || undefined} viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+          <div className={styles.summaryCollapse} data-expanded={isSummaryExpanded || undefined}>
+            <OrderSummary order={order} total={total}>
+              <CheckoutPromo />
+            </OrderSummary>
+          </div>
         </aside>
       </div>
     </main>
@@ -629,8 +654,12 @@ function Field({
         <input {...input} {...errorProps} value={value} onChange={(event) => onChange(event.target.value)} />
       )}
       {error && (
-        <span id={errorId} className={styles.fieldError}>
-          {error}
+        <span id={errorId} className={styles.fieldError} role="alert">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8v5M12 16h.01" strokeLinecap="round" />
+          </svg>
+          <span>{error}</span>
         </span>
       )}
     </label>
@@ -891,8 +920,13 @@ function PaymentSuccess({ order }: { order: Order }) {
     <main className={`ota-container ${styles.page}`}>
       <Steps current={3} />
       <div className={styles.success}>
-        <div className={styles.successIcon} aria-hidden>
-          <CheckoutIcon name="check" size={40} />
+        {/* oxlint-disable-next-line nextjs/no-img-element -- mascot Vini trạng thái thanh toán thành công */}
+        <img className={styles.successMascot} src="/brand/vini/vini-success.png" alt="" width={140} height={140} />
+        <div className={styles.successBadge}>
+          <span className={styles.successIcon} aria-hidden="true">
+            <CheckoutIcon name="check" size={18} />
+          </span>
+          <span>{copy.paid}</span>
         </div>
         <h1>{copy.paymentSucceeded}</h1>
         <p>{copy.paymentSuccessBody}</p>
@@ -906,10 +940,10 @@ function PaymentSuccess({ order }: { order: Order }) {
           <OrderSummary order={order} total={order.total} />
         </div>
         <div className={styles.actions}>
-          <Link prefetch={false} className="primary-button" href="/bookings">
+          <Link prefetch={false} className={`primary-button ${styles.pillButton}`} href="/bookings">
             {copy.viewTrips}
           </Link>
-          <Link prefetch={false} className="secondary-button" href="/">
+          <Link prefetch={false} className={`secondary-button ${styles.pillButton}`} href="/">
             {copy.continueExploring}
           </Link>
         </div>

@@ -227,7 +227,10 @@ function ItineraryCard({
       <CardHeader icon="map" title={card.title} subtitle={subtitle} />
       {verified && (
         <>
-          <span className={styles.statusBadge} data-tone="free">{copy.contractCards.verified}</span>
+          <span className={styles.statusBadge} data-tone="free">
+            <AssistantIcon name="check" size={14} />
+            {copy.contractCards.verified}
+          </span>
           <PriceSummary items={[
             [copy.contractCards.estimate, card.priceFrom == null ? copy.contractCards.unavailable : formatVnd(card.priceFrom)],
             [copy.contractCards.budget, card.totalPrice == null ? copy.contractCards.unavailable : formatVnd(card.totalPrice)],
@@ -408,7 +411,10 @@ function CancelPolicyCard({ card }: { card: AssistantCard }) {
   return (
     <div className={styles.card}>
       <CardHeader icon="info" title={card.title} />
-      <span className={styles.statusBadge} data-tone={status}>{POLICY_STATUSES[status]}</span>
+      <span className={styles.statusBadge} data-tone={status}>
+        <AssistantIcon name={status === 'free' ? 'check' : 'info'} size={14} />
+        {POLICY_STATUSES[status]}
+      </span>
       <PriceSummary items={[[contractCopy.fee, fee], [contractCopy.refund, refund]]} />
       {cutoff && (
         <p className={styles.cutoff}>
@@ -455,6 +461,7 @@ function ApprovalDraftCard({ card }: { card: AssistantCard }) {
     <div className={styles.card}>
       <CardHeader icon="checklist" title={card.title} />
       <span aria-live="polite" className={styles.statusBadge} data-tone={approved ? 'free' : 'partial'}>
+        <AssistantIcon name={approved ? 'check' : 'clock'} size={14} />
         {approved ? contractCopy.approved : contractCopy.pending}
       </span>
       {change && <p className={styles.strong}>{change}</p>}

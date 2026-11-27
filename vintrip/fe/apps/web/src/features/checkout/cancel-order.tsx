@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { formatPrice } from '@/features/discovery/trip-card';
 import { CheckoutError } from './checkout-error';
 import styles from './checkout-form.module.css';
-import { BusyLabel, LoadingDots } from '@/features/shared/loading-dots';
+import { BusyLabel } from '@/features/shared/loading-dots';
 
 const copy = vi.commerce;
 
@@ -60,7 +60,12 @@ export function CancelOrder({ orderId }: { orderId: string }) {
   return (
     <div className={styles.cancelPanel}>
       <strong>{copy.cancelTitle}</strong>
-      {quote.isPending && <LoadingDots isBlock />}
+      {quote.isPending && (
+        <div className={styles.cancelSkeleton} aria-busy="true">
+          <div className={styles.skeletonLine} />
+          <div className={styles.skeletonLine} style={{ width: '70%' }} />
+        </div>
+      )}
       <CheckoutError error={quote.error} retry={() => void quote.refetch()} />
       {details && !details.isCancellable && <p role="alert">{copy.cancelBlocked}</p>}
       {details?.isCancellable && (
@@ -78,11 +83,11 @@ export function CancelOrder({ orderId }: { orderId: string }) {
       )}
       <CheckoutError error={cancel.error} />
       <div className={styles.cancelActions}>
-        <button type="button" className="secondary-button" onClick={() => setIsOpen(false)} disabled={cancel.isPending}>
+        <button type="button" className={styles.cancelKeepButton} onClick={() => setIsOpen(false)} disabled={cancel.isPending}>
           {copy.cancelKeep}
         </button>
         {details?.isCancellable && (
-          <button type="button" className="primary-button" onClick={() => cancel.mutate()} disabled={cancel.isPending}>
+          <button type="button" className={styles.cancelDangerButton} onClick={() => cancel.mutate()} disabled={cancel.isPending}>
             <BusyLabel isBusy={cancel.isPending}>{copy.cancelConfirm}</BusyLabel>
           </button>
         )}
