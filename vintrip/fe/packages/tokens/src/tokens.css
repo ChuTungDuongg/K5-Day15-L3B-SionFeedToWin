@@ -1,0 +1,36 @@
+/* Khớp với src/index.ts: sửa màu ở đó thì sửa cả file này (pnpm test kiểm). */
+/* Dùng trong Tailwind v4: @import "@tripflix/tokens/tokens.css"; rồi dùng class bg-coral, text-navy, font-sans. */
+@theme {
+  --color-coral: #FF5A3C;
+  --color-coral-soft: #FF7B60;
+  --color-sun: #FFC531;
+  --color-teal: #00B2A3;
+  --color-teal-soft: #D9F4F1;
+  --color-navy: #141B3D;
+  --color-background: #FFFFFF;
+  --color-surface: #F8FAFC;
+  --color-surface-muted: #F1F5F9;
+  --color-border: #E2E8F0;
+  --color-text: #141B3D;
+  --color-text-muted: #64748B;
+  --color-text-subtle: #94A3B8;
+  --color-success: #00B2A3;
+  --color-warning: #FFC531;
+  --color-danger: #E5484D;
+  --color-ink: #18242B;
+  --color-warm-mist: #FFF7F2;
+  --color-sea-mist: #E7F7F4;
+  --color-teal-ink: #006C63;
+  --color-coral-ink: #BC331E;
+  --color-sun-soft: #FFF6D8;
+  --color-coral-tint: #FFF0EB;
+  --color-overlay: #18242B80;
+  --color-overlay-heavy: #18242BCC;
+  --color-tab-bar: #000000;
+  --color-compose-start: #FFAA38;
+  --color-compose-end: #EA432D;
+  --color-compose-icon-shadow: #60180E47;
+  --color-transparent: transparent;
+  --font-sans: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}

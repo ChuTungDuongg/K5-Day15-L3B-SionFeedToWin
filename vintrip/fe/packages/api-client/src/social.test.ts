@@ -1,0 +1,78 @@
+import { afterEach, expect, it, vi } from 'vitest';
+import { configureHttp, HttpError } from './http';
+import { socialApi } from './social';
+
+afterEach(() => vi.restoreAllMocks());
+const json = (status: number, body: unknown) =>
+  new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
+it('uses the generated social wire format and includes a write idempotency key', async () => {
+  configureHttp({ baseUrl: 'http://api' });
+  const fetchMock = vi
+    .spyOn(globalThis, 'fetch')
+    .mockResolvedValue(json(200, { postId: 'post-1', isBookmarked: true, bookmarkCount: 1 }));
+  await socialApi.setBookmark('post-1', true);
+  expect(fetchMock.mock.calls[0]?.[0]).toBe('http://api/api/v1/posts/post-1/bookmark');
+  const init = fetchMock.mock.calls[0]![1]!;
+  expect(JSON.parse(String(init.body))).toEqual({ is_bookmarked: true });
+  expect(new Headers(init.headers).get('idempotency-key')).toBeTruthy();
+});
+it('sends an explicit comment reaction so repeating a like cannot toggle it off', async () => {
+  configureHttp({ baseUrl: 'http://api' });
+  const fetchMock = vi
+    .spyOn(globalThis, 'fetch')
+    .mockImplementation(async () => json(200, { commentId: 'comment-1', isLiked: true, likeCount: 1 }));
+  await socialApi.setCommentReaction('comment-1', true);
+  await socialApi.setCommentReaction('comment-1', false);
+  expect(fetchMock.mock.calls[0]?.[0]).toBe('http://api/api/v1/comments/comment-1/reaction');
+  expect(fetchMock.mock.calls[0]?.[1]?.method).toBe('PUT');
+  expect(JSON.parse(String(fetchMock.mock.calls[0]?.[1]?.body))).toEqual({ type: 'like' });
+  expect(JSON.parse(String(fetchMock.mock.calls[1]?.[1]?.body))).toEqual({ type: null });
+});
+it('sends snake_case comment parent fields and retains errors for the UI to retry', async () => {
+  configureHttp({ baseUrl: '' });
+  const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValue(json(422, { message: 'invalid' }));
+  await expect(socialApi.addComment('post-1', 'hello', 'parent-1')).rejects.toBeInstanceOf(HttpError);
+  expect(JSON.parse(String(fetchMock.mock.calls[0]![1]?.body))).toEqual({
+    body: 'hello',
+    parent_comment_id: 'parent-1',
+  });
+});
+it('sends mentions on addComment and editComment (including empty [] to remove tags)', async () => {
+  configureHttp({ baseUrl: 'http://api' });
+  const mention = { userId: '018d9f00-0000-7000-8000-000000000002', offset: 3, length: 10 };
+  const fetchMock = vi
+    .spyOn(globalThis, 'fetch')
+    .mockResolvedValueOnce(json(201, { id: 'c1', body: '😀 @Nguyễn An', mentions: [mention] }))
+    .mockResolvedValueOnce(json(200, { id: 'c1', body: 'Mời @Nguyễn An xem', mentions: [{ ...mention, offset: 4 }] }))
+    .mockResolvedValueOnce(json(200, { id: 'c1', body: 'Bỏ tag', mentions: [] }));
+
+  await socialApi.addComment('post-1', '😀 @Nguyễn An', undefined, [mention]);
+  expect(JSON.parse(String(fetchMock.mock.calls[0]?.[1]?.body))).toEqual({
+    body: '😀 @Nguyễn An',
+    mentions: [mention],
+  });
+
+  const edited = { ...mention, offset: 4 };
+  await socialApi.editComment('c1', 'Mời @Nguyễn An xem', [edited]);
+  expect(fetchMock.mock.calls[1]?.[1]?.method).toBe('PATCH');
+  expect(JSON.parse(String(fetchMock.mock.calls[1]?.[1]?.body))).toEqual({
+    body: 'Mời @Nguyễn An xem',
+    mentions: [edited],
+  });
+
+  await socialApi.editComment('c1', 'Bỏ tag', []);
+  expect(JSON.parse(String(fetchMock.mock.calls[2]?.[1]?.body))).toEqual({
+    body: 'Bỏ tag',
+    mentions: [],
+  });
+});
+it('passes pagination cursors unchanged and rejects malformed pages', async () => {
+  configureHttp({ baseUrl: '' });
+  const fetchMock = vi
+    .spyOn(globalThis, 'fetch')
+    .mockResolvedValueOnce(json(200, { items: [], nextCursor: 'opaque+/=', hasMore: true }))
+    .mockResolvedValueOnce(json(200, { unexpected: [] }));
+  expect((await socialApi.listPosts({ cursor: 'opaque+/=' })).nextCursor).toBe('opaque+/=');
+  expect(String(fetchMock.mock.calls[0]?.[0])).toContain('cursor=opaque%2B%2F%3D');
+  await expect(socialApi.listPosts()).rejects.toThrow('Unexpected API page');
+});
