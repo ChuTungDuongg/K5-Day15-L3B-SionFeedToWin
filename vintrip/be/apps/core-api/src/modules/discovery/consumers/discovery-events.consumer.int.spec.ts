@@ -1,9 +1,9 @@
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { createDb, createPool } from '@tripflix/db';
-import { RedisStreamsConsumer, RedisStreamsEventBus, STREAMS } from '@tripflix/event-bus';
-import { migrateModule, startPostgres, startRedis, type PostgresFixture, type RedisFixture } from '@tripflix/testing';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { createDb, createPool } from '@vintrip/db';
+import { RedisStreamsConsumer, RedisStreamsEventBus, STREAMS } from '@vintrip/event-bus';
+import { migrateModule, startPostgres, startRedis, type PostgresFixture, type RedisFixture } from '@vintrip/testing';
 import { Redis } from 'ioredis';
 import type pg from 'pg';
 import type { CoreEnv } from '../../../platform/env.js';

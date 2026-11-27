@@ -5,5 +5,5 @@ export const BENCH_PASSWORD = 'tf99-bench-only-local-db';
 export const BENCH_POST_ID = '0000be0c-0000-4000-8000-000000000001';
 
 export function benchEmail(index) {
-  return `bench-${index}@tripflix.local`;
+  return `bench-${index}@vintrip.local`;
 }

@@ -1,4 +1,4 @@
-import type { SocialPostDto, SocialPostPageDto } from '@tripflix/api-client/core-api/model/index';
+import type { SocialPostDto, SocialPostPageDto } from '@vintrip/api-client/core-api/model/index';
 import type { MetadataRoute } from 'next';
 import { hotelPath, profilePath, tripPlanPath } from './page-metadata';
 

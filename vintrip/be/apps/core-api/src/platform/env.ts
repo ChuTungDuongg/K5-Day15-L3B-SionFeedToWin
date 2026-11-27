@@ -1,5 +1,5 @@
-import { baseEnvSchema } from '@tripflix/config';
-import type { ModuleName } from '@tripflix/db';
+import { baseEnvSchema } from '@vintrip/config';
+import type { ModuleName } from '@vintrip/db';
 import { z } from 'zod';
 
 const OptionalStringSchema = z.preprocess((v) => (v === '' ? undefined : v), z.string().optional());
@@ -29,7 +29,7 @@ function isOrigin(value: string): boolean {
   }
 }
 
-// Danh sách cách nhau bởi dấu phẩy, ví dụ https://tripflix.vn,https://admin.tripflix.vn.
+// Danh sách cách nhau bởi dấu phẩy, ví dụ https://vintrip.vn,https://admin.vintrip.vn.
 const WebOriginsSchema = z
   .string()
   .default(DEFAULT_WEB_ORIGINS.join(','))
@@ -84,7 +84,7 @@ export const coreEnvSchema = baseEnvSchema
     MODERATION_SERVICE_CLIENT_SECRET: OptionalStringSchema,
     MODERATION_AI_THRESHOLD: z.coerce.number().min(0).max(1).default(0.8),
     MODERATION_REPORT_THRESHOLD: z.coerce.number().int().min(1).default(3),
-    MODERATION_ALLOWED_DOMAINS: z.string().default('tripflix.vn,maps.google.com,maps.app.goo.gl'),
+    MODERATION_ALLOWED_DOMAINS: z.string().default('vintrip.vn,maps.google.com,maps.app.goo.gl'),
     DATABASE_URL_ACCESS: z.string(),
     DATABASE_URL_CONTENT: z.string(),
     DATABASE_URL_DISCOVERY: z.string(),
@@ -95,12 +95,12 @@ export const coreEnvSchema = baseEnvSchema
     COMMERCE_POOL_AUTOSCALE: z.enum(['true', 'false']).default('true').transform((v) => v === 'true'),
     COMMERCE_POOL_BUDGET: z.coerce.number().int().min(10).default(60),
     COMMERCE_POOL_CEILING: z.coerce.number().int().min(10).default(30),
-    // Khoá ký access token ES256, PEM PKCS8 (sinh bằng pnpm --filter @tripflix/core-api auth:keygen).
+    // Khoá ký access token ES256, PEM PKCS8 (sinh bằng pnpm --filter @vintrip/core-api auth:keygen).
     AUTH_JWT_PRIVATE_KEY: OptionalStringSchema,
     AUTH_JWT_KID: OptionalStringSchema,
     AUTH_JWT_PREVIOUS_JWKS: PreviousJwksSchema,
-    AUTH_JWT_ISSUER: z.string().default('tripflix-core'),
-    AUTH_JWT_AUDIENCE: z.string().default('tripflix'),
+    AUTH_JWT_ISSUER: z.string().default('vintrip-core'),
+    AUTH_JWT_AUDIENCE: z.string().default('vintrip'),
     // Web, admin được gọi API từ trình duyệt (CORS) và dùng cookie refresh token (chặn CSRF theo Origin).
     AUTH_WEB_ORIGINS: WebOriginsSchema,
     AUTH_PASSWORD_RESET_URL: z.url().default(DEFAULT_PASSWORD_RESET_URL),
@@ -110,7 +110,7 @@ export const coreEnvSchema = baseEnvSchema
     // Số tài khoản đăng ký bằng mật khẩu mỗi IP mỗi giờ (TF05D). Máy dev, CI chạy e2e đăng ký nhiều lần thì đặt cao hơn.
     AUTH_REGISTER_MAX_PER_IP_HOUR: z.coerce.number().int().positive().default(5),
     // Khoá X25519 để client mã hoá mật khẩu trước khi gửi (TF056): "<keyId>:<khoá>,<keyId cũ>:<khoá cũ>", khoá đầu đang dùng.
-    // Sinh bằng pnpm --filter @tripflix/core-api auth:password-keygen. Dev bỏ trống: dùng khoá tạm.
+    // Sinh bằng pnpm --filter @vintrip/core-api auth:password-keygen. Dev bỏ trống: dùng khoá tạm.
     AUTH_PASSWORD_KEYS: OptionalStringSchema,
     // true: từ chối mật khẩu gửi thường. Chỉ bật khi web, admin, mobile đều đã gửi mật khẩu mã hoá.
     AUTH_PASSWORD_ENCRYPTION_REQUIRED: z
@@ -130,15 +130,15 @@ export const coreEnvSchema = baseEnvSchema
     GOOGLE_JWKS_URL: z.url().default(DEFAULT_GOOGLE_JWKS_URL),
     // Media trên S3. Có giá trị mặc định để máy chưa cấu hình AWS vẫn khởi động được; key AWS do SDK tự đọc.
     AWS_REGION: z.string().default('ap-southeast-2'),
-    S3_MEDIA_BUCKET: z.string().default('tripflix-media-dev'),
+    S3_MEDIA_BUCKET: z.string().default('vintrip-media-dev'),
     S3_KEY_PREFIX: z.string().default('dev/unknown/'),
     MEDIA_CDN_URL: OptionalStringSchema,
-    // TF82: cookie ký để CloudFront chỉ trả video cho app, web của Tripflix. Trống cả hai: không ký (máy dev).
+    // TF82: cookie ký để CloudFront chỉ trả video cho app, web của Vintrip. Trống cả hai: không ký (máy dev).
     // Key Pair ID là ID public key trong key group gắn vào behavior video của distribution.
     CLOUDFRONT_KEY_PAIR_ID: OptionalStringSchema,
     // Khoá riêng RSA dạng PEM, mã hoá base64 thành một dòng: base64 < private_key.pem | tr -d '\n'.
     CLOUDFRONT_PRIVATE_KEY: OptionalStringSchema,
-    // Domain cookie cho web, là tên miền cha của MEDIA_CDN_URL (ví dụ .tripflix.io.vn). Trống: chỉ trả cookie trong body.
+    // Domain cookie cho web, là tên miền cha của MEDIA_CDN_URL (ví dụ .vintrip.io.vn). Trống: chỉ trả cookie trong body.
     MEDIA_COOKIE_DOMAIN: OptionalStringSchema,
     // Số giây cookie xem video còn hiệu lực (5 phút đến 1 ngày). Trống: 6 giờ.
     // Compose truyền `${MEDIA_PLAYBACK_TTL_SEC:-}` thành "", coerce đọc "" thành 0 và core-api không khởi động.

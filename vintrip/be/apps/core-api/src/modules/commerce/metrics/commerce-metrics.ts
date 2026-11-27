@@ -1,7 +1,7 @@
 import { hostname } from 'node:os';
 import { monitorEventLoopDelay } from 'node:perf_hooks';
 import { Inject, Injectable, Logger, type OnApplicationBootstrap, type OnApplicationShutdown } from '@nestjs/common';
-import { DEFAULT_POOL_SIZE, setPoolMax } from '@tripflix/db';
+import { DEFAULT_POOL_SIZE, setPoolMax } from '@vintrip/db';
 import type { Redis } from 'ioredis';
 import type { CoreEnv } from '../../../platform/env.js';
 import { CORE_ENV, DB_POOLS, REDIS, type DbPools } from '../../../platform/tokens.js';

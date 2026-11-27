@@ -1,5 +1,5 @@
-import { socialApi } from '@tripflix/api-client';
-import type { CommentMentionDto, SocialCommentDto } from '@tripflix/api-client/core-api/model/index';
+import { socialApi } from '@vintrip/api-client';
+import type { CommentMentionDto, SocialCommentDto } from '@vintrip/api-client/core-api/model/index';
 import { prepareCommentSubmission, type CommentMention } from './mention-input';
 
 export interface CreateCommentWithMentionsParams {

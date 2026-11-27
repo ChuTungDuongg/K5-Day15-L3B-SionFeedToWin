@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { buildEventEnvelope, type NewOutboxEvent } from '@tripflix/outbox';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { buildEventEnvelope, type NewOutboxEvent } from '@vintrip/outbox';
 import type {
   AccessStore,
   AuditEntry,

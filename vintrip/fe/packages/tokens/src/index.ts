@@ -1,11 +1,11 @@
-// Màu, font, khoảng cách theo brand Tripflix (logo L5 "Hoàng hôn").
+// Màu, font, khoảng cách theo brand Vintrip: tông hoàng hôn cam hồng.
 // Web đọc qua CSS variables trong tokens.css; mobile import object này.
 // Sửa ở đây thì sửa cả tokens.css (test kiểm hai file khớp nhau).
 
 export const colors = {
   // Brand
-  coral: '#FF5A3C', // màu chính: nút, điểm nhấn
-  coralSoft: '#FF7B60',
+  coral: '#D9365A', // màu chính: nút, điểm nhấn
+  coralSoft: '#FB7185',
   sun: '#FFC531', // vàng mặt trời: huy hiệu, ưu đãi
   teal: '#00B2A3', // xanh biển: thành công, đường đi
   tealSoft: '#D9F4F1',
@@ -23,17 +23,17 @@ export const colors = {
   warning: '#FFC531',
   danger: '#E5484D',
   ink: '#18242B',
-  warmMist: '#FFF7F2',
+  warmMist: '#FFF7ED',
   seaMist: '#E7F7F4',
   tealInk: '#006C63',
-  coralInk: '#BC331E',
+  coralInk: '#BE123C',
   sunSoft: '#FFF6D8',
-  coralTint: '#FFF0EB',
+  coralTint: '#FFE4E6',
   overlay: '#18242B80',
   overlayHeavy: '#18242BCC',
   tabBar: '#000000',
-  composeStart: '#FFAA38',
-  composeEnd: '#EA432D',
+  composeStart: '#F97316',
+  composeEnd: '#E11D48',
   composeIconShadow: '#60180E47',
   transparent: 'transparent',
 } as const;

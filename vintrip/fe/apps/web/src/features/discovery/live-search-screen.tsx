@@ -1,6 +1,6 @@
 'use client';
-import { useStaySearch, type StayFilters } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { useStaySearch, type StayFilters } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { formatPrice } from './trip-card';
 import { StayThumbnail } from './stay-thumbnail';

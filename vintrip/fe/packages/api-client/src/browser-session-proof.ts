@@ -1,5 +1,5 @@
 export type BrowserProofPurpose = 'login' | 'google' | 'refresh';
-export const BROWSER_PROOF_HEADER = 'X-Tripflix-Session-Proof';
+export const BROWSER_PROOF_HEADER = 'X-Vintrip-Session-Proof';
 
 const STORE = 'keys';
 const SESSION_KEY = 'refresh-signing';
@@ -7,7 +7,7 @@ let keyPromise: Promise<CryptoKeyPair> | undefined;
 
 function openKeyDatabase(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('tripflix-session', 1);
+    const request = indexedDB.open('vintrip-session', 1);
     request.onupgradeneeded = () => request.result.createObjectStore(STORE);
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
@@ -64,9 +64,9 @@ export async function signBrowserProof(purpose: BrowserProofPurpose): Promise<st
   const key = await keyPromise;
   const { kty, crv, x, y } = await crypto.subtle.exportKey('jwk', key.publicKey);
   const encoder = new TextEncoder();
-  const header = base64Url(encoder.encode(JSON.stringify({ alg: 'ES256', typ: 'tripflix-session+jwt', jwk: { kty, crv, x, y } })));
+  const header = base64Url(encoder.encode(JSON.stringify({ alg: 'ES256', typ: 'vintrip-session+jwt', jwk: { kty, crv, x, y } })));
   const payload = base64Url(encoder.encode(JSON.stringify({
-    aud: `tripflix-session:${location.origin}`,
+    aud: `vintrip-session:${location.origin}`,
     sub: purpose,
     iat: Math.floor(Date.now() / 1000),
     jti: crypto.randomUUID(),

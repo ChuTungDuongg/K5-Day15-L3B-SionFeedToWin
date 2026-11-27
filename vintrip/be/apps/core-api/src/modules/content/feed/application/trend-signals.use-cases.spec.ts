@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import type { TrendSignal } from '../domain/trend-signal.js';
 import type { TrendSignalStore } from './ports.js';
 import { TREND_SIGNAL_PURGE_BATCH, TrendSignalsUseCases } from './trend-signals.use-cases.js';

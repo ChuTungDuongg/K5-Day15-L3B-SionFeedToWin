@@ -1,5 +1,5 @@
-import { MAX_POST_IMAGE_BYTES, MAX_POST_IMAGES, resolveImageMimeType, type ImageMimeType } from '@tripflix/api-client';
-import { t } from '@tripflix/i18n';
+import { MAX_POST_IMAGE_BYTES, MAX_POST_IMAGES, resolveImageMimeType, type ImageMimeType } from '@vintrip/api-client';
+import { t } from '@vintrip/i18n';
 
 export interface AcceptedImageFile {
   file: File;

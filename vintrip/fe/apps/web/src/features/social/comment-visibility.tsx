@@ -1,12 +1,12 @@
 'use client';
 import { type ReactNode, useId, useRef, useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
-import { useApiSession } from '@tripflix/api-client';
+import { useApiSession } from '@vintrip/api-client';
 import { useCloseOnScroll } from '@/features/shared/soft-select';
 import { ReportContentDialog } from './report-content-dialog';
 import styles from './comment-visibility.module.css';
 
-const changedEvent = 'tripflix-comment-visibility';
+const changedEvent = 'vintrip-comment-visibility';
 const fallback = new Map<string, boolean>();
 function subscribe(callback: () => void) {
   window.addEventListener(changedEvent, callback);
@@ -32,7 +32,7 @@ export function CommentVisibility({
 }) {
   const { user } = useApiSession();
   // shortcut: Personal hiding stays in this browser; use an API when cross-device sync is required.
-  const key = `tripflix:hidden-comment:${user?.id ?? 'guest'}:${commentId}`;
+  const key = `vintrip:hidden-comment:${user?.id ?? 'guest'}:${commentId}`;
   const hidden = useSyncExternalStore(
     subscribe,
     () => {

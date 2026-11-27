@@ -1,6 +1,6 @@
 'use client';
-import { useApiSession } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { useApiSession } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 // Import tương đối (không qua `@/`) để test của thanh đáy chạy được với Vitest của web.

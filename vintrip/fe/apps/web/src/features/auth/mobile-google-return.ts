@@ -2,7 +2,7 @@
  * App mobile đăng nhập Google qua trình duyệt (chạy được cả Expo Go, iPhone): Google POST ID token về web,
  * web chuyển token sang app. state do app tạo: `s=<mã ngẫu nhiên>&r=<địa chỉ quay về app>`.
  *
- * Chỉ trả token về `tripflix://` (app thật) hoặc `exp://` trong mạng LAN/máy (Expo Go khi dev). Không nhận
+ * Chỉ trả token về `vintrip://` (app thật) hoặc `exp://` trong mạng LAN/máy (Expo Go khi dev). Không nhận
  * `exp://` công khai (tunnel): kẻ xấu có thể gửi link khiến token của nạn nhân rơi vào bundle Expo Go của họ.
  */
 export function readMobileGoogleReturn(state: string | null): { returnUrl: string; requestId: string } | null {
@@ -17,7 +17,7 @@ export function readMobileGoogleReturn(state: string | null): { returnUrl: strin
   } catch {
     return null;
   }
-  const isAppScheme = url.protocol === 'tripflix:';
+  const isAppScheme = url.protocol === 'vintrip:';
   const isLocalExpoGo = url.protocol === 'exp:' && isPrivateHost(url.hostname);
   if (!isAppScheme && !isLocalExpoGo) return null;
   url.hash = '';

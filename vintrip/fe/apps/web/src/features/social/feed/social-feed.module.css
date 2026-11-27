@@ -1,6 +1,6 @@
 /* --------------------------------------------------------------------------
    Vintrip Social Feed Design System Tokens — LIGHT THEME
-   Brand Orange: var(--color-coral) / #FF5A3C
+   Brand Orange: var(--color-coral) / #D9365A
    Page Background: #F8FAFC
    Card / Surface: #FFFFFF
    Sub-surface / Pill: #F1F5F9
@@ -1394,7 +1394,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #FFF0EB;
+  background: #FFE4E6;
   display: flex;
   align-items: center;
   justify-content: center;

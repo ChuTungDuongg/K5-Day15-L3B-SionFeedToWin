@@ -1,8 +1,8 @@
 /* Khớp với src/index.ts: sửa màu ở đó thì sửa cả file này (pnpm test kiểm). */
-/* Dùng trong Tailwind v4: @import "@tripflix/tokens/tokens.css"; rồi dùng class bg-coral, text-navy, font-sans. */
+/* Dùng trong Tailwind v4: @import "@vintrip/tokens/tokens.css"; rồi dùng class bg-coral, text-navy, font-sans. */
 @theme {
-  --color-coral: #FF5A3C;
-  --color-coral-soft: #FF7B60;
+  --color-coral: #D9365A;
+  --color-coral-soft: #FB7185;
   --color-sun: #FFC531;
   --color-teal: #00B2A3;
   --color-teal-soft: #D9F4F1;
@@ -18,17 +18,17 @@
   --color-warning: #FFC531;
   --color-danger: #E5484D;
   --color-ink: #18242B;
-  --color-warm-mist: #FFF7F2;
+  --color-warm-mist: #FFF7ED;
   --color-sea-mist: #E7F7F4;
   --color-teal-ink: #006C63;
-  --color-coral-ink: #BC331E;
+  --color-coral-ink: #BE123C;
   --color-sun-soft: #FFF6D8;
-  --color-coral-tint: #FFF0EB;
+  --color-coral-tint: #FFE4E6;
   --color-overlay: #18242B80;
   --color-overlay-heavy: #18242BCC;
   --color-tab-bar: #000000;
-  --color-compose-start: #FFAA38;
-  --color-compose-end: #EA432D;
+  --color-compose-start: #F97316;
+  --color-compose-end: #E11D48;
   --color-compose-icon-shadow: #60180E47;
   --color-transparent: transparent;
   --font-sans: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;

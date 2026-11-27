@@ -3,9 +3,9 @@ import { registerTestAccount } from '../../../platform/registration.fixture.js';
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
-import { InMemoryObjectStorage } from '@tripflix/storage';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
+import { InMemoryObjectStorage } from '@vintrip/storage';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import type { CoreEnv } from '../../../platform/env.js';
@@ -25,7 +25,7 @@ import { MAX_FILE_SIZE_BYTES, PART_SIZE_BYTES } from './domain/upload-rules.js';
 import { MemoryMediaAssetStore } from './infra/memory/memory-media-asset.store.js';
 
 // E2E chạy app Nest thật (controller, guard, jose), chỉ thay database, Redis và S3 bằng bản bộ nhớ.
-const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'tripflix-core', AUTH_JWT_AUDIENCE: 'tripflix' } as CoreEnv;
+const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'vintrip-core', AUTH_JWT_AUDIENCE: 'vintrip' } as CoreEnv;
 const NOW = new Date('2026-11-04T08:00:00.000Z');
 const PASSWORD = 'mat-khau-an-toan';
 const VALID_UPLOAD = { mimeType: 'video/mp4', fileSizeBytes: PART_SIZE_BYTES * 2 + 1, durationSec: 42.5 };

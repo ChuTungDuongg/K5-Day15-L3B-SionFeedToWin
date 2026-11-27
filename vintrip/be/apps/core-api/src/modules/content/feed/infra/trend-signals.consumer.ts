@@ -6,7 +6,7 @@ import {
   type OnApplicationBootstrap,
   type OnApplicationShutdown,
 } from '@nestjs/common';
-import { RedisStreamsConsumer, STREAMS } from '@tripflix/event-bus';
+import { RedisStreamsConsumer, STREAMS } from '@vintrip/event-bus';
 import type { Redis } from 'ioredis';
 import type { CoreEnv } from '../../../../platform/env.js';
 import { CORE_ENV, REDIS } from '../../../../platform/tokens.js';

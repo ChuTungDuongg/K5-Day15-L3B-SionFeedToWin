@@ -17,9 +17,9 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, Roles, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, Roles, type AuthUser } from '@vintrip/auth';
 import { AccessFacade } from '../../../access/index.js';
-import { Idempotent } from '@tripflix/idempotency';
+import { Idempotent } from '@vintrip/idempotency';
 import { MediaFacade } from '../../media/media.facade.js';
 import { ZodBody } from '../../social/api/http.js';
 import {

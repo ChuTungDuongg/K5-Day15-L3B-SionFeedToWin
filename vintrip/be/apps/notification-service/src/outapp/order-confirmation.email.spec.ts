@@ -1,4 +1,4 @@
-import type { CommerceOrderPaidV1 } from '@tripflix/contracts';
+import type { CommerceOrderPaidV1 } from '@vintrip/contracts';
 import { buildOrderConfirmationEmail } from './order-confirmation.email.js';
 
 const payload: CommerceOrderPaidV1 = {
@@ -17,13 +17,13 @@ const payload: CommerceOrderPaidV1 = {
 
 describe('buildOrderConfirmationEmail', () => {
   it('hiển thị thương hiệu, trạng thái, mã xác nhận, tổng tiền và nút mở đơn', () => {
-    const mail = buildOrderConfirmationEmail(payload, 'an@example.com', 'https://tripflix.vn/');
+    const mail = buildOrderConfirmationEmail(payload, 'an@example.com', 'https://vintrip.vn/');
     expect(mail.html).toContain('✓ Đã thanh toán');
     expect(mail.html).toContain('Đặt chỗ thành công');
     expect(mail.html).toContain('border:1px dashed #FF5A3C');
     expect(mail.html).toContain('Mã xác nhận');
     expect(mail.html).toContain('TF-8K2Q9M');
-    expect(mail.html).toContain(`href="https://tripflix.vn/checkout/${payload.orderId}"`);
+    expect(mail.html).toContain(`href="https://vintrip.vn/checkout/${payload.orderId}"`);
     expect(mail.html).toContain('Xem đơn đặt chỗ');
     expect(mail.html).toContain('Tổng thanh toán');
     expect(mail.html).toContain('6.480.000đ');
@@ -34,30 +34,30 @@ describe('buildOrderConfirmationEmail', () => {
     expect(mail.html).toContain('An &lt;b&gt; · Người lớn');
     expect(mail.html).toContain('Bé Na · Trẻ em');
     expect(mail.html).toContain('Bé Mi · Em bé');
-    expect(mail.subject).toBe('Xác nhận đặt chỗ Tripflix TF-8K2Q9M');
+    expect(mail.subject).toBe('Xác nhận đặt chỗ Vintrip TF-8K2Q9M');
   });
 
   it('thoát dữ liệu động trong nội dung và thuộc tính liên kết', () => {
-    const mail = buildOrderConfirmationEmail({ ...payload, confirmationCode: 'TF-<code>"&' }, 'an@example.com', 'https://tripflix.vn/?a="&b=');
+    const mail = buildOrderConfirmationEmail({ ...payload, confirmationCode: 'TF-<code>"&' }, 'an@example.com', 'https://vintrip.vn/?a="&b=');
     expect(mail.html).toContain('An &lt;b&gt;');
     expect(mail.html).toContain('Khách sạn &lt;Biển&gt;');
     expect(mail.html).toContain('Ăn sáng &amp; nghỉ dưỡng');
     expect(mail.html).toContain('TF-&lt;code&gt;&quot;&amp;');
-    expect(mail.html).toContain('href="https://tripflix.vn/?a=&quot;&amp;b=/checkout/');
+    expect(mail.html).toContain('href="https://vintrip.vn/?a=&quot;&amp;b=/checkout/');
     expect(mail.html).not.toContain('An <b>');
     expect(mail.html).not.toContain('Khách sạn <Biển>');
   });
 
   it('dùng mã đơn khi thiếu mã xác nhận và ẩn hành khách khi không có', () => {
-    const mail = buildOrderConfirmationEmail({ ...payload, confirmationCode: null, guests: undefined }, 'an@example.com', 'https://tripflix.vn');
+    const mail = buildOrderConfirmationEmail({ ...payload, confirmationCode: null, guests: undefined }, 'an@example.com', 'https://vintrip.vn');
     expect(mail.html).toContain('Mã đơn');
     expect(mail.html).toContain(payload.orderId);
     expect(mail.html).not.toContain('Hành khách');
-    expect(mail.subject).toBe('Xác nhận đặt chỗ Tripflix');
+    expect(mail.subject).toBe('Xác nhận đặt chỗ Vintrip');
   });
 
   it('hiển thị liên hệ sau hành khách, trước tổng tiền và định dạng số điện thoại', () => {
-    const mail = buildOrderConfirmationEmail({ ...payload, contactName: 'Nguyễn An', contactPhone: '0901234567', contactEmail: 'booker@example.com' }, 'recipient@example.com', 'https://tripflix.vn');
+    const mail = buildOrderConfirmationEmail({ ...payload, contactName: 'Nguyễn An', contactPhone: '0901234567', contactEmail: 'booker@example.com' }, 'recipient@example.com', 'https://vintrip.vn');
     const contactIndex = mail.html.indexOf('Thông tin liên hệ');
     const totalIndex = mail.html.indexOf('Tổng thanh toán');
     const contactHtml = mail.html.slice(contactIndex, totalIndex);
@@ -79,7 +79,7 @@ describe('buildOrderConfirmationEmail', () => {
     const contactName = `An <b title="x">O'Neil &</b>`;
     const contactPhone = `<img src="x" onerror='x'>&`;
     const contactEmail = `<email title="x">'&@example.com`;
-    const mail = buildOrderConfirmationEmail({ ...payload, contactName, contactPhone, contactEmail }, 'an@example.com', 'https://tripflix.vn');
+    const mail = buildOrderConfirmationEmail({ ...payload, contactName, contactPhone, contactEmail }, 'an@example.com', 'https://vintrip.vn');
     const contactHtml = mail.html.slice(mail.html.indexOf('Thông tin liên hệ'), mail.html.indexOf('Tổng thanh toán'));
 
     expect(contactHtml).toContain('An &lt;b title=&quot;x&quot;&gt;O&#39;Neil &amp;&lt;/b&gt;');
@@ -92,7 +92,7 @@ describe('buildOrderConfirmationEmail', () => {
   });
 
   it.each([undefined, null, ''])('ẩn dòng điện thoại khi giá trị là %s', (contactPhone) => {
-    const mail = buildOrderConfirmationEmail({ ...payload, contactPhone, contactEmail: 'an@example.com' }, 'an@example.com', 'https://tripflix.vn');
+    const mail = buildOrderConfirmationEmail({ ...payload, contactPhone, contactEmail: 'an@example.com' }, 'an@example.com', 'https://vintrip.vn');
     const contactHtml = mail.html.slice(mail.html.indexOf('Thông tin liên hệ'), mail.html.indexOf('Tổng thanh toán'));
 
     expect(contactHtml).toContain('Người đặt');
@@ -105,7 +105,7 @@ describe('buildOrderConfirmationEmail', () => {
   });
 
   it.each(['+84901234567', '0901 234 567', '123456789', '0901234567\n'])('giữ nguyên số điện thoại không gồm đúng 10 chữ số: %s', (contactPhone) => {
-    const mail = buildOrderConfirmationEmail({ ...payload, contactName: undefined, contactPhone, contactEmail: undefined }, 'an@example.com', 'https://tripflix.vn');
+    const mail = buildOrderConfirmationEmail({ ...payload, contactName: undefined, contactPhone, contactEmail: undefined }, 'an@example.com', 'https://vintrip.vn');
     const contactHtml = mail.html.slice(mail.html.indexOf('Thông tin liên hệ'), mail.html.indexOf('Tổng thanh toán'));
 
     expect(contactHtml).toContain(`>${contactPhone}</td>`);
@@ -117,7 +117,7 @@ describe('buildOrderConfirmationEmail', () => {
   });
 
   it.each([undefined, null, ''])('ẩn mục liên hệ khi tất cả giá trị là %s', (contactValue) => {
-    const mail = buildOrderConfirmationEmail({ ...payload, contactName: contactValue, contactPhone: contactValue, contactEmail: contactValue }, 'recipient@example.com', 'https://tripflix.vn');
+    const mail = buildOrderConfirmationEmail({ ...payload, contactName: contactValue, contactPhone: contactValue, contactEmail: contactValue }, 'recipient@example.com', 'https://vintrip.vn');
 
     expect(mail.html).not.toContain('Thông tin liên hệ');
     expect(mail.text).not.toContain('Thông tin liên hệ');

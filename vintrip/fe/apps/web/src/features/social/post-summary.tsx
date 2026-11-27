@@ -1,7 +1,7 @@
 'use client';
 
-import { usePostSummary, useSummaryExperience } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { usePostSummary, useSummaryExperience } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import styles from './post-summary.module.css';

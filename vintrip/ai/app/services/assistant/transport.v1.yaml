@@ -6,7 +6,7 @@
 # estimates it from the two cities (route.py), so nothing below can go stale.
 # Reference data like packing.v2.yaml, not a business entity; move to Core when a real source
 # exists.
-attribution: Tham khảo, chưa đặt được trên Tripflix
+attribution: Tham khảo, chưa đặt được trên Vintrip
 routes:
   - {from: TP.HCM, to: Vũng Tàu, from_station: Bến xe Miền Đông, to_station: Bến xe Vũng Tàu, kind: xe khách, xe limousine}
   - {from: TP.HCM, to: Đà Lạt, from_station: Bến xe Miền Đông mới, to_station: Bến xe Liên tỉnh Đà Lạt, kind: xe giường nằm}

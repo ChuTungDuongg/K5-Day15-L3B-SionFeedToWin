@@ -12,9 +12,9 @@ async function main() {
   await mkdir(output, { recursive: true });
   const password = process.env.CREATOR_QA_PASSWORD?.trim();
   assert.ok(password);
-  owner = (await api('/auth/login', null, 'POST', { email: 'superadmin@tripflix.local', password }))
+  owner = (await api('/auth/login', null, 'POST', { email: 'superadmin@vintrip.local', password }))
     .accessToken;
-  const readerToken = (await api('/auth/login', null, 'POST', { email: 'member@tripflix.local', password }))
+  const readerToken = (await api('/auth/login', null, 'POST', { email: 'member@vintrip.local', password }))
     .accessToken;
   const title = 'MENU-QA-' + Date.now();
   postId = (
@@ -33,7 +33,7 @@ async function main() {
   const card = page.locator(`[data-post-id="${postId}"]`);
   const options = page.getByRole('menu', { name: 'Tùy chọn bài viết', exact: true });
   const trigger = card.getByRole('button', { name: 'Tùy chọn bài viết', exact: true });
-  await login(page, 'superadmin@tripflix.local', `/inspiration?open=${postId}`);
+  await login(page, 'superadmin@vintrip.local', `/inspiration?open=${postId}`);
   await page.locator('summary').filter({ hasText: /^Quản lý bình luận$/ }).waitFor();
   await trigger.click();
   await expect(options.getByRole('menuitem')).toHaveCount(5);
@@ -72,7 +72,7 @@ async function main() {
   await expect(editor).toBeHidden();
   await expect(card.getByRole('heading', { name: title + ' đã sửa', exact: true })).toBeVisible();
   assert.equal((await api(`/v1/posts/${postId}`, owner)).post.body, 'Nội dung đã sửa qua menu.');
-  await login(reader, 'member@tripflix.local', `/inspiration?open=${postId}`);
+  await login(reader, 'member@vintrip.local', `/inspiration?open=${postId}`);
   const readerCard = reader.locator(`[data-post-id="${postId}"]`);
   await readerCard.getByRole('button', { name: 'Tùy chọn bài viết', exact: true }).click();
   const readerMenu = reader.getByRole('menu', { name: 'Tùy chọn bài viết', exact: true });

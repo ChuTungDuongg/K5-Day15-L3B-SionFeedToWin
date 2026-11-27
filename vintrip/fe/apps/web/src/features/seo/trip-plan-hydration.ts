@@ -1,5 +1,5 @@
-import { tripPlanPostQueryKey } from '@tripflix/api-client/profile-query-keys';
-import type { SocialPostDetailDto } from '@tripflix/api-client/core-api/model/index';
+import { tripPlanPostQueryKey } from '@vintrip/api-client/profile-query-keys';
+import type { SocialPostDetailDto } from '@vintrip/api-client/core-api/model/index';
 import { dehydrate, QueryClient, type DehydratedState } from '@tanstack/react-query';
 
 /**

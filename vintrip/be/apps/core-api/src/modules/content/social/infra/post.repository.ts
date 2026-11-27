@@ -1,5 +1,5 @@
 import { and, asc, desc, eq, gte, inArray, sql } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { assertReviewLease } from '../../moderation/infra/review-lease.js';
 import { isAfterCursor, isBeforeCursor } from './keyset-cursor.js';
 import {

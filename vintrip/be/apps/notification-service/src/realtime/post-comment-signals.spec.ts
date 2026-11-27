@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { POST_SIGNAL_WINDOW_MS, PostCommentSignals, toPostCommentChange } from './post-comment-signals.js';
 

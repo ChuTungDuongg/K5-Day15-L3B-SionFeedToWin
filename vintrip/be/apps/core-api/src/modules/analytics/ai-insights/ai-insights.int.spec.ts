@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { createDb, createPool } from '@tripflix/db';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { createDb, createPool } from '@vintrip/db';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import type pg from 'pg';
 import { AiUsageUseCases } from '../ai-usage/application/ai-usage.use-cases.js';
 import { DrizzleAiUsageStore } from '../ai-usage/infra/drizzle-ai-usage.store.js';

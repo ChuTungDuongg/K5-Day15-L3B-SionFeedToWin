@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { check, index, integer, jsonb, text, timestamp, uniqueIndex, uuid } from 'drizzle-orm/pg-core';
-import type { MediaFramesCompletedV1 } from '@tripflix/contracts';
+import type { MediaFramesCompletedV1 } from '@vintrip/contracts';
 import { contentSchema } from './content-schema.js';
 import { mediaAssets } from './media.js';
 

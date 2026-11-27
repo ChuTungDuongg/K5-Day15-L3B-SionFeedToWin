@@ -8,15 +8,15 @@ import {
   createVnpayOperation,
   HttpError,
   useApiSession,
-} from '@tripflix/api-client';
+} from '@vintrip/api-client';
 import {
   findCheckoutFieldErrors,
   findStayDate,
   findTravelDates,
   holdCountdown,
   type GuestFieldError,
-} from '@tripflix/app-core';
-import { t, vi, type MessageKey } from '@tripflix/i18n';
+} from '@vintrip/app-core';
+import { t, vi, type MessageKey } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

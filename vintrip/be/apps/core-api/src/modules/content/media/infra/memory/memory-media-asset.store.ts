@@ -1,5 +1,5 @@
-import type { EventEnvelope, MediaAspect, MediaQualityLevel } from '@tripflix/contracts';
-import { buildEventEnvelope, type NewOutboxEvent } from '@tripflix/outbox';
+import type { EventEnvelope, MediaAspect, MediaQualityLevel } from '@vintrip/contracts';
+import { buildEventEnvelope, type NewOutboxEvent } from '@vintrip/outbox';
 import type {
   MediaAssetStatus,
   MediaAssetStore,

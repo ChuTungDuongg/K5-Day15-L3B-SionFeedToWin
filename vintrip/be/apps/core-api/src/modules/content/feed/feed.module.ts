@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { RedisStreamsEventBus } from '@tripflix/event-bus';
-import { buildTransactionHostToken, type ModuleTransactionHost } from '@tripflix/db';
+import { RedisStreamsEventBus } from '@vintrip/event-bus';
+import { buildTransactionHostToken, type ModuleTransactionHost } from '@vintrip/db';
 import { AccessModule } from '../../access/index.js';
 import { MediaModule } from '../media/media.module.js';
 import { OptionalAuthGuard } from '../social/api/optional-auth.guard.js';

@@ -184,7 +184,7 @@ async def reel_room(
         return GONE
     attachment = post.trip_attachment
     if attachment is None or not attachment.hotel_id:
-        return Answer(kind="no_result", text="Reel này chưa gắn khách sạn trên Tripflix.")
+        return Answer(kind="no_result", text="Reel này chưa gắn khách sạn trên Vintrip.")
     return await hotel_room(
         core, attachment.hotel_id, check_in, check_out, adults, fallback_name=attachment.hotel_name
     )
@@ -211,7 +211,7 @@ async def named_hotel_room(
     # had rooms (eval fake-01). Without an exact name, every distinctive word must be there.
     picks = exact or [h for h in hotels if _has_every_word(name, h.get("name", ""))]
     if not picks:
-        return Answer(kind="no_result", text=f"Tripi chưa tìm thấy «{name[:60]}» trên Tripflix.")
+        return Answer(kind="no_result", text=f"Tripi chưa tìm thấy «{name[:60]}» trên Vintrip.")
     if len(picks) > 1:
         names = ", ".join(str(h.get("name")) for h in picks[:3])
         return Answer(kind="clarify", text=f"Bạn hỏi khách sạn nào: {names}?")
@@ -238,7 +238,7 @@ async def hotel_room(
         },
     )
     if response.status_code == httpx.codes.NOT_FOUND:
-        return Answer(kind="no_result", text="Khách sạn này không còn bán trên Tripflix.")
+        return Answer(kind="no_result", text="Khách sạn này không còn bán trên Vintrip.")
     response.raise_for_status()
     hotel = response.json()
     name = str(hotel.get("name") or fallback_name or "Khách sạn")

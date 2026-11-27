@@ -6,7 +6,7 @@ const { tmpdir } = require('node:os');
 const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
 
 const base = process.env.HOME_PREVIEW_URL || 'http://localhost:3102';
-const output = process.env.HOME_EVIDENCE_DIR || join(tmpdir(), 'tripflix-hotel-ticket');
+const output = process.env.HOME_EVIDENCE_DIR || join(tmpdir(), 'vintrip-hotel-ticket');
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 // Restore the previous ticket effects in the same page, keeping content, network and viewport equal.
 const oldEffects = `

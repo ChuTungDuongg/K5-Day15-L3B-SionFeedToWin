@@ -6,7 +6,7 @@ describe('buildResetUrl', () => {
     expect(buildResetUrl('http://localhost:3100/dat-lai-mat-khau', 'abc_-123')).toBe(
       'http://localhost:3100/dat-lai-mat-khau?token=abc_-123',
     );
-    expect(buildResetUrl('https://tripflix.vn/reset?lang=vi', 'a+b/c')).toBe('https://tripflix.vn/reset?lang=vi&token=a%2Bb%2Fc');
+    expect(buildResetUrl('https://vintrip.vn/reset?lang=vi', 'a+b/c')).toBe('https://vintrip.vn/reset?lang=vi&token=a%2Bb%2Fc');
   });
 });
 

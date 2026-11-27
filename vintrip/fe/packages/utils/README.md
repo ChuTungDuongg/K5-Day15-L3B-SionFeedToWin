@@ -1,4 +1,4 @@
-# @tripflix/utils
+# @vintrip/utils
 
 Hàm định dạng dùng chung: `formatVnd`, `compactCount`, `formatDate` (giờ Việt Nam), `formatDuration`.
 

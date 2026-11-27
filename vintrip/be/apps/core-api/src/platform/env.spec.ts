@@ -31,12 +31,12 @@ describe('AUTH_WEB_ORIGINS', () => {
   });
 
   it('tách theo dấu phẩy, bỏ khoảng trắng và phần tử rỗng', () => {
-    const env = coreEnvSchema.parse({ ...required, AUTH_WEB_ORIGINS: ' https://tripflix.vn , https://admin.tripflix.vn,' });
-    expect(env.AUTH_WEB_ORIGINS).toEqual(['https://tripflix.vn', 'https://admin.tripflix.vn']);
+    const env = coreEnvSchema.parse({ ...required, AUTH_WEB_ORIGINS: ' https://vintrip.vn , https://admin.vintrip.vn,' });
+    expect(env.AUTH_WEB_ORIGINS).toEqual(['https://vintrip.vn', 'https://admin.vintrip.vn']);
   });
 
   it('từ chối giá trị không phải origin (có đường dẫn, dấu / cuối, không phải URL)', () => {
-    for (const bad of ['https://tripflix.vn/', 'https://tripflix.vn/app', 'tripflix.vn']) {
+    for (const bad of ['https://vintrip.vn/', 'https://vintrip.vn/app', 'vintrip.vn']) {
       expect(coreEnvSchema.safeParse({ ...required, AUTH_WEB_ORIGINS: bad }).success).toBe(false);
     }
   });

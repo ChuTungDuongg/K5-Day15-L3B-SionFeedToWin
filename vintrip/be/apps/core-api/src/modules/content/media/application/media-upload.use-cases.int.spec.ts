@@ -2,7 +2,7 @@ import 'reflect-metadata';
 import { fileURLToPath } from 'node:url';
 import { Global, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { ContentMediaTranscodeRequestedV1Schema, eventEnvelopeSchema } from '@tripflix/contracts';
+import { ContentMediaTranscodeRequestedV1Schema, eventEnvelopeSchema } from '@vintrip/contracts';
 import {
   MODULES,
   buildDrizzleToken,
@@ -12,10 +12,10 @@ import {
   createTransactionalPlugins,
   type Db,
   type ModuleTransactionHost,
-} from '@tripflix/db';
-import { STREAMS } from '@tripflix/event-bus';
-import { InMemoryObjectStorage } from '@tripflix/storage';
-import { migrateModule, startPostgres, startRedis, type PostgresFixture, type RedisFixture } from '@tripflix/testing';
+} from '@vintrip/db';
+import { STREAMS } from '@vintrip/event-bus';
+import { InMemoryObjectStorage } from '@vintrip/storage';
+import { migrateModule, startPostgres, startRedis, type PostgresFixture, type RedisFixture } from '@vintrip/testing';
 import { Redis } from 'ioredis';
 import { ClsModule } from 'nestjs-cls';
 import type pg from 'pg';

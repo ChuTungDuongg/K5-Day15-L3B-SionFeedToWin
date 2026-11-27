@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { MAX_POST_IMAGE_BYTES, MAX_POST_IMAGES } from '@tripflix/api-client';
+import { MAX_POST_IMAGE_BYTES, MAX_POST_IMAGES } from '@vintrip/api-client';
 import { formatImageCount, moveItem, selectImageFiles } from './post-image-files';
 
 const file = (name: string, type: string, size = 1024) => {

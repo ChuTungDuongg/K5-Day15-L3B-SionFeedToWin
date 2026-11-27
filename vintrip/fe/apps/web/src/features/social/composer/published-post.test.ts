@@ -1,5 +1,5 @@
 import { QueryClient, type InfiniteData } from '@tanstack/react-query';
-import type { SocialPostDto } from '@tripflix/api-client/core-api/model/index';
+import type { SocialPostDto } from '@vintrip/api-client/core-api/model/index';
 import { describe, expect, it, vi } from 'vitest';
 import { addPublishedPostToFeeds, publishNoticeStore } from './published-post';
 

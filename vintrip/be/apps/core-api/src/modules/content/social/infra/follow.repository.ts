@@ -1,5 +1,5 @@
 import { and, asc, count, eq, gt, inArray, lte } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { follows } from '../../db/schema/index.js';
 
 export const FOLLOWER_PAGE_SIZE = 200;

@@ -132,8 +132,8 @@ vi.mock('react', async (importOriginal) => {
   };
 });
 
-vi.mock('@tripflix/api-client', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@tripflix/api-client')>();
+vi.mock('@vintrip/api-client', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@vintrip/api-client')>();
   return {
     ...actual,
     useUserSearch: apiMocks.useUserSearch,

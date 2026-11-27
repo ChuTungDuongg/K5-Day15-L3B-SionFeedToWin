@@ -29,8 +29,8 @@ export function signAccessToken(
   return new SignJWT({ role, sid })
     .setProtectedHeader({ alg: 'ES256', kid: 'k1' })
     .setSubject(sub)
-    .setIssuer('tripflix-core')
-    .setAudience('tripflix')
+    .setIssuer('vintrip-core')
+    .setAudience('vintrip')
     .setIssuedAt()
     .setExpirationTime(exp)
     .sign(key);
@@ -44,10 +44,10 @@ export function testEnv(jwksUrl: string, redisUrl = 'redis://127.0.0.1:6379'): E
     REDIS_URL: redisUrl,
     DATABASE_URL_NOTIFICATION: 'postgres://unused@127.0.0.1:5432/unused',
     JWKS_URL: jwksUrl,
-    AUTH_JWT_ISSUER: 'tripflix-core',
-    AUTH_JWT_AUDIENCE: 'tripflix',
+    AUTH_JWT_ISSUER: 'vintrip-core',
+    AUTH_JWT_AUDIENCE: 'vintrip',
     SMTP_URL: 'smtp://127.0.0.1:1025',
-    MAIL_FROM: 'Tripflix <no-reply@tripflix.local>',
+    MAIL_FROM: 'Vintrip <no-reply@vintrip.local>',
     WEB_APP_URL: 'http://localhost:3100',
     WEB_ORIGINS: ['http://localhost:3100'],
     // Test /ws không cần consumer.

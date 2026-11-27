@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { postCounterDeltas, posts } from '../../db/schema/index.js';
 
 const FLUSH_LOCK = 'content.post_counter_deltas.flush';

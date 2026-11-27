@@ -1,4 +1,4 @@
-import type { Role } from '@tripflix/contracts';
+import type { Role } from '@vintrip/contracts';
 
 export interface StaffActor {
   userId: string;

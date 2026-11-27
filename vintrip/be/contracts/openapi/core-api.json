@@ -137,7 +137,7 @@
         "operationId": "AuthController_login",
         "parameters": [
           {
-            "name": "X-Tripflix-Session-Proof",
+            "name": "X-Vintrip-Session-Proof",
             "in": "header",
             "description": "Chữ ký từ khóa trình duyệt, bắt buộc cho web và admin",
             "required": false,
@@ -146,9 +146,9 @@
             }
           },
           {
-            "name": "X-Tripflix-Client",
+            "name": "X-Vintrip-Client",
             "in": "header",
-            "description": "Web, admin gửi \"web\": refresh token đặt vào cookie tripflix_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS",
+            "description": "Web, admin gửi \"web\": refresh token đặt vào cookie vintrip_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS",
             "required": false,
             "schema": {
               "type": "string",
@@ -193,7 +193,7 @@
         "operationId": "AuthController_loginWithGoogle",
         "parameters": [
           {
-            "name": "X-Tripflix-Session-Proof",
+            "name": "X-Vintrip-Session-Proof",
             "in": "header",
             "description": "Chữ ký từ khóa trình duyệt, bắt buộc cho web và admin",
             "required": false,
@@ -202,9 +202,9 @@
             }
           },
           {
-            "name": "X-Tripflix-Client",
+            "name": "X-Vintrip-Client",
             "in": "header",
-            "description": "Web, admin gửi \"web\": refresh token đặt vào cookie tripflix_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS",
+            "description": "Web, admin gửi \"web\": refresh token đặt vào cookie vintrip_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS",
             "required": false,
             "schema": {
               "type": "string",
@@ -255,7 +255,7 @@
         "operationId": "AuthController_refresh",
         "parameters": [
           {
-            "name": "X-Tripflix-Session-Proof",
+            "name": "X-Vintrip-Session-Proof",
             "in": "header",
             "description": "Chữ ký từ khóa trình duyệt, bắt buộc cho web và admin",
             "required": false,
@@ -264,9 +264,9 @@
             }
           },
           {
-            "name": "X-Tripflix-Client",
+            "name": "X-Vintrip-Client",
             "in": "header",
-            "description": "Web, admin gửi \"web\": refresh token đặt vào cookie tripflix_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS",
+            "description": "Web, admin gửi \"web\": refresh token đặt vào cookie vintrip_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS",
             "required": false,
             "schema": {
               "type": "string",
@@ -340,7 +340,7 @@
         "operationId": "AuthController_exchangeAdminHandoff",
         "parameters": [
           {
-            "name": "X-Tripflix-Session-Proof",
+            "name": "X-Vintrip-Session-Proof",
             "in": "header",
             "description": "Chữ ký từ khóa trình duyệt của trang quản trị",
             "required": true,
@@ -349,9 +349,9 @@
             }
           },
           {
-            "name": "X-Tripflix-Client",
+            "name": "X-Vintrip-Client",
             "in": "header",
-            "description": "Web, admin gửi \"web\": refresh token đặt vào cookie tripflix_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS",
+            "description": "Web, admin gửi \"web\": refresh token đặt vào cookie vintrip_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS",
             "required": true,
             "schema": {
               "type": "string",
@@ -4923,7 +4923,7 @@
     },
     "/api/places": {
       "get": {
-        "description": "Dữ liệu © OpenStreetMap contributors (ODbL), nạp sẵn cho các thành phố demo. App phải hiện `attribution` kèm danh sách.\n\n- Cần `city` (tên có dấu hay không đều được, hoặc id như `vung-tau`) hoặc `near=lat,lng`. Tỉnh gồm cả điểm đến con (\"Lâm Đồng\" ra điểm của Đà Lạt) và không lọc bán kính.\n- `lodging` là chỗ ở ngoài Tripflix: chỉ để tham khảo, không có giá, không đặt được.\n- Không khớp thành phố thì `items: []` (không phải lỗi).",
+        "description": "Dữ liệu © OpenStreetMap contributors (ODbL), nạp sẵn cho các thành phố demo. App phải hiện `attribution` kèm danh sách.\n\n- Cần `city` (tên có dấu hay không đều được, hoặc id như `vung-tau`) hoặc `near=lat,lng`. Tỉnh gồm cả điểm đến con (\"Lâm Đồng\" ra điểm của Đà Lạt) và không lọc bán kính.\n- `lodging` là chỗ ở ngoài Vintrip: chỉ để tham khảo, không có giá, không đặt được.\n- Không khớp thành phố thì `items: []` (không phải lỗi).",
         "operationId": "PlacesController_places",
         "parameters": [
           {
@@ -5210,7 +5210,7 @@
     },
     "/api/search/places": {
       "post": {
-        "description": "Cho các tab riêng của trang tìm web Cảm hứng. Công khai. Cùng bộ hiểu câu và chỉ mục với `POST /api/search`.\n\n- `kind`: `stay` (khách sạn đặt được, `refId` là mã khách sạn), `see`, `food`, `cafe` (địa điểm ngoài Tripflix từ OpenStreetMap, không đặt được, có `location`).\n- Có điểm OpenStreetMap thì `attribution` khác null và phải hiện kèm danh sách.\n- Phân trang, `isFallback`, `dropped`, `fallbackRelaxed` như `POST /api/search/posts`.",
+        "description": "Cho các tab riêng của trang tìm web Cảm hứng. Công khai. Cùng bộ hiểu câu và chỉ mục với `POST /api/search`.\n\n- `kind`: `stay` (khách sạn đặt được, `refId` là mã khách sạn), `see`, `food`, `cafe` (địa điểm ngoài Vintrip từ OpenStreetMap, không đặt được, có `location`).\n- Có điểm OpenStreetMap thì `attribution` khác null và phải hiện kèm danh sách.\n- Phân trang, `isFallback`, `dropped`, `fallbackRelaxed` như `POST /api/search/posts`.",
         "operationId": "ExploreController_searchPlaces",
         "parameters": [],
         "requestBody": {
@@ -7782,7 +7782,7 @@
     }
   },
   "info": {
-    "title": "Tripflix core-api",
+    "title": "Vintrip core-api",
     "description": "",
     "version": "0.1.0",
     "contact": {}
@@ -8044,7 +8044,7 @@
           },
           "refreshToken": {
             "type": "string",
-            "description": "Không có khi gửi header X-Tripflix-Client: web; khi đó refresh token nằm trong cookie HttpOnly tripflix_refresh"
+            "description": "Không có khi gửi header X-Vintrip-Client: web; khi đó refresh token nằm trong cookie HttpOnly vintrip_refresh"
           },
           "tokenType": {
             "type": "string",
@@ -8085,7 +8085,7 @@
         "properties": {
           "refreshToken": {
             "type": "string",
-            "description": "App mobile gửi trong body. Web, admin bỏ trống, token nằm trong cookie tripflix_refresh"
+            "description": "App mobile gửi trong body. Web, admin bỏ trống, token nằm trong cookie vintrip_refresh"
           }
         }
       },
@@ -8698,7 +8698,7 @@
         "properties": {
           "email": {
             "type": "string",
-            "example": "mod_015@tripflix.vn"
+            "example": "mod_015@vintrip.vn"
           },
           "displayName": {
             "type": "string",
@@ -13041,7 +13041,7 @@
               "cafe",
               "lodging"
             ],
-            "description": "see: tham quan · food: ăn uống · cafe · lodging: chỗ ở ngoài Tripflix"
+            "description": "see: tham quan · food: ăn uống · cafe · lodging: chỗ ở ngoài Vintrip"
           },
           "lat": {
             "type": "number",
@@ -13989,7 +13989,7 @@
               "food",
               "cafe"
             ],
-            "description": "stay: khách sạn Tripflix · see: điểm tham quan · food: quán ăn · cafe: quán nước"
+            "description": "stay: khách sạn Vintrip · see: điểm tham quan · food: quán ăn · cafe: quán nước"
           },
           "cursor": {
             "type": "string",
@@ -16222,7 +16222,7 @@
             "type": "number",
             "nullable": true,
             "example": 4.6,
-            "description": "Điểm trung bình đánh giá trên Tripflix"
+            "description": "Điểm trung bình đánh giá trên Vintrip"
           },
           "count": {
             "type": "number",

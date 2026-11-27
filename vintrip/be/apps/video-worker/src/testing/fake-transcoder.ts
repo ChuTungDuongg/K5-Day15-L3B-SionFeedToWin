@@ -1,6 +1,6 @@
 import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { MediaQualityLevel } from '@tripflix/contracts';
+import type { MediaQualityLevel } from '@vintrip/contracts';
 import type { CreatePosterInput, EncodeLevelInput, Transcoder } from '../transcode/ffmpeg.js';
 import type { VideoMetadata } from '../transcode/levels.js';
 

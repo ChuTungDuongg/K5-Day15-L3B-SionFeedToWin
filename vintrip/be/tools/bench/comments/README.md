@@ -4,9 +4,9 @@
 
 ## Cần có
 - Docker (Postgres, Redis, Mailpit của `deploy/compose.yaml`), core-api đang chạy.
-- Lần đầu: 5 tài khoản thử `bench-1..5@tripflix.local`. Tạo bằng luồng đăng ký thật, cần notification-service để gửi mã qua Mailpit:
+- Lần đầu: 5 tài khoản thử `bench-1..5@vintrip.local`. Tạo bằng luồng đăng ký thật, cần notification-service để gửi mã qua Mailpit:
   ```bash
-  docker build -f apps/notification-service/Dockerfile --target dev -t tripflix-notification-service .
+  docker build -f apps/notification-service/Dockerfile --target dev -t vintrip-notification-service .
   docker compose -f deploy/compose.yaml up -d --no-deps --no-build notification-service
   node tools/bench/comments/setup-users.mjs
   docker compose -f deploy/compose.yaml stop notification-service

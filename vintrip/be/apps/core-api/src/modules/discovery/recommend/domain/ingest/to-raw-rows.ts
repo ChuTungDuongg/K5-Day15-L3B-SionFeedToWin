@@ -11,7 +11,7 @@ import {
   DiscoverySearchPerformedV1Schema,
   DiscoveryStaysSearchedV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 import { z, type ZodType } from 'zod';
 import type { Kind, RawRow } from '../contracts.js';
 

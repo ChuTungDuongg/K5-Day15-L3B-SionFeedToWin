@@ -1,6 +1,6 @@
 import { Controller, Get, Header, Inject, NotFoundException, Param, ParseUUIDPipe, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import { z } from 'zod';
 import { ZodQuery } from '../inventory/api/http.js';
 import { AdminOrdersStore } from './admin-orders.store.js';

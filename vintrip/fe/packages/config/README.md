@@ -1,4 +1,4 @@
-# @tripflix/config
+# @vintrip/config
 
 Cấu hình TypeScript dùng chung. Mỗi package `extends` một file:
 

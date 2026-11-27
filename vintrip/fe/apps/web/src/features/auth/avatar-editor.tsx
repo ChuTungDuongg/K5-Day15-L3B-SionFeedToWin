@@ -1,10 +1,10 @@
 'use client';
 
-import { resolveImageMimeType, uploadImage, useApiSession } from '@tripflix/api-client';
-import * as auth from '@tripflix/api-client/core-api/auth/auth';
-import type { MyProfileDto } from '@tripflix/api-client/core-api/model/index';
+import { resolveImageMimeType, uploadImage, useApiSession } from '@vintrip/api-client';
+import * as auth from '@vintrip/api-client/core-api/auth/auth';
+import type { MyProfileDto } from '@vintrip/api-client/core-api/model/index';
 import { useMutation } from '@tanstack/react-query';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { AvatarPhoto } from '@/features/shared/avatar-photo';
 import { LoadingDots } from '@/features/shared/loading-dots';

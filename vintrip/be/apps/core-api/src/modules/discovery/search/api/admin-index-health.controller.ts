@@ -1,6 +1,6 @@
 import { Controller, Get, Header, Inject, ServiceUnavailableException } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiProperty, ApiTags } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import {
   HEALTH_STATUSES,
   IndexHealth,

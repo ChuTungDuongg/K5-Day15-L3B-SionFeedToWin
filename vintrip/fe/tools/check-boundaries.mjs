@@ -31,7 +31,7 @@ for (const file of [...walk(join(root, 'apps')), ...walk(join(root, 'packages'))
   const isAdminBffRoute = rel === 'apps/admin/src/app/bff/api/[...path]/route.ts';
 
   if (!isTest && !isAdminBffRoute && !rel.startsWith('packages/api-client/') && /\bfetch\s*\(/.test(source)) {
-    errors.push(`${rel}: không tự gọi fetch, dùng hook trong @tripflix/api-client`);
+    errors.push(`${rel}: không tự gọi fetch, dùng hook trong @vintrip/api-client`);
   }
 
   for (const match of source.matchAll(IMPORT)) {

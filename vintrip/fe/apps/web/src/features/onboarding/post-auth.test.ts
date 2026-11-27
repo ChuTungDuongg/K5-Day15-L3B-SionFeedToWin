@@ -1,4 +1,4 @@
-import { emptyOnboarding, type OnboardingRecord } from '@tripflix/app-core';
+import { emptyOnboarding, type OnboardingRecord } from '@vintrip/app-core';
 import { describe, expect, it } from 'vitest';
 import { decidePostAuth, readSurveyReturn, surveyHref } from './post-auth';
 

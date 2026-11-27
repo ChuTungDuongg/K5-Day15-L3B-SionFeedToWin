@@ -68,7 +68,7 @@ export const VERTICALS: readonly Vertical[] = [
     name: 'stays',
     mods: SOFT_BUT_NGON,
     price: (o) => o.priceNight,
-    // ponytail: khách sạn TripFlix chưa có điểm review qua listCatalog -> chất lượng theo sao; thêm ratingAvg khi cần
+    // ponytail: khách sạn VinTrip chưa có điểm review qua listCatalog -> chất lượng theo sao; thêm ratingAvg khi cần
     quality: (o) => (o.rating == null && o.stars ? 0.3 + 0.1 * o.stars : bayesQuality(o)),
     reason: (u, o, isOverBudget) => {
       const why = o.stars && o.rating == null ? [`${o.stars} sao`] : starsReason(o);

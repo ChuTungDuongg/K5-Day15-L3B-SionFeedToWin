@@ -47,7 +47,7 @@
 | `DELETE /api/admin/staff/{userId}` | `superadmin` | Thu hồi về `member` |
 | `POST /api/admin/users/{userId}/lock`, `/unlock` | `superadmin` | Khoá: không đăng nhập được. Mở khoá: đăng nhập lại được |
 
-Chưa đăng nhập: `401`. Sai vai trò: `403`. Module khác chặn quyền bằng `@Roles(...)` của `@tripflix/auth` (xem `libs/auth/README.md`). Chưa xác thực email ở API có `@RequireVerifiedEmail()`: `403 { code: "email_unverified" }`.
+Chưa đăng nhập: `401`. Sai vai trò: `403`. Module khác chặn quyền bằng `@Roles(...)` của `@vintrip/auth` (xem `libs/auth/README.md`). Chưa xác thực email ở API có `@RequireVerifiedEmail()`: `403 { code: "email_unverified" }`.
 
 Các trường `enc*` (`encPassword`, `encCurrentPassword`, `encNewPassword`) có thể thay bằng trường mật khẩu thường cùng tên (`password`, ...) khi chưa bật `AUTH_PASSWORD_ENCRYPTION_REQUIRED`, để app bản cũ chạy tiếp trong lúc chuyển đổi.
 
@@ -58,8 +58,8 @@ Giống Facebook (`#PWD_BROWSER`): client mã hoá mật khẩu bằng khoá cô
 ```
 1. GET /api/auth/password-key → { keyId, publicKey (X25519, base64url), serverTime }
 2. client: bản rõ = JSON { p: mật khẩu, n: nonce 16 byte base64url, t: ts }  (ts = giây, theo giờ server)
-   khoá tạm X25519 → bí mật chung với publicKey → HKDF-SHA256(salt = khoáTạm‖publicKey, info "tripflix-pwd-v1") → AES-256-GCM
-   AAD = "tripflix-pwd|1|<mục đích>|<keyId>|<ts>|<email chuẩn hoá hoặc rỗng>"
+   khoá tạm X25519 → bí mật chung với publicKey → HKDF-SHA256(salt = khoáTạm‖publicKey, info "vintrip-pwd-v1") → AES-256-GCM
+   AAD = "vintrip-pwd|1|<mục đích>|<keyId>|<ts>|<email chuẩn hoá hoặc rỗng>"
 3. gửi "#TFPWD:1:<keyId>:<ts>:<base64url(khoáTạm 32B ‖ iv 12B ‖ bản mã ‖ tag 16B)>"
 ```
 
@@ -78,7 +78,7 @@ Giống Facebook (`#PWD_BROWSER`): client mã hoá mật khẩu bằng khoá cô
 | Refresh token | Chuỗi ngẫu nhiên 256 bit. Database chỉ lưu SHA-256 của nó trong `sessions`. Sống 30 ngày, tính lại mỗi lần làm mới, nhưng không quá 180 ngày kể từ lúc đăng nhập (sau đó phải đăng nhập lại) |
 | Xoay vòng | Mỗi lần `/auth/refresh` cấp refresh token mới; token vừa dùng thành `previous_token_hash` |
 | Dùng lại token cũ | Trong 10 giây sau lần xoay: vẫn cấp cặp mới (phòng mạng làm mất phản hồi). Quá 10 giây: xoá phiên, chặn `sid`, ghi `auth.refresh_reused`, phát `access.session_reuse_detected` (email báo chủ tài khoản), trả `401` |
-| Thu hồi ngay | Đăng xuất, thoát thiết bị, đổi mật khẩu hoặc dùng lại token cũ: ghi `auth:revoked-sid:<sid>` vào Redis tới khi access token hết hạn. Mọi service dùng `@tripflix/auth` đều kiểm khoá này |
+| Thu hồi ngay | Đăng xuất, thoát thiết bị, đổi mật khẩu hoặc dùng lại token cũ: ghi `auth:revoked-sid:<sid>` vào Redis tới khi access token hết hạn. Mọi service dùng `@vintrip/auth` đều kiểm khoá này |
 | Đăng nhập sai | Sai 5 lần theo email hoặc 20 lần theo IP trong 15 phút: `429` kèm `Retry-After`. Email không tồn tại vẫn chạy argon2 để không lộ email nào có tài khoản. Nhập sai mật khẩu hiện tại khi đổi mật khẩu cũng tính vào giới hạn này |
 | Mật khẩu | argon2id. Mật khẩu mới 8–64 ký tự (đăng ký 12–64), mật khẩu đang dùng nhận tới 128 ký tự |
 
@@ -106,15 +106,15 @@ App mobile giữ refresh token trong `expo-secure-store`, gửi trong body như 
 
 | | Cách làm |
 |---|---|
-| Bật chế độ web | Gửi header `X-Tripflix-Client: web` khi `login`, `refresh`, `logout`, `logout-all` |
-| Cookie | `tripflix_refresh`: `HttpOnly`, `SameSite=Lax`, `Path=/api/auth`, `Max-Age` 30 ngày, `Secure` khi `NODE_ENV=production`. Body của `login`, `refresh` **không** có `refreshToken` |
+| Bật chế độ web | Gửi header `X-Vintrip-Client: web` khi `login`, `refresh`, `logout`, `logout-all` |
+| Cookie | `vintrip_refresh`: `HttpOnly`, `SameSite=Lax`, `Path=/api/auth`, `Max-Age` 30 ngày, `Secure` khi `NODE_ENV=production`. Body của `login`, `refresh` **không** có `refreshToken` |
 | Làm mới | `POST /api/auth/refresh` body trống (hoặc không có body), trình duyệt tự gửi cookie. Lỗi (`401`) thì cookie bị xoá, web chuyển về trang đăng nhập |
 | Đăng xuất | `logout`, `logout-all` xoá cookie |
 | Chống CSRF | Mọi request ở chế độ web hoặc có dùng cookie phải có header `Origin` nằm trong `AUTH_WEB_ORIGINS`. Thiếu hoặc lạ: `403 "Nguồn gửi request không được phép"` |
 | CORS | `platform/http.ts` chỉ cho các origin trong `AUTH_WEB_ORIGINS`, có `credentials`. App mobile không bị CORS chặn |
 | Access token | Chỉ giữ trong bộ nhớ của trang, gửi `Authorization: Bearer`. Tải lại trang thì gọi `refresh` để lấy access token mới |
 
-Web gọi bằng `fetch(url, { method: 'POST', credentials: 'include', headers: { 'X-Tripflix-Client': 'web' } })`. Ở dev, web (`localhost:3100`) và gateway (`localhost:8080`) cùng site (chỉ khác cổng), nên cookie `SameSite=Lax` vẫn được gửi. Production cần web và API cùng tên miền gốc (ví dụ `tripflix.vn` và `api.tripflix.vn`).
+Web gọi bằng `fetch(url, { method: 'POST', credentials: 'include', headers: { 'X-Vintrip-Client': 'web' } })`. Ở dev, web (`localhost:3100`) và gateway (`localhost:8080`) cùng site (chỉ khác cổng), nên cookie `SameSite=Lax` vẫn được gửi. Production cần web và API cùng tên miền gốc (ví dụ `vintrip.vn` và `api.vintrip.vn`).
 
 ## Token giữa các service (TF058)
 
@@ -124,7 +124,7 @@ Service gọi API nội bộ của service khác bằng token riêng do `access`
 |---|---|
 | Client | Mỗi service một dòng trong `service_clients`. Secret 256 bit, database chỉ giữ bản băm argon2 |
 | Token | JWT ES256 cùng khoá với access token: `{ sub: clientId, typ: "service", aud: <service nhận>, iss }`, sống **5 phút**. Không có `role`, `sid` |
-| Phân tách | Token người dùng có `aud=tripflix`, token service có `aud` là tên service nhận và không được trùng `tripflix`. `AccessTokenGuard` từ chối token service; `ServiceTokenGuard` từ chối token người dùng (`401`) |
+| Phân tách | Token người dùng có `aud=vintrip`, token service có `aud` là tên service nhận và không được trùng `vintrip`. `AccessTokenGuard` từ chối token service; `ServiceTokenGuard` từ chối token người dùng (`401`) |
 | Xin token sai | Cùng `401` cho mọi lý do (sai secret, client không có, bị vô hiệu hoá, `aud` không được phép). Lý do ghi `audit_logs`. Sai 5 lần theo client hoặc 20 lần theo IP trong 15 phút: `429` |
 | Vô hiệu hoá | Không cấp token mới ngay; token đã cấp còn dùng được tới khi hết hạn (tối đa 5 phút) |
 | API nội bộ của core-api | Gắn `@ServiceOnly('ai-service')` (hoặc `@ServiceOnly()` cho mọi service), nhận token có `aud=core-api`. Lấy service gọi tới bằng `@CurrentService()` |
@@ -132,9 +132,9 @@ Service gọi API nội bộ của service khác bằng token riêng do `access`
 Tạo client (in secret đúng một lần, cất vào secret của service đó, không commit):
 
 ```sh
-pnpm --filter @tripflix/core-api build
-pnpm --filter @tripflix/core-api auth:create-service-client ai-service core-api
-pnpm --filter @tripflix/core-api auth:disable-service-client ai-service
+pnpm --filter @vintrip/core-api build
+pnpm --filter @vintrip/core-api auth:create-service-client ai-service core-api
+pnpm --filter @vintrip/core-api auth:disable-service-client ai-service
 ```
 
 Service gọi (ví dụ `ai-service` viết bằng Python): xin token, dùng lại tới gần hết 5 phút rồi xin lại.
@@ -207,15 +207,15 @@ Chỉ có lệnh `DELETE`, nên nhiều worker cùng chạy hay chạy lại đ�
 
 | Biến | Mặc định | Ghi chú |
 |---|---|---|
-| `AUTH_JWT_PRIVATE_KEY` | trống | PEM PKCS8 ES256. Trống ở dev, test: tự sinh khoá tạm, token mất hiệu lực khi khởi động lại. Bắt buộc ở production. Sinh bằng `pnpm --filter @tripflix/core-api auth:keygen` |
+| `AUTH_JWT_PRIVATE_KEY` | trống | PEM PKCS8 ES256. Trống ở dev, test: tự sinh khoá tạm, token mất hiệu lực khi khởi động lại. Bắt buộc ở production. Sinh bằng `pnpm --filter @vintrip/core-api auth:keygen` |
 | `AUTH_JWT_KID` | thumbprint của khoá | |
-| `AUTH_JWT_ISSUER` | `tripflix-core` | Service kiểm token phải đặt giống |
-| `AUTH_JWT_AUDIENCE` | `tripflix` | Service kiểm token phải đặt giống |
+| `AUTH_JWT_ISSUER` | `vintrip-core` | Service kiểm token phải đặt giống |
+| `AUTH_JWT_AUDIENCE` | `vintrip` | Service kiểm token phải đặt giống |
 | `AUTH_WEB_ORIGINS` | `http://localhost:3100,http://localhost:3200` | Origin của web, admin: CORS và chống CSRF cho cookie. Mỗi phần tử là origin đầy đủ, không có `/` cuối |
 | `AUTH_PASSWORD_RESET_URL` | `http://localhost:3100/dat-lai-mat-khau` | Trang đặt lại mật khẩu của web. Link trong email là địa chỉ này kèm `?token=...` |
 | `AUTH_EMAIL_VERIFY_URL` | `http://localhost:3100/xac-thuc-email` | Trang xác thực email của web. Link trong email là địa chỉ này kèm `?token=...` |
 | `AUTH_REGISTER_MAX_PER_IP_HOUR` | `5` | Số yêu cầu gửi mã đăng ký mỗi IP mỗi giờ. Máy dev, CI chạy e2e có thể đặt cao hơn |
-| `AUTH_PASSWORD_KEYS` | trống | Khoá X25519 để client mã hoá mật khẩu: `<keyId>:<khoá>,<keyId cũ>:<khoá cũ>`, khoá đầu đang dùng. Sinh bằng `pnpm --filter @tripflix/core-api auth:password-keygen` hoặc `deploy/init-server-env.sh`. Trống: dev dùng khoá tạm, production tắt mã hoá |
+| `AUTH_PASSWORD_KEYS` | trống | Khoá X25519 để client mã hoá mật khẩu: `<keyId>:<khoá>,<keyId cũ>:<khoá cũ>`, khoá đầu đang dùng. Sinh bằng `pnpm --filter @vintrip/core-api auth:password-keygen` hoặc `deploy/init-server-env.sh`. Trống: dev dùng khoá tạm, production tắt mã hoá |
 | `AUTH_PASSWORD_ENCRYPTION_REQUIRED` | `false` | `true`: từ chối mật khẩu gửi thường. Chỉ bật khi web, admin, mobile đều đã mã hoá; bật mà thiếu `AUTH_PASSWORD_KEYS` thì core-api không khởi động |
 | `GOOGLE_CLIENT_IDS` | trống | OAuth Client ID (Web, Android, iOS) trên Google Cloud Console, cách nhau bởi dấu phẩy. Trống: tắt đăng nhập Google (`503`) |
 | `GOOGLE_JWKS_URL` | `https://www.googleapis.com/oauth2/v3/certs` | Khoá công khai của Google. Test đổi sang server JWKS giả |
@@ -226,13 +226,13 @@ Chỉ có lệnh `DELETE`, nên nhiều worker cùng chạy hay chạy lại đ�
 ```sh
 pnpm stack:infra
 pnpm db:migrate
-pnpm db:seed      # superadmin@, moderator@, member@tripflix.local, mật khẩu SEED_PASSWORD
+pnpm db:seed      # superadmin@, moderator@, member@vintrip.local, mật khẩu SEED_PASSWORD
 ```
 
 Máy đã chạy `pnpm stack:infra` **trước** commit `fix(deploy): cấp quyền CREATE...` thì chạy một lần, không mất dữ liệu:
 
 ```sh
-docker exec tripflix-postgres-1 psql -U postgres -c "GRANT CREATE ON DATABASE core TO tf_access, tf_content, tf_discovery, tf_analytics, tf_commerce" -c "GRANT CREATE ON DATABASE notification TO tf_notification"
+docker exec vintrip-postgres-1 psql -U postgres -c "GRANT CREATE ON DATABASE core TO tf_access, tf_content, tf_discovery, tf_analytics, tf_commerce" -c "GRANT CREATE ON DATABASE notification TO tf_notification"
 ```
 
 ## Khuôn thư mục
@@ -288,9 +288,9 @@ Transaction: use case đặt `@Transactional('access')` trên hàm nhỏ chỉ g
 ## Xác thực email (TF05D)
 
 - Đăng ký bằng mật khẩu yêu cầu mã 8 chữ số, hiệu lực 10 phút. Gửi lại thay mã cũ. Backend tạo người dùng và tiêu mã trong cùng transaction. Tài khoản mới có `email_verified_at` ngay khi được tạo.
-- Tài khoản cũ chưa xác thực vẫn dùng link, đặt lại mật khẩu qua email hoặc đăng nhập Google để xác thực. Ba tài khoản mẫu `@tripflix.local` được seed với email đã xác thực.
+- Tài khoản cũ chưa xác thực vẫn dùng link, đặt lại mật khẩu qua email hoặc đăng nhập Google để xác thực. Ba tài khoản mẫu `@vintrip.local` được seed với email đã xác thực.
 - Link dùng một lần và có hiệu lực 24 giờ. Bảng `email_verifications` lưu bản băm SHA-256 của token 256 bit. Khi gửi lại, link cũ hết hiệu lực. Các thao tác gửi lại và xác thực cùng khóa theo người dùng để xử lý tuần tự.
-- Access token có claim `ev` (true/false), đọc lại từ database mỗi lần cấp (đăng nhập, refresh). Tạo bản nháp, đăng bài và tạo bình luận yêu cầu `@RequireVerifiedEmail()` của `@tripflix/auth`. Nếu email chưa xác thực, API trả `403` với mã `email_unverified`. Phiên đã đăng nhập cần làm mới access token sau khi xác thực.
+- Access token có claim `ev` (true/false), đọc lại từ database mỗi lần cấp (đăng nhập, refresh). Tạo bản nháp, đăng bài và tạo bình luận yêu cầu `@RequireVerifiedEmail()` của `@vintrip/auth`. Nếu email chưa xác thực, API trả `403` với mã `email_unverified`. Phiên đã đăng nhập cần làm mới access token sau khi xác thực.
 - Redis giới hạn yêu cầu gửi mã theo IP và địa chỉ email, đồng thời giới hạn thử mã theo IP và mã yêu cầu. Dịch vụ từ chối xử lý khi không đọc được bộ giới hạn.
 - Audit: `auth.email_verification_requested` (`meta.reason`), `auth.email_verified` (`meta.via`: `link`, `google`).
 - Gửi email thật trên server: `deploy/SERVER.md`, Giai đoạn 4 (Amazon SES).

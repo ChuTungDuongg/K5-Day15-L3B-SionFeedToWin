@@ -10,7 +10,7 @@ import {
   Post,
   ServiceUnavailableException,
 } from '@nestjs/common';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import { ENV } from '../tokens.js';
 import type { Env } from '../env.js';
 import { WebPushWorker } from './web-push.worker.js';

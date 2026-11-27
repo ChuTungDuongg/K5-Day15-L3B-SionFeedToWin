@@ -1,5 +1,5 @@
 -- TF99: xoá dữ liệu thử của benchmark bình luận: bài thử và mọi bình luận, cảm xúc, outbox của nó.
--- Giữ 5 tài khoản bench-1..5@tripflix.local để lần đo sau dùng lại (không có quyền gì đặc biệt).
+-- Giữ 5 tài khoản bench-1..5@vintrip.local để lần đo sau dùng lại (không có quyền gì đặc biệt).
 \set ON_ERROR_STOP on
 \set bench_post_id '0000be0c-0000-4000-8000-000000000001'
 

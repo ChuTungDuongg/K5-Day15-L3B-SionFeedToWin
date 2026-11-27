@@ -1,7 +1,7 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { ConflictException, NotFoundException, Logger } from '@nestjs/common';
-import { Transactional } from '@tripflix/db';
-import { FRAME_POLICY } from '@tripflix/contracts';
+import { Transactional } from '@vintrip/db';
+import { FRAME_POLICY } from '@vintrip/contracts';
 import { and, asc, eq, inArray, ne, sql } from 'drizzle-orm';
 import { moderationParts, moderationScans, posts, type PartVerdict } from '../../db/schema/index.js';
 import { MediaFacade } from '../../media/media.facade.js';

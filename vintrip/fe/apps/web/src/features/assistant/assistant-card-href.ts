@@ -1,5 +1,5 @@
-import type { AssistantCard } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+import type { AssistantCard } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import { buildPostHref } from '../social/search-url';
 
 type CardAction = NonNullable<AssistantCard['actions']>[number];

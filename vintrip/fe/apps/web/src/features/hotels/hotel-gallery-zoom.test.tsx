@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { vi as viText } from '@tripflix/i18n';
+import { vi as viText } from '@vintrip/i18n';
 
 import { HotelGallery, HotelPhoto } from './hotel-gallery';
 import { canNavigateSlides, INITIAL_IMAGE_ZOOM_STATE, resolveZoomKeyboardAction } from '../shared/image-zoom';
@@ -53,8 +53,8 @@ describe('HotelGallery & GalleryLightbox zoom + expanded tab viewer', () => {
       createElement(HotelGallery, {
         name: 'Vinpearl Resort Cần Thơ',
         images: [
-          'https://media.tripflix.io.vn/hotel-1.jpg',
-          'https://media.tripflix.io.vn/hotel-2.jpg',
+          'https://media.vintrip.io.vn/hotel-1.jpg',
+          'https://media.vintrip.io.vn/hotel-2.jpg',
         ],
       }),
     );
@@ -75,8 +75,8 @@ describe('HotelGallery & GalleryLightbox zoom + expanded tab viewer', () => {
         isOpen: true,
         title: 'Chuyến đi Cần Thơ',
         images: [
-          { src: 'https://media.tripflix.io.vn/post-1.jpg' },
-          { src: 'https://media.tripflix.io.vn/post-2.jpg' },
+          { src: 'https://media.vintrip.io.vn/post-1.jpg' },
+          { src: 'https://media.vintrip.io.vn/post-2.jpg' },
         ],
         currentIndex: 0,
         onClose: vi.fn(),
@@ -136,14 +136,14 @@ describe('HotelGallery & GalleryLightbox zoom + expanded tab viewer', () => {
   it('upgrades HotelPhoto resolution only when highRes is enabled (scale > 1)', () => {
     const lowResHtml = renderToStaticMarkup(
       createElement(HotelPhoto, {
-        url: 'https://media.tripflix.io.vn/room.jpg',
+        url: 'https://media.vintrip.io.vn/room.jpg',
         alt: 'Phòng VIP',
         highRes: false,
       }),
     );
     const highResHtml = renderToStaticMarkup(
       createElement(HotelPhoto, {
-        url: 'https://media.tripflix.io.vn/room.jpg',
+        url: 'https://media.vintrip.io.vn/room.jpg',
         alt: 'Phòng VIP',
         highRes: true,
       }),

@@ -13,7 +13,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CurrentUser, Roles, type AuthUser } from '@tripflix/auth';
+import { CurrentUser, Roles, type AuthUser } from '@vintrip/auth';
 import { AdminPostQueryDto, CreateModerationActionDto } from './dto/moderation.dto.js';
 import {
   AdminSocialPostDetailDto,

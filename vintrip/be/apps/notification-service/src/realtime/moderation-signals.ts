@@ -10,7 +10,7 @@ import {
   ContentPostHeldV1Schema,
   ContentCommentHeldV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 
 const schemas = {
   'content.moderation.changed': ContentModerationChangedV1Schema,

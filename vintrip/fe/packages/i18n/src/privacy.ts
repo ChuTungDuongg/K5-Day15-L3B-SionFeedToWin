@@ -54,7 +54,7 @@ export const privacy = {
     },
     contact: {
       title: '6. Liên hệ',
-      body: 'Nếu có câu hỏi về dữ liệu cá nhân hoặc muốn xoá tài khoản, hãy gửi email tới tripflixandgo@gmail.com. Chúng tôi sẽ trả lời trong vòng 7 ngày làm việc.',
+      body: 'Nếu có câu hỏi về dữ liệu cá nhân hoặc muốn xoá tài khoản, hãy gửi email tới vintripandgo@gmail.com. Chúng tôi sẽ trả lời trong vòng 7 ngày làm việc.',
     },
   },
 } as const;

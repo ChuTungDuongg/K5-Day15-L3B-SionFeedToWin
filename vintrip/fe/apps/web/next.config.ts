@@ -10,12 +10,12 @@ const config: NextConfig = {
   outputFileTracingRoot: fileURLToPath(new URL('../../', import.meta.url)),
   // Package trong packages/ xuất thẳng file .ts, Next tự biên dịch.
   transpilePackages: [
-    '@tripflix/api-client',
-    '@tripflix/app-core',
-    '@tripflix/i18n',
-    '@tripflix/tokens',
-    '@tripflix/ui-web',
-    '@tripflix/utils',
+    '@vintrip/api-client',
+    '@vintrip/app-core',
+    '@vintrip/i18n',
+    '@vintrip/tokens',
+    '@vintrip/ui-web',
+    '@vintrip/utils',
   ],
   images: {
     remotePatterns: OPTIMIZED_IMAGE_HOSTS.map((hostname) => ({ protocol: 'https' as const, hostname })),

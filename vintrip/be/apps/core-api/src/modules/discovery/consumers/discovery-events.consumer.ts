@@ -1,7 +1,7 @@
 import { hostname } from 'node:os';
 import { Inject, Injectable, Logger, type OnApplicationBootstrap, type OnApplicationShutdown } from '@nestjs/common';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { RedisStreamsConsumer, STREAMS } from '@tripflix/event-bus';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { RedisStreamsConsumer, STREAMS } from '@vintrip/event-bus';
 import type { Redis } from 'ioredis';
 import type { CoreEnv } from '../../../platform/env.js';
 import { CORE_ENV, REDIS } from '../../../platform/tokens.js';

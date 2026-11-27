@@ -1,6 +1,6 @@
 import { QueryClient, hydrate } from '@tanstack/react-query';
 import { describe, expect, it } from 'vitest';
-import { authorVlogsQueryKey, publicProfileQueryKey } from '@tripflix/api-client/profile-query-keys';
+import { authorVlogsQueryKey, publicProfileQueryKey } from '@vintrip/api-client/profile-query-keys';
 import { createProfileHydrationState } from './profile-hydration';
 import { makePost } from './seo-fixtures';
 

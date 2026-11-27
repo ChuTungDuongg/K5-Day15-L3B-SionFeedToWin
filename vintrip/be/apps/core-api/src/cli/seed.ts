@@ -1,7 +1,7 @@
 import '../platform/load-env.js';
-import { loadEnv } from '@tripflix/config';
-import type { Role } from '@tripflix/contracts';
-import { createDb, createPool } from '@tripflix/db';
+import { loadEnv } from '@vintrip/config';
+import type { Role } from '@vintrip/contracts';
+import { createDb, createPool } from '@vintrip/db';
 import { sql } from 'drizzle-orm';
 import { readFileSync } from 'node:fs';
 import { z } from 'zod';
@@ -24,9 +24,9 @@ if (env.NODE_ENV === 'production') {
 }
 
 const ACCOUNTS: { email: string; displayName: string; role: Role }[] = [
-  { email: 'superadmin@tripflix.local', displayName: 'Quản trị viên', role: 'superadmin' },
-  { email: 'moderator@tripflix.local', displayName: 'Kiểm duyệt viên', role: 'moderator' },
-  { email: 'member@tripflix.local', displayName: 'Thành viên mẫu', role: 'member' },
+  { email: 'superadmin@vintrip.local', displayName: 'Quản trị viên', role: 'superadmin' },
+  { email: 'moderator@vintrip.local', displayName: 'Kiểm duyệt viên', role: 'moderator' },
+  { email: 'member@vintrip.local', displayName: 'Thành viên mẫu', role: 'member' },
 ];
 
 const pool = createPool({ url: env.DATABASE_URL_ACCESS, max: 1, applicationName: 'seed:access' });
@@ -38,13 +38,13 @@ try {
   const passwordHash = await new Argon2PasswordHasher().hash(env.SEED_PASSWORD);
   for (const account of ACCOUNTS) {
     const created = await store.users.insert({ ...account, passwordHash });
-    // Tài khoản mẫu @tripflix.local không nhận được thư: đánh dấu đã xác thực email (TF05D), kể cả khi đã có từ trước.
+    // Tài khoản mẫu @vintrip.local không nhận được thư: đánh dấu đã xác thực email (TF05D), kể cả khi đã có từ trước.
     const user = created ?? (await store.users.findByEmail(account.email));
     if (user && !user.emailVerifiedAt) await store.users.markEmailVerified(user.id, new Date());
     process.stdout.write(`${account.email} (${account.role}): ${created ? 'đã tạo' : 'đã có, giữ nguyên'}\n`);
   }
   const loadtestUsers = await db.execute<{ id: string }>(
-    sql`SELECT id FROM access.users WHERE email LIKE 'loadtest%@tripflix.local' ORDER BY email LIMIT 200`,
+    sql`SELECT id FROM access.users WHERE email LIKE 'loadtest%@vintrip.local' ORDER BY email LIMIT 200`,
   );
   reelAuthorIds = loadtestUsers.rows.map((row) => row.id);
 } finally {
@@ -87,7 +87,7 @@ try {
         `${reels.reactions} cảm xúc, ${reels.bookmarks} bookmark\n`,
     );
   } else {
-    process.stdout.write('reel mẫu: bỏ qua, chưa có tài khoản loadtestNNNN@tripflix.local\n');
+    process.stdout.write('reel mẫu: bỏ qua, chưa có tài khoản loadtestNNNN@vintrip.local\n');
   }
 } finally {
   await contentPool.end();

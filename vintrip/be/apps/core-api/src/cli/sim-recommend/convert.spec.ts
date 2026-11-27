@@ -135,7 +135,7 @@ describe('loadSimDataset', () => {
     const ds = loadSimDataset(dir, 0);
     expect(ds.follows).toEqual([expect.objectContaining({ followerId: simId.user('usr_00001'), authorId: simId.user('usr_00002') })]);
     expect(Object.keys(ds.users[0]!).sort()).toEqual(['createdAt', 'displayName', 'email', 'id', 'simId']);
-    expect(ds.users[0]!.email).toBe('usr_00001@sim.tripflix.local');
+    expect(ds.users[0]!.email).toBe('usr_00001@sim.vintrip.local');
   });
 });
 

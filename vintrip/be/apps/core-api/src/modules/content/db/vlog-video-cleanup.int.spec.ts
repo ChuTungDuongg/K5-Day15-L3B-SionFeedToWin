@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { createPool } from '@tripflix/db';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+import { createPool } from '@vintrip/db';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import type pg from 'pg';
 
 const MIGRATIONS_FOLDER = fileURLToPath(new URL('./migrations', import.meta.url));

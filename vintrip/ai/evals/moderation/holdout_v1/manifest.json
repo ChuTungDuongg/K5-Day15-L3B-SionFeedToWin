@@ -1,5 +1,5 @@
 {
-  "name": "tripflix-moderation-synthetic-holdout-v1",
+  "name": "vintrip-moderation-synthetic-holdout-v1",
   "created_date": "2026-11-11",
   "split": "test",
   "source": "AI-authored synthetic Vietnamese travel comments",

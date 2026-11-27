@@ -1,6 +1,6 @@
 import '../platform/load-env.js';
-import { loadEnv } from '@tripflix/config';
-import { createDb, createPool } from '@tripflix/db';
+import { loadEnv } from '@vintrip/config';
+import { createDb, createPool } from '@vintrip/db';
 import { Argon2PasswordHasher } from '../modules/access/auth/infra/argon2-password-hasher.js';
 import { DrizzleAccessStore } from '../modules/access/auth/infra/drizzle-access.store.js';
 import {
@@ -10,8 +10,8 @@ import {
 import { coreEnvSchema } from '../platform/env.js';
 
 // Tạo, vô hiệu hoá client xin token service-to-service (docs/10 §3.10):
-//   pnpm --filter @tripflix/core-api auth:create-service-client <clientId> <audience...>
-//   pnpm --filter @tripflix/core-api auth:disable-service-client <clientId>
+//   pnpm --filter @vintrip/core-api auth:create-service-client <clientId> <audience...>
+//   pnpm --filter @vintrip/core-api auth:disable-service-client <clientId>
 // Secret chỉ in ra một lần; database giữ bản băm argon2. Cất secret vào biến môi trường của service đó, không commit.
 const USAGE =
   'Dùng: auth:create-service-client <clientId> <audience...>  (ví dụ: ai-service core-api)\n' +

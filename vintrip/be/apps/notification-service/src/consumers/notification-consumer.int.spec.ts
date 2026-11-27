@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { RedisStreamsEventBus, RedisStreamsConsumer, STREAMS } from '@tripflix/event-bus';
-import { startRedis, type RedisFixture } from '@tripflix/testing';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { RedisStreamsEventBus, RedisStreamsConsumer, STREAMS } from '@vintrip/event-bus';
+import { startRedis, type RedisFixture } from '@vintrip/testing';
 import { Redis } from 'ioredis';
 import { MemoryMailer } from '../outapp/mailer.js';
 import { EventRouter, RedisProcessedEvents } from './event-router.js';
@@ -59,7 +59,7 @@ describe('notification consumer trên Redis thật', () => {
 
     await consumer.pollOnce();
     expect(mailer.sent).toHaveLength(1);
-    expect(mailer.sent[0]).toMatchObject({ to: 'khang@example.com', subject: 'Đặt lại mật khẩu Tripflix' });
+    expect(mailer.sent[0]).toMatchObject({ to: 'khang@example.com', subject: 'Đặt lại mật khẩu Vintrip' });
     expect(((await redis.xpending(STREAMS.access, 'notification')) as [number])[0]).toBe(0);
   });
 });

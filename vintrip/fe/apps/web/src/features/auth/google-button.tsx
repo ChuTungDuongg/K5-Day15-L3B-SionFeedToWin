@@ -1,5 +1,5 @@
 'use client';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Script from 'next/script';
 import { useEffect, useRef, useState } from 'react';

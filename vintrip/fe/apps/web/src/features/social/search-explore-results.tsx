@@ -11,10 +11,10 @@ import {
   type ExploreItemDto,
   type ExploreUnderstoodDto,
   type PlaceSearchKind,
-} from '@tripflix/api-client';
-import type { UserSearchItemDto } from '@tripflix/api-client/core-api/model/index';
-import { getNameInitials } from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/api-client';
+import type { UserSearchItemDto } from '@vintrip/api-client/core-api/model/index';
+import { getNameInitials } from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { ApiErrorNotice } from '@/features/shared/api-state';

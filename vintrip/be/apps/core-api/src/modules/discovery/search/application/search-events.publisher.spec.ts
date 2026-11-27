@@ -1,5 +1,5 @@
-import type { EventEnvelope } from '@tripflix/contracts';
-import { STREAMS, type EventBus } from '@tripflix/event-bus';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { STREAMS, type EventBus } from '@vintrip/event-bus';
 import { ExploreController } from '../api/explore.controller.js';
 import { parse } from '../domain/explore/query.js';
 import type { ExploreResultPage, ExploreUseCases, PostSearchPage } from './explore.use-cases.js';

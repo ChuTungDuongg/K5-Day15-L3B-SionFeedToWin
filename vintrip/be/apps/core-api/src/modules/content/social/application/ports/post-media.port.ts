@@ -1,4 +1,4 @@
-import type { MediaAspect, MediaQualityLevel } from '@tripflix/contracts';
+import type { MediaAspect, MediaQualityLevel } from '@vintrip/contracts';
 import type { PostMediaInfo } from '../../domain/index.js';
 
 export interface PostVideoPlayback {

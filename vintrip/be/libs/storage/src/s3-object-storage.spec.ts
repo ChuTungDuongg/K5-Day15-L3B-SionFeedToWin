@@ -3,7 +3,7 @@ import { CompleteMultipartUploadCommand, type S3Client } from '@aws-sdk/client-s
 import { ObjectNotFoundError, UploadExpiredError, UploadIncompleteError } from './object-storage.js';
 import { S3ObjectStorage } from './s3-object-storage.js';
 
-const BUCKET = 'tripflix-media-test';
+const BUCKET = 'vintrip-media-test';
 const KEY = 'dev/phong/uploads/asset-1/original.mp4';
 
 function namedError(name: string): Error {

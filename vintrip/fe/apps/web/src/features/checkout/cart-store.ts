@@ -1,6 +1,6 @@
 'use client';
 import { useSyncExternalStore } from 'react';
-import { EMPTY_BOOKING_CART, parseBookingCart, type BookingCart } from '@tripflix/app-core';
+import { EMPTY_BOOKING_CART, parseBookingCart, type BookingCart } from '@vintrip/app-core';
 
 function createCartStore(storageKey: string, getStorage: () => Storage) {
   const listeners = new Set<() => void>();
@@ -43,9 +43,9 @@ function createCartStore(storageKey: string, getStorage: () => Storage) {
   return { save, useCart };
 }
 
-const cartStore = createCartStore('tripflix.bookingCart.v1', () => window.localStorage);
+const cartStore = createCartStore('vintrip.bookingCart.v1', () => window.localStorage);
 // Phòng đang chọn chỉ sống trong phiên trình duyệt; bấm "Thêm vào giỏ" mới vào giỏ thật.
-const selectionStore = createCartStore('tripflix.bookingSelection.v1', () => window.sessionStorage);
+const selectionStore = createCartStore('vintrip.bookingSelection.v1', () => window.sessionStorage);
 
 export const saveBookingCart = cartStore.save;
 export const useBookingCart = cartStore.useCart;

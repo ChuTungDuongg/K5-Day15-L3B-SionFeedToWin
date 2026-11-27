@@ -36,7 +36,7 @@ async function fixture(browser, width, trip) {
   await context.addInitScript(
     ({ trip, card }) => {
       localStorage.setItem(
-        'tripflix.assistantChat.v1',
+        'vintrip.assistantChat.v1',
         JSON.stringify({
           userId: 'qa-member',
           savedAt: Date.now(),
@@ -241,7 +241,7 @@ async function fixture(browser, width, trip) {
       await button('Thêm vào giỏ').click();
       await page.getByRole('button', { name: /^Giỏ.*: 1$/ }).click();
       await page.waitForURL('**/cart');
-      const cart = await page.evaluate(() => JSON.parse(localStorage.getItem('tripflix.bookingCart.v1')));
+      const cart = await page.evaluate(() => JSON.parse(localStorage.getItem('vintrip.bookingCart.v1')));
       assert.equal(cart.adults, trip.adults);
       assert.equal(cart.children, trip.children);
       assert.equal(cart.infants, trip.infants);

@@ -2,9 +2,9 @@ import { registerTestAccount } from '../../platform/registration.fixture.js';
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { AccessPasswordResetRequestedV1Schema } from '@tripflix/contracts';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { AccessPasswordResetRequestedV1Schema } from '@vintrip/contracts';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import type { CoreEnv } from '../../platform/env.js';
@@ -18,11 +18,11 @@ import { MemoryAccessStore } from './auth/infra/memory/memory-access.store.js';
 import { MemoryActionRateLimiter } from './auth/infra/memory/memory-action-rate-limiter.js';
 import { MemoryLoginRateLimiter } from './auth/infra/memory/memory-login-rate-limiter.js';
 
-const RESET_PAGE = 'https://tripflix.example/dat-lai-mat-khau';
+const RESET_PAGE = 'https://vintrip.example/dat-lai-mat-khau';
 const env = {
   NODE_ENV: 'test',
-  AUTH_JWT_ISSUER: 'tripflix-core',
-  AUTH_JWT_AUDIENCE: 'tripflix',
+  AUTH_JWT_ISSUER: 'vintrip-core',
+  AUTH_JWT_AUDIENCE: 'vintrip',
   AUTH_PASSWORD_RESET_URL: RESET_PAGE,
 } as CoreEnv;
 

@@ -1,5 +1,5 @@
 'use client';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -28,7 +28,7 @@ export function OtaFooter() {
           <Link prefetch={false} className={styles.footerLegal} href="/chinh-sach-bao-mat">
             {vi.privacy.footerLink}
           </Link>
-          <a className={styles.footerLegal} href="mailto:tripflixandgo@gmail.com">Liên hệ: tripflixandgo@gmail.com</a>
+          <a className={styles.footerLegal} href="mailto:vintripandgo@gmail.com">Liên hệ: vintripandgo@gmail.com</a>
           <Link prefetch={false} className={styles.footerLegal} href="/dieu-khoan-su-dung">
             {vi.terms.footerLink}
           </Link>

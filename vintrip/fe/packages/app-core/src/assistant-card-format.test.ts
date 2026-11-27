@@ -19,7 +19,7 @@ describe('lộ trình Tripi', () => {
     });
   });
 
-  it('đọc dòng dịch vụ Tripflix lồng trong lộ trình (chuyến bay, khách sạn)', () => {
+  it('đọc dòng dịch vụ Vintrip lồng trong lộ trình (chuyến bay, khách sạn)', () => {
     const days = groupItineraryLines([
       { label: 'Ngày 1 · ✈ Bay SGN → DLI 14:30–16:10', detail: 'Bay TP.HCM – Đà Lạt 14:30', service: 'flight' },
       { label: 'Ngày 1 · Nhận phòng D. House', detail: '21/11', service: 'stay' },

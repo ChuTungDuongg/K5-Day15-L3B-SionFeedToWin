@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { AuthUser, SidBlocklist } from '@tripflix/auth';
-import type { AccessUserProfileUpdatedV1 } from '@tripflix/contracts';
-import { Transactional } from '@tripflix/db';
+import type { AuthUser, SidBlocklist } from '@vintrip/auth';
+import type { AccessUserProfileUpdatedV1 } from '@vintrip/contracts';
+import { Transactional } from '@vintrip/db';
 import {
   ACCESS_SID_BLOCKLIST,
   ACCESS_STORE,

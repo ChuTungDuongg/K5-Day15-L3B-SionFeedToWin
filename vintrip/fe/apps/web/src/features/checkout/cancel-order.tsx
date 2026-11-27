@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { commerceApi, createCancelPaidOperation } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+import { commerceApi, createCancelPaidOperation } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { formatPrice } from '@/features/discovery/trip-card';
 import { CheckoutError } from './checkout-error';

@@ -3,14 +3,14 @@
 // Cùng luồng với apps/mobile/src/features/assistant/assistant-provider.tsx (TF31): gửi, lưu, khôi phục,
 // đổi tài khoản, khách hết lượt rồi đăng nhập. Web chỉ khác chỗ lưu (localStorage) và không có reel đang xem.
 // shortcut: chép logic của mobile vì app-core không được import React; khi có gói hook dùng chung thì gộp lại.
-import { readAssistantCards, useApiSession, type AssistantAction, type AssistantCard, type AssistantTrip } from '@tripflix/api-client';
+import { readAssistantCards, useApiSession, type AssistantAction, type AssistantCard, type AssistantTrip } from '@vintrip/api-client';
 import {
   completeAssistantTurn,
   parseAssistantChat,
   serializeAssistantChat,
   takeQuestionToResend,
   type AssistantChatMessage,
-} from '@tripflix/app-core';
+} from '@vintrip/app-core';
 import {
   createContext,
   useCallback,

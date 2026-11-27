@@ -18,7 +18,7 @@ import {
   type TripPlanDayDraft,
   type TripPlanDraft,
   type TripPlanPointDraft,
-} from '@tripflix/app-core';
+} from '@vintrip/app-core';
 import {
   commerceApi,
   getFutureDate,
@@ -27,9 +27,9 @@ import {
   uploadImage,
   useApiSession,
   useFlightRoutes,
-} from '@tripflix/api-client';
-import { suggestControllerSuggest } from '@tripflix/api-client/core-api/discovery/discovery';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/api-client';
+import { suggestControllerSuggest } from '@vintrip/api-client/core-api/discovery/discovery';
+import { t, vi } from '@vintrip/i18n';
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import { useDebouncedValue } from '../../shared/use-debounced-value';
 import styles from './trip-plan-editor.module.css';

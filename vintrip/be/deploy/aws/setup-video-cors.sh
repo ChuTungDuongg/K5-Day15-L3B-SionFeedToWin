@@ -6,10 +6,10 @@
 # Dùng: ./setup-video-cors.sh  (đổi origin: WEB_ORIGINS="https://a,https://b" ./setup-video-cors.sh)
 set -euo pipefail
 
-BUCKET="${S3_MEDIA_BUCKET:-tripflix-media-dev}"
-POLICY_NAME="${POLICY_NAME:-tripflix-video-cors}"
+BUCKET="${S3_MEDIA_BUCKET:-vintrip-media-dev}"
+POLICY_NAME="${POLICY_NAME:-vintrip-video-cors}"
 # Admin (màn kiểm duyệt) cũng phát HLS kèm cookie. Thêm origin thì sửa ở đây, chạy với WEB_ORIGINS khác sẽ ghi đè policy.
-WEB_ORIGINS="${WEB_ORIGINS:-https://tripflix.io.vn,https://admin.tripflix.io.vn}"
+WEB_ORIGINS="${WEB_ORIGINS:-https://vintrip.io.vn,https://admin.vintrip.io.vn}"
 DIR="$(cd "$(dirname "$0")" && pwd)"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT

@@ -12,7 +12,7 @@ async function main() {
   await expect.poll(async()=>{try{return (await fetch('http://localhost:3000/health')).ok;}catch{return false;}},{timeout:60000}).toBe(true);
   const password=process.env.CREATOR_QA_PASSWORD?.trim();assert.ok(password);
   const signIn=async email=>(await api('/auth/login',null,'POST',{email,password})).accessToken;
-  const [member,writer,staff]=await Promise.all(['member@tripflix.local','moderator@tripflix.local','superadmin@tripflix.local'].map(signIn));
+  const [member,writer,staff]=await Promise.all(['member@vintrip.local','moderator@vintrip.local','superadmin@vintrip.local'].map(signIn));
   owner=member;
   postId=(await api('/v1/posts',owner,'POST',{post_type:'vlog',title:'QA thông tin người bình luận '+Date.now(),body:'Bài kiểm tra thông tin tác giả trong Admin.'},201)).id;
   await api(`/v1/posts/${postId}/publish`,owner,'POST',undefined,201);
@@ -37,7 +37,7 @@ async function main() {
   assert.ok(!JSON.stringify(publicComments).includes(user.email));
   browser=await chromium.launch({channel:'msedge',headless:true});
   const page=await browser.newPage({viewport:{width:1440,height:1080}});
-  await login(page,'superadmin@tripflix.local',comment.id);
+  await login(page,'superadmin@vintrip.local',comment.id);
   const context=page.getByRole('region',{name:'Bài đăng chứa bình luận',exact:true});
   await expect(context.getByText(postOwner.email,{exact:true})).toBeVisible();
   await expect(context.locator('dl').getByText(postOwner.displayName,{exact:true})).toBeVisible();

@@ -65,8 +65,8 @@ async function login(page, email, returnTo) {
 async function main() {
   assert.ok(password);
   await mkdir(output, { recursive: true });
-  owner = (await api('/auth/login', null, 'POST', { email: 'member@tripflix.local', password })).accessToken;
-  member = (await api('/auth/login', null, 'POST', { email: 'moderator@tripflix.local', password }))
+  owner = (await api('/auth/login', null, 'POST', { email: 'member@vintrip.local', password })).accessToken;
+  member = (await api('/auth/login', null, 'POST', { email: 'moderator@vintrip.local', password }))
     .accessToken;
   const marker = `CREATOR-QA-${Date.now()}`;
   postId = (
@@ -92,7 +92,7 @@ async function main() {
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
     const reader = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-    await login(page, 'member@tripflix.local', `/inspiration?open=${postId}`);
+    await login(page, 'member@vintrip.local', `/inspiration?open=${postId}`);
     await page.locator('summary').filter({ hasText: /^Quản lý bình luận$/ }).click();
     const controls = page
       .locator('details')
@@ -114,7 +114,7 @@ async function main() {
     assert.equal(held.creatorReview, 'pending');
     assert.ok(!(await api(`/v1/posts/${postId}/comments`, null)).items.some((item) => item.id === held.id));
     assert.equal((await api(`/v1/posts/${postId}`, owner)).post.commentCount, 0);
-    await login(reader, 'moderator@tripflix.local', `/inspiration?open=${postId}`);
+    await login(reader, 'moderator@vintrip.local', `/inspiration?open=${postId}`);
     await expect(
       reader.getByText('Bình luận được bộ lọc của chủ bài giữ lại, chờ chủ bài duyệt.', { exact: true }),
     ).toBeVisible();

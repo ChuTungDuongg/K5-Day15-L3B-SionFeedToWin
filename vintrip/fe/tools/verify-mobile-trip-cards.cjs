@@ -73,9 +73,9 @@ class TripPage {
       });
       let quoteMode = 'normal';
       await context.addInitScript((trip) => {
-        localStorage.setItem('tripflix.tripBooking.v1', JSON.stringify(trip));
+        localStorage.setItem('vintrip.tripBooking.v1', JSON.stringify(trip));
         localStorage.setItem(
-          'tripflix.onboarding.v1',
+          'vintrip.onboarding.v1',
           JSON.stringify({ version: 1, status: 'skipped', interests: [], pace: null }),
         );
       }, selection);
@@ -226,7 +226,7 @@ class TripPage {
           await page.evaluate(
             ({ date, hotelName, roomName, rateName }) =>
               sessionStorage.setItem(
-                'tripflix.tripBuilder.v1',
+                'vintrip.tripBuilder.v1',
                 JSON.stringify({
                   destination: { destinationName: 'Nha Trang', destinationPlaceId: '' },
                   adults: 2,

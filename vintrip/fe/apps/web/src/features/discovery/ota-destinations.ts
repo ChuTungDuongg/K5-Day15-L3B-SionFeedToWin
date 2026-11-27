@@ -1,4 +1,4 @@
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 
 export const OTA_DESTINATIONS = [
   { id: 'ha-noi', image: '/brand/ocean-park/vincom-ocean-city.jpg', ...vi.ota.destinations['ha-noi'] },

@@ -1,5 +1,5 @@
 import { ConflictException, NotFoundException, HttpException } from '@nestjs/common';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { and, desc, eq, sql } from 'drizzle-orm';
 import {
   moderationActions,

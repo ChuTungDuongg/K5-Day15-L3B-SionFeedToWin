@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { createElement, type ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { vi as viText } from '@tripflix/i18n';
+import { vi as viText } from '@vintrip/i18n';
 
 import { ItinerarySidebarPanel } from './itinerary-sidebar-panel';
 

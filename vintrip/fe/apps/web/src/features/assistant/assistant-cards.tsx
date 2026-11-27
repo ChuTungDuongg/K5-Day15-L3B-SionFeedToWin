@@ -1,15 +1,15 @@
 'use client';
 
-import { feedApi, type AssistantAction, type AssistantCard } from '@tripflix/api-client';
+import { feedApi, type AssistantAction, type AssistantCard } from '@vintrip/api-client';
 import {
   groupItineraryLines,
   parseWeatherLine,
   type DayPart,
   type ItineraryStop,
   type WeatherSky,
-} from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
-import { formatVnd } from '@tripflix/utils';
+} from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
+import { formatVnd } from '@vintrip/utils';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useState, type ReactNode } from 'react';
@@ -177,7 +177,7 @@ function StopRow({ stop, isLast }: { stop: ItineraryStop; isLast: boolean }) {
         {stop.service && (
           <span className={styles.serviceBadge}>
             <AssistantIcon name={stop.service === 'flight' ? 'plane' : 'bed'} size={13} />
-            {copy.tripflixService}
+            {copy.vintripService}
           </span>
         )}
         {!!stop.partLabel && (

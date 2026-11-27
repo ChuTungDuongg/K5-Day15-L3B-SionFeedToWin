@@ -1,5 +1,5 @@
-import type { Role } from '@tripflix/contracts';
-import type { NewOutboxEvent } from '@tripflix/outbox';
+import type { Role } from '@vintrip/contracts';
+import type { NewOutboxEvent } from '@vintrip/outbox';
 import type { JWK } from 'jose';
 import type { AvatarDecor } from '../../account/domain/avatar-decor.js';
 import type { PersonalInfo } from '../../account/domain/personal-info.js';

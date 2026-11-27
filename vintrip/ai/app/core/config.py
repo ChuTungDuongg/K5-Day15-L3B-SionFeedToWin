@@ -98,7 +98,7 @@ class ModerationSettings(BaseSettings):
     # Core's service tokens (libs/auth/src/service-token.ts): ES256, typ "service".
     core_api_url: str = "http://localhost:3000"
     jwks_url: str = ""  # empty: {core_api_url}/.well-known/jwks.json
-    auth_jwt_issuer: str = "tripflix-core"
+    auth_jwt_issuer: str = "vintrip-core"
     service_audience: str = "ai-service"
     moderation_callers: tuple[str, ...] = ("core-api",)
 
@@ -122,8 +122,8 @@ class ChatSettings(BaseSettings):
 
     core_api_url: str = "http://localhost:3000"
     jwks_url: str = ""
-    auth_jwt_issuer: str = "tripflix-core"
-    auth_jwt_audience: str = "tripflix"
+    auth_jwt_issuer: str = "vintrip-core"
+    auth_jwt_audience: str = "vintrip"
     redis_url: str = "redis://localhost:6379/0"
 
     # Kill switch: false selects deterministic chat.

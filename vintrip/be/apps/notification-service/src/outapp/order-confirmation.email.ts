@@ -1,4 +1,4 @@
-import type { CommerceOrderPaidV1 } from '@tripflix/contracts';
+import type { CommerceOrderPaidV1 } from '@vintrip/contracts';
 import { escapeHtml } from './html.js';
 import type { EmailMessage } from './mailer.js';
 
@@ -70,14 +70,14 @@ export function buildOrderConfirmationEmail(payload: CommerceOrderPaidV1, email:
   const orderUrl = `${webAppUrl.replace(/\/+$/, '')}/checkout/${encodeURIComponent(payload.orderId)}`;
   return {
     to: email,
-    subject: payload.confirmationCode ? `Xác nhận đặt chỗ Tripflix ${payload.confirmationCode}` : 'Xác nhận đặt chỗ Tripflix',
-    text: [greeting, '', 'Đơn đặt chỗ của bạn đã được thanh toán thành công.', codeLine, '', ...items.map((item) => `- ${item}`), ...guestLines, ...contactLines, '', totalLine, '', `Xem đơn: ${orderUrl}`, '', 'Tripflix · Chạm cảm hứng, trọn hành trình.'].join('\n'),
+    subject: payload.confirmationCode ? `Xác nhận đặt chỗ Vintrip ${payload.confirmationCode}` : 'Xác nhận đặt chỗ Vintrip',
+    text: [greeting, '', 'Đơn đặt chỗ của bạn đã được thanh toán thành công.', codeLine, '', ...items.map((item) => `- ${item}`), ...guestLines, ...contactLines, '', totalLine, '', `Xem đơn: ${orderUrl}`, '', 'Vintrip · Chạm cảm hứng, trọn hành trình.'].join('\n'),
     html: [
       '<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head><body style="margin:0;padding:0;background:#FFF7F2">',
       // Bảng và style nội tuyến giúp email hiển thị ổn định trên nhiều ứng dụng.
       '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#FFF7F2;font-family:\'Be Vietnam Pro\',Segoe UI,Arial,sans-serif;color:#18242B;line-height:1.7"><tr><td align="center" style="padding:28px 12px">',
       '<table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:600px;table-layout:fixed;background:#FFFFFF;border:1px solid #E2E8F0;border-radius:16px">',
-      '<tr><td style="padding:28px 24px 22px;border-bottom:1px solid #E2E8F0"><p style="margin:0;color:#FF5A3C;font-size:32px;font-weight:800">Tripflix</p><p style="margin:4px 0 0;color:#64748B;font-size:12px">Chạm cảm hứng, trọn hành trình.</p></td></tr>',
+      '<tr><td style="padding:28px 24px 22px;border-bottom:1px solid #E2E8F0"><p style="margin:0;color:#FF5A3C;font-size:32px;font-weight:800">Vintrip</p><p style="margin:4px 0 0;color:#64748B;font-size:12px">Chạm cảm hứng, trọn hành trình.</p></td></tr>',
       '<tr><td style="padding:28px 24px 0;overflow-wrap:anywhere;word-wrap:break-word">',
       '<span style="display:inline-block;background:#D9F4F1;color:#006C63;padding:6px 12px;border-radius:20px;font-size:13px;font-weight:700">✓ Đã thanh toán</span>',
       '<h1 style="margin:16px 0 12px;font-size:26px;line-height:1.3">Đặt chỗ thành công</h1>',

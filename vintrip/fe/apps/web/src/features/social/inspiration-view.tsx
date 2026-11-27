@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { socialApi, useApiSession } from '@tripflix/api-client';
+import { socialApi, useApiSession } from '@vintrip/api-client';
 import { useQuery } from '@tanstack/react-query';
 import { validateInspirationKeyword } from '@/features/discovery/inspiration-keyword';
 import { InstagramLeftDock } from './feed/instagram-left-dock';

@@ -3,9 +3,9 @@ import {
   Inject, Param, ParseUUIDPipe, Put, Query,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiProperty, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, ServiceOnly, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, ServiceOnly, type AuthUser } from '@vintrip/auth';
 import { z } from 'zod';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { CONTENT_OUTBOX, type ContentOutbox } from '../application/ports/content-outbox.port.js';
 import { AccessFacade } from '../../../access/index.js';
 import { FollowRepository } from '../infra/follow.repository.js';

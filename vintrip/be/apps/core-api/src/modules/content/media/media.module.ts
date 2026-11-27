@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { buildTransactionHostToken, type ModuleTransactionHost } from '@tripflix/db';
-import { S3ObjectStorage, type ObjectStorage } from '@tripflix/storage';
+import { buildTransactionHostToken, type ModuleTransactionHost } from '@vintrip/db';
+import { S3ObjectStorage, type ObjectStorage } from '@vintrip/storage';
 import type { CoreEnv } from '../../../platform/env.js';
 import { CORE_ENV } from '../../../platform/tokens.js';
 import { MediaPlaybackController } from './api/media-playback.controller.js';

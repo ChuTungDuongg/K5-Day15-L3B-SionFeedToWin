@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { commentPublicationPayload, loadCommentPublicationContext } from './comment-publication.js';
 
 const post = { id: 'post', authorId: 'owner', visibility: 'public' as const };

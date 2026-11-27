@@ -1,4 +1,4 @@
-import type { SocialPostPageDto } from '@tripflix/api-client/core-api/model/index';
+import type { SocialPostPageDto } from '@vintrip/api-client/core-api/model/index';
 import { describe, expect, it, vi } from 'vitest';
 import {
   collectSitemapEntries,
@@ -9,7 +9,7 @@ import {
 } from './sitemap-entries';
 import { makePost } from './seo-fixtures';
 
-const absolute = (path: string) => `https://tripflix.io.vn${path}`;
+const absolute = (path: string) => `https://vintrip.io.vn${path}`;
 const allProfiles = async () => true;
 const page = (items: SocialPostPageDto['items'], nextCursor: string | null = null): SocialPostPageDto => ({
   items,
@@ -27,10 +27,10 @@ describe('collectSitemapEntries', () => {
     expect(load).toHaveBeenNthCalledWith(2, 'c2');
     expect(urls).toEqual([
       ...STATIC_SITEMAP_PATHS.map(({ path }) => absolute(path)),
-      'https://tripflix.io.vn/hotels/vinpearl-resort-nha-trang',
-      'https://tripflix.io.vn/trip-plans/p1',
-      'https://tripflix.io.vn/trip-plans/p2',
-      'https://tripflix.io.vn/u/user-1',
+      'https://vintrip.io.vn/hotels/vinpearl-resort-nha-trang',
+      'https://vintrip.io.vn/trip-plans/p1',
+      'https://vintrip.io.vn/trip-plans/p2',
+      'https://vintrip.io.vn/u/user-1',
     ]);
   });
 
@@ -61,7 +61,7 @@ describe('collectSitemapEntries', () => {
       );
     const urls = (await collectSitemapEntries(load, allProfiles, absolute)).entries.map((entry) => entry.url);
     expect(urls.filter((url) => !STATIC_SITEMAP_PATHS.some(({ path }) => url === absolute(path)))).toEqual([
-      'https://tripflix.io.vn/u/a4',
+      'https://vintrip.io.vn/u/a4',
     ]);
   });
 
@@ -71,7 +71,7 @@ describe('collectSitemapEntries', () => {
       .mockResolvedValueOnce(page([makePost({ id: 'p1' })], 'c2'))
       .mockRejectedValueOnce(new Error('HTTP 503'));
     const result = await collectSitemapEntries(load, allProfiles, absolute);
-    expect(result.entries.map((entry) => entry.url)).toContain('https://tripflix.io.vn/trip-plans/p1');
+    expect(result.entries.map((entry) => entry.url)).toContain('https://vintrip.io.vn/trip-plans/p1');
     expect(result.isComplete).toBe(false);
   });
 
@@ -95,7 +95,7 @@ describe('collectSitemapEntries', () => {
       return userId === 'real';
     });
     const urls = (await collectSitemapEntries(load, hasProfile, absolute)).entries.map((entry) => entry.url);
-    expect(urls.filter((url) => url.includes('/u/'))).toEqual(['https://tripflix.io.vn/u/real']);
+    expect(urls.filter((url) => url.includes('/u/'))).toEqual(['https://vintrip.io.vn/u/real']);
     expect(hasProfile).toHaveBeenCalledTimes(3);
   });
 

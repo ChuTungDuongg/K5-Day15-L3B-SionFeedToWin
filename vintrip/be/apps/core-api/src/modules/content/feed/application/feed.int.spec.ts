@@ -8,11 +8,11 @@ import {
   createPool,
   createTransactionalPlugins,
   type ModuleTransactionHost,
-} from '@tripflix/db';
+} from '@vintrip/db';
 import { Global, Module } from '@nestjs/common';
 import { Test, type TestingModule } from '@nestjs/testing';
 import { ClsModule } from 'nestjs-cls';
-import { OutboxWriter } from '@tripflix/outbox';
+import { OutboxWriter } from '@vintrip/outbox';
 import { contentOutboxEvents } from '../../db/schema/index.js';
 import { ModerationRepository } from '../../moderation/infra/moderation.repository.js';
 import { ChangeVisibilityUseCase } from '../../moderation/application/change-visibility.use-case.js';
@@ -21,8 +21,8 @@ import { DeleteCommentUseCase } from '../../social/application/use-cases/delete-
 import { PostRepository } from '../../social/infra/post.repository.js';
 import { CommentRepository } from '../../social/infra/comment.repository.js';
 import { ModerationActionRepository } from '../../social/infra/moderation-action.repository.js';
-import { InMemoryObjectStorage } from '@tripflix/storage';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+import { InMemoryObjectStorage } from '@vintrip/storage';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import type pg from 'pg';
 import { DrizzleMediaAssetStore } from '../../media/infra/drizzle-media-asset.store.js';
 import { MediaFacade } from '../../media/media.facade.js';

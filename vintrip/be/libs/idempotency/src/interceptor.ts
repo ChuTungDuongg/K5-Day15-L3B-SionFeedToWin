@@ -32,7 +32,7 @@ interface IdempotentRequest {
   originalUrl: string;
   body?: unknown;
   headers: Record<string, string | string[] | undefined>;
-  /** Có khi route đã qua AccessTokenGuard của @tripflix/auth. */
+  /** Có khi route đã qua AccessTokenGuard của @vintrip/auth. */
   user?: { userId: string };
 }
 

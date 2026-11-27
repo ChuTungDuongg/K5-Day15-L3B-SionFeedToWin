@@ -1,4 +1,4 @@
-import { emptyOnboarding, ONBOARDING_KEY, parseOnboarding, type OnboardingRecord } from '@tripflix/app-core';
+import { emptyOnboarding, ONBOARDING_KEY, parseOnboarding, type OnboardingRecord } from '@vintrip/app-core';
 
 // localStorage có thể bị chặn (chế độ riêng tư, hết dung lượng): mọi hàm đều không ném lỗi ra ngoài.
 export function readSurveyRecord(): OnboardingRecord {

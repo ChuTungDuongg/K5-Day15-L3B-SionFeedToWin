@@ -1,4 +1,4 @@
-import type { HomeDestinationPickDto, HomeStayPickDto } from '@tripflix/api-client';
+import type { HomeDestinationPickDto, HomeStayPickDto } from '@vintrip/api-client';
 import {
   DEFAULT_DESTINATION_FALLBACK,
   DEFAULT_EXPERIENCE_FALLBACK,

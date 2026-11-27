@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import styles from './comment-visibility.module.css';
 
 export function ModeratedComment() {

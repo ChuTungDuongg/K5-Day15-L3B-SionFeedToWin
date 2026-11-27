@@ -1,8 +1,8 @@
 import '../../../../platform/load-env.js';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, join, relative, sep } from 'node:path';
-import { loadEnv } from '@tripflix/config';
-import { ObjectNotFoundError, S3ObjectStorage } from '@tripflix/storage';
+import { loadEnv } from '@vintrip/config';
+import { ObjectNotFoundError, S3ObjectStorage } from '@vintrip/storage';
 import { coreEnvSchema } from '../../../../platform/env.js';
 import { HOTEL_IMAGE_KEY_ROOT } from './image-keys.js';
 import { CATALOG_SEED_FILE } from './seed-catalog.js';

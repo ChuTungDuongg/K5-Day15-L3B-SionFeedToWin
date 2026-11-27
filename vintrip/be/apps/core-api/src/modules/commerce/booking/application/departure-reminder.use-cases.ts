@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { Transactional } from '@tripflix/db';
-import type { OutboxWriter } from '@tripflix/outbox';
+import { Transactional } from '@vintrip/db';
+import type { OutboxWriter } from '@vintrip/outbox';
 import { COMMERCE_OUTBOX } from '../../payment/application/payment.use-cases.js';
 import { addDays } from '../../inventory/domain/sales-rules.js';
 import { TODAY, type Today } from '../../inventory/application/ports.js';

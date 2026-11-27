@@ -1,6 +1,6 @@
 import { buildHotelSlug } from '../../inventory/domain/hotel-slug.js';
 import { readFileSync } from 'node:fs';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { sql } from 'drizzle-orm';
 import { flights, properties, roomTypes, type HotelDetails, type RatePlan, type RoomTypeDetails } from '../schema/index.js';
 import { toHotelImageKey } from './image-keys.js';

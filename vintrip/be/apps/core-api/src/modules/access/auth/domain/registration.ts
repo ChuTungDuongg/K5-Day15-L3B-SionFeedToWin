@@ -12,7 +12,7 @@ export const TERMS_VERSION = '2026-11-09';
 export const TERMS_REQUIRED_MESSAGE = 'Bạn cần đồng ý Điều khoản sử dụng và Chính sách bảo mật để đăng ký';
 export const INVALID_REGISTRATION_CODE = 'Mã xác thực không đúng hoặc đã hết hạn. Hãy kiểm tra lại hoặc yêu cầu mã mới.';
 
-const COMMON_PASSWORD = /^(?:password|matkhau|mat-khau|tripflix|qwerty|admin|letmein|iloveyou|welcome)[\d!@#$%^&*._-]*$/i;
+const COMMON_PASSWORD = /^(?:password|matkhau|mat-khau|vintrip|qwerty|admin|letmein|iloveyou|welcome)[\d!@#$%^&*._-]*$/i;
 const REPEATED_PATTERN = /^(.{1,4})\1+$/u;
 
 export function isCommonRegistrationPassword(password: string): boolean {

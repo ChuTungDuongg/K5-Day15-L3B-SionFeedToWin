@@ -14,10 +14,10 @@ import {
   createAccessTokenVerifier,
   type AuthUser,
   type SidBlocklist,
-} from '@tripflix/auth';
-import { loadEnv } from '@tripflix/config';
-import { APP_IDLE_IN_TRANSACTION_TIMEOUT_MS, APP_STATEMENT_TIMEOUT_MS, createPool, ping } from '@tripflix/db';
-import { loggerModule } from '@tripflix/observability';
+} from '@vintrip/auth';
+import { loadEnv } from '@vintrip/config';
+import { APP_IDLE_IN_TRANSACTION_TIMEOUT_MS, APP_STATEMENT_TIMEOUT_MS, createPool, ping } from '@vintrip/db';
+import { loggerModule } from '@vintrip/observability';
 import { Redis } from 'ioredis';
 import { createRemoteJWKSet } from 'jose';
 import type pg from 'pg';

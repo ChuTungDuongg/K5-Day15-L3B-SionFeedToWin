@@ -5,7 +5,7 @@ const { join } = require('node:path');
 const { tmpdir } = require('node:os');
 const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
 
-const output = process.env.HOME_EVIDENCE_DIR || join(tmpdir(), 'tripflix-home-performance');
+const output = process.env.HOME_EVIDENCE_DIR || join(tmpdir(), 'vintrip-home-performance');
 const base = process.env.HOME_PREVIEW_URL || 'http://localhost:3100';
 const cpuThrottle = Number(process.env.HOME_CPU_THROTTLE || 4);
 

@@ -1,6 +1,6 @@
-# tripflix-be
+# vintrip-be
 
-Backend Tripflix: `core-api` (modular monolith 5 module), `notification-service`, `video-worker`, và hạ tầng chạy local cho cả hệ thống.
+Backend Vintrip: `core-api` (modular monolith 5 module), `notification-service`, `video-worker`, và hạ tầng chạy local cho cả hệ thống.
 
 **Đọc [RULES.md](RULES.md) trước khi làm việc.** Kiến trúc: [docs/architecture/](docs/architecture/).
 
@@ -11,13 +11,13 @@ Backend Tripflix: `core-api` (modular monolith 5 module), `notification-service`
 3. Clone 3 repo cạnh nhau:
 
    ```
-   tripflix/
-   ├─ tripflix-be/
-   ├─ tripflix-fe/
-   └─ tripflix-ai/
+   vintrip/
+   ├─ vintrip-be/
+   ├─ vintrip-fe/
+   └─ vintrip-ai/
    ```
 
-4. Trong `tripflix-be`: `pnpm install`, rồi chép `deploy/.env.example` thành `deploy/.env` và điền `DEV_NAME`, key AWS dev (nếu làm phần media), `LLM_PROVIDER` và `DEEPSEEK_API_KEY` (nếu chạy AI với `LLM_PROVIDER=deepseek`; code ở máy thì để `LLM_PROVIDER=fake`, không cần key).
+4. Trong `vintrip-be`: `pnpm install`, rồi chép `deploy/.env.example` thành `deploy/.env` và điền `DEV_NAME`, key AWS dev (nếu làm phần media), `LLM_PROVIDER` và `DEEPSEEK_API_KEY` (nếu chạy AI với `LLM_PROVIDER=deepseek`; code ở máy thì để `LLM_PROVIDER=fake`, không cần key).
 
 ## Chạy
 
@@ -35,7 +35,7 @@ Backend Tripflix: `core-api` (modular monolith 5 module), `notification-service`
 | `pnpm stack:down` | Dừng, giữ dữ liệu |
 | `pnpm stack:reset` | Xoá sạch dữ liệu local (hỏi team trước khi dùng trên máy chung) |
 
-Chạy app trên máy: `pnpm stack:infra`, chép `apps/<app>/.env.example` thành `apps/<app>/.env`, rồi `pnpm dev` (tất cả app) hoặc `pnpm --filter @tripflix/core-api dev`.
+Chạy app trên máy: `pnpm stack:infra`, chép `apps/<app>/.env.example` thành `apps/<app>/.env`, rồi `pnpm dev` (tất cả app) hoặc `pnpm --filter @vintrip/core-api dev`.
 
 | Địa chỉ | Là gì |
 |---|---|
@@ -67,13 +67,13 @@ pnpm build && pnpm db:migrate && pnpm db:seed
 |---|---|
 | Database | `core` (schema `access`, `content`, `discovery`, `analytics`, `commerce`), `notification` |
 | User Postgres | Mỗi module một user (`tf_access`...), chỉ đọc, ghi được schema của mình; mật khẩu dev trong `apps/core-api/.env.example` |
-| Tài khoản mẫu (`pnpm db:seed`) | `superadmin@tripflix.local`, `moderator@tripflix.local`, `member@tripflix.local`, mật khẩu `SEED_PASSWORD` trong `.env` (mặc định `tripflix-dev-123`) |
+| Tài khoản mẫu (`pnpm db:seed`) | `superadmin@vintrip.local`, `moderator@vintrip.local`, `member@vintrip.local`, mật khẩu `SEED_PASSWORD` trong `.env` (mặc định `vintrip-dev-123`) |
 | Xem dữ liệu | `pnpm stack:tools` rồi mở Adminer http://localhost:8090 (server `postgres`, user `postgres`/`postgres`) |
 
 Đã chạy `pnpm stack:infra` **trước** khi pull TF05 thì chạy một lần (không mất dữ liệu), nếu không `pnpm db:migrate` báo `permission denied for database`:
 
 ```sh
-docker exec tripflix-postgres-1 psql -U postgres -c "GRANT CREATE ON DATABASE core TO tf_access, tf_content, tf_discovery, tf_analytics, tf_commerce" -c "GRANT CREATE ON DATABASE notification TO tf_notification"
+docker exec vintrip-postgres-1 psql -U postgres -c "GRANT CREATE ON DATABASE core TO tf_access, tf_content, tf_discovery, tf_analytics, tf_commerce" -c "GRANT CREATE ON DATABASE notification TO tf_notification"
 ```
 
 Đăng nhập, phân quyền, cách dùng `@Roles(...)`: `apps/core-api/src/modules/access/README.md`, `libs/auth/README.md`.
@@ -93,7 +93,7 @@ pnpm lint && pnpm typecheck && pnpm test
 | `pnpm db:generate <module>` | Sinh migration cho một module (`access`, `content`, `discovery`, `analytics`, `commerce`) |
 | `pnpm db:migrate` | Chạy migration mọi module, mỗi module bằng user Postgres riêng |
 | `pnpm db:seed` | Tạo tài khoản mẫu 3 vai trò; chạy lại không tạo trùng; không chạy ở production |
-| `pnpm --filter @tripflix/core-api auth:keygen` | In khoá ký access token ES256 cho staging (để trong secret, không commit) |
+| `pnpm --filter @vintrip/core-api auth:keygen` | In khoá ký access token ES256 cho staging (để trong secret, không commit) |
 | `pnpm contracts:build` | Sinh `contracts/openapi/*.json` và `contracts/events/*.schema.json`; commit kết quả |
 
 ## Cấu trúc

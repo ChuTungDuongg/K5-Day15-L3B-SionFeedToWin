@@ -34,7 +34,7 @@ ALWAYS_ALLOWED_WORDS = {
     "vini",
     "vintrip",
     "tripi",
-    "tripflix",
+    "vintrip",
     "thu",
     "hai",
     "ba",

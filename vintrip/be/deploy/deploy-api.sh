@@ -1,15 +1,15 @@
 #!/bin/sh
 # Deploy core-api hoặc notification-service lên server bằng image đã build trên GitHub.
-# Cài tại /opt/tripflix/deploy-api.sh, chủ là root. SSH key CI của repo tripflix-be bị ép chạy file này:
+# Cài tại /opt/vintrip/deploy-api.sh, chủ là root. SSH key CI của repo vintrip-be bị ép chạy file này:
 # lệnh gửi qua SSH chỉ được đọc thành "<app> sha-xxxxxxx", không bao giờ được thực thi.
 #
 # Thứ tự: ghi tag mới vào .env.server, pull image, backup database của app, chạy app (core-api migrate trước),
 # kiểm tra. Lỗi thì trả lại .env.server và chạy lại image cũ, không chạy lại migrate.
-# Chạy tay trên server: /opt/tripflix/deploy-api.sh core-api sha-xxxxxxx
+# Chạy tay trên server: /opt/vintrip/deploy-api.sh core-api sha-xxxxxxx
 set -eu
 
 RUN_AS="${DEPLOY_RUN_AS:-phongnguyen}"
-DEPLOY_DIR="${DEPLOY_DIR:-/home/$RUN_AS/tripflix-be/deploy}"
+DEPLOY_DIR="${DEPLOY_DIR:-/home/$RUN_AS/vintrip-be/deploy}"
 BACKUP_DIR="${BACKUP_DIR:-/home/$RUN_AS/backups}"
 LOG_DIR="${LOG_DIR:-/home/$RUN_AS/deploy-logs}"
 IMAGE_PREFIX=ghcr.io/sukemcute/tripflix-be
@@ -64,11 +64,11 @@ fi
 
 # Chạy phần deploy trong session riêng, ghi log ra file, rồi đọc log trả về SSH. GitHub huỷ lần chạy
 # (có merge mới) hay mạng rớt thì SSH đứt, nhưng deploy vẫn chạy đến cuối: không bao giờ dừng giữa lúc migrate.
-if [ -z "${TRIPFLIX_DEPLOY_DETACHED:-}" ]; then
+if [ -z "${VINTRIP_DEPLOY_DETACHED:-}" ]; then
   mkdir -p "$LOG_DIR"
   log="$LOG_DIR/$(date +%Y%m%d-%H%M%S)-$APP-$TAG.log"
   : > "$log"
-  TRIPFLIX_DEPLOY_DETACHED=1 setsid "$0" "$APP" "$TAG" >> "$log" 2>&1 < /dev/null &
+  VINTRIP_DEPLOY_DETACHED=1 setsid "$0" "$APP" "$TAG" >> "$log" 2>&1 < /dev/null &
   pid=$!
   tail -n +1 -f --pid="$pid" "$log" || true
   status=0

@@ -56,7 +56,7 @@ export const terms = {
     },
     law: {
       title: '9. Luật áp dụng và liên hệ',
-      body: 'Điều khoản này được hiểu và áp dụng theo pháp luật Việt Nam. Mọi câu hỏi xin gửi về tripflixandgo@gmail.com, chúng tôi trả lời trong vòng 7 ngày làm việc.',
+      body: 'Điều khoản này được hiểu và áp dụng theo pháp luật Việt Nam. Mọi câu hỏi xin gửi về vintripandgo@gmail.com, chúng tôi trả lời trong vòng 7 ngày làm việc.',
     },
   },
 } as const;

@@ -3,7 +3,7 @@ import type { PostType } from '../../db/schema/index.js';
 
 /**
  * Link chia sẻ bài trên web: trang Cảm hứng mở sẵn bài (`?open=`), Reel thì thêm `kind=reel` để mở trong trình
- * xem Reels. Cùng dạng với link web tự tạo (tripflix-fe `post-share.ts`).
+ * xem Reels. Cùng dạng với link web tự tạo (vintrip-fe `post-share.ts`).
  */
 export class PostShareLinks {
   private readonly webAppUrl: string;

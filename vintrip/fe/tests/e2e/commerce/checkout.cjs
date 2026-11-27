@@ -10,7 +10,7 @@ const { CommercePage } = require('../../pages/commerce-page.cjs');
 const { registerAccount } = require('../../fixtures/register-account.cjs');
 const API = process.env.API_PREVIEW_URL || 'http://localhost:8080';
 const MOBILE = process.env.MOBILE_PREVIEW_URL || 'http://localhost:8081';
-const OUTPUT = process.env.COMMERCE_EVIDENCE_DIR || join(tmpdir(), 'tripflix-commerce');
+const OUTPUT = process.env.COMMERCE_EVIDENCE_DIR || join(tmpdir(), 'vintrip-commerce');
 const localHosts = new Set([
   'localhost',
   '127.0.0.1',

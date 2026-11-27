@@ -35,8 +35,8 @@ describe('buildHotelMetadata', () => {
     expect(metadata.description).toBe('Khu nghỉ dưỡng biển trên đảo Hòn Tre.');
     expect(metadata.alternates?.canonical).toBe('/hotels/hotel-1');
     expect(metadata.openGraph?.images).toEqual([
-      'https://media.tripflix.io.vn/hotels/1.jpg',
-      'https://media.tripflix.io.vn/hotels/2.jpg',
+      'https://media.vintrip.io.vn/hotels/1.jpg',
+      'https://media.vintrip.io.vn/hotels/2.jpg',
     ]);
   });
 
@@ -77,15 +77,15 @@ describe('buildTripPlanMetadata', () => {
   it('lấy tiêu đề bài, mô tả từ nội dung và ưu tiên ảnh poster chuyến đi', () => {
     const metadata = buildTripPlanMetadata(
       makePost({
-        tripAttachment: { posterUrl: 'https://media.tripflix.io.vn/posters/p1.jpg' },
+        tripAttachment: { posterUrl: 'https://media.vintrip.io.vn/posters/p1.jpg' },
       }),
     );
     expect(metadata.title).toBe('Nha Trang 3 ngày 2 đêm | Vintrip');
     expect(metadata.description).toBe('Lịch trình biển đảo cho nhóm bạn.');
     expect(metadata.alternates?.canonical).toBe('/trip-plans/post-1');
     expect(metadata.openGraph?.images).toEqual([
-      'https://media.tripflix.io.vn/posters/p1.jpg',
-      'https://media.tripflix.io.vn/posts/1.jpg',
+      'https://media.vintrip.io.vn/posters/p1.jpg',
+      'https://media.vintrip.io.vn/posts/1.jpg',
     ]);
   });
 });

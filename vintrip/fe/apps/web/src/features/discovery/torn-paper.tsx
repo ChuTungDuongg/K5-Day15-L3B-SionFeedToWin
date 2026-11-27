@@ -170,7 +170,7 @@ export function TornPaperDivider({
                C 1085,33 1125,24 1170,29 C 1215,34 1255,26 1300,30
                C 1345,34 1390,26 1440,28
                L 1440,68 L 0,68 Z"
-            fill="var(--color-warm-mist, #FFF7F2)"
+            fill="var(--color-warm-mist, #FFF7ED)"
           />
         </svg>
       </div>
@@ -201,7 +201,7 @@ export function TornPaperDivider({
                C 615,30 575,41 530,36 C 485,31 445,41 400,36
                C 355,31 315,42 270,36 C 225,30 185,40 140,35
                C 95,30 50,39 0,34 Z"
-            fill="var(--color-warm-mist, #FFF7F2)"
+            fill="var(--color-warm-mist, #FFF7ED)"
           />
           {/* Lớp xơ rách mép dưới vé */}
           <path

@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi as vitestVi } from 'vitest';
-import * as apiClient from '@tripflix/api-client';
+import * as apiClient from '@vintrip/api-client';
 import {
   MentionPicker,
   handleMentionPickerKeyDown,

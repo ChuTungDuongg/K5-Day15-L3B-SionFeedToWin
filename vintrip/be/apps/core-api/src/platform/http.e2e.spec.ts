@@ -21,7 +21,7 @@ class ProbeController {
 @Module({ controllers: [ProbeController] })
 class ProbeModule {}
 
-const WEB_ORIGIN = 'https://tripflix.io.vn';
+const WEB_ORIGIN = 'https://vintrip.io.vn';
 
 describe('E2E: header bảo mật (TF33)', () => {
   let app: INestApplication;

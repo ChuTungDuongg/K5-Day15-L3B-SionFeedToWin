@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { and, desc, eq, inArray, isNull, sql } from 'drizzle-orm';
 import { z } from 'zod';
-import { Transactional, type Db } from '@tripflix/db';
+import { Transactional, type Db } from '@vintrip/db';
 import { comments, posts, type PostRecord } from '../../db/schema/index.js';
 import type { ContentOutbox } from './ports/content-outbox.port.js';
 import { Post } from '../domain/post.entity.js';

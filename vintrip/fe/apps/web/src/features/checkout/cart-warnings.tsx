@@ -1,6 +1,6 @@
 'use client';
-import { countBookingCartGuests, findUnderCapacityStays, type BookingCart } from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+import { countBookingCartGuests, findUnderCapacityStays, type BookingCart } from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import styles from './cart.module.css';
 
 const copy = vi.commerce;

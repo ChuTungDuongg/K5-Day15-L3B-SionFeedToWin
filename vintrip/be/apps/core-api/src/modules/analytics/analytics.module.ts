@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { createDb } from '@tripflix/db';
+import { createDb } from '@vintrip/db';
 import { DB_POOLS, type DbPools } from '../../platform/tokens.js';
 import { AiUsageController } from './ai-usage/api/ai-usage.controller.js';
 import { AI_USAGE_STORE, AiUsageUseCases } from './ai-usage/application/ai-usage.use-cases.js';

@@ -35,7 +35,7 @@ def chosen_trip() -> TripContext:
             "dateTo": "2026-11-23",
             "originCity": "TP.HCM",
             "adults": 2,
-            "stay": {"source": "tripflix", "id": "h1", "name": "Khách sạn"},
+            "stay": {"source": "vintrip", "id": "h1", "name": "Khách sạn"},
             "transport": {
                 "mode": "flight",
                 "summary": "VN 8 · 08:30",
@@ -732,7 +732,7 @@ def test_confirm_without_a_choice_routes_targeted_requests_to_search(message, fi
     ("trip", "intent"),
     [
         (None, "ack"),
-        ({"stay": {"source": "tripflix", "id": "h1", "name": "Khách sạn"}}, "confirm_booking"),
+        ({"stay": {"source": "vintrip", "id": "h1", "name": "Khách sạn"}}, "confirm_booking"),
         ({"stay": {"source": "external", "id": "osm:1", "name": "Nhà nghỉ"}}, "ack"),
         ({"transport": {"mode": "flight", "summary": "Bay", "flightId": "f8"}}, "confirm_booking"),
         ({"transport": {"mode": "flight", "summary": "Bay"}}, "ack"),

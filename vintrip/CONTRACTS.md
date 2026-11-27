@@ -16,7 +16,7 @@
   - `/brand/vini/vini-planning.png`
   - `/brand/vini/vini-success.png`
   - `/brand/vini/vini-rowing.png`
-- **Lưu ý kỹ thuật FE:** Giữ nguyên tên gói workspace nội bộ `@tripflix/*` để không gãy `pnpm-lock.yaml` / `turbo`, chỉ đổi 100% bề mặt hiển thị người dùng, SEO, i18n, metadata, logo, linh vật và prompt AI sang **Vintrip** & **Vini**.
+- **Lưu ý kỹ thuật FE:** Giữ nguyên tên gói workspace nội bộ `@vintrip/*` để không gãy `pnpm-lock.yaml` / `turbo`, chỉ đổi 100% bề mặt hiển thị người dùng, SEO, i18n, metadata, logo, linh vật và prompt AI sang **Vintrip** & **Vini**.
 
 ---
 

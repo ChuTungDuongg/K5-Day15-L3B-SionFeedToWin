@@ -1,7 +1,7 @@
 import '../platform/load-env.js';
 import { existsSync } from 'node:fs';
-import { loadEnv } from '@tripflix/config';
-import { MODULES, createDb, createPool } from '@tripflix/db';
+import { loadEnv } from '@vintrip/config';
+import { MODULES, createDb, createPool } from '@vintrip/db';
 import { migrate } from 'drizzle-orm/node-postgres/migrator';
 import { coreEnvSchema, dbUrlOf } from '../platform/env.js';
 

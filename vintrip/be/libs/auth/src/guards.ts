@@ -12,14 +12,14 @@ import {
   applyDecorators,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import type { Role } from '@tripflix/contracts';
+import type { Role } from '@vintrip/contracts';
 import type { SidBlocklist } from './revocation.js';
 import { InvalidAccessTokenError, type AccessTokenVerifier, type AuthUser } from './verifier.js';
 
 export const AUTH_VERIFIER = Symbol('AUTH_VERIFIER');
 export const SID_BLOCKLIST = Symbol('SID_BLOCKLIST');
-const ROLES_KEY = 'tripflix:roles';
-const ALLOW_WHEN_REVOCATION_UNAVAILABLE_KEY = 'tripflix:allow-when-revocation-unavailable';
+const ROLES_KEY = 'vintrip:roles';
+const ALLOW_WHEN_REVOCATION_UNAVAILABLE_KEY = 'vintrip:allow-when-revocation-unavailable';
 /** Thời gian tối đa chờ Redis ở các API đã bật @AllowWhenRevocationUnavailable. */
 export const REVOCATION_CHECK_TIMEOUT_MS = 300;
 

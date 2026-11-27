@@ -1,8 +1,8 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { getAvatarUrl, HttpError, normalizeUserSearchQuery, useUserSearch } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+import { getAvatarUrl, HttpError, normalizeUserSearchQuery, useUserSearch } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import { useDebouncedValue } from '../shared/use-debounced-value';
 import { getAvatarTone } from './avatar-tone';
 import styles from './mention-picker.module.css';

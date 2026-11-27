@@ -1,4 +1,4 @@
-import { startTelemetry } from '@tripflix/observability';
+import { startTelemetry } from '@vintrip/observability';
 export const telemetry = startTelemetry('notification-service');
 export class TelemetryLifecycle {
   async onApplicationShutdown(): Promise<void> {

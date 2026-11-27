@@ -1,5 +1,5 @@
 'use client';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import Link, { useLinkStatus } from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLayoutEffect, useRef } from 'react';

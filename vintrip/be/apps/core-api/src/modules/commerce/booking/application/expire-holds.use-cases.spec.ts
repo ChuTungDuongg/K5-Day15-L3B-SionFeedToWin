@@ -3,7 +3,7 @@ import { ExpireHoldsUseCases } from './expire-holds.use-cases.js';
 import type { CheckoutUseCases } from './checkout.use-cases.js';
 import type { OrderStore } from './ports.js';
 
-vi.mock('@tripflix/db', () => ({ Transactional: () => () => undefined }));
+vi.mock('@vintrip/db', () => ({ Transactional: () => () => undefined }));
 
 type ExpireRunner = { expireOrder: (orderId: string) => Promise<boolean> };
 const ids = (n: number, prefix: string) => Array.from({ length: n }, (_, i) => `${prefix}-${i}`);

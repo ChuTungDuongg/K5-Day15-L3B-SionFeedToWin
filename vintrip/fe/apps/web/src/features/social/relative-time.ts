@@ -1,4 +1,4 @@
-import { t } from '@tripflix/i18n';
+import { t } from '@vintrip/i18n';
 
 const MINUTE_MS = 60_000;
 const HOUR_MS = 60 * MINUTE_MS;

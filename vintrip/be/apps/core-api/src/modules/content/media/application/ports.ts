@@ -1,5 +1,5 @@
-import type { MediaAspect, MediaQualityLevel } from '@tripflix/contracts';
-import type { NewOutboxEvent } from '@tripflix/outbox';
+import type { MediaAspect, MediaQualityLevel } from '@vintrip/contracts';
+import type { NewOutboxEvent } from '@vintrip/outbox';
 import type { MediaKind, MediaMimeType } from '../domain/upload-rules.js';
 
 export const MEDIA_ASSET_STORE = Symbol('MEDIA_ASSET_STORE');
@@ -122,6 +122,6 @@ export interface PlaybackSettings {
   /** Gốc CDN (MEDIA_CDN_URL). Trống thì không ký. */
   cdnBaseUrl: string;
   ttlSec: number;
-  /** Domain cookie cho web, ví dụ `.tripflix.io.vn`. Trống thì không đặt cookie trên trình duyệt. */
+  /** Domain cookie cho web, ví dụ `.vintrip.io.vn`. Trống thì không đặt cookie trên trình duyệt. */
   cookieDomain: string | undefined;
 }

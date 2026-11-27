@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
-import type { MediaQualityLevel } from '@tripflix/contracts';
-import type { Db } from '@tripflix/db';
+import type { MediaQualityLevel } from '@vintrip/contracts';
+import type { Db } from '@vintrip/db';
 import { sql } from 'drizzle-orm';
 import {
   bookmarks,

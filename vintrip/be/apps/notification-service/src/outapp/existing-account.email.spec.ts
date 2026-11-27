@@ -10,12 +10,12 @@ const payload = (hasPassword: boolean) => ({
 
 describe('buildExistingAccountEmail', () => {
   it('báo email đã có tài khoản, có link đăng nhập và đặt lại mật khẩu, chống chèn HTML', () => {
-    const mail = buildExistingAccountEmail(payload(true), 'https://tripflix.vn/');
+    const mail = buildExistingAccountEmail(payload(true), 'https://vintrip.vn/');
     expect(mail.to).toBe('binh@example.com');
-    expect(mail.subject).toBe('Email này đã có tài khoản Tripflix');
-    expect(mail.text).toContain('https://tripflix.vn/login');
-    expect(mail.text).toContain('https://tripflix.vn/forgot-password');
-    expect(mail.html).toContain('href="https://tripflix.vn/login"');
+    expect(mail.subject).toBe('Email này đã có tài khoản Vintrip');
+    expect(mail.text).toContain('https://vintrip.vn/login');
+    expect(mail.text).toContain('https://vintrip.vn/forgot-password');
+    expect(mail.html).toContain('href="https://vintrip.vn/login"');
     expect(mail.html).toContain('Đặt lại mật khẩu');
     expect(mail.html).toContain('Bình &lt;i&gt;');
     expect(mail.html).not.toContain('<i>');

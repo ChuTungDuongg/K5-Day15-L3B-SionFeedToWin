@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { describe, expect, it } from 'vitest';
 import { toAiUsageRecord } from './ai-usage.js';
 

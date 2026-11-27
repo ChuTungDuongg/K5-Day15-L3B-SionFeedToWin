@@ -1,8 +1,8 @@
 'use client';
-import { changePassword, useApiSession } from '@tripflix/api-client';
-import * as auth from '@tripflix/api-client/core-api/auth/auth';
-import { NEW_PASSWORD_MAX } from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+import { changePassword, useApiSession } from '@vintrip/api-client';
+import * as auth from '@vintrip/api-client/core-api/auth/auth';
+import { NEW_PASSWORD_MAX } from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef, useState } from 'react';
 import { ApiErrorNotice } from '@/features/shared/api-state';

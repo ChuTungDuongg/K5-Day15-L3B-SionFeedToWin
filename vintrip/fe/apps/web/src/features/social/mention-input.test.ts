@@ -29,7 +29,7 @@ describe('mention-input', () => {
     });
 
     it('không bắt @ trong địa chỉ email', () => {
-      const text = 'contact@tripflix.com';
+      const text = 'contact@vintrip.com';
       const res = getMentionQueryAtCursor(text, 15);
       expect(res).toBeNull();
     });

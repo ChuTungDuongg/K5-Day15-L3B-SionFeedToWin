@@ -1,7 +1,7 @@
 import { SocialErrorFilter } from './social-error.filter.js';
 import { Optional, UseFilters, Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import { ListBookmarksQueryDto, SetBookmarkDto } from './dto/bookmark.dto.js';
 import { parseListPostTypeFilter } from './dto/post-type-filter.dto.js';
 import { SocialPostPageDto, UpdatedBookmarkDto } from './dto/response.dto.js';

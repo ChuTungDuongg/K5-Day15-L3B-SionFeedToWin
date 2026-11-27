@@ -1,4 +1,4 @@
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { ConflictException } from '@nestjs/common';
 import { and, eq, sql } from 'drizzle-orm';
 import { moderationScans } from '../../db/schema/index.js';

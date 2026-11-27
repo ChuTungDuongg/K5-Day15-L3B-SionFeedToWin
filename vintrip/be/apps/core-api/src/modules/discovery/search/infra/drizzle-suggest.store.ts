@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { and, asc, desc, inArray, or, sql } from 'drizzle-orm';
 import { searchEntities, type SearchEntityRow } from '../../db/schema/index.js';
 import type { SuggestEntity, SuggestType } from '../domain/suggest-entity.js';

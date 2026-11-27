@@ -1,11 +1,11 @@
 import type { InfiniteData, QueryClient, QueryKey } from '@tanstack/react-query';
-import { socialApi, type PostCommentsChange } from '@tripflix/api-client';
+import { socialApi, type PostCommentsChange } from '@vintrip/api-client';
 import type {
   FeedPageDto,
   SocialCommentDto,
   SocialCommentPageDto,
   SocialPostDetailDto,
-} from '@tripflix/api-client/core-api/model/index';
+} from '@vintrip/api-client/core-api/model/index';
 
 /**
  * Cập nhật bình luận thẳng vào cache React Query sau khi server xác nhận, thay vì tải lại mọi trang.

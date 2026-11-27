@@ -1,7 +1,7 @@
 [project]
-name = "tripflix-ai"
+name = "vintrip-ai"
 version = "0.1.0"
-description = "AI service for Tripflix"
+description = "AI service for Vintrip"
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "anthropic>=1,<2",

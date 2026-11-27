@@ -7,10 +7,10 @@ export async function createTestBrowserProof() {
   );
   const { kty, crv, x, y } = await webcrypto.subtle.exportKey('jwk', publicKey);
   return async (purpose: BrowserProofPurpose, origin: string) => {
-    const header = Buffer.from(JSON.stringify({ alg: 'ES256', typ: 'tripflix-session+jwt', jwk: { kty, crv, x, y } }))
+    const header = Buffer.from(JSON.stringify({ alg: 'ES256', typ: 'vintrip-session+jwt', jwk: { kty, crv, x, y } }))
       .toString('base64url');
     const payload = Buffer.from(JSON.stringify({
-      aud: `tripflix-session:${origin}`, sub: purpose, iat: Math.floor(Date.now() / 1000), jti: randomUUID(),
+      aud: `vintrip-session:${origin}`, sub: purpose, iat: Math.floor(Date.now() / 1000), jti: randomUUID(),
     })).toString('base64url');
     const message = `${header}.${payload}`;
     const signature = await webcrypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, privateKey, Buffer.from(message));

@@ -1,12 +1,12 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import type { AuthUser, SidBlocklist } from '@tripflix/auth';
+import type { AuthUser, SidBlocklist } from '@vintrip/auth';
 import type {
   AccessUserLockedV1,
   AccessUserRoleChangedV1,
   AccessUserUnlockedV1,
   Role,
-} from '@tripflix/contracts';
-import { Transactional } from '@tripflix/db';
+} from '@vintrip/contracts';
+import { Transactional } from '@vintrip/db';
 import {
   ACCESS_SID_BLOCKLIST,
   ACCESS_STORE,

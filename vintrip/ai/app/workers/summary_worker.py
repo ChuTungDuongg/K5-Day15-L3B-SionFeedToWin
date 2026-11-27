@@ -1,6 +1,6 @@
 """Summary worker: comment events in, one debounced summary run per post, result to core.
 
-Agreed with content (Thành, 2026-11-05): tripflix-ai debounces and compares inputHash; core
+Agreed with content (Thành, 2026-11-05): vintrip-ai debounces and compares inputHash; core
 stores the result. Run: `uv run python -m app.workers.summary_worker`.
 
 Events: consumer group on `stream:core.content` (envelope v1, field "event"), same rules as

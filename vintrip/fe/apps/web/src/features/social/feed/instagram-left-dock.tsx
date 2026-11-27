@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import { validateInspirationKeyword } from '../../discovery/inspiration-keyword';
 import { SocialIcon } from '../live-posts';
 import { readRecentSearches, removeRecentSearch, writeRecentSearches } from '../recent-searches';

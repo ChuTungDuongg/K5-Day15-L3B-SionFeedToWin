@@ -1,8 +1,8 @@
 'use client';
 
 import { useRef, useState, type DragEvent } from 'react';
-import { MAX_POST_IMAGES } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { MAX_POST_IMAGES } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import { SocialIcon } from '../live-posts';
 import { IMAGE_INPUT_ACCEPT, formatImageCount } from './post-image-files';
 import type { usePostImages } from './use-post-images';

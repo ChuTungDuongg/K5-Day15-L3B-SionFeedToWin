@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { STREAMS } from '@tripflix/event-bus';
+import { STREAMS } from '@vintrip/event-bus';
 import { ContentOutboxRelay } from './content-outbox-relay.js';
 
 describe('ContentOutboxRelay', () => {

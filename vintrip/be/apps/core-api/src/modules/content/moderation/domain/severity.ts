@@ -35,7 +35,7 @@ const AI_AUTO_HIDE_LABELS: Array<[RegExp, ReasonCode]> = [
   [/^self-harm(?:\/.*)?$/, 'OTHER'],
   [/^(?:harassment|hate)$/, 'HARASSMENT'],
 ];
-// ViSoBERT đã áp ngưỡng riêng ở tripflix-ai trước khi trả categories.
+// ViSoBERT đã áp ngưỡng riêng ở vintrip-ai trước khi trả categories.
 const VISOBERT_TOXIC = 'visobert/toxic';
 
 function findAiAutoHideReason(ai: AiVerdict | null, config: SeverityConfig): ReasonCode | null {

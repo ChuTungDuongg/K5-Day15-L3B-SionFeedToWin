@@ -261,7 +261,7 @@ def test_a_city_without_points_shows_its_reels_instead_of_a_dead_end():
 
     answer = asyncio.run(go())
     assert answer.kind == "answer" and answer.cards and answer.cards[0].kind == "video"
-    assert (answer.lead or "").startswith("Tripflix chưa có đủ điểm ở Hội An")
+    assert (answer.lead or "").startswith("Vintrip chưa có đủ điểm ở Hội An")
 
 
 def test_asking_for_ideas_is_a_search_not_a_question_back():

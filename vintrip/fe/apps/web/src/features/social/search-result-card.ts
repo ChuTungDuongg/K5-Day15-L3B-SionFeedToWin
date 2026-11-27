@@ -1,5 +1,5 @@
-import { t } from '@tripflix/i18n';
-import type { SocialPostDto } from '@tripflix/api-client/core-api/model/index';
+import { t } from '@vintrip/i18n';
+import type { SocialPostDto } from '@vintrip/api-client/core-api/model/index';
 
 const MINUTE_MS = 60_000;
 const HOUR_MS = 60 * MINUTE_MS;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { FeedCardDto, SocialPostDto, UserSearchItemDto } from '@tripflix/api-client/core-api/model/index';
+import type { FeedCardDto, SocialPostDto, UserSearchItemDto } from '@vintrip/api-client/core-api/model/index';
 import {
   buildAuthorExploreItems,
   deduplicateUsers,

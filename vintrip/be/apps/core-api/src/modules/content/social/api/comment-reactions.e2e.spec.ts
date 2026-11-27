@@ -3,9 +3,9 @@ import { registerTestAccount, seedLegacyAccount } from '../../../../platform/reg
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
-import { InMemoryObjectStorage } from '@tripflix/storage';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
+import { InMemoryObjectStorage } from '@vintrip/storage';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest';
@@ -30,7 +30,7 @@ import { CommentReactionRepository } from '../infra/comment-reaction.repository.
 import { CONTENT_OUTBOX } from '../application/ports/content-outbox.port.js';
 import type { CommentRecord, PostRecord } from '../../db/schema/index.js';
 
-const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'tripflix-core', AUTH_JWT_AUDIENCE: 'tripflix' } as CoreEnv;
+const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'vintrip-core', AUTH_JWT_AUDIENCE: 'vintrip' } as CoreEnv;
 const PASSWORD = 'mat-khau-an-toan-123';
 
 @Global()
@@ -250,28 +250,28 @@ describe('E2E: PUT & GET Comment Reactions (Thả tim bình luận - TF25)', () 
 
     // Đăng ký 2 user test
     await seedLegacyAccount(app, {
-      email: 'user-a@tripflix.vn',
+      email: 'user-a@vintrip.vn',
       password: PASSWORD,
       displayName: 'User A',
     });
     const loginA = await http()
       .post('/api/auth/login')
       .send({
-        email: 'user-a@tripflix.vn',
+        email: 'user-a@vintrip.vn',
         password: PASSWORD,
       })
       .expect(200);
     userAToken = loginA.body.accessToken;
 
     await registerTestAccount(app, {
-      email: 'user-b@tripflix.vn',
+      email: 'user-b@vintrip.vn',
       password: PASSWORD,
       displayName: 'User B',
     });
     const loginB = await http()
       .post('/api/auth/login')
       .send({
-        email: 'user-b@tripflix.vn',
+        email: 'user-b@vintrip.vn',
         password: PASSWORD,
       })
       .expect(200);

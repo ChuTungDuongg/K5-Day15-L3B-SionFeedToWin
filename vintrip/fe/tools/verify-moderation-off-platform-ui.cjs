@@ -9,7 +9,7 @@ const { mkdir } = require('node:fs/promises');
 const path = require('node:path');
 
 const admin = process.env.MODERATION_ADMIN_URL || 'http://localhost:3200';
-const email = process.env.MODERATION_LIVE_EMAIL || 'superadmin@tripflix.local';
+const email = process.env.MODERATION_LIVE_EMAIL || 'superadmin@vintrip.local';
 const password = process.env.MODERATION_LIVE_PASSWORD;
 const qaText = process.env.MODERATION_QA_TEXT || 'TF100-QA';
 const output = path.resolve(process.env.MODERATION_OUTPUT || '../../outputs/admin-moderation-off-platform-20261117');

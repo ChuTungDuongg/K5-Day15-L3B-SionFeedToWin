@@ -7,7 +7,7 @@ const runtime = process.env.PLAYWRIGHT_PACKAGE || 'playwright';
 const { chromium } = require(runtime);
 const { expect } = require(runtime + '/test');
 const { ReelsPage } = require('../../pages/reels-page.cjs');
-const OUTPUT = process.env.REELS_EVIDENCE_DIR || join(tmpdir(), 'tripflix-reels-feedback');
+const OUTPUT = process.env.REELS_EVIDENCE_DIR || join(tmpdir(), 'vintrip-reels-feedback');
 const errors = [];
 const checks = [];
 const record = (name) => {

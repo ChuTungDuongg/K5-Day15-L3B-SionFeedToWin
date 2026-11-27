@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { sql, type SQL } from 'drizzle-orm';
 import type { AiInsightsStore, AiTraceFilter } from '../application/ai-insights.store.js';
 import type { AiBucket, AiTimePoint, AiTraceRow, AiTraceStep, AiUserUsageRow, AiWindow } from '../domain/ai-insights.js';

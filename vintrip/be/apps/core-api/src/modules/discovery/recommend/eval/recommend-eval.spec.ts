@@ -7,7 +7,7 @@ import { formatBinStats, formatReport, forYouV0, forYouV1, runEval, toMeta, unre
 /**
  * Bộ đo offline for-you (TF28, thiết kế v1 mục 4).
  * Fixture: 243 bài mô phỏng dump từ DB local ngày 18/11 (recommend_posts + content.posts + điểm hot@v2), lệnh dump ở report.md.
- * Đổi thuật toán → chạy `pnpm --filter @tripflix/core-api exec vitest run src/modules/discovery/recommend/eval -u`
+ * Đổi thuật toán → chạy `pnpm --filter @vintrip/core-api exec vitest run src/modules/discovery/recommend/eval -u`
  * rồi xem diff của report.md: đó là số trước/sau.
  */
 const posts = JSON.parse(readFileSync(new URL('./fixtures/posts-2026-11-18.json', import.meta.url), 'utf8')) as EvalPost[];
@@ -72,7 +72,7 @@ describe('báo cáo bộ đo', () => {
       'Dump lại fixture (DB local, xem `fixtures/dump-posts.sql`):',
       '',
       '```',
-      'docker exec -i tripflix-postgres-1 psql -U postgres -d core -A -t < fixtures/dump-posts.sql',
+      'docker exec -i vintrip-postgres-1 psql -U postgres -d core -A -t < fixtures/dump-posts.sql',
       '```',
       '',
     ];

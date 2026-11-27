@@ -1,4 +1,4 @@
-import type { TripAttachmentDto, TripItineraryItemDto } from '@tripflix/api-client/core-api/model/index';
+import type { TripAttachmentDto, TripItineraryItemDto } from '@vintrip/api-client/core-api/model/index';
 
 export type TripDay = { day: number; items: TripItineraryItemDto[] };
 

@@ -3,7 +3,7 @@ import {
   ContentCommentDeletedV1Schema,
   ContentCommentHiddenV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 import type {
   CommentNotificationRepository,
   CommentNotificationType,

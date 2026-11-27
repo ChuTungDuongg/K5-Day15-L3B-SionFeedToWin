@@ -1,4 +1,4 @@
-import type { StayFilters } from '@tripflix/api-client';
+import type { StayFilters } from '@vintrip/api-client';
 import { OTA_DESTINATIONS } from './ota-destinations';
 import {
   addStayDays,

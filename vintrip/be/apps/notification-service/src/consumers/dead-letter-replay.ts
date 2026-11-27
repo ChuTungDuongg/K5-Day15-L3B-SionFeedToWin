@@ -1,5 +1,5 @@
-import { eventEnvelopeSchema, type EventEnvelope } from '@tripflix/contracts';
-import { STREAMS } from '@tripflix/event-bus';
+import { eventEnvelopeSchema, type EventEnvelope } from '@vintrip/contracts';
+import { STREAMS } from '@vintrip/event-bus';
 
 const REPLAY_STATE_TTL_SECONDS = 7 * 24 * 60 * 60;
 

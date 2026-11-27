@@ -1,6 +1,6 @@
 'use client';
-import { getApiErrorKind } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
+import { getApiErrorKind } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
 
 export function ApiErrorNotice({ error, retry }: { error: unknown; retry?: () => void }) {

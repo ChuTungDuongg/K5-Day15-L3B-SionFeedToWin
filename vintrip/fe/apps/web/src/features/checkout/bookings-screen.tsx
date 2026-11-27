@@ -1,8 +1,8 @@
 'use client';
 import { useEffect } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { commerceApi, useApiSession } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import { commerceApi, useApiSession } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { formatPrice } from '@/features/discovery/trip-card';

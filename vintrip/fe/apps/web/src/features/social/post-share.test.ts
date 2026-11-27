@@ -3,7 +3,7 @@ import { buildPostShareUrl, buildShareChannelUrl, placeShareMenu } from './post-
 
 describe('buildPostShareUrl', () => {
   it('bài viết mở trang Cảm hứng với bài mở sẵn', () => {
-    expect(buildPostShareUrl('https://tripflix.io.vn', 'p1', 'vlog')).toBe('https://tripflix.io.vn/inspiration?open=p1');
+    expect(buildPostShareUrl('https://vintrip.io.vn', 'p1', 'vlog')).toBe('https://vintrip.io.vn/inspiration?open=p1');
   });
 
   it('Reel thêm kind=reel để mở trong trình xem Reels; bỏ / cuối của địa chỉ web', () => {
@@ -14,7 +14,7 @@ describe('buildPostShareUrl', () => {
 });
 
 describe('buildShareChannelUrl', () => {
-  const shareUrl = 'https://tripflix.io.vn/inspiration?open=r1&kind=reel';
+  const shareUrl = 'https://vintrip.io.vn/inspiration?open=r1&kind=reel';
 
   it('mã hoá link (có & và ?) để mạng xã hội nhận đủ cả link', () => {
     expect(buildShareChannelUrl('facebook', shareUrl, 'Đà Lạt')).toBe(

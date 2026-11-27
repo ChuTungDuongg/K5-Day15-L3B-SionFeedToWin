@@ -1,7 +1,7 @@
-# Chạy Tripflix trên một máy server. Khác compose.yaml (máy dev): dùng image production trên GHCR,
+# Chạy Vintrip trên một máy server. Khác compose.yaml (máy dev): dùng image production trên GHCR,
 # mật khẩu riêng trong .env.server, Postgres và Redis không mở cổng, API chỉ nghe trên 127.0.0.1.
 # Cách dùng: xem deploy/SERVER.md.
-name: tripflix-server
+name: vintrip-server
 
 x-logging: &logging
   driver: json-file
@@ -21,8 +21,8 @@ x-core-env: &core-env
   # Trống: tắt mã hoá, client gửi mật khẩu như cũ. Chỉ bật REQUIRED khi web, admin, mobile đều đã mã hoá.
   AUTH_PASSWORD_KEYS: ${AUTH_PASSWORD_KEYS:-}
   AUTH_PASSWORD_ENCRYPTION_REQUIRED: ${AUTH_PASSWORD_ENCRYPTION_REQUIRED:-false}
-  AUTH_JWT_ISSUER: tripflix-core
-  AUTH_JWT_AUDIENCE: tripflix
+  AUTH_JWT_ISSUER: vintrip-core
+  AUTH_JWT_AUDIENCE: vintrip
   AUTH_WEB_ORIGINS: ${AUTH_WEB_ORIGINS:-http://localhost:3100}
   AUTH_PASSWORD_RESET_URL: ${AUTH_PASSWORD_RESET_URL:-http://localhost:3100/dat-lai-mat-khau}
   AUTH_EMAIL_VERIFY_URL: ${AUTH_EMAIL_VERIFY_URL:-http://localhost:3100/xac-thuc-email}
@@ -32,7 +32,7 @@ x-core-env: &core-env
   AWS_REGION: ${AWS_REGION:-ap-southeast-2}
   AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
   AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
-  S3_MEDIA_BUCKET: ${S3_MEDIA_BUCKET:-tripflix-media-dev}
+  S3_MEDIA_BUCKET: ${S3_MEDIA_BUCKET:-vintrip-media-dev}
   S3_KEY_PREFIX: ${S3_KEY_PREFIX:?}
   MEDIA_CDN_URL: ${MEDIA_CDN_URL:?}
   # Cookie ký cho video trên CloudFront (TF82, deploy/aws/README.md). Trống: không ký, video phát không cần cookie.
@@ -45,13 +45,13 @@ x-core-env: &core-env
   VNPAY_PAYMENT_URL: ${VNPAY_PAYMENT_URL:-}
   VNPAY_API_URL: ${VNPAY_API_URL:-}
   # Không để trống: core-api kiểm biến này là URL, chuỗi rỗng làm app không khởi động được.
-  VNPAY_RETURN_URL: ${VNPAY_RETURN_URL:-https://tripflix.io.vn/payments/vnpay/return}
+  VNPAY_RETURN_URL: ${VNPAY_RETURN_URL:-https://vintrip.io.vn/payments/vnpay/return}
   # Kiểm duyệt bằng AI (TF32, deploy/SERVER.md mục Kiểm duyệt). Thiếu AI_SERVICE_URL hoặc secret thì core chỉ lọc bằng regex.
   AI_SERVICE_URL: ${AI_SERVICE_URL:-}
   CORE_API_INTERNAL_URL: http://core-api:3000
   MODERATION_SERVICE_CLIENT_SECRET: ${MODERATION_SERVICE_CLIENT_SECRET:-}
   # Link chia sẻ bài do core-api trả về (shareUrl) trỏ về web này; trùng biến của notification-service.
-  WEB_APP_URL: ${WEB_APP_URL:-https://tripflix.io.vn}
+  WEB_APP_URL: ${WEB_APP_URL:-https://vintrip.io.vn}
 
 # Gửi metric, trace sang otel-collector (profile observability, deploy/SERVER.md mục Observability).
 # Đặt OTEL_SDK_DISABLED=true trong .env.server để tắt. Trace lấy mẫu 10%, metric request vẫn đo đủ.
@@ -151,14 +151,14 @@ services:
       REDIS_URL: redis://redis:6379
       DATABASE_URL_NOTIFICATION: postgres://tf_notification:${DB_PASS_NOTIFICATION:?}@postgres:5432/notification
       JWKS_URL: http://core-api:3000/.well-known/jwks.json
-      AUTH_JWT_ISSUER: tripflix-core
-      AUTH_JWT_AUDIENCE: tripflix
+      AUTH_JWT_ISSUER: vintrip-core
+      AUTH_JWT_AUDIENCE: vintrip
       # smtps://<SMTP user>:<SMTP password>@email-smtp.<region>.amazonaws.com:465 (mật khẩu đã URL-encode).
       SMTP_URL: ${SMTP_URL:-}
-      MAIL_FROM: ${MAIL_FROM:-Tripflix <no-reply@tripflix.io.vn>}
-      WEB_APP_URL: ${WEB_APP_URL:-https://tripflix.io.vn}
+      MAIL_FROM: ${MAIL_FROM:-Vintrip <no-reply@vintrip.io.vn>}
+      WEB_APP_URL: ${WEB_APP_URL:-https://vintrip.io.vn}
       # Web, admin gọi /notifications từ trình duyệt (TF46): cùng danh sách origin với core-api.
-      WEB_ORIGINS: ${AUTH_WEB_ORIGINS:-https://tripflix.io.vn}
+      WEB_ORIGINS: ${AUTH_WEB_ORIGINS:-https://vintrip.io.vn}
       # Push mobile qua Expo (N3, PR #202). Bật khi app đã gửi Expo push token lên. Khoá FCM, APNs nằm trên Expo, không nằm ở đây.
       WEB_PUSH_ENABLED: ${WEB_PUSH_ENABLED:-false}
       WEB_PUSH_PUBLIC_KEY: ${WEB_PUSH_PUBLIC_KEY:-}
@@ -179,7 +179,7 @@ services:
       retries: 12
       start_period: 30s
 
-  # ---------- Giai đoạn 5: AI (repo tripflix-ai) ----------
+  # ---------- Giai đoạn 5: AI (repo vintrip-ai) ----------
   # ai-service và worker dùng chung image và AI_TAG. App đọc tóm tắt, kết quả kiểm duyệt qua core-api.
   # ai-service (TF32): POST /moderate cho core-api gọi kiểm duyệt chữ và ảnh qua OpenAI moderation.
   # /moderate chỉ nghe trong mạng nội bộ, chỉ nhận service token của core-api,
@@ -195,7 +195,7 @@ services:
     environment:
       CORE_API_URL: http://core-api:3000
       # Web gọi /ai/chat từ trình duyệt; thiếu biến này ai-service chỉ nhận localhost và chặn preflight của web.
-      CORS_ORIGINS: ${AUTH_WEB_ORIGINS:-https://tripflix.io.vn}
+      CORS_ORIGINS: ${AUTH_WEB_ORIGINS:-https://vintrip.io.vn}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       CHAT_LLM_ENABLED: ${CHAT_LLM_ENABLED:-false}
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
@@ -304,7 +304,7 @@ services:
       AWS_REGION: ${AWS_REGION:-ap-southeast-2}
       AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
       AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
-      S3_MEDIA_BUCKET: ${S3_MEDIA_BUCKET:-tripflix-media-dev}
+      S3_MEDIA_BUCKET: ${S3_MEDIA_BUCKET:-vintrip-media-dev}
       S3_KEY_PREFIX: ${S3_KEY_PREFIX:?}
       # Tên cố định: tạo lại container không để lại consumer cũ trong group.
       VIDEO_WORKER_CONSUMER_NAME: server-1
@@ -320,7 +320,7 @@ services:
     profiles: [seed]
     build: { context: .., dockerfile: apps/core-api/Dockerfile, target: dev }
     logging: *logging
-    command: ['sh', '-c', 'pnpm turbo run build --filter=@tripflix/core-api... && pnpm --filter @tripflix/core-api db:seed']
+    command: ['sh', '-c', 'pnpm turbo run build --filter=@vintrip/core-api... && pnpm --filter @vintrip/core-api db:seed']
     environment:
       <<: *core-env
       NODE_ENV: development
@@ -368,9 +368,9 @@ services:
   web:
     profiles: [gateway]
     # Mặc định dùng image build trên máy; deploy-web.sh đặt 2 biến này trong .env.web để dùng image từ GHCR.
-    image: ${WEB_IMAGE:-tripflix-server-web}:${WEB_TAG:-latest}
+    image: ${WEB_IMAGE:-vintrip-server-web}:${WEB_TAG:-latest}
     build:
-      context: ${FE_REPO:-../../tripflix-fe}
+      context: ${FE_REPO:-../../vintrip-fe}
       dockerfile: apps/web/Dockerfile
       target: prod
       args:
@@ -384,7 +384,7 @@ services:
       retries: 12
       start_period: 30s
 
-  # Back Office (tripflix-fe/apps/admin). Chỉ chạy image từ GHCR: CI gắn địa chỉ API và web vào bundle lúc build.
+  # Back Office (vintrip-fe/apps/admin). Chỉ chạy image từ GHCR: CI gắn địa chỉ API và web vào bundle lúc build.
   # Profile riêng để `--profile gateway up` không bật admin khi chưa deploy; deploy-web.sh tự bật profile này.
   admin:
     profiles: [admin]

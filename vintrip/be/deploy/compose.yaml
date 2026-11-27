@@ -1,6 +1,6 @@
-# Chạy cả hệ thống Tripflix. Dùng qua các lệnh pnpm stack:* ở gốc repo (xem README).
+# Chạy cả hệ thống Vintrip. Dùng qua các lệnh pnpm stack:* ở gốc repo (xem README).
 # Profile: (không có) = hạ tầng luôn chạy; be, ai, fe, gateway, tools.
-name: tripflix
+name: vintrip
 
 x-be-env: &be-env
   NODE_ENV: development
@@ -16,8 +16,8 @@ x-be-env: &be-env
   AUTH_JWT_PRIVATE_KEY: ${AUTH_JWT_PRIVATE_KEY:-}
   # Khoá để client mã hoá mật khẩu trước khi gửi (TF056). Bỏ trống ở dev thì tự sinh khoá tạm.
   AUTH_PASSWORD_KEYS: ${AUTH_PASSWORD_KEYS:-}
-  AUTH_JWT_ISSUER: tripflix-core
-  AUTH_JWT_AUDIENCE: tripflix
+  AUTH_JWT_ISSUER: vintrip-core
+  AUTH_JWT_AUDIENCE: vintrip
   # Web (3100), admin (3200) gọi API qua gateway :8080 từ trình duyệt: CORS và cookie refresh token.
   AUTH_WEB_ORIGINS: ${AUTH_WEB_ORIGINS:-http://localhost:3100,http://localhost:3200}
   AUTH_PASSWORD_RESET_URL: ${AUTH_PASSWORD_RESET_URL:-http://localhost:3100/dat-lai-mat-khau}
@@ -27,11 +27,11 @@ x-be-env: &be-env
   GOOGLE_CLIENT_IDS: ${GOOGLE_CLIENT_IDS:-}
   JWKS_URL: http://core-api:3000/.well-known/jwks.json
   # Mật khẩu của 3 tài khoản mẫu (pnpm db:seed), chỉ dùng ở máy local.
-  SEED_PASSWORD: ${SEED_PASSWORD:-tripflix-dev-123}
+  SEED_PASSWORD: ${SEED_PASSWORD:-vintrip-dev-123}
   AWS_REGION: ${AWS_REGION:-ap-southeast-2}
   AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
   AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
-  S3_MEDIA_BUCKET: ${S3_MEDIA_BUCKET:-tripflix-media-dev}
+  S3_MEDIA_BUCKET: ${S3_MEDIA_BUCKET:-vintrip-media-dev}
   S3_KEY_PREFIX: dev/${DEV_NAME:-unknown}/
   MEDIA_CDN_URL: ${MEDIA_CDN_URL:-}
   AI_SERVICE_URL: ${AI_SERVICE_URL:-}
@@ -78,7 +78,7 @@ services:
   migrate:
     profiles: [be]
     build: { context: .., dockerfile: apps/core-api/Dockerfile, target: dev }
-    command: ['sh', '-c', 'pnpm turbo run build --filter=@tripflix/core-api... && pnpm --filter @tripflix/core-api db:migrate && pnpm --filter @tripflix/core-api db:seed']
+    command: ['sh', '-c', 'pnpm turbo run build --filter=@vintrip/core-api... && pnpm --filter @vintrip/core-api db:migrate && pnpm --filter @vintrip/core-api db:seed']
     environment: *be-env
     depends_on:
       postgres: { condition: service_healthy }
@@ -115,7 +115,7 @@ services:
       WEB_PUSH_PRIVATE_KEY: ${WEB_PUSH_PRIVATE_KEY:-}
       WEB_PUSH_SUBJECT: ${WEB_PUSH_SUBJECT:-}
       SMTP_URL: smtp://mailpit:1025
-      MAIL_FROM: Tripflix <no-reply@tripflix.local>
+      MAIL_FROM: Vintrip <no-reply@vintrip.local>
       WEB_APP_URL: ${WEB_APP_URL:-http://localhost:3100}
     ports: ['3001:3001']
     depends_on:
@@ -142,10 +142,10 @@ services:
         - { action: sync+restart, path: ../libs, target: /repo/libs, ignore: ['**/node_modules', '**/dist'] }
         - { action: rebuild, path: ../pnpm-lock.yaml }
 
-  # ---------- AI (profile ai) — build từ repo tripflix-ai đặt cạnh ----------
+  # ---------- AI (profile ai) — build từ repo vintrip-ai đặt cạnh ----------
   ai-service:
     profiles: [ai]
-    build: { context: '${AI_REPO:-../../tripflix-ai}', target: dev }
+    build: { context: '${AI_REPO:-../../vintrip-ai}', target: dev }
     environment:
       CORE_API_URL: http://core-api:3000
       REDIS_URL: redis://redis:6379
@@ -168,14 +168,14 @@ services:
     ports: ['8000:8000']
     develop:
       watch:
-        - { action: sync, path: '${AI_REPO:-../../tripflix-ai}/app', target: /srv/app }
-        - { action: rebuild, path: '${AI_REPO:-../../tripflix-ai}/uv.lock' }
+        - { action: sync, path: '${AI_REPO:-../../vintrip-ai}/app', target: /srv/app }
+        - { action: rebuild, path: '${AI_REPO:-../../vintrip-ai}/uv.lock' }
 
   # Worker tóm tắt bài viết: nghe stream:core.content. Cùng image với ai-service (build dùng lại cache).
   # Chỉ chạy khi bật profile ai (pnpm stack:ai); stack:down tắt cùng các service khác.
   ai-summary-worker:
     profiles: [ai]
-    build: { context: '${AI_REPO:-../../tripflix-ai}', target: dev }
+    build: { context: '${AI_REPO:-../../vintrip-ai}', target: dev }
     command: ['/app/.venv/bin/python', '-m', 'app.workers.summary_worker']
     environment:
       CORE_API_URL: http://core-api:3000
@@ -196,33 +196,33 @@ services:
     restart: unless-stopped
     develop:
       watch:
-        - { action: sync+restart, path: '${AI_REPO:-../../tripflix-ai}/app', target: /app/app }
-        - { action: rebuild, path: '${AI_REPO:-../../tripflix-ai}/uv.lock' }
+        - { action: sync+restart, path: '${AI_REPO:-../../vintrip-ai}/app', target: /app/app }
+        - { action: rebuild, path: '${AI_REPO:-../../vintrip-ai}/uv.lock' }
 
-  # ---------- Web, admin (profile fe) — build từ repo tripflix-fe đặt cạnh ----------
+  # ---------- Web, admin (profile fe) — build từ repo vintrip-fe đặt cạnh ----------
   web:
     profiles: [fe]
-    build: { context: '${FE_REPO:-../../tripflix-fe}', dockerfile: apps/web/Dockerfile, target: dev }
+    build: { context: '${FE_REPO:-../../vintrip-fe}', dockerfile: apps/web/Dockerfile, target: dev }
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8080
     ports: ['3100:3100']
     develop:
       watch:
-        - { action: sync, path: '${FE_REPO:-../../tripflix-fe}/apps/web/src', target: /repo/apps/web/src }
-        - { action: sync, path: '${FE_REPO:-../../tripflix-fe}/packages', target: /repo/packages, ignore: ['**/node_modules'] }
-        - { action: rebuild, path: '${FE_REPO:-../../tripflix-fe}/pnpm-lock.yaml' }
+        - { action: sync, path: '${FE_REPO:-../../vintrip-fe}/apps/web/src', target: /repo/apps/web/src }
+        - { action: sync, path: '${FE_REPO:-../../vintrip-fe}/packages', target: /repo/packages, ignore: ['**/node_modules'] }
+        - { action: rebuild, path: '${FE_REPO:-../../vintrip-fe}/pnpm-lock.yaml' }
 
   admin:
     profiles: [fe]
-    build: { context: '${FE_REPO:-../../tripflix-fe}', dockerfile: apps/admin/Dockerfile, target: dev }
+    build: { context: '${FE_REPO:-../../vintrip-fe}', dockerfile: apps/admin/Dockerfile, target: dev }
     environment:
       NEXT_PUBLIC_API_URL: http://localhost:8080
     ports: ['3200:3200']
     develop:
       watch:
-        - { action: sync, path: '${FE_REPO:-../../tripflix-fe}/apps/admin/src', target: /repo/apps/admin/src }
-        - { action: sync, path: '${FE_REPO:-../../tripflix-fe}/packages', target: /repo/packages, ignore: ['**/node_modules'] }
-        - { action: rebuild, path: '${FE_REPO:-../../tripflix-fe}/pnpm-lock.yaml' }
+        - { action: sync, path: '${FE_REPO:-../../vintrip-fe}/apps/admin/src', target: /repo/apps/admin/src }
+        - { action: sync, path: '${FE_REPO:-../../vintrip-fe}/packages', target: /repo/packages, ignore: ['**/node_modules'] }
+        - { action: rebuild, path: '${FE_REPO:-../../vintrip-fe}/pnpm-lock.yaml' }
 
   # ---------- Gateway (profile gateway) ----------
   traefik:

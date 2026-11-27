@@ -15,6 +15,6 @@ const slugifyName = (name: string) =>
 
 /** Slug từ tên và hash của id: seed lại vẫn ra đúng slug cũ, không suy ra được từ số thứ tự. */
 export function buildHotelSlug(id: string, name: string): string {
-  const suffix = createHash('sha256').update(`tripflix-hotel-slug:${id}`).digest('base64url').replace(/[-_]/g, 'x').toLowerCase().slice(0, SUFFIX_LENGTH);
+  const suffix = createHash('sha256').update(`vintrip-hotel-slug:${id}`).digest('base64url').replace(/[-_]/g, 'x').toLowerCase().slice(0, SUFFIX_LENGTH);
   return [slugifyName(name), suffix].filter(Boolean).join('-');
 }

@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { commentControlsApi } from '@tripflix/api-client';
-import { vi } from '@tripflix/i18n';
-import type { CommentSettingsDto } from '@tripflix/api-client/core-api/model/index';
+import { commentControlsApi } from '@vintrip/api-client';
+import { vi } from '@vintrip/i18n';
+import type { CommentSettingsDto } from '@vintrip/api-client/core-api/model/index';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import styles from './creator-comment-controls.module.css';
 

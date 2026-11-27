@@ -4,7 +4,7 @@
 set -euo pipefail
 
 DEV_NAME="${1:-}"
-BUCKET="${S3_MEDIA_BUCKET:-tripflix-media-dev}"
+BUCKET="${S3_MEDIA_BUCKET:-vintrip-media-dev}"
 DIR="$(cd "$(dirname "$0")" && pwd)"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
@@ -17,7 +17,7 @@ case "$DEV_NAME" in
     ;;
 esac
 
-USER_NAME="tripflix-dev-$DEV_NAME"
+USER_NAME="vintrip-dev-$DEV_NAME"
 if aws iam get-user --user-name "$USER_NAME" >/dev/null 2>&1; then
   echo "User $USER_NAME đã có"
 else
@@ -27,6 +27,6 @@ fi
 
 sed -e "s|@BUCKET@|$BUCKET|g" -e "s|@DEV_NAME@|$DEV_NAME|g" \
   "$DIR/iam-dev-member-policy.template.json" >"$TMP/policy.json"
-aws iam put-user-policy --user-name "$USER_NAME" --policy-name tripflix-media-dev \
+aws iam put-user-policy --user-name "$USER_NAME" --policy-name vintrip-media-dev \
   --policy-document "file://$TMP/policy.json"
 echo "Đã gán quyền dev/$DEV_NAME/*. Tạo access key cho $USER_NAME trong AWS Console."

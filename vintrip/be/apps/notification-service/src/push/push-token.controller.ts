@@ -1,5 +1,5 @@
 import { BadRequestException, Body, Controller, Delete, HttpCode, Inject, Post } from '@nestjs/common';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import { z } from 'zod';
 import { PushPlatformSchema, PushTokenSchema, PushWorker } from './push.worker.js';
 

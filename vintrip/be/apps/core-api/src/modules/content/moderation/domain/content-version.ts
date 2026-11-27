@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 
-export const MODERATION_POLICY_VERSION = 'tripflix-community-v1';
+export const MODERATION_POLICY_VERSION = 'vintrip-community-v1';
 export const APPEAL_WINDOW_DAYS = 30;
 export const EVIDENCE_RETENTION_DAYS = 90;
 

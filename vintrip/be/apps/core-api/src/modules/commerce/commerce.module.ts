@@ -1,7 +1,7 @@
 import { Logger, Module } from '@nestjs/common';
-import { buildDrizzleToken, buildTransactionHostToken, createDb, type Db, type ModuleTransactionHost } from '@tripflix/db';
-import { DrizzleIdempotencyStore, IdempotencyModule } from '@tripflix/idempotency';
-import { OutboxWriter } from '@tripflix/outbox';
+import { buildDrizzleToken, buildTransactionHostToken, createDb, type Db, type ModuleTransactionHost } from '@vintrip/db';
+import { DrizzleIdempotencyStore, IdempotencyModule } from '@vintrip/idempotency';
+import { OutboxWriter } from '@vintrip/outbox';
 import { z } from 'zod';
 import type { CoreEnv } from '../../platform/env.js';
 import { CORE_ENV, DB_POOLS, type DbPools } from '../../platform/tokens.js';

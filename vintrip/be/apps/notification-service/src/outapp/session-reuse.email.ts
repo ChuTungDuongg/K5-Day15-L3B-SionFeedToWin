@@ -1,8 +1,8 @@
-import type { AccessSessionReuseDetectedV1 } from '@tripflix/contracts';
+import type { AccessSessionReuseDetectedV1 } from '@vintrip/contracts';
 import { emailButton, escapeHtml, renderEmailShell } from './html.js';
 import type { EmailMessage } from './mailer.js';
 
-/** Đường dẫn trên web (tripflix-fe/apps/web/src/app): trang đăng nhập và quên mật khẩu. */
+/** Đường dẫn trên web (vintrip-fe/apps/web/src/app): trang đăng nhập và quên mật khẩu. */
 const LOGIN_PATH = '/login';
 const FORGOT_PASSWORD_PATH = '/forgot-password';
 
@@ -15,7 +15,7 @@ export function buildSessionReuseEmail(payload: AccessSessionReuseDetectedV1, we
   const loginUrl = `${base}${LOGIN_PATH}`;
   const resetUrl = `${base}${FORGOT_PASSWORD_PATH}`;
   const device = payload.deviceName ? `trên thiết bị "${payload.deviceName}"` : 'trên một thiết bị';
-  const reason = `Chúng tôi vừa đăng xuất phiên đăng nhập Tripflix của bạn ${device} vì phát hiện mã đăng nhập cũ bị dùng lại, dấu hiệu có thể bị đánh cắp.`;
+  const reason = `Chúng tôi vừa đăng xuất phiên đăng nhập Vintrip của bạn ${device} vì phát hiện mã đăng nhập cũ bị dùng lại, dấu hiệu có thể bị đánh cắp.`;
   const advice = 'Nếu bạn không nhận ra việc này, hãy đặt lại mật khẩu ngay: mọi thiết bị khác cũng sẽ bị đăng xuất.';
 
   const deviceDisplay = payload.deviceName ? escapeHtml(payload.deviceName) : 'Không xác định (trên một thiết bị)';
@@ -49,7 +49,7 @@ export function buildSessionReuseEmail(payload: AccessSessionReuseDetectedV1, we
 
   return {
     to: payload.email,
-    subject: 'Phiên đăng nhập Tripflix của bạn đã bị đăng xuất',
+    subject: 'Phiên đăng nhập Vintrip của bạn đã bị đăng xuất',
     text: [
       `Chào ${payload.displayName},`,
       '',
@@ -58,14 +58,14 @@ export function buildSessionReuseEmail(payload: AccessSessionReuseDetectedV1, we
       `Đăng nhập lại: ${loginUrl}`,
       `${advice} ${resetUrl}`,
       '',
-      'Tripflix · Chạm cảm hứng, trọn hành trình.',
+      'Vintrip · Chạm cảm hứng, trọn hành trình.',
     ].join('\n'),
     html: renderEmailShell({
       title: 'Phiên đăng nhập đã bị đăng xuất',
       badge: { text: '🔒 CẢNH BÁO BẢO MẬT', bg: '#FFF0EB', color: '#BC331E' },
       heading: 'Phiên đăng nhập đã bị đăng xuất',
       content,
-      footerNote: 'Email bảo mật tự động gửi đến địa chỉ đã đăng ký tài khoản Tripflix của bạn.',
+      footerNote: 'Email bảo mật tự động gửi đến địa chỉ đã đăng ký tài khoản Vintrip của bạn.',
     }),
   };
 }

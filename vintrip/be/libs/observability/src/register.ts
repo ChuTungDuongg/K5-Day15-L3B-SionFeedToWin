@@ -1,8 +1,8 @@
 /**
- * Điểm vào cho `node --import @tripflix/observability/register` (TF99): bật startTelemetry sớm, trước khi app import
+ * Điểm vào cho `node --import @vintrip/observability/register` (TF99): bật startTelemetry sớm, trước khi app import
  * pg, ioredis, để có thêm span cho từng câu SQL, lệnh Redis. App gọi startTelemetry sau đó nhận lại đúng SDK này.
  *   OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 OTEL_SERVICE_NAME=core-api \
- *   NODE_OPTIONS="--import @tripflix/observability/register" node dist/main.js
+ *   NODE_OPTIONS="--import @vintrip/observability/register" node dist/main.js
  * Không có OTEL_EXPORTER_OTLP_ENDPOINT thì không đăng ký hook, không nạp SDK.
  */
 import { register } from 'node:module';

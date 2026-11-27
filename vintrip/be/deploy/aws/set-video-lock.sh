@@ -9,8 +9,8 @@ if [ "$MODE" != "on" ] && [ "$MODE" != "off" ]; then
   echo "Dùng: $0 on|off" >&2
   exit 1
 fi
-BUCKET="${S3_MEDIA_BUCKET:-tripflix-media-dev}"
-KEY_GROUP_NAME="${KEY_GROUP_NAME:-tripflix-playback}"
+BUCKET="${S3_MEDIA_BUCKET:-vintrip-media-dev}"
+KEY_GROUP_NAME="${KEY_GROUP_NAME:-vintrip-playback}"
 DIR="$(cd "$(dirname "$0")" && pwd)"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT

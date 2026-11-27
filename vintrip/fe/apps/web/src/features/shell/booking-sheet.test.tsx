@@ -9,7 +9,7 @@ const state = vi.hoisted(() => ({
 }));
 
 vi.mock('next/navigation', () => ({ usePathname: () => state.pathname }));
-vi.mock('@tripflix/api-client', () => ({ useApiSession: () => ({ user: state.user, isReady: true }) }));
+vi.mock('@vintrip/api-client', () => ({ useApiSession: () => ({ user: state.user, isReady: true }) }));
 vi.mock('../checkout/cart-store', () => ({ useBookingCart: () => ({ items: state.cartItems }) }));
 // Bảng chỉ render khi mở; giả lập trạng thái đang mở.
 vi.mock('../shared/use-header-popover', () => ({

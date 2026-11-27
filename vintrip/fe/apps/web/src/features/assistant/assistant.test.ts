@@ -1,5 +1,5 @@
-import { AssistantError, HttpError, type AssistantCard } from '@tripflix/api-client';
-import { vi as copy } from '@tripflix/i18n';
+import { AssistantError, HttpError, type AssistantCard } from '@vintrip/api-client';
+import { vi as copy } from '@vintrip/i18n';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';

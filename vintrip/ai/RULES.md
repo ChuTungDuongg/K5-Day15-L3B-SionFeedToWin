@@ -1,6 +1,6 @@
-# Quy tắc làm việc — Tripflix
+# Quy tắc làm việc — Vintrip
 
-Áp dụng cho **mọi thành viên và mọi AI agent** (Claude Code, Cursor, Codex…) trong 3 repo `tripflix-be`, `tripflix-fe`, `tripflix-ai`. File này giống hệt nhau ở cả 3 repo. Muốn sửa thì mở PR, Tech Lead duyệt.
+Áp dụng cho **mọi thành viên và mọi AI agent** (Claude Code, Cursor, Codex…) trong 3 repo `vintrip-be`, `vintrip-fe`, `vintrip-ai`. File này giống hệt nhau ở cả 3 repo. Muốn sửa thì mở PR, Tech Lead duyệt.
 
 AI agent: đọc hết file này trước khi làm. Luật nào không làm được thì **dừng lại hỏi người dùng**, không tự tìm cách lách.
 
@@ -181,7 +181,7 @@ Hỏi người dùng thay vì đoán, nhất là khi: yêu cầu mơ hồ, đụ
 | AI: cả repo | Bảo | Thắng |
 | `RULES.md`, CI, Dockerfile, cấu hình chung | Tech Lead | — |
 
-### `tripflix-be`
+### `vintrip-be`
 
 - Kiểm tra: `pnpm turbo run lint typecheck test --affected`.
 - Scope commit: `access`, `content`, `social`, `media`, `feed`, `moderation`, `discovery`, `commerce`, `analytics`, `notification`, `video`, `libs`, `deploy`, `contracts`, `repo`.
@@ -194,7 +194,7 @@ Hỏi người dùng thay vì đoán, nhất là khi: yêu cầu mơ hồ, đụ
 - Migration: `pnpm db:generate <module>`. Không sửa migration đã merge.
 - Đổi API hoặc sự kiện thì chỉ được **thêm** trường, rồi chạy `pnpm contracts:build` và commit `contracts/`.
 
-### `tripflix-fe`
+### `vintrip-fe`
 
 - Kiểm tra: `pnpm turbo run lint typecheck test --affected`.
 - Scope commit: `mobile`, `web`, `admin`, `api-client`, `app-core`, `ui`, `tokens`, `i18n`, `utils`, `config`, `repo`.
@@ -205,7 +205,7 @@ Hỏi người dùng thay vì đoán, nhất là khi: yêu cầu mơ hồ, đụ
 - Code chia theo tính năng (`features/<tên>`), không chia theo loại file.
 - Đổi giao diện phải có ảnh hoặc video trong evidence. Mobile thì chụp trên Android.
 
-### `tripflix-ai`
+### `vintrip-ai`
 
 - Kiểm tra: `uv run ruff check . && uv run ruff format --check . && uv run pyright && uv run pytest`.
 - Scope commit: `api`, `agents`, `prompts`, `evals`, `clients`, `contracts`, `repo`.

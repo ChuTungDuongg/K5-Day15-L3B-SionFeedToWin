@@ -1,4 +1,4 @@
-import { loadWebAudioAsset } from '@tripflix/api-client';
+import { loadWebAudioAsset } from '@vintrip/api-client';
 
 export interface NotificationAudioClip {
   currentTime: number;

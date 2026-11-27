@@ -2,6 +2,8 @@
 
 Nguồn khung: [`starter-repo/` của BTC](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/tree/6225f90bc65e7751139127abb42bd0ed7241f2de/starter-repo), commit `6225f90bc65e7751139127abb42bd0ed7241f2de`.
 
+Nguồn tham khảo của thư mục `vintrip/`: khung frontend (Next.js), backend (NestJS) và dịch vụ AI dựa trên mã nguồn dự án TripFlix (đổi tên thành Vintrip). Phần nhóm tự làm: agent Vini trong `codebase/`, ý tưởng lập lịch khu vui chơi, giao diện tông cam hồng.
+
 Hướng dẫn chính thức: [đề bài](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/01-challenge-brief.md) · [guide](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/02-guide.md) · [rubric](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/03-rubric.md) · [các track](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/tree/main/tracks).
 
 **Trạng thái:** đã đưa bộ khung vào repo; bản chạy thử dùng model giả. Track, lát cắt, thành viên, bằng chứng và bộ câu thử vẫn cần nhóm hoàn thiện. Các chỗ `____` và dòng ghi “ví dụ” là mẫu, chưa phải nội dung nộp bài.

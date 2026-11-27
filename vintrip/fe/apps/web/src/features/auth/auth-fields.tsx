@@ -4,9 +4,9 @@ import {
   getAuthErrorKind,
   getRegistrationFieldError,
   type AuthAction,
-} from '@tripflix/api-client';
-import { countCharacters, CURRENT_PASSWORD_MAX } from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+} from '@vintrip/api-client';
+import { countCharacters, CURRENT_PASSWORD_MAX } from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import { useState, type InputHTMLAttributes } from 'react';
 
 type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> & {

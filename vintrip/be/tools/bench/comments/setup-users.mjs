@@ -1,4 +1,4 @@
-// TF99: tạo 5 tài khoản thử bench-1..5@tripflix.local qua đúng luồng đăng ký thật, chỉ dùng thư viện có sẵn của Node.
+// TF99: tạo 5 tài khoản thử bench-1..5@vintrip.local qua đúng luồng đăng ký thật, chỉ dùng thư viện có sẵn của Node.
 // Mã xác thực email đọc từ Mailpit, nên lúc chạy cần core-api, notification-service và Mailpit.
 // Tài khoản đã có thì chỉ thử đăng nhập. Chạy một lần cho mỗi DB; k6 tự đăng nhập lại mỗi lần đo.
 //   node tools/bench/comments/setup-users.mjs

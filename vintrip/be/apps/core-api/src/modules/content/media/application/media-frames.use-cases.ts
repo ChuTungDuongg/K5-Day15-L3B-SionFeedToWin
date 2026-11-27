@@ -1,8 +1,8 @@
 import { randomUUID } from 'node:crypto';
 import { ConflictException } from '@nestjs/common';
-import { Transactional, type Db } from '@tripflix/db';
-import { FRAME_POLICY, type MediaFramesCompletedV1 } from '@tripflix/contracts';
-import { OutboxWriter } from '@tripflix/outbox';
+import { Transactional, type Db } from '@vintrip/db';
+import { FRAME_POLICY, type MediaFramesCompletedV1 } from '@vintrip/contracts';
+import { OutboxWriter } from '@vintrip/outbox';
 import { and, asc, eq, inArray, sql } from 'drizzle-orm';
 import { contentOutboxEvents, mediaAssets, mediaFrameScans } from '../../db/schema/index.js';
 

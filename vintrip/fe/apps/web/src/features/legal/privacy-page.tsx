@@ -1,4 +1,4 @@
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { LegalPage } from './legal-page';
 
 /** Trang chính sách bảo mật (/chinh-sach-bao-mat). */

@@ -1,4 +1,4 @@
-import { needsSurvey, type OnboardingRecord } from '@tripflix/app-core';
+import { needsSurvey, type OnboardingRecord } from '@vintrip/app-core';
 import { readSafeReturnTo } from '../auth/auth-return';
 
 /**

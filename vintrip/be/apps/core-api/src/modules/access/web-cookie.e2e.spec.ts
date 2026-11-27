@@ -3,8 +3,8 @@ import { registerTestAccount } from '../../platform/registration.fixture.js';
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import type { CoreEnv } from '../../platform/env.js';
@@ -21,8 +21,8 @@ const WEB_ORIGIN = 'http://localhost:3100';
 const ADMIN_ORIGIN = 'http://localhost:3200';
 const env = {
   NODE_ENV: 'test',
-  AUTH_JWT_ISSUER: 'tripflix-core',
-  AUTH_JWT_AUDIENCE: 'tripflix',
+  AUTH_JWT_ISSUER: 'vintrip-core',
+  AUTH_JWT_AUDIENCE: 'vintrip',
   AUTH_WEB_ORIGINS: [WEB_ORIGIN, ADMIN_ORIGIN],
 } as CoreEnv;
 
@@ -40,14 +40,14 @@ class FakePlatformModule {}
 import { createTestBrowserProof } from './auth/infra/test-browser-proof.js';
 
 const PASSWORD = 'mat-khau-an-toan';
-const WEB = { 'X-Tripflix-Client': 'web', Origin: WEB_ORIGIN };
+const WEB = { 'X-Vintrip-Client': 'web', Origin: WEB_ORIGIN };
 
-/** Lấy giá trị cookie tripflix_refresh và các thuộc tính từ Set-Cookie. */
+/** Lấy giá trị cookie vintrip_refresh và các thuộc tính từ Set-Cookie. */
 function readSetCookie(res: request.Response) {
-  const raw = ([] as string[]).concat(res.headers['set-cookie'] ?? []).find((c) => c.startsWith('tripflix_refresh='));
+  const raw = ([] as string[]).concat(res.headers['set-cookie'] ?? []).find((c) => c.startsWith('vintrip_refresh='));
   if (!raw) return undefined;
   const [pair, ...attrs] = raw.split(';').map((p) => p.trim());
-  return { value: pair!.slice('tripflix_refresh='.length), attrs: attrs.map((a) => a.toLowerCase()), raw };
+  return { value: pair!.slice('vintrip_refresh='.length), attrs: attrs.map((a) => a.toLowerCase()), raw };
 }
 
 describe('TF056: refresh token trong cookie cho web, admin', () => {
@@ -156,13 +156,13 @@ describe('TF056: refresh token trong cookie cho web, admin', () => {
     const before = store.sessionRows.size;
     const evil = await http()
       .post('/api/auth/login')
-      .set({ 'X-Tripflix-Client': 'web', Origin: 'https://evil.example' })
+      .set({ 'X-Vintrip-Client': 'web', Origin: 'https://evil.example' })
       .send({ email: 'web-evil@example.com', password: PASSWORD })
       .expect(403);
     expect(evil.body.message).toBe(UNTRUSTED_ORIGIN_MESSAGE);
     await http()
       .post('/api/auth/login')
-      .set({ 'X-Tripflix-Client': 'web' })
+      .set({ 'X-Vintrip-Client': 'web' })
       .send({ email: 'web-evil@example.com', password: PASSWORD })
       .expect(403);
     expect(store.sessionRows.size).toBe(before);
@@ -174,7 +174,7 @@ describe('TF056: refresh token trong cookie cho web, admin', () => {
 
     const signed = await proof('refresh', WEB_ORIGIN);
     const copied = await createTestBrowserProof();
-    const refresh = () => http().post('/api/auth/refresh').set(WEB).set('Cookie', `tripflix_refresh=${cookie.value}`);
+    const refresh = () => http().post('/api/auth/refresh').set(WEB).set('Cookie', `vintrip_refresh=${cookie.value}`);
     await refresh().expect(401);
     await refresh().set(await copied('refresh', WEB_ORIGIN)).expect(401);
     await http().post('/api/auth/refresh').send({ refreshToken: cookie.value }).expect(401);
@@ -186,14 +186,14 @@ describe('TF056: refresh token trong cookie cho web, admin', () => {
     expect(next.value).not.toBe(cookie.value);
 
     await http().post('/api/auth/refresh').set(WEB)
-      .set(await proof('refresh', WEB_ORIGIN)).set('Cookie', `tripflix_refresh=${next.value}`).expect(200);
+      .set(await proof('refresh', WEB_ORIGIN)).set('Cookie', `vintrip_refresh=${next.value}`).expect(200);
 
     const adminProof = await createTestBrowserProof();
     const adminLogin = await http().post('/api/auth/login').set({ ...WEB, Origin: ADMIN_ORIGIN })
       .set(await adminProof('login', ADMIN_ORIGIN))
       .send({ email: 'web-refresh@example.com', password: PASSWORD }).expect(200);
     const adminCookie = ([] as string[]).concat(adminLogin.headers['set-cookie'] ?? [])[0]!.split(';')[0]!;
-    expect(adminCookie).toMatch(/^tripflix_refresh_[a-f0-9]+=w1\./);
+    expect(adminCookie).toMatch(/^vintrip_refresh_[a-f0-9]+=w1\./);
     await http().post('/api/auth/refresh').set({ ...WEB, Origin: ADMIN_ORIGIN, Cookie: adminCookie })
       .set(await adminProof('refresh', ADMIN_ORIGIN)).expect(200);
   });
@@ -204,20 +204,20 @@ describe('TF056: refresh token trong cookie cho web, admin', () => {
 
     const evil = await http()
       .post('/api/auth/refresh')
-      .set({ Origin: 'https://evil.example', Cookie: `tripflix_refresh=${cookie.value}` })
+      .set({ Origin: 'https://evil.example', Cookie: `vintrip_refresh=${cookie.value}` })
       .expect(403);
     expect(readSetCookie(evil)).toBeUndefined();
-    await http().post('/api/auth/refresh').set({ Cookie: `tripflix_refresh=${cookie.value}` }).expect(403);
+    await http().post('/api/auth/refresh').set({ Cookie: `vintrip_refresh=${cookie.value}` }).expect(403);
 
     await http().post('/api/auth/refresh').set(WEB).set(await proof('refresh', WEB_ORIGIN))
-      .set('Cookie', `tripflix_refresh=${cookie.value}`).expect(200);
+      .set('Cookie', `vintrip_refresh=${cookie.value}`).expect(200);
   });
 
   it('làm mới web lỗi (không có cookie, cookie hỏng): 401 và xoá cookie', async () => {
     const none = await http().post('/api/auth/refresh').set(WEB).expect(401);
     expect(readSetCookie(none)?.raw).toMatch(/Expires=Thu, 01 Jan 1970/);
 
-    const broken = await http().post('/api/auth/refresh').set(WEB).set('Cookie', 'tripflix_refresh=khong-hop-le').expect(401);
+    const broken = await http().post('/api/auth/refresh').set(WEB).set('Cookie', 'vintrip_refresh=khong-hop-le').expect(401);
     expect(readSetCookie(broken)?.raw).toMatch(/Expires=Thu, 01 Jan 1970/);
   });
 
@@ -228,10 +228,10 @@ describe('TF056: refresh token trong cookie cho web, admin', () => {
     const out = await http()
       .post('/api/auth/logout')
       .set(WEB)
-      .set({ Authorization: `Bearer ${res.body.accessToken}`, Cookie: `tripflix_refresh=${cookie.value}` })
+      .set({ Authorization: `Bearer ${res.body.accessToken}`, Cookie: `vintrip_refresh=${cookie.value}` })
       .expect(204);
     expect(readSetCookie(out)).toMatchObject({ value: '' });
-    await http().post('/api/auth/refresh').set(WEB).set('Cookie', `tripflix_refresh=${cookie.value}`).expect(401);
+    await http().post('/api/auth/refresh').set(WEB).set('Cookie', `vintrip_refresh=${cookie.value}`).expect(401);
   });
 
   it('logout-all từ web cũng xoá cookie', async () => {
@@ -240,7 +240,7 @@ describe('TF056: refresh token trong cookie cho web, admin', () => {
     const out = await http()
       .post('/api/auth/logout-all')
       .set(WEB)
-      .set({ Authorization: `Bearer ${res.body.accessToken}`, Cookie: `tripflix_refresh=${cookie.value}` })
+      .set({ Authorization: `Bearer ${res.body.accessToken}`, Cookie: `vintrip_refresh=${cookie.value}` })
       .expect(204);
     expect(readSetCookie(out)).toMatchObject({ value: '' });
   });
@@ -262,11 +262,11 @@ describe('TF056: refresh token trong cookie cho web, admin', () => {
   it('CORS: origin tin cậy được phép kèm cookie; origin lạ không có Access-Control-Allow-Origin', async () => {
     const ok = await http()
       .options('/api/auth/refresh')
-      .set({ Origin: WEB_ORIGIN, 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'x-tripflix-client,content-type' })
+      .set({ Origin: WEB_ORIGIN, 'Access-Control-Request-Method': 'POST', 'Access-Control-Request-Headers': 'x-vintrip-client,content-type' })
       .expect(204);
     expect(ok.headers['access-control-allow-origin']).toBe(WEB_ORIGIN);
     expect(ok.headers['access-control-allow-credentials']).toBe('true');
-    expect(ok.headers['access-control-allow-headers']).toMatch(/x-tripflix-client/);
+    expect(ok.headers['access-control-allow-headers']).toMatch(/x-vintrip-client/);
 
     const evil = await http()
       .options('/api/auth/refresh')
@@ -301,7 +301,7 @@ describe('TF056: refresh token trong cookie cho web, admin', () => {
         .set(await proof('login', ADMIN_ORIGIN)).send({ code: created.body.code }).expect(200);
       expect(res.body).toEqual({ accessToken: expect.any(String), tokenType: 'Bearer', expiresIn: 900 });
       const adminCookie = ([] as string[]).concat(res.headers['set-cookie'] ?? [])[0]!.split(';')[0]!;
-      expect(adminCookie).toMatch(/^tripflix_refresh_[a-f0-9]+=w1\./);
+      expect(adminCookie).toMatch(/^vintrip_refresh_[a-f0-9]+=w1\./);
 
       const me = await http().get('/api/admin/me').set('Authorization', `Bearer ${res.body.accessToken}`).expect(200);
       expect(me.body.id).toBe(staff.id);

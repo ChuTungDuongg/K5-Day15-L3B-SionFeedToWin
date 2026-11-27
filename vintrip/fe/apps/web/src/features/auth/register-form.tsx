@@ -1,5 +1,5 @@
 'use client';
-import { getRetryAfterSeconds, useApiSession, useResendCooldown } from '@tripflix/api-client';
+import { getRetryAfterSeconds, useApiSession, useResendCooldown } from '@vintrip/api-client';
 import {
   canSendRegistrationCode,
   COMMON_NATIONALITIES,
@@ -11,8 +11,8 @@ import {
   REGISTRATION_PASSWORD_MIN,
   SIGNUP_GENDERS,
   type SignupGender,
-} from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from 'react';

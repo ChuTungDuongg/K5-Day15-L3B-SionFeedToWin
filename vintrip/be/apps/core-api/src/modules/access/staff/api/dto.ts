@@ -29,7 +29,7 @@ export const CreateUserRequestSchema = z.object({
 });
 
 export class CreateUserDto {
-  @ApiProperty({ example: 'mod_015@tripflix.vn' }) email!: string;
+  @ApiProperty({ example: 'mod_015@vintrip.vn' }) email!: string;
   @ApiProperty({ example: 'Nguyễn Văn A' }) displayName!: string;
   @ApiProperty({ enum: ['moderator'], default: 'moderator', required: false }) role?: 'moderator';
 }

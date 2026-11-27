@@ -1,6 +1,6 @@
 'use client';
-import { MAX_SIGNUP_AGE } from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+import { MAX_SIGNUP_AGE } from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import { useState } from 'react';
 import { SoftSelect } from '@/features/shared/soft-select';
 

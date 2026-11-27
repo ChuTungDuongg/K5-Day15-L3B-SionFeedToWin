@@ -1,4 +1,4 @@
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import HomeScreen from '@/features/discovery/home-screen';
 import { validateInspirationKeyword } from '@/features/discovery/inspiration-keyword';
 

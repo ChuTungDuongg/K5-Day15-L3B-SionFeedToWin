@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/video-worker",
+  "name": "@vintrip/video-worker",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -14,16 +14,16 @@
     "test:int": "vitest run --config vitest.int.config.ts"
   },
   "dependencies": {
-    "@tripflix/config": "workspace:*",
-    "@tripflix/contracts": "workspace:*",
-    "@tripflix/event-bus": "workspace:*",
-    "@tripflix/observability": "workspace:*",
-    "@tripflix/storage": "workspace:*",
+    "@vintrip/config": "workspace:*",
+    "@vintrip/contracts": "workspace:*",
+    "@vintrip/event-bus": "workspace:*",
+    "@vintrip/observability": "workspace:*",
+    "@vintrip/storage": "workspace:*",
     "ioredis": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@tripflix/testing": "workspace:*",
+    "@vintrip/testing": "workspace:*",
     "@types/node": "catalog:",
     "oxlint": "catalog:",
     "tsx": "catalog:",

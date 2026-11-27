@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { describe, expect, it } from 'vitest';
 import { retentionCutoff, toUserActivityRecord, USER_ACTIVITY_RETENTION_DAYS } from './user-activity.js';
 

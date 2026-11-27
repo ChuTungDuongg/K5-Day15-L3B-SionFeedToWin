@@ -1,4 +1,4 @@
-import type { AccessEmailVerificationRequestedV1 } from '@tripflix/contracts';
+import type { AccessEmailVerificationRequestedV1 } from '@vintrip/contracts';
 import { emailButton, escapeHtml, renderEmailShell } from './html.js';
 import type { EmailMessage } from './mailer.js';
 import { BENEFITS } from './welcome.email.js';
@@ -23,7 +23,7 @@ export function buildEmailVerificationEmail(payload: AccessEmailVerificationRequ
 
   const benefitsHtml = isSignup
     ? [
-        '<p style="margin:0 0 12px;font-size:14px;color:#334155">Cảm ơn bạn đã tạo tài khoản Tripflix. Sau khi xác nhận email, bạn có thể:</p>',
+        '<p style="margin:0 0 12px;font-size:14px;color:#334155">Cảm ơn bạn đã tạo tài khoản Vintrip. Sau khi xác nhận email, bạn có thể:</p>',
         '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:0 0 20px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:12px 16px">',
         ...BENEFITS.map(
           (b) =>
@@ -52,14 +52,14 @@ export function buildEmailVerificationEmail(payload: AccessEmailVerificationRequ
   return {
     to: payload.email,
     subject: isSignup
-      ? 'Chào mừng bạn đến với Tripflix, hãy xác nhận email'
-      : 'Xác nhận email Tripflix của bạn',
+      ? 'Chào mừng bạn đến với Vintrip, hãy xác nhận email'
+      : 'Xác nhận email Vintrip của bạn',
     text: [
       `Chào ${payload.displayName},`,
       '',
       ...(isSignup
         ? [
-            'Cảm ơn bạn đã tạo tài khoản Tripflix. Sau khi xác nhận email, bạn có thể:',
+            'Cảm ơn bạn đã tạo tài khoản Vintrip. Sau khi xác nhận email, bạn có thể:',
             ...BENEFITS.map((b) => `- ${b}`),
             '',
           ]
@@ -70,18 +70,18 @@ export function buildEmailVerificationEmail(payload: AccessEmailVerificationRequ
       '',
       notYou,
       '',
-      'Tripflix · Chạm cảm hứng, trọn hành trình.',
+      'Vintrip · Chạm cảm hứng, trọn hành trình.',
     ].join('\n'),
     html: renderEmailShell({
-      title: isSignup ? 'Chào mừng bạn đến với Tripflix' : 'Xác nhận email Tripflix',
+      title: isSignup ? 'Chào mừng bạn đến với Vintrip' : 'Xác nhận email Vintrip',
       badge: {
         text: isSignup ? 'CHÀO MỪNG BẠN' : 'XÁC THỰC EMAIL',
         bg: '#D9F4F1',
         color: '#006C63',
       },
-      heading: isSignup ? 'Chào mừng bạn đến với Tripflix 👋' : 'Xác nhận email của bạn',
+      heading: isSignup ? 'Chào mừng bạn đến với Vintrip 👋' : 'Xác nhận email của bạn',
       content,
-      footerNote: 'Email này được gửi tự động để xác minh địa chỉ email đăng ký trên Tripflix.',
+      footerNote: 'Email này được gửi tự động để xác minh địa chỉ email đăng ký trên Vintrip.',
     }),
   };
 }

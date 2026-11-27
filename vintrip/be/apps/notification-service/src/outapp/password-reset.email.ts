@@ -1,4 +1,4 @@
-import type { AccessPasswordResetRequestedV1 } from '@tripflix/contracts';
+import type { AccessPasswordResetRequestedV1 } from '@vintrip/contracts';
 import { emailButton, escapeHtml, renderEmailShell } from './html.js';
 import type { EmailMessage } from './mailer.js';
 
@@ -10,7 +10,7 @@ export function buildPasswordResetEmail(payload: AccessPasswordResetRequestedV1)
 
   const content = [
     `<p style="margin:0 0 16px;font-size:15px">Chào <strong>${name}</strong>,</p>`,
-    '<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#334155">Bạn (hoặc ai đó) vừa yêu cầu đặt lại mật khẩu cho tài khoản Tripflix của mình.</p>',
+    '<p style="margin:0 0 16px;font-size:15px;line-height:1.6;color:#334155">Bạn (hoặc ai đó) vừa yêu cầu đặt lại mật khẩu cho tài khoản Vintrip của mình.</p>',
     emailButton(payload.resetUrl, 'Đặt mật khẩu mới'),
     '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin:20px 0;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px">',
     '  <tr>',
@@ -26,20 +26,20 @@ export function buildPasswordResetEmail(payload: AccessPasswordResetRequestedV1)
 
   return {
     to: payload.email,
-    subject: 'Đặt lại mật khẩu Tripflix',
+    subject: 'Đặt lại mật khẩu Vintrip',
     text: [
       `Chào ${payload.displayName},`,
       '',
-      'Bạn (hoặc ai đó) vừa yêu cầu đặt lại mật khẩu tài khoản Tripflix.',
+      'Bạn (hoặc ai đó) vừa yêu cầu đặt lại mật khẩu tài khoản Vintrip.',
       `Mở link sau để đặt mật khẩu mới, link dùng được một lần trong ${minutesLeft} phút:`,
       payload.resetUrl,
       '',
       'Nếu không phải bạn yêu cầu, hãy bỏ qua email này. Mật khẩu hiện tại vẫn giữ nguyên.',
     ].join('\n'),
     html: renderEmailShell({
-      title: 'Đặt lại mật khẩu Tripflix',
+      title: 'Đặt lại mật khẩu Vintrip',
       badge: { text: 'BẢO MẬT TÀI KHOẢN', bg: '#FFF0EB', color: '#BC331E' },
-      heading: 'Đặt lại mật khẩu Tripflix',
+      heading: 'Đặt lại mật khẩu Vintrip',
       content,
       footerNote: 'Email này được gửi tự động khi có yêu cầu đặt lại mật khẩu từ tài khoản của bạn.',
     }),

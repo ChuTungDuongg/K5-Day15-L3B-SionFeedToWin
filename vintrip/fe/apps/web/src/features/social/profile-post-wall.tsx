@@ -2,9 +2,9 @@
 
 import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { socialApi, useApiSession, useAuthorVlogs, useSocialPosts } from '@tripflix/api-client';
-import type { SocialPostDto } from '@tripflix/api-client/core-api/model/index';
-import { vi } from '@tripflix/i18n';
+import { socialApi, useApiSession, useAuthorVlogs, useSocialPosts } from '@vintrip/api-client';
+import type { SocialPostDto } from '@vintrip/api-client/core-api/model/index';
+import { vi } from '@vintrip/i18n';
 import { useRouter } from 'next/navigation';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { BusyLabel, LoadingDots } from '@/features/shared/loading-dots';

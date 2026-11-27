@@ -3,7 +3,7 @@ import './platform/telemetry.js';
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from 'nestjs-pino';
-import { createTelemetryMiddleware } from '@tripflix/observability';
+import { createTelemetryMiddleware } from '@vintrip/observability';
 import { AppModule } from './app.module.js';
 import type { CoreEnv } from './platform/env.js';
 import { setupHttp } from './platform/http.js';

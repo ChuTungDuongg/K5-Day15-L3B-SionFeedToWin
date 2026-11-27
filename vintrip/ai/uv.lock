@@ -1168,7 +1168,7 @@ wheels = [
 ]
 
 [[package]]
-name = "tripflix-ai"
+name = "vintrip-ai"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

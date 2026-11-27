@@ -1,5 +1,5 @@
 'use client';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { useId, useRef, useState } from 'react';
 import styles from './hotel.module.css';
 import { placeBelow, useCloseOnScroll } from '@/features/shared/soft-select';

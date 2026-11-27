@@ -1,4 +1,4 @@
-import { roleSchema, type Role } from '@tripflix/contracts';
+import { roleSchema, type Role } from '@vintrip/contracts';
 import { jwtVerify, type JWTVerifyGetKey } from 'jose';
 
 /** Thuật toán ký duy nhất được nhận (docs/architecture/10 §3.10). */

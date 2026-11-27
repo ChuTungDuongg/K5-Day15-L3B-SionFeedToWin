@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { ConflictException, NotFoundException } from '@nestjs/common';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { eq } from 'drizzle-orm';
 import { moderationCases, moderationReviewAudit } from '../../db/schema/index.js';
 import { ModerationRepository } from '../infra/moderation.repository.js';

@@ -10,7 +10,7 @@ import { readEntity } from './response';
 /**
  * Mã hoá mật khẩu trước khi gửi (TF056, giống Facebook "#PWD_BROWSER"): payload, log, proxy không có mật khẩu gốc.
  * Phải khớp từng byte với core-api (access/auth/domain/password-envelope.ts, infra/x25519-password-keyring.ts):
- * X25519 → HKDF-SHA256(salt = khoá tạm ‖ khoá server, info "tripflix-pwd-v1") → AES-256-GCM, AAD gắn mục đích và email.
+ * X25519 → HKDF-SHA256(salt = khoá tạm ‖ khoá server, info "vintrip-pwd-v1") → AES-256-GCM, AAD gắn mục đích và email.
  */
 export type PasswordPurpose = 'login' | 'register' | 'change_current' | 'change_new' | 'reset';
 
@@ -25,7 +25,7 @@ export const PASSWORD_ENVELOPE_INVALID_CODE = 'password_envelope_invalid';
 
 const PREFIX = '#TFPWD';
 const VERSION = 1;
-const HKDF_INFO = utf8ToBytes('tripflix-pwd-v1');
+const HKDF_INFO = utf8ToBytes('vintrip-pwd-v1');
 /** Mục đích có email trong AAD; đổi và đặt lại mật khẩu dùng chuỗi rỗng. */
 const PURPOSES_WITH_EMAIL: ReadonlySet<PasswordPurpose> = new Set(['login', 'register']);
 
@@ -64,7 +64,7 @@ export function encryptPassword(
   const aesKey = hkdf(sha256, shared, concatBytes(ephemeralPublic, serverPublic), HKDF_INFO, 32);
   const iv = randomBytes(12);
   const aad = utf8ToBytes(
-    `tripflix-pwd|${VERSION}|${options.purpose}|${key.keyId}|${ts}|${passwordSubject(options.purpose, options.email)}`,
+    `vintrip-pwd|${VERSION}|${options.purpose}|${key.keyId}|${ts}|${passwordSubject(options.purpose, options.email)}`,
   );
   const plaintext = utf8ToBytes(JSON.stringify({ p: password, n: toBase64Url(randomBytes(16)), t: ts }));
   const sealed = gcm(aesKey, iv, aad).encrypt(plaintext);

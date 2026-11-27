@@ -22,10 +22,10 @@ describe('commerce E2E: cấu hình cổng thanh toán demo', () => {
     const vnpayOrigin = vnpay === 'sandbox' ? 'https://sandbox.vnpayment.vn' : 'https://vnpay.example.test';
     vi.stubEnv('VNPAY_PAYMENT_URL', vnpay === 'missing' ? '' : `${vnpayOrigin}/payment`);
     vi.stubEnv('VNPAY_API_URL', vnpay === 'missing' ? '' : `${vnpayOrigin}/transactions`);
-    vi.stubEnv('VNPAY_RETURN_URL', 'https://tripflix.example.test/return');
+    vi.stubEnv('VNPAY_RETURN_URL', 'https://vintrip.example.test/return');
     vi.resetModules();
-    const { AuthModule, MemorySidBlocklist } = await import('@tripflix/auth');
-    const { MODULES, buildDrizzleToken, createDb, createPool, createTransactionalPlugins } = await import('@tripflix/db');
+    const { AuthModule, MemorySidBlocklist } = await import('@vintrip/auth');
+    const { MODULES, buildDrizzleToken, createDb, createPool, createTransactionalPlugins } = await import('@vintrip/db');
     const { CommerceModule } = await import('./commerce.module.js');
     const { CORE_ENV, DB_POOLS, REDIS } = await import('../../platform/tokens.js');
     const { PAYMENT_GATEWAY } = await import('./payment/application/gateway.port.js');

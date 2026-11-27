@@ -6,7 +6,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
 const base = process.env.MOBILE_PREVIEW_URL || 'http://localhost:8083';
 const evidence =
   process.env.MOBILE_EVIDENCE_DIR || join(require('node:os').tmpdir(), 'mobile-signup-onboarding');
-const KEY = 'tripflix.onboarding.v1';
+const KEY = 'vintrip.onboarding.v1';
 const profile = {
   id: 'qa-new-member',
   email: 'signup@example.test',
@@ -101,7 +101,7 @@ class SignupPage {
         if (block) {
           const setItem = Storage.prototype.setItem;
           Storage.prototype.setItem = function (key, value) {
-            if (key.startsWith('tripflix.onboarding.v1')) throw new Error('QA storage full');
+            if (key.startsWith('vintrip.onboarding.v1')) throw new Error('QA storage full');
             return setItem.call(this, key, value);
           };
         }

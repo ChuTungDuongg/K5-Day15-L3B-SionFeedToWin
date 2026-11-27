@@ -3,8 +3,8 @@ import { registerTestAccount } from '../../platform/registration.fixture.js';
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { createLocalJWKSet, decodeProtectedHeader, jwtVerify } from 'jose';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
@@ -28,8 +28,8 @@ import { MemoryLoginRateLimiter } from './auth/infra/memory/memory-login-rate-li
 // E2E chạy app Nest thật (controller, guard, argon2, jose), chỉ thay database và Redis bằng bản bộ nhớ.
 const env = {
   NODE_ENV: 'test',
-  AUTH_JWT_ISSUER: 'tripflix-core',
-  AUTH_JWT_AUDIENCE: 'tripflix',
+  AUTH_JWT_ISSUER: 'vintrip-core',
+  AUTH_JWT_AUDIENCE: 'vintrip',
 } as CoreEnv;
 
 @Global()
@@ -139,8 +139,8 @@ describe('access E2E', () => {
     expect(jwks.body.keys[0]).not.toHaveProperty('d');
 
     const { payload } = await jwtVerify(accessToken, createLocalJWKSet(jwks.body), {
-      issuer: 'tripflix-core',
-      audience: 'tripflix',
+      issuer: 'vintrip-core',
+      audience: 'vintrip',
     });
     expect(decodeProtectedHeader(accessToken)).toMatchObject({ alg: 'ES256', kid: jwks.body.keys[0].kid });
     expect(Object.keys(payload).sort()).toEqual(['aud', 'ev', 'exp', 'iat', 'iss', 'role', 'sid', 'sub']);

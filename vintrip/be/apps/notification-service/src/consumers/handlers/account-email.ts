@@ -5,7 +5,7 @@ import {
   AccessRegistrationCodeRequestedV1Schema,
   AccessSessionReuseDetectedV1Schema,
   AccessUserWelcomeEmailRequestedV1Schema,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 import { buildEmailVerificationEmail } from '../../outapp/email-verification.email.js';
 import { buildExistingAccountEmail } from '../../outapp/existing-account.email.js';
 import type { EmailMessage, Mailer } from '../../outapp/mailer.js';

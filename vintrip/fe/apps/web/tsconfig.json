@@ -1,5 +1,5 @@
 {
-  "extends": "@tripflix/config/tsconfig/nextjs.json",
+  "extends": "@vintrip/config/tsconfig/nextjs.json",
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"]

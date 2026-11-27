@@ -5,8 +5,8 @@ import { HOLDS_PER_HOUR } from '../domain/order-rules.js';
 import { CheckoutUseCases, type CheckoutInput } from './checkout.use-cases.js';
 import type { OrderRecord, OrderStore } from './ports.js';
 
-vi.mock('@tripflix/db', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@tripflix/db')>()),
+vi.mock('@vintrip/db', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@vintrip/db')>()),
   Transactional: () => () => undefined,
 }));
 

@@ -1,4 +1,4 @@
-import type { ContentPostBookingClickedV1, ContentPostViewedV1 } from '@tripflix/contracts';
+import type { ContentPostBookingClickedV1, ContentPostViewedV1 } from '@vintrip/contracts';
 import { actorKeyOf, toBookingClickSignal, toViewSignal } from './trend-signal.js';
 
 const POST_ID = '11111111-1111-4111-8111-111111111111';

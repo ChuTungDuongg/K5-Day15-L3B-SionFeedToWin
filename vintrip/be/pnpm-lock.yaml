@@ -221,31 +221,31 @@ importers:
       '@nestjs/swagger':
         specifier: 'catalog:'
         version: 12.1.0(@nestjs/common@12.3.2(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@12.3.2)(reflect-metadata@0.2.2)(typescript@6.0.3)
-      '@tripflix/auth':
+      '@vintrip/auth':
         specifier: workspace:*
         version: link:../../libs/auth
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../../libs/config
-      '@tripflix/contracts':
+      '@vintrip/contracts':
         specifier: workspace:*
         version: link:../../libs/contracts
-      '@tripflix/db':
+      '@vintrip/db':
         specifier: workspace:*
         version: link:../../libs/db
-      '@tripflix/event-bus':
+      '@vintrip/event-bus':
         specifier: workspace:*
         version: link:../../libs/event-bus
-      '@tripflix/idempotency':
+      '@vintrip/idempotency':
         specifier: workspace:*
         version: link:../../libs/idempotency
-      '@tripflix/observability':
+      '@vintrip/observability':
         specifier: workspace:*
         version: link:../../libs/observability
-      '@tripflix/outbox':
+      '@vintrip/outbox':
         specifier: workspace:*
         version: link:../../libs/outbox
-      '@tripflix/storage':
+      '@vintrip/storage':
         specifier: workspace:*
         version: link:../../libs/storage
       argon2:
@@ -288,7 +288,7 @@ importers:
       '@nestjs/testing':
         specifier: 'catalog:'
         version: 12.3.2(@nestjs/common@12.3.2(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@12.3.2)(@nestjs/platform-express@12.3.2)
-      '@tripflix/testing':
+      '@vintrip/testing':
         specifier: workspace:*
         version: link:../../libs/testing
       '@types/express':
@@ -345,22 +345,22 @@ importers:
       '@socket.io/redis-adapter':
         specifier: 'catalog:'
         version: 8.3.0(socket.io-adapter@2.5.8)
-      '@tripflix/auth':
+      '@vintrip/auth':
         specifier: workspace:*
         version: link:../../libs/auth
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../../libs/config
-      '@tripflix/contracts':
+      '@vintrip/contracts':
         specifier: workspace:*
         version: link:../../libs/contracts
-      '@tripflix/db':
+      '@vintrip/db':
         specifier: workspace:*
         version: link:../../libs/db
-      '@tripflix/event-bus':
+      '@vintrip/event-bus':
         specifier: workspace:*
         version: link:../../libs/event-bus
-      '@tripflix/observability':
+      '@vintrip/observability':
         specifier: workspace:*
         version: link:../../libs/observability
       ioredis:
@@ -403,7 +403,7 @@ importers:
       '@nestjs/testing':
         specifier: 'catalog:'
         version: 12.3.2(@nestjs/common@12.3.2(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@12.3.2)(@nestjs/platform-express@12.3.2)
-      '@tripflix/testing':
+      '@vintrip/testing':
         specifier: workspace:*
         version: link:../../libs/testing
       '@types/express':
@@ -448,19 +448,19 @@ importers:
 
   apps/video-worker:
     dependencies:
-      '@tripflix/config':
+      '@vintrip/config':
         specifier: workspace:*
         version: link:../../libs/config
-      '@tripflix/contracts':
+      '@vintrip/contracts':
         specifier: workspace:*
         version: link:../../libs/contracts
-      '@tripflix/event-bus':
+      '@vintrip/event-bus':
         specifier: workspace:*
         version: link:../../libs/event-bus
-      '@tripflix/observability':
+      '@vintrip/observability':
         specifier: workspace:*
         version: link:../../libs/observability
-      '@tripflix/storage':
+      '@vintrip/storage':
         specifier: workspace:*
         version: link:../../libs/storage
       ioredis:
@@ -470,7 +470,7 @@ importers:
         specifier: 'catalog:'
         version: 4.6.7
     devDependencies:
-      '@tripflix/testing':
+      '@vintrip/testing':
         specifier: workspace:*
         version: link:../../libs/testing
       '@types/node':
@@ -494,7 +494,7 @@ importers:
 
   libs/auth:
     dependencies:
-      '@tripflix/contracts':
+      '@vintrip/contracts':
         specifier: workspace:*
         version: link:../contracts
       ioredis:
@@ -642,14 +642,14 @@ importers:
 
   libs/event-bus:
     dependencies:
-      '@tripflix/contracts':
+      '@vintrip/contracts':
         specifier: workspace:*
         version: link:../contracts
       ioredis:
         specifier: 'catalog:'
         version: 6.0.0
     devDependencies:
-      '@tripflix/testing':
+      '@vintrip/testing':
         specifier: workspace:*
         version: link:../testing
       '@types/node':
@@ -670,7 +670,7 @@ importers:
 
   libs/idempotency:
     dependencies:
-      '@tripflix/db':
+      '@vintrip/db':
         specifier: workspace:*
         version: link:../db
       drizzle-orm:
@@ -689,7 +689,7 @@ importers:
       '@nestjs/testing':
         specifier: 'catalog:'
         version: 12.3.2(@nestjs/common@12.3.2(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@12.3.2)(@nestjs/platform-express@12.3.2)
-      '@tripflix/testing':
+      '@vintrip/testing':
         specifier: workspace:*
         version: link:../testing
       '@types/express':
@@ -804,13 +804,13 @@ importers:
 
   libs/outbox:
     dependencies:
-      '@tripflix/contracts':
+      '@vintrip/contracts':
         specifier: workspace:*
         version: link:../contracts
-      '@tripflix/db':
+      '@vintrip/db':
         specifier: workspace:*
         version: link:../db
-      '@tripflix/event-bus':
+      '@vintrip/event-bus':
         specifier: workspace:*
         version: link:../event-bus
       drizzle-orm:
@@ -866,7 +866,7 @@ importers:
       '@testcontainers/redis':
         specifier: 'catalog:'
         version: 12.2.1
-      '@tripflix/db':
+      '@vintrip/db':
         specifier: workspace:*
         version: link:../db
       drizzle-orm:

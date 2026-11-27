@@ -1,11 +1,11 @@
 #!/bin/sh
-# Deploy web hoặc admin lên server bằng image đã build trên GitHub. Cài tại /opt/tripflix/deploy.sh, chủ là root.
+# Deploy web hoặc admin lên server bằng image đã build trên GitHub. Cài tại /opt/vintrip/deploy.sh, chủ là root.
 # SSH key của CI bị ép chạy file này: lệnh gửi qua SSH chỉ được dùng làm tên app và tag, không bao giờ được thực thi.
 # Dạng lệnh: "sha-xxxxxxx" (web, như bản cũ) hoặc "admin sha-xxxxxxx".
 set -eu
 
 RUN_AS="${DEPLOY_RUN_AS:-phongnguyen}"
-DEPLOY_DIR="${DEPLOY_DIR:-/home/$RUN_AS/tripflix-be/deploy}"
+DEPLOY_DIR="${DEPLOY_DIR:-/home/$RUN_AS/vintrip-be/deploy}"
 HEALTH_ATTEMPTS=30
 IMAGES_KEPT=3
 

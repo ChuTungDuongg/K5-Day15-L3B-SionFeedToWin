@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { useApiSession } from '@tripflix/api-client';
-import { EMPTY_BOOKING_CART } from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+import { useApiSession } from '@vintrip/api-client';
+import { EMPTY_BOOKING_CART } from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { saveBookingCart, saveBookingSelection, useBookingCart } from './cart-store';
 import styles from './cart.module.css';

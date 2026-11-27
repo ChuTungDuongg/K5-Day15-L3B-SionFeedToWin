@@ -85,7 +85,7 @@ describe('AAD', () => {
     expect(passwordSubject(undefined)).toBe('');
     expect(passwordSubject(42)).toBe('');
     expect(buildPasswordAad('login', 'k1', 5, 'lan@example.com').toString()).toBe(
-      'tripflix-pwd|1|login|k1|5|lan@example.com',
+      'vintrip-pwd|1|login|k1|5|lan@example.com',
     );
   });
 });

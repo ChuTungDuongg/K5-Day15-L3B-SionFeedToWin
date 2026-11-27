@@ -1,10 +1,10 @@
-# Test tải tripflix.io.vn
+# Test tải vintrip.io.vn
 
 Kết quả lần đầu: `docs/evidence/TF07-load-test-dang-nhap.md`.
 
 | File | Chạy ở đâu | Làm gì |
 |---|---|---|
-| `gen-users-sql.mjs` | Laptop, trong repo | Sinh `users.sql` tạo N tài khoản `loadtestNNNN@tripflix.local` (đuôi `.local`: không gửi email) |
+| `gen-users-sql.mjs` | Laptop, trong repo | Sinh `users.sql` tạo N tài khoản `loadtestNNNN@vintrip.local` (đuôi `.local`: không gửi email) |
 | `login.js` | Máy bắn (k6) | N người bấm đăng nhập cùng lúc |
 | `browse.js` | Máy bắn (k6) | N người dùng app: feed 60%, xem bài 20%, thả cảm xúc 10%, thông báo 10% |
 | `ws.mjs` | Máy bắn (Node) | N kết nối WebSocket giữ mở |
@@ -31,7 +31,7 @@ Kết quả lần đầu: `docs/evidence/TF07-load-test-dang-nhap.md`.
    - Ghi bằng `cat file.moi > server.yml` (giữ inode) để Traefik tự nạp lại, không cần restart.
 
 ## Mỗi lần chạy (USERS = 10, 20, 50, 100, 200, 500)
-- Trong `tools/loadtest`: `k6 run -e BASE=https://api.tripflix.io.vn -e PASSWORD=... -e USERS=100 login.js`
+- Trong `tools/loadtest`: `k6 run -e BASE=https://api.vintrip.io.vn -e PASSWORD=... -e USERS=100 login.js`
 - Server (tuỳ chọn): `sh record-server.sh login-100`, Ctrl+C khi xong.
 - k6 chỉ báo số lỗi; lỗi gì thì xem log core-api: `docker logs --since 3m <core-api> | grep auth/login`.
 - Nghỉ vài phút giữa hai lần. Dừng khi lỗi trên 5%, CPU kịch quá 1 phút, hoặc web thật không vào được.

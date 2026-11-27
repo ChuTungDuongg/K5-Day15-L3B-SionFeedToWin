@@ -60,9 +60,9 @@ async function main() {
       return false;
     }
   });
-  const member = await login('member@tripflix.local');
+  const member = await login('member@vintrip.local');
   ownerToken = member;
-  const moderator = await login('moderator@tripflix.local');
+  const moderator = await login('moderator@vintrip.local');
   const post = await api(
     '/api/v1/posts',
     member,
@@ -103,7 +103,7 @@ async function main() {
   try {
     const authorContext = await browser.newContext({ viewport: { width: 390, height: 950 } });
     const author = await authorContext.newPage();
-    await uiLogin(author, web, 'member@tripflix.local', '/account/moderation');
+    await uiLogin(author, web, 'member@vintrip.local', '/account/moderation');
     const article = author.getByRole('article').filter({ hasText: marker });
     await article.getByRole('button', { name: 'Gửi khiếu nại', exact: true }).click();
     await article
@@ -114,7 +114,7 @@ async function main() {
     await author.screenshot({ path: path.join(output, 'author-pending.png'), fullPage: true });
     const reviewerContext = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
     const reviewer = await reviewerContext.newPage();
-    await uiLogin(reviewer, admin, 'superadmin@tripflix.local', '/moderation');
+    await uiLogin(reviewer, admin, 'superadmin@vintrip.local', '/moderation');
     await reviewer.getByRole('button', { name: 'Khiếu nại', exact: true }).click();
     const appealArticle = reviewer.getByRole('article').filter({ hasText: marker });
     await appealArticle.getByRole('heading', { name: 'Bằng chứng lúc quyết định', exact: true }).waitFor();

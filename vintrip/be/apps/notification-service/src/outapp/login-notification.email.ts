@@ -30,7 +30,7 @@ function formatLoginTime(loginAt?: string | Date): string {
 }
 
 /**
- * Email gửi khi người dùng đăng nhập tài khoản Tripflix (thông báo đăng nhập / đăng nhập thiết bị mới).
+ * Email gửi khi người dùng đăng nhập tài khoản Vintrip (thông báo đăng nhập / đăng nhập thiết bị mới).
  */
 export function buildLoginNotificationEmail(
   payload: LoginNotificationPayload,
@@ -44,7 +44,7 @@ export function buildLoginNotificationEmail(
   const location = payload.location ? escapeHtml(payload.location) : 'Việt Nam';
   const timeFormatted = formatLoginTime(payload.loginAt);
 
-  const intro = 'Tài khoản Tripflix của bạn vừa được đăng nhập thành công với thông tin dưới đây:';
+  const intro = 'Tài khoản Vintrip của bạn vừa được đăng nhập thành công với thông tin dưới đây:';
   const warning =
     'Nếu đây là bạn, bạn có thể yên tâm bỏ qua email này. Nếu bạn không nhận ra lần đăng nhập này, vui lòng đặt lại mật khẩu ngay để bảo vệ tài khoản.';
 
@@ -85,7 +85,7 @@ export function buildLoginNotificationEmail(
 
   return {
     to: payload.email,
-    subject: 'Thông báo đăng nhập tài khoản Tripflix',
+    subject: 'Thông báo đăng nhập tài khoản Vintrip',
     text: [
       `Chào ${payload.displayName},`,
       '',
@@ -100,14 +100,14 @@ export function buildLoginNotificationEmail(
       '',
       warning,
       '',
-      'Tripflix · Chạm cảm hứng, trọn hành trình.',
+      'Vintrip · Chạm cảm hứng, trọn hành trình.',
     ].join('\n'),
     html: renderEmailShell({
-      title: 'Thông báo đăng nhập tài khoản Tripflix',
+      title: 'Thông báo đăng nhập tài khoản Vintrip',
       badge: { text: '✓ ĐĂNG NHẬP THÀNH CÔNG', bg: '#D9F4F1', color: '#006C63' },
       heading: 'Thông báo đăng nhập mới',
       content,
-      footerNote: 'Email thông báo hoạt động bảo mật tài khoản từ Tripflix.',
+      footerNote: 'Email thông báo hoạt động bảo mật tài khoản từ Vintrip.',
     }),
   };
 }

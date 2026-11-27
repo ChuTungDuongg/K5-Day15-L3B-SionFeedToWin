@@ -1,4 +1,4 @@
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import { useId, useState, type CSSProperties } from 'react';
 import styles from './hotel-listing.module.css';
 

@@ -21,7 +21,7 @@ export const SERVICE_TOKEN_TYPE = 'service';
 export const SERVICE_TOKEN_TTL_SECONDS = 5 * 60;
 
 export const SERVICE_VERIFIER = Symbol('SERVICE_VERIFIER');
-const SERVICE_CLIENTS_KEY = 'tripflix:service-clients';
+const SERVICE_CLIENTS_KEY = 'vintrip:service-clients';
 
 export const INVALID_SERVICE_TOKEN_MESSAGE = 'Token service không hợp lệ hoặc đã hết hạn';
 export const SERVICE_NOT_ALLOWED_MESSAGE = 'Service này không được gọi API này';

@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { Controller, Global, type INestApplication, Module, Post } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { EMAIL_UNVERIFIED_CODE, MemorySidBlocklist, RequireVerifiedEmail } from '@tripflix/auth';
-import { AccessEmailVerificationRequestedV1Schema } from '@tripflix/contracts';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { EMAIL_UNVERIFIED_CODE, MemorySidBlocklist, RequireVerifiedEmail } from '@vintrip/auth';
+import { AccessEmailVerificationRequestedV1Schema } from '@vintrip/contracts';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { decodeJwt } from 'jose';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
@@ -35,13 +35,13 @@ import { MemoryAccessStore } from './auth/infra/memory/memory-access.store.js';
 import { MemoryActionRateLimiter } from './auth/infra/memory/memory-action-rate-limiter.js';
 import { MemoryLoginRateLimiter } from './auth/infra/memory/memory-login-rate-limiter.js';
 
-const VERIFY_PAGE = 'https://tripflix.example/xac-thuc-email';
+const VERIFY_PAGE = 'https://vintrip.example/xac-thuc-email';
 const REGISTER_LIMIT = 5;
 const env = {
   NODE_ENV: 'test',
-  AUTH_JWT_ISSUER: 'tripflix-core',
-  AUTH_JWT_AUDIENCE: 'tripflix',
-  AUTH_PASSWORD_RESET_URL: 'https://tripflix.example/dat-lai-mat-khau',
+  AUTH_JWT_ISSUER: 'vintrip-core',
+  AUTH_JWT_AUDIENCE: 'vintrip',
+  AUTH_PASSWORD_RESET_URL: 'https://vintrip.example/dat-lai-mat-khau',
   AUTH_EMAIL_VERIFY_URL: VERIFY_PAGE,
   AUTH_REGISTER_MAX_PER_IP_HOUR: REGISTER_LIMIT,
 } as CoreEnv;

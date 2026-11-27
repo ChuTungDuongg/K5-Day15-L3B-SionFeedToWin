@@ -1,4 +1,4 @@
-import { InMemoryObjectStorage } from '@tripflix/storage';
+import { InMemoryObjectStorage } from '@vintrip/storage';
 import { MediaError } from '../domain/errors.js';
 import { MemoryMediaAssetStore } from '../infra/memory/memory-media-asset.store.js';
 import { MediaUploadUseCases } from './media-upload.use-cases.js';

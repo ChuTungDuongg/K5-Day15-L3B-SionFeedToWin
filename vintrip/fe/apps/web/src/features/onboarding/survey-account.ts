@@ -1,7 +1,7 @@
-import type { useApiSession } from '@tripflix/api-client';
-import * as auth from '@tripflix/api-client/core-api/auth/auth';
-import type { MyProfileDto, TravelPreferencesDto } from '@tripflix/api-client/core-api/model/index';
-import { buildTravelPreferences, type SurveyDraft, type SurveyStatus } from '@tripflix/app-core';
+import type { useApiSession } from '@vintrip/api-client';
+import * as auth from '@vintrip/api-client/core-api/auth/auth';
+import type { MyProfileDto, TravelPreferencesDto } from '@vintrip/api-client/core-api/model/index';
+import { buildTravelPreferences, type SurveyDraft, type SurveyStatus } from '@vintrip/app-core';
 
 type ApiSession = ReturnType<typeof useApiSession>['session'];
 

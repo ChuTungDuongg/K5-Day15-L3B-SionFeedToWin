@@ -28,9 +28,9 @@ describe('vnpay-merchant-api', () => {
     expect(body).toEqual({
       vnp_RequestId: 'Request01', vnp_Version: '2.1.0', vnp_Command: 'refund', vnp_TmnCode: 'TESTCODE',
       vnp_TransactionType: '02', vnp_TxnRef: 'ORDER01', vnp_Amount: '10000000', vnp_TransactionNo: '123456',
-      vnp_TransactionDate: '20261110000001', vnp_CreateBy: 'tripflix-system', vnp_CreateDate: '20261110100405',
+      vnp_TransactionDate: '20261110000001', vnp_CreateBy: 'vintrip-system', vnp_CreateDate: '20261110100405',
       vnp_IpAddr: '127.0.0.1', vnp_OrderInfo: 'Hoan tien don ORDER01',
-      vnp_SecureHash: sign('Request01|2.1.0|refund|TESTCODE|02|ORDER01|10000000|123456|20261110000001|tripflix-system|20261110100405|127.0.0.1|Hoan tien don ORDER01'),
+      vnp_SecureHash: sign('Request01|2.1.0|refund|TESTCODE|02|ORDER01|10000000|123456|20261110000001|vintrip-system|20261110100405|127.0.0.1|Hoan tien don ORDER01'),
     });
     expect(Object.values(body).every((value) => typeof value === 'string')).toBe(true);
   });
@@ -39,7 +39,7 @@ describe('vnpay-merchant-api', () => {
     const body = buildVnpayRefundRequest({ ...input, amount: 25000, transactionNo: null });
     expect(body.vnp_TransactionType).toBe('03');
     expect(body.vnp_TransactionNo).toBe('');
-    expect(body.vnp_SecureHash).toBe(sign('Request01|2.1.0|refund|TESTCODE|03|ORDER01|2500000||20261110000001|tripflix-system|20261110100405|127.0.0.1|Hoan tien don ORDER01'));
+    expect(body.vnp_SecureHash).toBe(sign('Request01|2.1.0|refund|TESTCODE|03|ORDER01|2500000||20261110000001|vintrip-system|20261110100405|127.0.0.1|Hoan tien don ORDER01'));
   });
 
   it.each([

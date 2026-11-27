@@ -221,7 +221,7 @@ async def understand(
         has_booking=bool(
             trip
             and (
-                (trip.stay and trip.stay.source == "tripflix")
+                (trip.stay and trip.stay.source == "vintrip")
                 or (trip.transport and trip.transport.flight_id)
             )
         ),

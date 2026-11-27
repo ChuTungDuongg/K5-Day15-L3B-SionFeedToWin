@@ -11,20 +11,20 @@ Chỉ chạy `run.sh` trên **stack local riêng**, vì script xoá khoá cache 
 
 ## Dựng dữ liệu
 
-Dùng một stack riêng (`-p tripflix-bench`) để không đụng DB dev. Các lệnh chạy ở gốc repo.
+Dùng một stack riêng (`-p vintrip-bench`) để không đụng DB dev. Các lệnh chạy ở gốc repo.
 
 ```bash
-pnpm install && pnpm turbo run build --filter=@tripflix/core-api...
-docker compose -p tripflix-bench -f deploy/compose.yaml --profile be up -d --build core-api
+pnpm install && pnpm turbo run build --filter=@vintrip/core-api...
+docker compose -p vintrip-bench -f deploy/compose.yaml --profile be up -d --build core-api
 ```
 
 **Trạng thái A:** 10 bài mẫu cộng 1.000 reel mẫu (TF10), tổng 1.006 bài video, giống staging trước khi nạp dữ liệu mô phỏng.
 
 ```bash
-LOADTEST_PASSWORD=tripflix-dev-123 node tools/loadtest/gen-users-sql.mjs 500 \
-  | docker exec -i tripflix-bench-postgres-1 psql -U postgres -d core
+LOADTEST_PASSWORD=vintrip-dev-123 node tools/loadtest/gen-users-sql.mjs 500 \
+  | docker exec -i vintrip-bench-postgres-1 psql -U postgres -d core
 # Chạy lại migrate + seed để seed thấy tài khoản loadtest và tạo 1.000 reel mẫu
-docker compose -p tripflix-bench -f deploy/compose.yaml --profile be run --rm migrate
+docker compose -p vintrip-bench -f deploy/compose.yaml --profile be run --rm migrate
 ```
 
 **Trạng thái B:** A cộng dữ liệu mô phỏng gợi ý TF107, tổng 9.809 bài video.
@@ -36,10 +36,10 @@ cd apps/core-api
 DATABASE_URL_ACCESS=postgres://tf_access:tf_access_dev@localhost:5432/core \
 DATABASE_URL_CONTENT=postgres://tf_content:tf_content_dev@localhost:5432/core \
 DATABASE_URL_DISCOVERY=postgres://tf_discovery:tf_discovery_dev@localhost:5432/core \
-REDIS_URL=redis://localhost:6379 SEED_PASSWORD=tripflix-dev-123 \
+REDIS_URL=redis://localhost:6379 SEED_PASSWORD=vintrip-dev-123 \
 node dist/cli/sim-recommend.js seed-state --data <thư mục data> --yes
 cd ../..
-docker exec tripflix-bench-postgres-1 psql -U postgres -d core -c 'analyze content.posts; analyze content.reactions; analyze content.comments;'
+docker exec vintrip-bench-postgres-1 psql -U postgres -d core -c 'analyze content.posts; analyze content.reactions; analyze content.comments;'
 ```
 
 ## Chạy
@@ -62,7 +62,7 @@ RUNS=3 N=20 bash tools/bench/feed/run.sh B
 | Biến | Mặc định |
 |---|---|
 | `API` | `http://localhost:3000/api/v1/feed` |
-| `REDIS_CONTAINER` | `tripflix-bench-redis-1` |
+| `REDIS_CONTAINER` | `vintrip-bench-redis-1` |
 | `N` | `20` |
 | `RUNS` | `3` |
 
@@ -70,7 +70,7 @@ RUNS=3 N=20 bash tools/bench/feed/run.sh B
 - Bỏ lượt đo đầu tiên ngay sau khi core-api khởi động hoặc vừa seed. Lần đó trang đầu đo được tới khoảng 950 ms do code và DB còn "lạnh"; các lần sau ổn định ở 13 ms.
 - So sánh giữa các trạng thái chỉ có nghĩa khi chạy trên cùng máy, cùng stack.
 
-**Reels gợi ý của discovery** (`GET /api/recommendations/reels`, web Reels từ TF108). Script đăng nhập bằng một user mô phỏng (`EMAIL`, mặc định `usr_00001@sim.tripflix.local`), rồi đo 4 mode ở trang đầu và trang 2:
+**Reels gợi ý của discovery** (`GET /api/recommendations/reels`, web Reels từ TF108). Script đăng nhập bằng một user mô phỏng (`EMAIL`, mặc định `usr_00001@sim.vintrip.local`), rồi đo 4 mode ở trang đầu và trang 2:
 
 ```bash
 N=20 bash tools/bench/feed/reels.sh
@@ -81,7 +81,7 @@ N=20 bash tools/bench/feed/reels.sh
 Đo **trên VM**, gọi `127.0.0.1:3000`, để bỏ thời gian đi đường mạng: từ laptop ở Việt Nam, riêng `/health` đã mất khoảng 600 ms. Chỉ đo trang 2, vì trang này không qua cache, nên không cần xoá cache staging.
 
 ```bash
-gcloud compute ssh tripflix-staging --zone=asia-southeast1-b --tunnel-through-iap
+gcloud compute ssh vintrip-staging --zone=asia-southeast1-b --tunnel-through-iap
 B=http://127.0.0.1:3000/api/v1/feed
 for tab in for_you hot; do
   cur=$(curl -s "$B?limit=10&tab=$tab" | python3 -c 'import sys,json,urllib.parse; print(urllib.parse.quote(json.load(sys.stdin).get("nextCursor") or ""))')
@@ -94,7 +94,7 @@ done
 
 ### Mốc 18/11/2026: trước khi sửa cơ chế chấm điểm (`develop` `e1a7897`)
 
-**Local** (MacBook, Docker Desktop, stack `tripflix-bench`). Thời gian là p50, kèm p95 khi khác đáng kể. Mỗi ô là khoảng của 3 vòng, mỗi vòng N = 20.
+**Local** (MacBook, Docker Desktop, stack `vintrip-bench`). Thời gian là p50, kèm p95 khi khác đáng kể. Mỗi ô là khoảng của 3 vòng, mỗi vòng N = 20.
 
 | | A: 1.006 bài video | B: 9.809 bài video |
 |---|---|---|
@@ -123,9 +123,9 @@ done
 
 ### Mốc 18/11/2026: Reels gợi ý của discovery, so với `/v1/feed`
 
-Lý do đo: PR tripflix-fe#218 (TF108) chuyển tab Reels của web sang discovery. Mobile vẫn gọi `/v1/feed`.
+Lý do đo: PR vintrip-fe#218 (TF108) chuyển tab Reels của web sang discovery. Mobile vẫn gọi `/v1/feed`.
 
-Đo trên local, trạng thái B (9.809 bài video), cùng stack `tripflix-bench`, `develop` `e1a7897`. User đo là `usr_00001`, N = 20, đo 1 vòng. Discovery đã có điểm `hot@v2` cho 9.809 bài video.
+Đo trên local, trạng thái B (9.809 bài video), cùng stack `vintrip-bench`, `develop` `e1a7897`. User đo là `usr_00001`, N = 20, đo 1 vòng. Discovery đã có điểm `hot@v2` cho 9.809 bài video.
 
 | | `/v1/feed` (bảng trên) | `/api/recommendations/reels` |
 |---|---|---|

@@ -1,5 +1,5 @@
 import { and, desc, eq, sql } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { posts, savedItineraries, type SavedItineraryRecord } from '../../db/schema/index.js';
 import type { SavedItineraryDraft } from '../domain/saved-itinerary.js';
 import type { ReelForItinerary, SavedItineraryChanges, SavedItineraryStore } from '../application/saved-itinerary.use-cases.js';

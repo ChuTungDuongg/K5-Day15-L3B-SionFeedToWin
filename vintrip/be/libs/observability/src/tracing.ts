@@ -1,7 +1,7 @@
 /**
  * Đo từng câu SQL (pg) và lệnh Redis (ioredis) cho bộ OpenTelemetry chung `startTelemetry` (TF99).
  *
- * Service ESM chỉ bọc được pg, ioredis khi nạp qua `node --import @tripflix/observability/register`
+ * Service ESM chỉ bọc được pg, ioredis khi nạp qua `node --import @vintrip/observability/register`
  * (hook ESM phải đăng ký trước khi app import các thư viện này). Không nạp như vậy thì phần đo này không tạo span,
  * các span HTTP, metric của startTelemetry vẫn chạy như cũ.
  */

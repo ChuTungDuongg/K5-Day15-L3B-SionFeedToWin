@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { MEDIA_QUALITY_LEVELS, type MediaAspect, type MediaQualityLevel } from '@tripflix/contracts';
+import { MEDIA_QUALITY_LEVELS, type MediaAspect, type MediaQualityLevel } from '@vintrip/contracts';
 import { z } from 'zod';
 import { TripAttachmentDto } from '../../social/api/dto/post.dto.js';
 import { FEED_TABS } from '../application/feed.use-cases.js';

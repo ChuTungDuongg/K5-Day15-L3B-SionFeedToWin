@@ -1,5 +1,5 @@
 import type { InfiniteData, QueryClient } from '@tanstack/react-query';
-import type { SocialPostDto } from '@tripflix/api-client/core-api/model/index';
+import type { SocialPostDto } from '@vintrip/api-client/core-api/model/index';
 
 type PostPage = { items: SocialPostDto[] };
 

@@ -1,5 +1,5 @@
-import type { StayFilters } from '@tripflix/api-client';
-import { t, vi } from '@tripflix/i18n';
+import type { StayFilters } from '@vintrip/api-client';
+import { t, vi } from '@vintrip/i18n';
 import styles from './hotel-listing.module.css';
 import { StayPriceInput } from './stay-price-input';
 import { StaySearchIcon } from './stay-search-icon';

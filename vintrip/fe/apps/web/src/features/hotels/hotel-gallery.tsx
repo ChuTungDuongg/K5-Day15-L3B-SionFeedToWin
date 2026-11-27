@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { isOptimizedImageUrl } from '../../lib/remote-images';
 import {
   ImageViewerControls,

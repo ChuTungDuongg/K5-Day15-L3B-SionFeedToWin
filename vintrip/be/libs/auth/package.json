@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/auth",
+  "name": "@vintrip/auth",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -20,7 +20,7 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@tripflix/contracts": "workspace:*",
+    "@vintrip/contracts": "workspace:*",
     "ioredis": "catalog:",
     "jose": "catalog:"
   },

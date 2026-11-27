@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { AccessEmailVerificationRequestedV1 } from '@tripflix/contracts';
-import { Transactional } from '@tripflix/db';
+import type { AccessEmailVerificationRequestedV1 } from '@vintrip/contracts';
+import { Transactional } from '@vintrip/db';
 import { DEFAULT_EMAIL_VERIFY_URL, type CoreEnv } from '../../../../platform/env.js';
 import { CORE_ENV } from '../../../../platform/tokens.js';
 import {

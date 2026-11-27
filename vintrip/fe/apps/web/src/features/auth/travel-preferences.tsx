@@ -1,8 +1,8 @@
 'use client';
-import * as auth from '@tripflix/api-client/core-api/auth/auth';
-import type { MyProfileDto, TravelPreferencesDto } from '@tripflix/api-client/core-api/model/index';
+import * as auth from '@vintrip/api-client/core-api/auth/auth';
+import type { MyProfileDto, TravelPreferencesDto } from '@vintrip/api-client/core-api/model/index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { useEffect, useId, useRef, useState } from 'react';
 import { surveyHref } from '@/features/onboarding/post-auth';

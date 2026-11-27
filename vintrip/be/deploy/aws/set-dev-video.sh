@@ -11,7 +11,7 @@ if [ "$MODE" != "open" ] && [ "$MODE" != "close" ]; then
   echo "Dùng: $0 open|close" >&2
   exit 1
 fi
-BUCKET="${S3_MEDIA_BUCKET:-tripflix-media-dev}"
+BUCKET="${S3_MEDIA_BUCKET:-vintrip-media-dev}"
 DIR="$(cd "$(dirname "$0")" && pwd)"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT

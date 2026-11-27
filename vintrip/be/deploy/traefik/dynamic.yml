@@ -1,5 +1,5 @@
 # Một địa chỉ cho web, admin, mobile: http://localhost:8080
-# Rate limit theo IP ở gateway (xem deploy/traefik/README.md). Kiểm JWT: mỗi service tự kiểm bằng @tripflix/auth
+# Rate limit theo IP ở gateway (xem deploy/traefik/README.md). Kiểm JWT: mỗi service tự kiểm bằng @vintrip/auth
 # qua /.well-known/jwks.json, gateway không kiểm. Giới hạn theo tài khoản nằm trong module access.
 http:
   middlewares:

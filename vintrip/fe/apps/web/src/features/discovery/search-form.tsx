@@ -1,6 +1,6 @@
 'use client';
 
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { useRouter } from 'next/navigation';
 import { useRef, useState, type ReactNode } from 'react';
 import { validateInspirationKeyword } from './inspiration-keyword';

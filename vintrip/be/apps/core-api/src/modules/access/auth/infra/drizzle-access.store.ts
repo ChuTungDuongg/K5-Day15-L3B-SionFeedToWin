@@ -1,6 +1,6 @@
-import type { Role } from '@tripflix/contracts';
-import type { Db } from '@tripflix/db';
-import { OutboxWriter } from '@tripflix/outbox';
+import type { Role } from '@vintrip/contracts';
+import type { Db } from '@vintrip/db';
+import { OutboxWriter } from '@vintrip/outbox';
 import { and, asc, inArray, count, desc, eq, gt, ilike, isNotNull, isNull, lt, lte, ne, or, sql } from 'drizzle-orm';
 import {
   accessOutboxEvents,

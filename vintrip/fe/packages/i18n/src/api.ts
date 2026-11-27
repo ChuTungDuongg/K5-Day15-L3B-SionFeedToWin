@@ -17,7 +17,7 @@ export const api = {
   notificationsMinutesAgo: '{count} phút trước',
   notificationsHoursAgo: '{count} giờ trước',
   notificationsYesterday: 'Hôm qua',
-  notificationsFromTripflix: 'Vintrip',
+  notificationsFromVintrip: 'Vintrip',
   notificationsLoading: 'Đang tải thông báo…',
   notificationsUnreadCount: '{count} thông báo chưa đọc',
   notificationsUnread: 'Chưa đọc',

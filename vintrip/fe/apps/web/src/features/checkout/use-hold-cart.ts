@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { createCheckoutOperation } from '@tripflix/api-client';
-import { createBookingCartRequest, EMPTY_BOOKING_CART, type BookingCart } from '@tripflix/app-core';
+import { createCheckoutOperation } from '@vintrip/api-client';
+import { createBookingCartRequest, EMPTY_BOOKING_CART, type BookingCart } from '@vintrip/app-core';
 import { useRouter } from 'next/navigation';
 
 /** Giữ chỗ các phòng được truyền vào, xoá chúng khỏi nơi lưu rồi sang thanh toán. */

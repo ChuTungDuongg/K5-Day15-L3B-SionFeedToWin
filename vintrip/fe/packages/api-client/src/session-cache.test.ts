@@ -4,7 +4,7 @@ import { decideCacheAction, readSessionCacheState, type SessionCacheState } from
 import { SessionClient, type SessionState } from './session-client';
 
 vi.mock('./browser-session-proof', () => ({
-  BROWSER_PROOF_HEADER: 'X-Tripflix-Session-Proof',
+  BROWSER_PROOF_HEADER: 'X-Vintrip-Session-Proof',
   signBrowserProof: async () => 'signed-proof',
 }));
 

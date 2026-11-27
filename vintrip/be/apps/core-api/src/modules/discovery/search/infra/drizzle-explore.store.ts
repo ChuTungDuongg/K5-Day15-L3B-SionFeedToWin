@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { and, arrayOverlaps, asc, between, eq, gte, inArray, isNull, lt, lte, or, sql, type SQL } from 'drizzle-orm';
 import { searchCounts, searchDocuments, searchQueryGrams } from '../../db/schema/index.js';
 import type { ExploreStore } from '../application/ports.js';

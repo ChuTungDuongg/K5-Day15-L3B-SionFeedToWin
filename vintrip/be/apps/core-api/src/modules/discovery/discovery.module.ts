@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { createDb } from '@tripflix/db';
-import { RedisStreamsEventBus } from '@tripflix/event-bus';
+import { createDb } from '@vintrip/db';
+import { RedisStreamsEventBus } from '@vintrip/event-bus';
 import type { Redis } from 'ioredis';
 import type { CoreEnv } from '../../platform/env.js';
 import { CORE_ENV, DB_POOLS, REDIS, type DbPools } from '../../platform/tokens.js';

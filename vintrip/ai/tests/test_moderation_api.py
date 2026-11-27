@@ -23,7 +23,7 @@ from app.services.usage_events import UsageEvent
 
 KEY = ec.generate_private_key(ec.SECP256R1())
 OTHER_KEY = ec.generate_private_key(ec.SECP256R1())
-ISSUER, AUDIENCE = "tripflix-core", "ai-service"
+ISSUER, AUDIENCE = "vintrip-core", "ai-service"
 
 
 def token(key: Any = KEY, **overrides: Any) -> str:

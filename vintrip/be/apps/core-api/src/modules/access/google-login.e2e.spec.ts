@@ -5,8 +5,8 @@ import { createServer, type Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { SignJWT, decodeJwt, exportJWK, generateKeyPair, type CryptoKey, type JWTPayload } from 'jose';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
@@ -20,8 +20,8 @@ import { GOOGLE_LOGIN_FAILED_MESSAGE, INVALID_CREDENTIALS_MESSAGE } from './auth
 import { MemoryAccessStore } from './auth/infra/memory/memory-access.store.js';
 import { MemoryLoginRateLimiter } from './auth/infra/memory/memory-login-rate-limiter.js';
 
-const WEB_CLIENT_ID = 'tripflix-web.apps.googleusercontent.com';
-const ANDROID_CLIENT_ID = 'tripflix-android.apps.googleusercontent.com';
+const WEB_CLIENT_ID = 'vintrip-web.apps.googleusercontent.com';
+const ANDROID_CLIENT_ID = 'vintrip-android.apps.googleusercontent.com';
 const KID = 'google-fake-1';
 const PASSWORD = 'mat-khau-an-toan';
 const GOOGLE_PHOTO = 'https://lh3.googleusercontent.com/a/anh-google';
@@ -69,8 +69,8 @@ describe('TF059: đăng nhập Google và gộp gu khách X-Anon-Id', () => {
 
     const env = {
       NODE_ENV: 'test',
-      AUTH_JWT_ISSUER: 'tripflix-core',
-      AUTH_JWT_AUDIENCE: 'tripflix',
+      AUTH_JWT_ISSUER: 'vintrip-core',
+      AUTH_JWT_AUDIENCE: 'vintrip',
       AUTH_WEB_ORIGINS: ['http://localhost:3100'],
       GOOGLE_CLIENT_IDS: [WEB_CLIENT_ID, ANDROID_CLIENT_ID],
       GOOGLE_JWKS_URL: `http://127.0.0.1:${port}/oauth2/v3/certs`,
@@ -254,10 +254,10 @@ describe('TF059: đăng nhập Google và gộp gu khách X-Anon-Id', () => {
     const { createTestBrowserProof } = await import('./auth/infra/test-browser-proof.js');
     const proof = await createTestBrowserProof();
     const origin = 'http://localhost:3100';
-    const res = await google(token, { 'X-Tripflix-Client': 'web', Origin: origin, ...await proof('google', origin) }).expect(200);
+    const res = await google(token, { 'X-Vintrip-Client': 'web', Origin: origin, ...await proof('google', origin) }).expect(200);
     expect(res.body).not.toHaveProperty('refreshToken');
-    expect(String(res.headers['set-cookie'])).toMatch(/tripflix_refresh=.+HttpOnly/);
-    await google(token, { 'X-Tripflix-Client': 'web', Origin: 'https://evil.example' }).expect(403);
+    expect(String(res.headers['set-cookie'])).toMatch(/vintrip_refresh=.+HttpOnly/);
+    await google(token, { 'X-Vintrip-Client': 'web', Origin: 'https://evil.example' }).expect(403);
   });
 
   describe('TF109: ảnh đại diện', () => {

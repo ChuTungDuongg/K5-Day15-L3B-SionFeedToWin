@@ -11,7 +11,7 @@ set -euo pipefail
 
 LABEL=${1:-run}
 API=${API:-http://localhost:3000/api/v1/feed}
-REDIS_CONTAINER=${REDIS_CONTAINER:-tripflix-bench-redis-1}
+REDIS_CONTAINER=${REDIS_CONTAINER:-vintrip-bench-redis-1}
 N=${N:-20}
 RUNS=${RUNS:-3}
 WARM_REQUESTS=10

@@ -1,6 +1,6 @@
 import { Controller, Get, Query, UseFilters } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { ServiceOnly } from '@tripflix/auth';
+import { ServiceOnly } from '@vintrip/auth';
 import { SocialErrorFilter } from './social-error.filter.js';
 import {
   ReconcileHeldSummariesQueryDto,

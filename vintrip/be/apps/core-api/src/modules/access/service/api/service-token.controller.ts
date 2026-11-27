@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Inject, Post, Req, UseFilters } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiProperty, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { SERVICE_TOKEN_TTL_SECONDS } from '@tripflix/auth';
+import { SERVICE_TOKEN_TTL_SECONDS } from '@vintrip/auth';
 import type { Request } from 'express';
 import { z } from 'zod';
 import { AccessErrorFilter, ZodBody, readRequestMeta } from '../../auth/api/http.js';

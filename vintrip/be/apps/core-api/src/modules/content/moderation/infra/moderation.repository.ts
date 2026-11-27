@@ -1,5 +1,5 @@
 import { and, asc, desc, eq, getTableColumns, gte, inArray, isNull, like, or, sql } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { reviewDueAt } from '../domain/review-policy.js';
 import { decodeReviewCursor, encodeReviewCursor } from './review-cursor.js';
 import { isAfterCursor } from '../../social/infra/keyset-cursor.js';

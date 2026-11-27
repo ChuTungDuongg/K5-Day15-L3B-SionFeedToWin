@@ -1,3 +1,3 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 
 export type EventHandler = (event: EventEnvelope) => Promise<boolean>;

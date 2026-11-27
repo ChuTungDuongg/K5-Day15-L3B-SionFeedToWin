@@ -7,12 +7,12 @@ const fakeRequest = (headers: Record<string, string>) =>
 
 describe('readCookie', () => {
   it('lấy đúng cookie theo tên, bỏ khoảng trắng', () => {
-    expect(readCookie('a=1; tripflix_refresh=abc ;b=2', 'tripflix_refresh')).toBe('abc');
-    expect(readCookie('tripflix_refresh=abc', 'tripflix_refresh')).toBe('abc');
+    expect(readCookie('a=1; vintrip_refresh=abc ;b=2', 'vintrip_refresh')).toBe('abc');
+    expect(readCookie('vintrip_refresh=abc', 'vintrip_refresh')).toBe('abc');
   });
 
   it('không nhầm tên có cùng phần đuôi hay phần đầu', () => {
-    expect(readCookie('old_tripflix_refresh=x; tripflix_refresh_v2=y', 'tripflix_refresh')).toBeUndefined();
+    expect(readCookie('old_vintrip_refresh=x; vintrip_refresh_v2=y', 'vintrip_refresh')).toBeUndefined();
   });
 
   it('giải mã %XX, bỏ ngoặc kép; mã hoá lỗi thì trả nguyên chuỗi', () => {
@@ -34,9 +34,9 @@ describe('WebSession', () => {
     ({ NODE_ENV: nodeEnv, AUTH_WEB_ORIGINS: ['http://localhost:3100'] }) as unknown as CoreEnv;
 
   it('isWebClient chỉ nhận đúng giá trị web', () => {
-    expect(isWebClient(fakeRequest({ 'x-tripflix-client': 'web' }))).toBe(true);
-    expect(isWebClient(fakeRequest({ 'x-tripflix-client': ' WEB ' }))).toBe(true);
-    expect(isWebClient(fakeRequest({ 'x-tripflix-client': 'mobile' }))).toBe(false);
+    expect(isWebClient(fakeRequest({ 'x-vintrip-client': 'web' }))).toBe(true);
+    expect(isWebClient(fakeRequest({ 'x-vintrip-client': ' WEB ' }))).toBe(true);
+    expect(isWebClient(fakeRequest({ 'x-vintrip-client': 'mobile' }))).toBe(false);
     expect(isWebClient(fakeRequest({}))).toBe(false);
   });
 

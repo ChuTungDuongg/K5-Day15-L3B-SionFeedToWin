@@ -1,5 +1,5 @@
 import { desc, eq } from 'drizzle-orm';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import {
   moderationActions,
   type ModerationActionRecord,

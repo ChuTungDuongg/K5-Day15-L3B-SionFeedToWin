@@ -10,7 +10,7 @@ Sinh tự động bởi `recommend-eval.spec.ts`, không sửa tay. Thiết kế
 Dump lại fixture (DB local, xem `fixtures/dump-posts.sql`):
 
 ```
-docker exec -i tripflix-postgres-1 psql -U postgres -d core -A -t < fixtures/dump-posts.sql
+docker exec -i vintrip-postgres-1 psql -U postgres -d core -A -t < fixtures/dump-posts.sql
 ```
 
 ### Ngăn của bài (post_profile@v1)
@@ -47,13 +47,13 @@ docker exec -i tripflix-postgres-1 psql -U postgres -d core -A -t < fixtures/dum
 | `mo-van-hoa` | Mơ | số nơi ≥ 4, chuỗi ≤ 3 | 0 | – | – | 8 | 7 | – | Vì bạn quan tâm Nha Trang · Vì bạn quan tâm Đà Nẵng · Vì bạn quan tâm Quy Nhơn |
 | `ca-that-18-11` | Lên kế hoạch | đúng nơi ≥ 0,4 | – | 0,70 | – | 6 | 3 | – | Vì bạn thích chủ đề #nhatrang · Vì bạn thích chủ đề #dalat · Vì bạn thích chủ đề #fyp |
 | `kh-dalat-sang-nhatrang` | Lên kế hoạch | đúng nơi ≥ 0,4 | – | 0,70 | – | 8 | 4 | – | Vì bạn quan tâm Nha Trang · Vì bạn quan tâm Đà Lạt |
-| `kh-moi-phuquoc` | Lên kế hoạch | đúng nơi ≥ 0,4 | – | 0,20 | – | 6 | 6 | – | Vì bạn quan tâm Phú Quốc · Bài viết thịnh hành trên TripFlix |
+| `kh-moi-phuquoc` | Lên kế hoạch | đúng nơi ≥ 0,4 | – | 0,20 | – | 6 | 6 | – | Vì bạn quan tâm Phú Quốc · Bài viết thịnh hành trên VinTrip |
 | `sap-di-nhatrang` | Sắp đi | đúng nơi ≥ 0,4, KS khác ≤ 1 | – | 0,70 | – | 9 | 6 | 0 | Vì bạn quan tâm Nha Trang · Vì bạn thích chủ đề #xuhuong · Vì bạn thích chủ đề #checkin |
 | `dang-di-dalat` | Đang đi | đúng nơi ≥ 0,4 | – | 0,60 | – | 8 | 2 | 0 | Vì bạn quan tâm Đà Lạt · Vì bạn thích chủ đề #cafe · Vì bạn thích chủ đề #fyp |
 | `vua-ve-phuquoc` | Vừa về | nơi vừa đi ≤ 0,2 | – | – | 0,40 | 11 | 2 | – | Vì bạn quan tâm Phú Quốc · Vì bạn thích chủ đề #xuhuong · Vì bạn thích chủ đề #bien |
 | `mo-xem-reels-bien` | Mơ | số nơi ≥ 4, chuỗi ≤ 3 | 1 | – | – | 10 | 2 | – | Vì bạn quan tâm Huế · Vì bạn thích chủ đề #bien · Vì bạn quan tâm Nha Trang |
 | `kh-bam-dat-reels-danang` | Lên kế hoạch | đúng nơi ≥ 0,4 | – | 0,10 | – | 6 | 2 | – | Vì bạn quan tâm Đà Lạt · Vì bạn quan tâm Ninh Bình · Vì bạn quan tâm Đà Nẵng |
-| `khach` | Khách | như trending | – | – | – | 7 | 5 | – | Bài viết thịnh hành trên TripFlix |
+| `khach` | Khách | như trending | – | – | – | 7 | 5 | – | Bài viết thịnh hành trên VinTrip |
 
 ### v1 (trip_v1, đọc toàn bộ bài)
 
@@ -71,4 +71,4 @@ docker exec -i tripflix-postgres-1 psql -U postgres -d core -A -t < fixtures/dum
 | `vua-ve-phuquoc` | Vừa về | nơi vừa đi ≤ 0,2 | – | – | 0 | 14 | 2 | – | Bạn vừa đi Phú Quốc, thử thêm bài về biển đảo |
 | `mo-xem-reels-bien` | Mơ | số nơi ≥ 4, chuỗi ≤ 3 | 1 | – | – | 11 | 2 | – | Vì bạn hay xem bài về biển đảo · Vì bạn hay xem bài về cà phê · Vì bạn quan tâm Nha Trang |
 | `kh-bam-dat-reels-danang` | Lên kế hoạch | đúng nơi ≥ 0,4 | – | 0,40 | – | 9 | 4 | – | Vì bạn đang tìm hiểu Đà Nẵng · Vì bạn hay xem bài về ăn uống · Vì bạn hay xem bài về cà phê |
-| `khach` | Khách | như trending | – | – | – | 7 | 5 | – | Bài viết thịnh hành trên TripFlix |
+| `khach` | Khách | như trending | – | – | – | 7 | 5 | – | Bài viết thịnh hành trên VinTrip |

@@ -1,7 +1,7 @@
 'use client';
-import { useApiSession } from '@tripflix/api-client';
+import { useApiSession } from '@vintrip/api-client';
 import { useMutation } from '@tanstack/react-query';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

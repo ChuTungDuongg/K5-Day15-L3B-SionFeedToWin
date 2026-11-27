@@ -1,6 +1,6 @@
 import { Controller, Get, Header, Inject } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import { CommerceMetrics } from './commerce-metrics.js';
 
 /** Số đo vận hành của commerce trên mọi instance (D1). Chỉ superadmin; dữ liệu vận hành nội bộ, không phải nghiệp vụ. */

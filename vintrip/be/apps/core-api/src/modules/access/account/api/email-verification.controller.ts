@@ -9,7 +9,7 @@ import {
   ApiTags,
   ApiTooManyRequestsResponse,
 } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import type { Request } from 'express';
 import { z } from 'zod';
 import { AccessErrorFilter, ZodBody, readRequestMeta } from '../../auth/api/http.js';

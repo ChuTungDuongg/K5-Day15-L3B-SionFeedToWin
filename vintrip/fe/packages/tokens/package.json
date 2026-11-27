@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/tokens",
+  "name": "@vintrip/tokens",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@tripflix/config": "workspace:*",
+    "@vintrip/config": "workspace:*",
     "@types/node": "catalog:",
     "oxlint": "catalog:",
     "typescript": "catalog:",

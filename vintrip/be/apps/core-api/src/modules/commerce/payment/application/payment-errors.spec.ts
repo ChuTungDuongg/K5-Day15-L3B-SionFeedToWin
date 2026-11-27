@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import type { OutboxWriter } from '@tripflix/outbox';
+import type { OutboxWriter } from '@vintrip/outbox';
 import { CheckoutUseCases } from '../../booking/application/checkout.use-cases.js';
 import type { OrderRecord, OrderStore, PaymentRecord } from '../../booking/application/ports.js';
 import { MAX_FAILED_PAYMENTS, POLICY_VERSION } from '../../booking/domain/order-rules.js';
@@ -8,8 +8,8 @@ import { CommerceError } from '../../inventory/domain/errors.js';
 import type { PaymentGateway } from './gateway.port.js';
 import { PaymentUseCases } from './payment.use-cases.js';
 
-vi.mock('@tripflix/db', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@tripflix/db')>()),
+vi.mock('@vintrip/db', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@vintrip/db')>()),
   Transactional: () => () => undefined,
 }));
 

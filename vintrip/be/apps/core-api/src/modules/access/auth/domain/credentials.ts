@@ -26,7 +26,7 @@ export function buildDisplayName(name: string | null, email: string): string {
   const source = hasVisibleChar(fromGoogle) ? fromGoogle : (email.split('@')[0] ?? '');
   // Cắt theo ký tự Unicode (không cắt đôi emoji), rồi cắt khoảng trắng còn thừa ở cuối.
   const candidate = Array.from(source).slice(0, DISPLAY_NAME_MAX).join('').trim();
-  return hasVisibleChar(candidate) ? candidate : 'Thành viên Tripflix';
+  return hasVisibleChar(candidate) ? candidate : 'Thành viên Vintrip';
 }
 
 export function normalizeEmail(email: string): string {

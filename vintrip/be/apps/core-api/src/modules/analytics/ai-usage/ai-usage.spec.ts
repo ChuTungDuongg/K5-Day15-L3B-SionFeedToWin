@@ -1,10 +1,10 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { AiUsageQuerySchema } from './api/ai-usage.controller.js';
 import { AiUsageUseCases, type AiUsageStore } from './application/ai-usage.use-cases.js';
 import { AiUsageConsumer } from './consumers/ai-usage.consumer.js';
 import { sumAiUsage, toAiUsageRecord, type AiUsageRecord } from './domain/ai-usage.js';
 
-// Đúng dạng ai-service phát (tripflix-ai app/services/usage_events.py, UsageEvent.model_dump_json(by_alias=True)).
+// Đúng dạng ai-service phát (vintrip-ai app/services/usage_events.py, UsageEvent.model_dump_json(by_alias=True)).
 const chatEvent = (payload: Record<string, unknown> = {}): EventEnvelope => ({
   eventId: '0b9c3f0e-8a63-4d0f-9d58-3c1f2b7a1e01',
   type: 'ai.usage.recorded',

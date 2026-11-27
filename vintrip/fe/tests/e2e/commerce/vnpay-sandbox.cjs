@@ -10,7 +10,7 @@ const { expect } = require(runtime + '/test');
 const { CommercePage } = require('../../pages/commerce-page.cjs');
 const API = process.env.API_PREVIEW_URL || 'http://localhost:8080';
 const MOBILE = process.env.MOBILE_PREVIEW_URL || 'http://localhost:8081';
-const OUTPUT = process.env.VNPAY_EVIDENCE_DIR || join(tmpdir(), 'tripflix-vnpay-direct');
+const OUTPUT = process.env.VNPAY_EVIDENCE_DIR || join(tmpdir(), 'vintrip-vnpay-direct');
 const localHosts = new Set([
   'localhost',
   '127.0.0.1',

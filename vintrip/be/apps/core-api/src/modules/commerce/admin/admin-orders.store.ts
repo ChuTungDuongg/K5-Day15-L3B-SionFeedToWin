@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { InjectTransactionHost, type Db } from '@tripflix/db';
+import { InjectTransactionHost, type Db } from '@vintrip/db';
 import { sql, type SQL } from 'drizzle-orm';
 import { ANOMALY_KINDS, type AnomalyKind } from './anomaly-kinds.js';
 

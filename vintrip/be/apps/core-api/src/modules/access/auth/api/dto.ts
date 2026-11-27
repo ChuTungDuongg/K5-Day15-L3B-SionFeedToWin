@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { ROLES, type Role } from '@tripflix/contracts';
+import { ROLES, type Role } from '@vintrip/contracts';
 import { z } from 'zod';
 import { NEW_PASSWORD_MAX } from '../domain/credentials.js';
 import { DISPLAY_NAME_MAX } from '../domain/text-rules.js';
@@ -76,7 +76,7 @@ export const LoginRequestSchema = z
     path: ['code'],
   });
 
-// Web, admin không gửi refreshToken trong body (có khi không gửi body): core-api đọc từ cookie tripflix_refresh.
+// Web, admin không gửi refreshToken trong body (có khi không gửi body): core-api đọc từ cookie vintrip_refresh.
 export const RefreshRequestSchema = z.preprocess(
   (v) => v ?? {},
   z.object({
@@ -176,14 +176,14 @@ export class LoginDto {
 }
 
 export class RefreshDto {
-  @ApiPropertyOptional({ description: 'App mobile gửi trong body. Web, admin bỏ trống, token nằm trong cookie tripflix_refresh' })
+  @ApiPropertyOptional({ description: 'App mobile gửi trong body. Web, admin bỏ trống, token nằm trong cookie vintrip_refresh' })
   refreshToken?: string;
 }
 
 export class TokenPairDto {
   @ApiProperty() accessToken!: string;
   @ApiPropertyOptional({
-    description: 'Không có khi gửi header X-Tripflix-Client: web; khi đó refresh token nằm trong cookie HttpOnly tripflix_refresh',
+    description: 'Không có khi gửi header X-Vintrip-Client: web; khi đó refresh token nằm trong cookie HttpOnly vintrip_refresh',
   })
   refreshToken?: string;
   @ApiProperty({ enum: ['Bearer'] }) tokenType!: 'Bearer';

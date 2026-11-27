@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { MOCK_PAYMENT_GATEWAY, PAYMENT_GATEWAY, type PaymentGateway } from '../../payment/application/gateway.port.js';
 import { VNPAY_GATEWAY, VNPAY_PAYMENT_WINDOW_MINUTES } from '../../payment/domain/vnpay-signature.js';
 import { isHoldExpired } from '../domain/order-rules.js';

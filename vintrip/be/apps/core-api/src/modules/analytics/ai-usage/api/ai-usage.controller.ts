@@ -1,6 +1,6 @@
 import { BadRequestException, Controller, Get, Header, Inject, Query } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiOkResponse, ApiOperation, ApiProperty, ApiQuery, ApiTags } from '@nestjs/swagger';
-import { Roles } from '@tripflix/auth';
+import { Roles } from '@vintrip/auth';
 import { z } from 'zod';
 import { AiUsageUseCases } from '../application/ai-usage.use-cases.js';
 import { AI_USAGE_GROUPS, type AiUsageGroup } from '../domain/ai-usage.js';

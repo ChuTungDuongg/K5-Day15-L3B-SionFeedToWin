@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/testing",
+  "name": "@vintrip/testing",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -23,7 +23,7 @@
   "dependencies": {
     "@testcontainers/postgresql": "catalog:",
     "@testcontainers/redis": "catalog:",
-    "@tripflix/db": "workspace:*",
+    "@vintrip/db": "workspace:*",
     "drizzle-orm": "catalog:",
     "pg": "catalog:",
     "testcontainers": "catalog:"

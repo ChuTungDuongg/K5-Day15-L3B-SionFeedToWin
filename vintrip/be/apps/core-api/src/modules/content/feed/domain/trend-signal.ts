@@ -1,4 +1,4 @@
-import type { ContentPostBookingClickedV1, ContentPostViewedV1 } from '@tripflix/contracts';
+import type { ContentPostBookingClickedV1, ContentPostViewedV1 } from '@vintrip/contracts';
 
 /**
  * Tín hiệu Hot không có sẵn trong bảng của content (TF111): lượt xem đủ và lượt bấm đặt, lấy từ stream:app-events.

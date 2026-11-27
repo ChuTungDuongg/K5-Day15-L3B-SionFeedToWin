@@ -1,4 +1,4 @@
-"""Rebuild the hero assets using the original Tripflix logo outlines."""
+"""Rebuild the hero assets using the original Vintrip logo outlines."""
 
 import base64
 import io
@@ -36,7 +36,7 @@ def build():
     foam.save(foam_data, format="WEBP", quality=94, method=6)
     (OUTPUT / "letter-contact-foam.webp").write_bytes(foam_data.getvalue())
     foam_encoded = base64.b64encode(foam_data.getvalue()).decode()
-    logo = ET.parse(OUTPUT.parent / "tripflix-logo.svg").getroot()
+    logo = ET.parse(OUTPUT.parent / "vintrip-logo.svg").getroot()
     wordmark = logo.find("{http://www.w3.org/2000/svg}path").get("d")
     letters = [part if part.startswith("M") else "M" + part for part in wordmark.split(" M")]
     assert len(letters) == 8
@@ -49,7 +49,7 @@ def build():
     transform = (scale, 0, 0, scale, word_left - left * scale, 40 - top * scale)
     baseline = 100 * scale + transform[5]
     definitions, faces, edges, ripples, droplets = [], [], [], [], []
-    for i, (char, letter) in enumerate(zip("Tripflix", letters)):
+    for i, (char, letter) in enumerate(zip("Vintrip", letters)):
         pen = SVGPathPen(None)
         parse_path(letter, TransformPen(pen, transform))
         path = pen.getCommands()
@@ -82,7 +82,7 @@ def build():
     outlines, fronts = "".join(edges), "".join(faces)
     # shortcut: SVG extrusion has no live refraction, replace with WebGL when true 3D rotation is required.
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 660" fill="none">
-<title>Tripflix — Sa Pa, Hạ Long, Tràng An, Huế, Phú Quốc, Cao Bằng, Cầu Vàng, Hội An</title>
+<title>Vintrip — Sa Pa, Hạ Long, Tràng An, Huế, Phú Quốc, Cao Bằng, Cầu Vàng, Hội An</title>
 <defs>{"".join(definitions)}
 <linearGradient id="depth" x2=".4" y2="1"><stop stop-color="#bbf7ef"/><stop offset=".5" stop-color="#318b9b" stop-opacity=".8"/><stop offset="1" stop-color="#a0f4e9"/></linearGradient>
 <linearGradient id="glass" x2=".25" y2="1"><stop stop-color="#eeffff" stop-opacity=".32"/><stop offset=".2" stop-color="#aaf8ff" stop-opacity=".08"/><stop offset=".65" stop-color="#29bbc3" stop-opacity=".04"/><stop offset="1" stop-color="#e0ffff" stop-opacity=".25"/></linearGradient>
@@ -112,7 +112,7 @@ def build():
 <image class="contact-foam" x="{word_left:.2f}" y="{baseline-94:.2f}" width="{word_width:.2f}" height="180" opacity=".8" preserveAspectRatio="none" href="data:image/webp;base64,{foam_encoded}"/>
 <g fill="#e2fffc">{"".join(droplets)}</g>
 </svg>'''
-    (OUTPUT / "tripflix-logo-crystal.svg").write_text(svg, encoding="utf-8", newline="\n")
+    (OUTPUT / "vintrip-logo-crystal.svg").write_text(svg, encoding="utf-8", newline="\n")
     document = ET.fromstring(svg)
     ns = {"s": "http://www.w3.org/2000/svg"}
     assert len(document.findall(".//s:clipPath", ns)) == 8

@@ -1,7 +1,7 @@
 'use client';
 
-import { getAvatarUrl, useApiSession } from '@tripflix/api-client';
-import * as users from '@tripflix/api-client/core-api/users/users';
+import { getAvatarUrl, useApiSession } from '@vintrip/api-client';
+import * as users from '@vintrip/api-client/core-api/users/users';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { findFrameOption, findStickerPreset, type AvatarFrameId } from '@/features/auth/avatar-stickers';

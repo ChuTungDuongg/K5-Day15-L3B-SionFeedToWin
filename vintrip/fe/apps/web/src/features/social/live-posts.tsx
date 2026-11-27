@@ -17,11 +17,11 @@ import {
   useSocialPosts,
   watchPostComments,
   type PostCommentsChange,
-} from '@tripflix/api-client';
+} from '@vintrip/api-client';
 import {
   mediaUploadControllerCreateUpload,
   mediaUploadControllerCompleteUpload,
-} from '@tripflix/api-client/core-api/media/media';
+} from '@vintrip/api-client/core-api/media/media';
 import type {
   FeedCardDto,
   PostRecommendationsControllerRecommendReelsMode,
@@ -29,8 +29,8 @@ import type {
   SocialPostDto,
   TripAttachmentDto,
   UpdatePostDto,
-} from '@tripflix/api-client/core-api/model/index';
-import { commentsControllerSetCommentReaction } from '@tripflix/api-client/core-api/social-comments/social-comments';
+} from '@vintrip/api-client/core-api/model/index';
+import { commentsControllerSetCommentReaction } from '@vintrip/api-client/core-api/social-comments/social-comments';
 import {
   buildTripAttachment,
   buildTripDraftFromAttachment,
@@ -41,9 +41,9 @@ import {
   hasTripPlan,
   selectReelPoster,
   type TripPlanDraft,
-} from '@tripflix/app-core';
+} from '@vintrip/app-core';
 import { ComposerTripPlanEditor } from './composer/trip-plan-editor';
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, memo, useCallback, useEffect, useMemo, useRef, useState, useImperativeHandle, type MouseEvent, type PointerEvent } from 'react';
@@ -2127,8 +2127,8 @@ export function InspirationImmersiveViewer({
   useEffect(() => {
     document.documentElement.removeAttribute('data-theme');
     try {
-      localStorage.removeItem('tripflix.theme');
-      localStorage.removeItem('tripflix.inspiration.theme');
+      localStorage.removeItem('vintrip.theme');
+      localStorage.removeItem('vintrip.inspiration.theme');
     } catch {
       // Bỏ qua lỗi truy cập Storage
     }

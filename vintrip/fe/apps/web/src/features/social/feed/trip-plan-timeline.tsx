@@ -1,8 +1,8 @@
 'use client';
 
-import { getBookableTripPlan, getTripPlanCategory, type TripPlanCategory } from '@tripflix/app-core';
-import type { TripAttachmentDto } from '@tripflix/api-client/core-api/model/index';
-import { t, vi } from '@tripflix/i18n';
+import { getBookableTripPlan, getTripPlanCategory, type TripPlanCategory } from '@vintrip/app-core';
+import type { TripAttachmentDto } from '@vintrip/api-client/core-api/model/index';
+import { t, vi } from '@vintrip/i18n';
 import type { ReactNode } from 'react';
 import styles from './trip-plan-timeline.module.css';
 

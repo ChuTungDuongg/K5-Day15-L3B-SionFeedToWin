@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Tripflix Web Push",
+    "title": "Vintrip Web Push",
     "version": "1.0.0"
   },
   "components": {

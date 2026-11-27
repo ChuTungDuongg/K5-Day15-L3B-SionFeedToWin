@@ -1,7 +1,7 @@
 'use client';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ApiSessionProvider } from '@tripflix/api-client';
+import { ApiSessionProvider } from '@vintrip/api-client';
 import { useState, type ReactNode } from 'react';
 import { SurveyLogoutCleanup } from '@/features/onboarding/survey-logout-cleanup';
 import { AssistantProvider } from '@/features/assistant/assistant-provider';

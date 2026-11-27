@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import type { FeedCardDto } from '@tripflix/api-client/core-api/model/index';
+import type { FeedCardDto } from '@vintrip/api-client/core-api/model/index';
 import {
   attachReelVideoSource,
   canStepToNextReel,

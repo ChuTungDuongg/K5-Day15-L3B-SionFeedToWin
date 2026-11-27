@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { CommerceError } from '../domain/errors.js';
 import { MAX_NIGHTS, countNights, countRemaining, isIsoDate } from '../domain/sales-rules.js';
 import { COMMERCE_STORE, type CommerceStore, type FlightCalendarPatch, type RoomCalendarPatch } from './ports.js';

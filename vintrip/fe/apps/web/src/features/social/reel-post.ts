@@ -1,4 +1,4 @@
-import type { FeedCardDto, SocialPostDto } from '@tripflix/api-client/core-api/model/index';
+import type { FeedCardDto, SocialPostDto } from '@vintrip/api-client/core-api/model/index';
 
 /** Phần dữ liệu bài mà màn Reels cần; lấy được từ thẻ /v1/feed lẫn bài /v1/posts. */
 export type ReelPost = Pick<

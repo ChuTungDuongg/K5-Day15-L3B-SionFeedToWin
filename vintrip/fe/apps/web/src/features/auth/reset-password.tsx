@@ -1,7 +1,7 @@
 'use client';
-import { getAuthErrorKind, resetPassword } from '@tripflix/api-client';
-import { NEW_PASSWORD_MAX } from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+import { getAuthErrorKind, resetPassword } from '@vintrip/api-client';
+import { NEW_PASSWORD_MAX } from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { useState } from 'react';

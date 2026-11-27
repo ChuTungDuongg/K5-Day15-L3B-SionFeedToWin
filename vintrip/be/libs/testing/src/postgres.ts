@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { PostgreSqlContainer, type StartedPostgreSqlContainer } from '@testcontainers/postgresql';
-import type { ModuleName } from '@tripflix/db';
+import type { ModuleName } from '@vintrip/db';
 
 /** Cùng image với deploy/compose.yaml, để test chạy đúng bản Postgres và extension (pgvector) của môi trường thật. */
 export const POSTGRES_IMAGE = 'pgvector/pgvector:pg17';

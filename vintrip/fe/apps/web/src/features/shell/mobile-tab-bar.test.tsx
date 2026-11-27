@@ -12,7 +12,7 @@ vi.mock('next/navigation', () => ({
   usePathname: () => navigation.pathname,
   useRouter: () => ({ push: () => {} }),
 }));
-vi.mock('@tripflix/api-client', () => ({ useApiSession: () => ({ user: session.user, isReady: true }) }));
+vi.mock('@vintrip/api-client', () => ({ useApiSession: () => ({ user: session.user, isReady: true }) }));
 
 function renderBar(pathname: string) {
   navigation.pathname = pathname;

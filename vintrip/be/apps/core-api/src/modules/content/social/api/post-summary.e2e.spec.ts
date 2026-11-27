@@ -3,8 +3,8 @@ import { registerTestAccount } from '../../../../platform/registration.fixture.j
 import 'reflect-metadata';
 import { Global, type INestApplication, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
-import { createNoOpTransactionalPlugins } from '@tripflix/db';
+import { MemorySidBlocklist } from '@vintrip/auth';
+import { createNoOpTransactionalPlugins } from '@vintrip/db';
 import { ClsModule } from 'nestjs-cls';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
@@ -33,7 +33,7 @@ import { CommentRepository } from '../infra/comment.repository.js';
 import { PostSummaryRepository } from '../infra/post-summary.repository.js';
 import type { PostRecord, PostSummaryRecord } from '../../db/schema/index.js';
 
-const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'tripflix-core', AUTH_JWT_AUDIENCE: 'tripflix' } as CoreEnv;
+const env = { NODE_ENV: 'test', AUTH_JWT_ISSUER: 'vintrip-core', AUTH_JWT_AUDIENCE: 'vintrip' } as CoreEnv;
 
 @Global()
 @Module({
@@ -207,7 +207,7 @@ describe('E2E: PUT & GET /api/v1/posts/:postId/ai-summary với Service Token', 
     ] as const) {
       secrets[clientId] = (
         await registerServiceClient(
-          { store, hasher, userAudience: 'tripflix' },
+          { store, hasher, userAudience: 'vintrip' },
           { clientId, audiences: [...audiences] },
         )
       ).clientSecret;

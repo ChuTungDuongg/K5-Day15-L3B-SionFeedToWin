@@ -152,7 +152,7 @@ async function main() {
     if (process.env.MODERATION_TAGS_QA_PASSWORD) {
       const live = await browser.newPage({ viewport: { width: 1440, height: 1100 } });
       await live.goto(`${base}/login?returnTo=%2Fmoderation`);
-      await live.getByLabel('Email', { exact: true }).fill('moderator@tripflix.local');
+      await live.getByLabel('Email', { exact: true }).fill('moderator@vintrip.local');
       await live.getByLabel('Mật khẩu', { exact: true }).fill(process.env.MODERATION_TAGS_QA_PASSWORD.trim());
       await live.getByRole('button', { name: 'Đăng nhập', exact: true }).click();
       await live.getByRole('list', { name: 'Nguồn và trạng thái kiểm duyệt' }).first().waitFor();

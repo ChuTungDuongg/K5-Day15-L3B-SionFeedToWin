@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Transactional } from '@tripflix/db';
+import { Transactional } from '@vintrip/db';
 import { calculateCompleteness } from '../domain/completeness.js';
 import { calculateHotRaw, HOT_CANDIDATE_DAYS, normalizeHotScores } from '../domain/hot-trend.js';
 import { TREND_SCORE_STORE, type TrendScoreStore } from './ports.js';

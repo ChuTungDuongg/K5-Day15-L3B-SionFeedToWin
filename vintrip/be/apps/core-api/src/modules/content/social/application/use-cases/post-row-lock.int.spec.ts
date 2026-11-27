@@ -11,9 +11,9 @@ import {
   createPool,
   createTransactionalPlugins,
   type ModuleTransactionHost,
-} from '@tripflix/db';
-import { OutboxWriter } from '@tripflix/outbox';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+} from '@vintrip/db';
+import { OutboxWriter } from '@vintrip/outbox';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import { ClsModule } from 'nestjs-cls';
 import type pg from 'pg';
 import { contentOutboxEvents } from '../../../db/schema/index.js';

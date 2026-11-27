@@ -2,7 +2,7 @@ import {
   ContentCommentReactionUpdatedV1Schema,
   ContentReactionUpdatedV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
+} from '@vintrip/contracts';
 import type { ReactionChange, ReactionNotificationRepository } from '../../grouping/reaction-notification.repository.js';
 import { toInboxItemDto, type InboxRepository } from '../../inbox/inbox.repository.js';
 import type { RealtimeService } from '../../realtime/realtime.service.js';

@@ -1,6 +1,6 @@
-# tripflix-ai
+# vintrip-ai
 
-AI service của Tripflix, dùng FastAPI, Python 3.13 và uv.
+AI service của Vintrip, dùng FastAPI, Python 3.13 và uv.
 
 ## Chạy local
 
@@ -16,7 +16,7 @@ Worker tóm tắt bài viết (nghe `stream:core.content` trên Redis) chạy ri
 
 ## Chạy bằng Docker (cùng cả hệ thống)
 
-AI không chạy mặc định trong stack. Từ thư mục `tripflix-be`:
+AI không chạy mặc định trong stack. Từ thư mục `vintrip-be`:
 
 | Lệnh | Chạy gì |
 |---|---|
@@ -24,7 +24,7 @@ AI không chạy mặc định trong stack. Từ thư mục `tripflix-be`:
 | `pnpm stack:ai:down` | Tắt riêng AI |
 | `pnpm stack:full` / `pnpm stack:watch:full` | Cả hệ thống kèm AI |
 
-Đặt `LLM_PROVIDER` (và `OPENAI_API_KEY` nếu dùng OpenAI) trong `tripflix-be/deploy/.env`. Code ở máy thì dùng `LLM_PROVIDER=fake`.
+Đặt `LLM_PROVIDER` (và `OPENAI_API_KEY` nếu dùng OpenAI) trong `vintrip-be/deploy/.env`. Code ở máy thì dùng `LLM_PROVIDER=fake`.
 
 ## Kiểm tra
 

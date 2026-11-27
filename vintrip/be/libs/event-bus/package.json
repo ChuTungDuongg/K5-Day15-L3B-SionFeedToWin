@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/event-bus",
+  "name": "@vintrip/event-bus",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -21,11 +21,11 @@
     "test:int": "vitest run --config vitest.int.config.ts"
   },
   "dependencies": {
-    "@tripflix/contracts": "workspace:*",
+    "@vintrip/contracts": "workspace:*",
     "ioredis": "catalog:"
   },
   "devDependencies": {
-    "@tripflix/testing": "workspace:*",
+    "@vintrip/testing": "workspace:*",
     "@types/node": "catalog:",
     "oxlint": "catalog:",
     "typescript": "catalog:",

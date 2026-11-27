@@ -1,5 +1,5 @@
 {
-  "name": "tripflix-loadtest",
+  "name": "vintrip-loadtest",
   "private": true,
   "type": "module",
   "description": "Script test tải chạy trên máy bắn tải, ngoài workspace pnpm",

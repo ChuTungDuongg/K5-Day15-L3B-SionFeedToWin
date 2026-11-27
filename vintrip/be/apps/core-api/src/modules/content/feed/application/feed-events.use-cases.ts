@@ -3,8 +3,8 @@ import {
   ContentPostBookingClickedV1Schema,
   ContentPostViewedV1Schema,
   type EventEnvelope,
-} from '@tripflix/contracts';
-import { STREAMS, type EventBus } from '@tripflix/event-bus';
+} from '@vintrip/contracts';
+import { STREAMS, type EventBus } from '@vintrip/event-bus';
 import type { ZodType } from 'zod';
 import type { FeedEventInput } from '../api/feed-events.dto.js';
 import { isQualifiedView } from '../domain/view-rules.js';

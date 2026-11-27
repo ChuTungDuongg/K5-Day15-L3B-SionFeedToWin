@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { EventEnvelope } from '@tripflix/contracts';
-import { STREAMS, type StreamName } from '@tripflix/event-bus';
+import type { EventEnvelope } from '@vintrip/contracts';
+import { STREAMS, type StreamName } from '@vintrip/event-bus';
 
 /**
  * Đổi bộ dữ liệu mô phỏng của Duy (Recommend/data, bộ sinh v2) sang đúng hình dạng của hệ thống thật.
@@ -11,7 +11,7 @@ import { STREAMS, type StreamName } from '@tripflix/event-bus';
 
 /** Namespace uuid v5 riêng cho dữ liệu mô phỏng: chạy lại ra cùng uuid, và nhận ra/xoá được mà không đụng dữ liệu thật. */
 export const SIM_NAMESPACE = '5f0c7a2e-6b1d-4e8a-9c3f-2d7b1e4a6c90';
-export const SIM_EMAIL_DOMAIN = 'sim.tripflix.local';
+export const SIM_EMAIL_DOMAIN = 'sim.vintrip.local';
 const DAY_MS = 86_400_000;
 
 /** uuid v5 (RFC 4122) từ namespace + tên. */

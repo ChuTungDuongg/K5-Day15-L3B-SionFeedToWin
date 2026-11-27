@@ -4,7 +4,7 @@ import { SIGNUP_PROFILE } from '../../../../platform/registration.fixture.js';
 import { fileURLToPath } from 'node:url';
 import { Global, Module } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MemorySidBlocklist } from '@tripflix/auth';
+import { MemorySidBlocklist } from '@vintrip/auth';
 import {
   MODULES,
   buildDrizzleToken,
@@ -14,10 +14,10 @@ import {
   createTransactionalPlugins,
   type Db,
   type ModuleTransactionHost,
-} from '@tripflix/db';
-import { RedisStreamsEventBus, STREAMS } from '@tripflix/event-bus';
-import { DrizzleOutboxStore, OutboxRelay, deletePublishedBefore } from '@tripflix/outbox';
-import { migrateModule, startPostgres, startRedis, type PostgresFixture, type RedisFixture } from '@tripflix/testing';
+} from '@vintrip/db';
+import { RedisStreamsEventBus, STREAMS } from '@vintrip/event-bus';
+import { DrizzleOutboxStore, OutboxRelay, deletePublishedBefore } from '@vintrip/outbox';
+import { migrateModule, startPostgres, startRedis, type PostgresFixture, type RedisFixture } from '@vintrip/testing';
 import { Redis } from 'ioredis';
 import { ClsModule } from 'nestjs-cls';
 import type pg from 'pg';

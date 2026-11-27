@@ -1,7 +1,7 @@
 import { checkServiceClientInput } from './service-client-rules.js';
 
 describe('checkServiceClientInput', () => {
-  const check = (clientId: string, audiences: string[]) => checkServiceClientInput({ clientId, audiences }, 'tripflix');
+  const check = (clientId: string, audiences: string[]) => checkServiceClientInput({ clientId, audiences }, 'vintrip');
 
   it('nhận tên chữ thường, số, gạch nối', () => {
     expect(check('ai-service', ['core-api', 'notification-service'])).toBeNull();
@@ -17,6 +17,6 @@ describe('checkServiceClientInput', () => {
 
   it('cần ít nhất một audience, không được trùng aud của token người dùng', () => {
     expect(check('ai-service', [])).toMatch(/ít nhất/);
-    expect(check('ai-service', ['core-api', 'tripflix'])).toMatch(/trùng aud/);
+    expect(check('ai-service', ['core-api', 'vintrip'])).toMatch(/trùng aud/);
   });
 });

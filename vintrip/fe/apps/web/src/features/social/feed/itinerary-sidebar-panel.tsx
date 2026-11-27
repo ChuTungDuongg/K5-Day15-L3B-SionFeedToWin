@@ -3,8 +3,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { TripAttachmentDto } from '@tripflix/api-client/core-api/model/index';
-import { t, vi } from '@tripflix/i18n';
+import type { TripAttachmentDto } from '@vintrip/api-client/core-api/model/index';
+import { t, vi } from '@vintrip/i18n';
 import { SocialIcon } from '../live-posts';
 import { POST_COVER_MASCOT } from '../post-cover';
 import segmentedTabs from '../../shared/segmented-tabs.module.css';

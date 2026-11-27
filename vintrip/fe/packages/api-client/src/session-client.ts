@@ -59,7 +59,7 @@ export class SessionClient {
       skipAuthRefresh: true,
       skipAuthorization: true,
       ...(options.client === 'web'
-        ? { credentials: 'include' as const, headers: { 'X-Tripflix-Client': 'web' } }
+        ? { credentials: 'include' as const, headers: { 'X-Vintrip-Client': 'web' } }
         : {}),
     };
     this.connectHttp();

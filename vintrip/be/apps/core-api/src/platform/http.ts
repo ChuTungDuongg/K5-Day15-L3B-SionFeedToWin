@@ -11,7 +11,7 @@ export function applyGlobalPrefix(app: INestApplication) {
 
 export function buildOpenApiDocument(app: INestApplication) {
   const config = new DocumentBuilder()
-    .setTitle('Tripflix core-api')
+    .setTitle('Vintrip core-api')
     .setVersion('0.1.0')
     .addBearerAuth()
     .build();

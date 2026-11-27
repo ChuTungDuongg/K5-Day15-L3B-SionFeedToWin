@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { createDb, createPool, type Db } from '@tripflix/db';
-import { migrateModule, startPostgres, type PostgresFixture } from '@tripflix/testing';
+import { createDb, createPool, type Db } from '@vintrip/db';
+import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import type pg from 'pg';
 import { seedCatalog } from '../db/seed/seed-catalog.js';
 import { AdminOrdersStore } from './admin-orders.store.js';

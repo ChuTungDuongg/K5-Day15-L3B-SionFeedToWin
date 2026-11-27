@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { and, asc, desc, eq, getTableColumns, gt, inArray, isNull, ne, or, sql, type SQL } from 'drizzle-orm';
 import { alias, getTableConfig } from 'drizzle-orm/pg-core';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { isAfterCursor, isBeforeCursor } from './keyset-cursor.js';
 import { commentReactions, comments, type CommentRecord, type NewCommentRecord } from '../../db/schema/index.js';
 

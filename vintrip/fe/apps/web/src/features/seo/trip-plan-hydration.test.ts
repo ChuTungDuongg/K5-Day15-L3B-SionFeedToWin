@@ -1,13 +1,13 @@
 import { QueryClient, hydrate } from '@tanstack/react-query';
 import { describe, expect, it } from 'vitest';
-import { tripPlanPostQueryKey } from '@tripflix/api-client/profile-query-keys';
+import { tripPlanPostQueryKey } from '@vintrip/api-client/profile-query-keys';
 import { createTripPlanHydrationState } from './trip-plan-hydration';
 import { makePost } from './seo-fixtures';
 
 const detail = {
   post: makePost({ id: 'p1' }),
   viewerContext: { myReaction: null } as never,
-  shareUrl: 'https://tripflix.io.vn/trip-plans/p1',
+  shareUrl: 'https://vintrip.io.vn/trip-plans/p1',
 };
 
 function readOnClient(state: ReturnType<typeof createTripPlanHydrationState>, userId?: string) {

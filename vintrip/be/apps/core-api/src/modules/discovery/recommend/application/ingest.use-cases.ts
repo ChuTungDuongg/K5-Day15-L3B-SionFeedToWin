@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import type { Kind, RawRow } from '../domain/contracts.js';
 import { toOrderCancellation, toRawRows } from '../domain/ingest/to-raw-rows.js';
 import { RECENT_POSTS_STORE, RECOMMEND_STORE, type RecentPostsStore, type RecommendStore } from './ports.js';

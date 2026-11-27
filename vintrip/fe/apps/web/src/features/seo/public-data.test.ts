@@ -21,7 +21,7 @@ const { getHotel, hasPublicContent, reactCache, resetReactCache } = vi.hoisted((
 });
 
 vi.mock('react', () => ({ cache: reactCache }));
-vi.mock('@tripflix/api-client/seo', () => ({
+vi.mock('@vintrip/api-client/seo', () => ({
   seoApi: { getHotel, getPost: vi.fn(), getProfile: vi.fn(), hasPublicContent },
 }));
 

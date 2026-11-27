@@ -85,12 +85,12 @@ def stay_range(understood: Understanding, today: date) -> tuple[date, date] | Da
     if start < today:
         return DateProblem(f"Ngày {start:%d/%m/%Y} đã qua rồi, bạn muốn nhận phòng ngày nào?")
     if start > today + timedelta(days=MAX_DAYS_AHEAD):
-        return DateProblem("Tripflix chỉ nhận đặt trong 1 năm tới, bạn chọn ngày gần hơn nha.")
+        return DateProblem("Vintrip chỉ nhận đặt trong 1 năm tới, bạn chọn ngày gần hơn nha.")
     end = understood.check_out
     if end is not None:
         if end == start:
             return DateProblem(
-                f"Tripflix đặt phòng qua đêm. Bạn muốn trả phòng ngày nào sau {start:%d/%m}?"
+                f"Vintrip đặt phòng qua đêm. Bạn muốn trả phòng ngày nào sau {start:%d/%m}?"
             )
         if end < start:
             return DateProblem(

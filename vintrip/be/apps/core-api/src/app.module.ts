@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { loggerModule } from '@tripflix/observability';
+import { loggerModule } from '@vintrip/observability';
 import { AccessModule } from './modules/access/index.js';
 import { AiInsightsModule, AnalyticsModule, UserActivityModule } from './modules/analytics/index.js';
 import { CommerceModule } from './modules/commerce/index.js';

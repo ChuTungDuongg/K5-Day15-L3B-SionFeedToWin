@@ -13,7 +13,7 @@ export const PASSWORD_ENVELOPE_PREFIX = '#TFPWD';
 export const PASSWORD_ENVELOPE_VERSION = 1;
 export const PASSWORD_ENVELOPE_ALGORITHM = 'X25519-HKDF-SHA256-A256GCM';
 /** info của HKDF; client dùng đúng chuỗi này. */
-export const PASSWORD_ENVELOPE_HKDF_INFO = 'tripflix-pwd-v1';
+export const PASSWORD_ENVELOPE_HKDF_INFO = 'vintrip-pwd-v1';
 
 /** Chuỗi mã hoá dùng được trong 5 phút; chấp nhận đồng hồ client nhanh hơn server tối đa 60 giây. */
 export const PASSWORD_ENVELOPE_MAX_AGE_SECONDS = 300;
@@ -84,7 +84,7 @@ export function buildPasswordAad(
   subject: string,
 ): Buffer {
   return Buffer.from(
-    `tripflix-pwd|${PASSWORD_ENVELOPE_VERSION}|${purpose}|${keyId}|${ts}|${subject}`,
+    `vintrip-pwd|${PASSWORD_ENVELOPE_VERSION}|${purpose}|${keyId}|${ts}|${subject}`,
     'utf8',
   );
 }

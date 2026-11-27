@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import { sumAiUsage, toAiUsageRecord, type AiUsageQuery, type AiUsageRecord, type AiUsageRow } from '../domain/ai-usage.js';
 
 export const AI_USAGE_STORE = Symbol('AI_USAGE_STORE');

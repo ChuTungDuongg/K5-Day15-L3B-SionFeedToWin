@@ -1,6 +1,6 @@
 import '../load-env.js';
-import { loadEnv } from '@tripflix/config';
-import { createPool } from '@tripflix/db';
+import { loadEnv } from '@vintrip/config';
+import { createPool } from '@vintrip/db';
 import { z } from 'zod';
 import { ensureInboxSchema } from '../inbox/inbox.schema.js';
 

@@ -24,7 +24,7 @@ func Load() (Config, error) {
 	cfg := Config{
 		RedisURL:     env("REDIS_URL", "redis://localhost:6379"),
 		AWSRegion:    env("AWS_REGION", "ap-southeast-2"),
-		Bucket:       env("S3_MEDIA_BUCKET", "tripflix-media-dev"),
+		Bucket:       env("S3_MEDIA_BUCKET", "vintrip-media-dev"),
 		KeyPrefix:    env("S3_KEY_PREFIX", "dev/unknown/"),
 		ConsumerName: os.Getenv("VIDEO_WORKER_CONSUMER_NAME"),
 	}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { COMMON_EMOJIS, pushRecentEmoji } from './emoji-picker-data';
 import styles from './emoji-picker.module.css';
 
@@ -10,7 +10,7 @@ function keepInputFocus(event: React.MouseEvent) {
   event.preventDefault();
 }
 
-const RECENT_EMOJI_STORAGE_KEY = 'tripflix:recent-emojis';
+const RECENT_EMOJI_STORAGE_KEY = 'vintrip:recent-emojis';
 
 function readRecentEmojis(): string[] {
   try {

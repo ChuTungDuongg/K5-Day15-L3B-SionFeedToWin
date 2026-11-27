@@ -8,9 +8,9 @@ import {
   useFollowAuthor,
   usePublicProfile,
   useReelsFeed,
-} from '@tripflix/api-client';
-import { formatProfileCount, getNameInitials } from '@tripflix/app-core';
-import { vi } from '@tripflix/i18n';
+} from '@vintrip/api-client';
+import { formatProfileCount, getNameInitials } from '@vintrip/app-core';
+import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
 import { useState, type ReactNode } from 'react';
 import { ApiErrorNotice } from '@/features/shared/api-state';

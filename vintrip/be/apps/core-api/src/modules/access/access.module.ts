@@ -6,8 +6,8 @@ import {
   createAccessTokenVerifier,
   createServiceTokenVerifier,
   type SidBlocklist,
-} from '@tripflix/auth';
-import { buildTransactionHostToken, type ModuleTransactionHost } from '@tripflix/db';
+} from '@vintrip/auth';
+import { buildTransactionHostToken, type ModuleTransactionHost } from '@vintrip/db';
 import type { Redis } from 'ioredis';
 import { createLocalJWKSet, createRemoteJWKSet } from 'jose';
 import { DEFAULT_GOOGLE_JWKS_URL } from '../../platform/env.js';
@@ -140,7 +140,7 @@ export class AccessInfraModule {}
 
 /**
  * Module access. Chủ: Dũng (backup Duy). Xem README.md cùng thư mục.
- * Module khác chỉ dùng những gì được export trong index.ts; guard @Roles lấy từ @tripflix/auth.
+ * Module khác chỉ dùng những gì được export trong index.ts; guard @Roles lấy từ @vintrip/auth.
  */
 @Module({
   imports: [

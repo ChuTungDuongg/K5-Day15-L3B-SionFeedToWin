@@ -1,7 +1,7 @@
 'use client';
-import { socialApi } from '@tripflix/api-client';
+import { socialApi } from '@vintrip/api-client';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useState } from 'react';

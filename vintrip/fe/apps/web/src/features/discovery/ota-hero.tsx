@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { ViniMascot } from '@/features/mascot/tripi-mascot';
 import { TornPaperDivider } from './torn-paper';
 import styles from './ota-hero.module.css';

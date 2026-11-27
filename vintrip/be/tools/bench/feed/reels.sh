@@ -4,8 +4,8 @@
 set -euo pipefail
 API=${API:-http://localhost:3000}
 N=${N:-20}
-EMAIL=${EMAIL:-usr_00001@sim.tripflix.local}
-PASSWORD=${SEED_PASSWORD:-tripflix-dev-123}   # mặc định của deploy/compose.yaml, chỉ dùng cho local
+EMAIL=${EMAIL:-usr_00001@sim.vintrip.local}
+PASSWORD=${SEED_PASSWORD:-vintrip-dev-123}   # mặc định của deploy/compose.yaml, chỉ dùng cho local
 
 TOKEN=$(curl -s -X POST "$API/api/auth/login" -H 'content-type: application/json' \
   -d "{\"email\":\"$EMAIL\",\"password\":\"$PASSWORD\"}" \

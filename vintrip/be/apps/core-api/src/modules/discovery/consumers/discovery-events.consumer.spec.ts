@@ -1,4 +1,4 @@
-import type { EventEnvelope } from '@tripflix/contracts';
+import type { EventEnvelope } from '@vintrip/contracts';
 import type { Redis } from 'ioredis';
 import type { CoreEnv } from '../../../platform/env.js';
 import type { RecommendIngestUseCases } from '../recommend/application/ingest.use-cases.js';

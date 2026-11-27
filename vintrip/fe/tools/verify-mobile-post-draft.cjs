@@ -5,7 +5,7 @@ const { join } = require('node:path');
 const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
 const base = process.env.MOBILE_PREVIEW_URL || 'http://localhost:8083';
 const output = process.env.MOBILE_EVIDENCE_DIR || join(require('node:os').tmpdir(), 'mobile-post-draft');
-const key = 'tripflix.postDraft.v1.qa-member.qa-post';
+const key = 'vintrip.postDraft.v1.qa-member.qa-post';
 const caption = 'Một ngày đi biển cùng bạn bè, mình muốn kể thật nhiều điều.';
 const point = (patch = {}) => ({
   key: 'p1',
@@ -66,7 +66,7 @@ const recovery = (patch = {}) => ({
     await context.addInitScript(() => {
       const setItem = Storage.prototype.setItem;
       Storage.prototype.setItem = function (key, value) {
-        if (globalThis.qaBlockDraftWrites && key.startsWith('tripflix.postDraft.v1.'))
+        if (globalThis.qaBlockDraftWrites && key.startsWith('vintrip.postDraft.v1.'))
           throw new DOMException('QA storage full', 'QuotaExceededError');
         return setItem.call(this, key, value);
       };
@@ -238,7 +238,7 @@ const recovery = (patch = {}) => ({
       },
     });
     await page.evaluate(
-      (fresh) => localStorage.setItem('tripflix.postDraft.v1.qa-member.new', JSON.stringify(fresh)),
+      (fresh) => localStorage.setItem('vintrip.postDraft.v1.qa-member.new', JSON.stringify(fresh)),
       fresh,
     );
     await page.goto(base + '/create');

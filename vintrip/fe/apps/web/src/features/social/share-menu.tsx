@@ -10,7 +10,7 @@ import {
   useSyncExternalStore,
   type Ref,
 } from 'react';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { useCloseOnScroll } from '@/features/shared/soft-select';
 import { buildPostShareUrl, buildShareChannelUrl, placeShareMenu, type ShareChannel } from './post-share';
 import styles from './share-menu.module.css';

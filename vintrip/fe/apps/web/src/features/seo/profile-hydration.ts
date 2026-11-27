@@ -1,5 +1,5 @@
-import { authorVlogsQueryKey, publicProfileQueryKey } from '@tripflix/api-client/profile-query-keys';
-import type { PublicProfileDto, SocialPostPageDto } from '@tripflix/api-client/core-api/model/index';
+import { authorVlogsQueryKey, publicProfileQueryKey } from '@vintrip/api-client/profile-query-keys';
+import type { PublicProfileDto, SocialPostPageDto } from '@vintrip/api-client/core-api/model/index';
 import { dehydrate, QueryClient, type DehydratedState } from '@tanstack/react-query';
 
 /**

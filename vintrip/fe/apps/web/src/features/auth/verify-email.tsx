@@ -1,8 +1,8 @@
 'use client';
 
-import { getApiErrorKind, useApiSession } from '@tripflix/api-client';
-import { emailVerificationControllerVerify } from '@tripflix/api-client/core-api/auth/auth';
-import { vi } from '@tripflix/i18n';
+import { getApiErrorKind, useApiSession } from '@vintrip/api-client';
+import { emailVerificationControllerVerify } from '@vintrip/api-client/core-api/auth/auth';
+import { vi } from '@vintrip/i18n';
 import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
 import { ApiErrorNotice } from '@/features/shared/api-state';

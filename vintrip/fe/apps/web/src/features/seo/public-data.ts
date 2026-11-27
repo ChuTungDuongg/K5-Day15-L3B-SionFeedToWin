@@ -1,4 +1,4 @@
-import { seoApi } from '@tripflix/api-client/seo';
+import { seoApi } from '@vintrip/api-client/seo';
 import { cache } from 'react';
 import { getServerApiUrl } from '../../lib/site';
 

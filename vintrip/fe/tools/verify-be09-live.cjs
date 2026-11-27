@@ -9,14 +9,14 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const { randomUUID } = require('node:crypto');
 const output = path.resolve('../be09-acceptance');
-const sql = (query) => execFileSync('docker', ['exec', 'tripflix-postgres-1', 'psql', '-U', 'postgres', '-d', 'core', '-At', '-c', query], {encoding:'utf8'}).trim();
+const sql = (query) => execFileSync('docker', ['exec', 'vintrip-postgres-1', 'psql', '-U', 'postgres', '-d', 'core', '-At', '-c', query], {encoding:'utf8'}).trim();
 async function main() {
   await mkdir(output,{recursive:true});
   await expect.poll(async()=>{try{return (await fetch('http://localhost:3000/health')).status;}catch{return 0;}},{timeout:60000,intervals:[1000]}).toBe(200);
   const password = process.env.CREATOR_QA_PASSWORD?.trim(); assert.ok(password);
   const token = async email => (await api('/auth/login',null,'POST',{email,password})).accessToken;
-  const owner = await token('member@tripflix.local');
-  const staff = await token('moderator@tripflix.local');
+  const owner = await token('member@vintrip.local');
+  const staff = await token('moderator@vintrip.local');
   const assetIds=[];
   const fixtureMode=process.env.BE09_USE_EXISTING_CDN==='1';
   if (fixtureMode) {
@@ -65,7 +65,7 @@ async function main() {
   try {
     const page=await browser.newPage({viewport:{width:1440,height:1000}});
     page.on('pageerror',error=>errors.push(error.message));
-    await login(page,'moderator@tripflix.local',postId);
+    await login(page,'moderator@vintrip.local',postId);
     const panel=page.getByRole('region',{name:'Kết quả quét caption và ảnh'});
     await expect(panel.getByText('Quét thất bại',{exact:true})).toBeVisible();
     await page.screenshot({path:path.join(output,'parts-failure-desktop.png'),fullPage:true});

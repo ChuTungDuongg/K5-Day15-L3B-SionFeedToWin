@@ -1,5 +1,5 @@
 {
-  "name": "@tripflix/outbox",
+  "name": "@vintrip/outbox",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -20,9 +20,9 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@tripflix/contracts": "workspace:*",
-    "@tripflix/db": "workspace:*",
-    "@tripflix/event-bus": "workspace:*",
+    "@vintrip/contracts": "workspace:*",
+    "@vintrip/db": "workspace:*",
+    "@vintrip/event-bus": "workspace:*",
     "drizzle-orm": "catalog:"
   },
   "devDependencies": {

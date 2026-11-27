@@ -9,7 +9,7 @@ import { MemorySidBlocklist } from './revocation.js';
 import { CurrentService, ServiceOnly, createServiceTokenVerifier, type ServiceCaller } from './service-token.js';
 import { createAccessTokenVerifier } from './verifier.js';
 
-const ISSUER = 'tripflix-core';
+const ISSUER = 'vintrip-core';
 
 @Controller('internal')
 class InternalController {
@@ -61,7 +61,7 @@ describe('Token service (@ServiceOnly)', () => {
       .setProtectedHeader({ alg: 'ES256', kid: 'k1' })
       .setSubject('u-1')
       .setIssuer(ISSUER)
-      .setAudience('tripflix')
+      .setAudience('vintrip')
       .setIssuedAt()
       .setExpirationTime('15m')
       .sign(privateKey);
@@ -77,7 +77,7 @@ describe('Token service (@ServiceOnly)', () => {
       imports: [
         AuthModule.forRootAsync({
           useFactory: () => ({
-            verifier: createAccessTokenVerifier({ keys, issuer: ISSUER, audience: 'tripflix' }),
+            verifier: createAccessTokenVerifier({ keys, issuer: ISSUER, audience: 'vintrip' }),
             blocklist: new MemorySidBlocklist(),
             // Service này tên 'discovery': chỉ nhận token service có aud = discovery.
             serviceVerifier: createServiceTokenVerifier({ keys, issuer: ISSUER, audience: 'discovery' }),
@@ -116,7 +116,7 @@ describe('Token service (@ServiceOnly)', () => {
 
   it('token người dùng không gọi được API service, token service không gọi được API người dùng', async () => {
     await http('/internal/search', await signUserToken()).expect(401);
-    await http('/internal/user-only', await signServiceToken({ audience: 'tripflix' })).expect(401);
+    await http('/internal/user-only', await signServiceToken({ audience: 'vintrip' })).expect(401);
     await http('/internal/user-only', await signUserToken()).expect(200);
   });
 });

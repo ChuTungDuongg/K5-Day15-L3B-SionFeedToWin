@@ -1,6 +1,6 @@
 'use client';
 
-import { t, vi } from '@tripflix/i18n';
+import { t, vi } from '@vintrip/i18n';
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { FlightIcon } from './flight-icon';
 import styles from './flights.module.css';

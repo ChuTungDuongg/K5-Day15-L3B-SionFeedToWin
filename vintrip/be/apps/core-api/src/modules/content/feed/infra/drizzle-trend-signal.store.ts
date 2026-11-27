@@ -1,4 +1,4 @@
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { sql } from 'drizzle-orm';
 import { posts, trendSignals } from '../../db/schema/index.js';
 import type { TrendSignal } from '../domain/trend-signal.js';

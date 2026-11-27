@@ -1,11 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { commerceApi, getFutureDate, HttpError, useApiSession } from '@tripflix/api-client';
-import { isValidTripDate, shiftTripDate } from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+import { commerceApi, getFutureDate, HttpError, useApiSession } from '@vintrip/api-client';
+import { isValidTripDate, shiftTripDate } from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import Link from 'next/link';
-import { BOOKING_CART_MAX_ROOMS, calculateChildStayDiscount, countRoomsForGuests } from '@tripflix/app-core';
+import { BOOKING_CART_MAX_ROOMS, calculateChildStayDiscount, countRoomsForGuests } from '@vintrip/app-core';
 
 import { BookRateButton } from '@/features/checkout/book-rate-button';
 import { CartBar } from '@/features/checkout/cart-bar';

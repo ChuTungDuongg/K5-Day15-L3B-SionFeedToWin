@@ -1,8 +1,8 @@
 import { Inject, Injectable, Optional } from '@nestjs/common';
 import { MediaFramesUseCases } from './application/media-frames.use-cases.js';
 import { createHash } from 'node:crypto';
-import type { MediaAspect, MediaQualityLevel } from '@tripflix/contracts';
-import type { ObjectStorage } from '@tripflix/storage';
+import type { MediaAspect, MediaQualityLevel } from '@vintrip/contracts';
+import type { ObjectStorage } from '@vintrip/storage';
 import {
   MEDIA_ASSET_STORE,
   OBJECT_STORAGE,

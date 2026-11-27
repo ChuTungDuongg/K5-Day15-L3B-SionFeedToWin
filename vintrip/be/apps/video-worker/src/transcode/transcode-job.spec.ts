@@ -1,7 +1,7 @@
 import { readdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
-import type { MediaRenditionCompletedV1 } from '@tripflix/contracts';
-import { InMemoryObjectStorage } from '@tripflix/storage';
+import type { MediaRenditionCompletedV1 } from '@vintrip/contracts';
+import { InMemoryObjectStorage } from '@vintrip/storage';
 import { FakeTranscoder } from '../testing/fake-transcoder.js';
 import { TranscodeJob, TranscodeLevelError } from './transcode-job.js';
 

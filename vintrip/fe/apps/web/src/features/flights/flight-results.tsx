@@ -13,9 +13,9 @@ import {
   type FlightLegChoice,
   type FlightPassengerMix,
   type FlightSearch,
-} from '@tripflix/api-client';
-import type { FlightOfferDto } from '@tripflix/api-client/core-api/model/index';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/api-client';
+import type { FlightOfferDto } from '@vintrip/api-client/core-api/model/index';
+import { t, vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

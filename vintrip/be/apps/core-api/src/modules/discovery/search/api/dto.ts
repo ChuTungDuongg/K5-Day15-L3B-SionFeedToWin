@@ -75,7 +75,7 @@ export const PlacesQuerySchema = z
 export class PointOfInterestDto {
   @ApiProperty({ example: 'osm:node/123456789', description: 'Id OpenStreetMap, ổn định giữa các lần nạp' }) id!: string;
   @ApiProperty({ example: 'Hải Đăng Vũng Tàu' }) name!: string;
-  @ApiProperty({ enum: POI_KINDS, description: 'see: tham quan · food: ăn uống · cafe · lodging: chỗ ở ngoài Tripflix' })
+  @ApiProperty({ enum: POI_KINDS, description: 'see: tham quan · food: ăn uống · cafe · lodging: chỗ ở ngoài Vintrip' })
   kind!: PoiKind;
   @ApiProperty({ example: 10.3333 }) lat!: number;
   @ApiProperty({ example: 107.0778 }) lng!: number;
@@ -310,7 +310,7 @@ export const SearchPlacesRequestSchema = z.object({
 
 export class SearchPlacesRequestDto {
   @ApiProperty({ example: 'cà phê đà lạt', description: 'Câu người dùng gõ (1–200 ký tự)' }) q!: string;
-  @ApiProperty({ enum: PLACE_KINDS, description: 'stay: khách sạn Tripflix · see: điểm tham quan · food: quán ăn · cafe: quán nước' })
+  @ApiProperty({ enum: PLACE_KINDS, description: 'stay: khách sạn Vintrip · see: điểm tham quan · food: quán ăn · cafe: quán nước' })
   kind!: PlaceKind;
   @ApiProperty({ required: false, nullable: true, type: String, description: '`nextCursor` của trang trước' }) cursor?: string | null;
   @ApiProperty({ required: false, default: 20, minimum: 1, maximum: 50 }) limit?: number;

@@ -24,7 +24,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Authenticated, CurrentUser, type AuthUser } from '@tripflix/auth';
+import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import type { Request, Response } from 'express';
 import type { z } from 'zod';
 import { ADMIN_HANDOFF_FORBIDDEN_MESSAGE, AuthUseCases, type TokenPair } from '../application/auth.use-cases.js';
@@ -64,11 +64,11 @@ import { UNTRUSTED_ORIGIN_MESSAGE, WebSession, isWebClient } from './web-session
 
 /** Header chọn chế độ web: refresh token trong cookie HttpOnly thay vì body. */
 const WEB_CLIENT_API_HEADER = {
-  name: 'X-Tripflix-Client',
+  name: 'X-Vintrip-Client',
   required: false,
   enum: ['web'],
   description:
-    'Web, admin gửi "web": refresh token đặt vào cookie tripflix_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS',
+    'Web, admin gửi "web": refresh token đặt vào cookie vintrip_refresh, không trả trong body. Cần Origin nằm trong AUTH_WEB_ORIGINS',
 };
 
 @ApiTags('auth')

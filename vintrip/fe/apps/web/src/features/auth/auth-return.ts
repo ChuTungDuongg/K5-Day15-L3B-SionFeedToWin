@@ -1,4 +1,4 @@
-import { describeDevice } from '@tripflix/app-core';
+import { describeDevice } from '@vintrip/app-core';
 
 /** Chỉ quay lại các trang của web, không chuyển hướng sang địa chỉ lạ truyền qua ?returnTo=. */
 export function readSafeReturnTo(returnTo: string): string {

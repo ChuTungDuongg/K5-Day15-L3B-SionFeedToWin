@@ -1,5 +1,5 @@
-import type { HotelDetailDto } from '@tripflix/api-client/core-api/model/index';
-import { t, vi } from '@tripflix/i18n';
+import type { HotelDetailDto } from '@vintrip/api-client/core-api/model/index';
+import { t, vi } from '@vintrip/i18n';
 import { hotelPath } from './page-metadata';
 
 type JsonLd = Record<string, unknown>;

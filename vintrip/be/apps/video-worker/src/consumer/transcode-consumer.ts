@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto';
-import { MediaFramesRequestedV1Schema, type MediaFramesCompletedV1 } from '@tripflix/contracts';
+import { MediaFramesRequestedV1Schema, type MediaFramesCompletedV1 } from '@vintrip/contracts';
 import {
   FrameExtractionError,
   ModerationFramesJob,
@@ -11,11 +11,11 @@ import {
   type EventEnvelope,
   type MediaRenditionCompletedV1,
   type MediaTranscodeFailedV1,
-} from '@tripflix/contracts';
-import { RedisStreamsConsumer, RedisStreamsEventBus, STREAMS, type DeliveryInfo } from '@tripflix/event-bus';
+} from '@vintrip/contracts';
+import { RedisStreamsConsumer, RedisStreamsEventBus, STREAMS, type DeliveryInfo } from '@vintrip/event-bus';
 import type { Redis } from 'ioredis';
 import { TranscodeJob, TranscodeLevelError } from '../transcode/transcode-job.js';
-import type { ObjectStorage } from '@tripflix/storage';
+import type { ObjectStorage } from '@vintrip/storage';
 import type { Transcoder } from '../transcode/ffmpeg.js';
 
 const CONSUMER_GROUP = 'video-worker';

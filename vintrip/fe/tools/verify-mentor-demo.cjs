@@ -7,7 +7,7 @@ const { chromium } = require(process.env.PLAYWRIGHT_PACKAGE || 'playwright');
 const WEB = process.env.WEB_PREVIEW_URL || 'http://localhost:3100';
 const ADMIN = process.env.ADMIN_PREVIEW_URL || 'http://localhost:3200';
 const MOBILE = process.env.MOBILE_PREVIEW_URL || 'http://localhost:8081';
-const OUTPUT = process.env.MENTOR_EVIDENCE_DIR || join(tmpdir(), 'tripflix-mentor-demo');
+const OUTPUT = process.env.MENTOR_EVIDENCE_DIR || join(tmpdir(), 'vintrip-mentor-demo');
 const errors = [];
 const checks = [];
 let screenshots = 0;
@@ -144,7 +144,7 @@ async function verifyAdmin(browser) {
     await admin.login();
     await admin.page.waitForURL('**/orders');
     await admin.page.getByRole('heading', { name: 'Đơn hàng', exact: true }).waitFor();
-    const cookie = (await context.cookies()).find((cookie) => cookie.name === 'tripflix_admin_preview');
+    const cookie = (await context.cookies()).find((cookie) => cookie.name === 'vintrip_admin_preview');
     assert.ok(cookie?.httpOnly);
     assert.equal(cookie.sameSite, 'Lax');
     await admin.snapshot('07-admin-orders');
@@ -180,7 +180,7 @@ async function verifyAdmin(browser) {
     const strangerPage = await stranger.newPage();
     await strangerPage.goto(ADMIN + '/staff');
     assert.ok(strangerPage.url().includes('/login?'));
-    await stranger.addCookies([{ name: 'tripflix_admin_preview', value: 'forged-session', url: ADMIN }]);
+    await stranger.addCookies([{ name: 'vintrip_admin_preview', value: 'forged-session', url: ADMIN }]);
     await strangerPage.goto(ADMIN + '/orders');
     assert.ok(strangerPage.url().includes('/login?'));
     await stranger.close();

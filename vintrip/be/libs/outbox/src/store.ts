@@ -1,5 +1,5 @@
-import type { EventEnvelope } from '@tripflix/contracts';
-import type { Db } from '@tripflix/db';
+import type { EventEnvelope } from '@vintrip/contracts';
+import type { Db } from '@vintrip/db';
 import { and, asc, eq, inArray, isNotNull, isNull, lt, or, sql } from 'drizzle-orm';
 import type { OutboxTable } from './table.js';
 

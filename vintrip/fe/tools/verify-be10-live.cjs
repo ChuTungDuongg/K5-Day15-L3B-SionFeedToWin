@@ -25,14 +25,14 @@ async function main() {
   await mkdir(output,{recursive:true});
   const password=process.env.CREATOR_QA_PASSWORD?.trim(); assert.ok(password);
   const token = async email => (await api('/auth/login',null,'POST',{email,password})).accessToken;
-  [owner,staff,other]=await Promise.all(['member@tripflix.local','moderator@tripflix.local','superadmin@tripflix.local'].map(token));
+  [owner,staff,other]=await Promise.all(['member@vintrip.local','moderator@vintrip.local','superadmin@vintrip.local'].map(token));
   postId=(await api('/v1/posts',owner,'POST',{post_type:'vlog',title:'BE10 QA '+Date.now(),body:'Hồ sơ kiểm tra phân công và thời hạn xử lý.'},201)).id;
   await api(`/v1/posts/${postId}/publish`,owner,'POST',undefined,201);
   caseId=(await api(`/v1/posts/${postId}/reports`,staff,'POST',{reasonCode:'OTHER'},201)).caseId;
   assert.match(caseId,/^[a-f0-9-]{36}$/);
   browser=await chromium.launch({channel:'msedge',headless:true});
   const a=await browser.newPage({viewport:{width:1440,height:1080}}), b=await browser.newPage({viewport:{width:1440,height:1080}});
-  await login(a,'moderator@tripflix.local');
+  await login(a,'moderator@vintrip.local');
   const dialog=a.getByRole('dialog');
   await expect(dialog.getByRole('button',{name:'Đóng hồ sơ',exact:true})).toBeDisabled();
   await dialog.getByRole('button',{name:'Nhận hồ sơ',exact:true}).click();
@@ -42,7 +42,7 @@ async function main() {
   await dialog.getByRole('button',{name:'Gia hạn 15 phút',exact:true}).click();
   await expect.poll(async()=> (await api(`/v1/admin/moderation/queue/${caseId}`,staff)).leaseExpiresAt).not.toBe(first.leaseExpiresAt);
   assert.equal((await api(`/v1/admin/moderation/queue/${caseId}`,staff)).dueAt,first.dueAt);
-  await login(b,'superadmin@tripflix.local');
+  await login(b,'superadmin@vintrip.local');
   await expect(b.getByRole('dialog').getByRole('button',{name:'Nhận lại hồ sơ',exact:true})).toBeDisabled();
   await lease(other,'claim',undefined,409);
   await api(`/v1/admin/moderation/queue/${caseId}/decisions`,other,'POST',{action:'hide',reasonCode:'OTHER'},409);
@@ -62,7 +62,7 @@ async function main() {
   assert.notEqual(next.leaseId,first.leaseId);
   await lease(staff,'release',first.leaseId,409);
   // Only this newly-created local QA case is aged; no production data or clock changes.
-  execFileSync('docker',['exec','tripflix-postgres-1','psql','-U','postgres','-d','core','-c',`UPDATE content.moderation_cases SET due_at=now()-interval '1 hour', lease_expires_at=now()-interval '1 second' WHERE id='${caseId}'`],{stdio:'pipe'});
+  execFileSync('docker',['exec','vintrip-postgres-1','psql','-U','postgres','-d','core','-c',`UPDATE content.moderation_cases SET due_at=now()-interval '1 hour', lease_expires_at=now()-interval '1 second' WHERE id='${caseId}'`],{stdio:'pipe'});
   await lease(other,'renew',next.leaseId,409);
   const reclaimed=await lease(staff,'claim');
   const mine=await api('/v1/admin/moderation/queue?view=pending&assignment=mine&sla=overdue&search='+postId,staff);

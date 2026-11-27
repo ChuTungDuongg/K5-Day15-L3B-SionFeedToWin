@@ -17,10 +17,10 @@ it('logs request metadata without exposing request or response secrets', () => {
     const request = new IncomingMessage(new Socket());
     request.method = 'POST';
     request.url = '/api/auth/login?secret=query-secret';
-    request.headers = { authorization: 'Bearer access-secret', cookie: 'tripflix_refresh=cookie-secret' };
+    request.headers = { authorization: 'Bearer access-secret', cookie: 'vintrip_refresh=cookie-secret' };
     Object.assign(request, { id: 'req-1', body: { password: 'password-secret' } });
     const response = new ServerResponse(request);
-    response.setHeader('set-cookie', 'tripflix_refresh=refresh-secret; HttpOnly');
+    response.setHeader('set-cookie', 'vintrip_refresh=refresh-secret; HttpOnly');
     response.writeHead(200);
 
     const write = vi.fn<(message: string) => void>();

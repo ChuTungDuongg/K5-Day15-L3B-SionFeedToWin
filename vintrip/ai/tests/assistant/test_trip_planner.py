@@ -151,17 +151,17 @@ def test_no_places_with_coordinates_is_said_not_invented():
     assert answer.kind == "no_result" and answer.cards == [] and trip.days == []
 
 
-def test_stay_options_put_tripflix_first_and_label_outside_ones_without_price():
+def test_stay_options_put_vintrip_first_and_label_outside_ones_without_price():
     _, trip, _ = plan_vung_tau()
     answer, trip, _ = run(Understanding(intent="change_stay"), trip)
     card = answer.cards[0]
     assert card.kind == "compare"
     refs = [line.ref for line in card.lines or []]
     assert refs == ["o1", "o2", "o3", "o4"]
-    assert "Tripflix · từ" in (card.lines or [])[0].detail
-    assert "Ngoài Tripflix" in (card.lines or [])[-1].detail
+    assert "Vintrip · từ" in (card.lines or [])[0].detail
+    assert "Ngoài Vintrip" in (card.lines or [])[-1].detail
     assert "500" not in json.dumps(answer.facts)  # no price reaches the Responder
-    assert [o.source for o in trip.pending] == ["tripflix"] * 3 + ["external"]
+    assert [o.source for o in trip.pending] == ["vintrip"] * 3 + ["external"]
 
 
 def test_tapping_choose_needs_no_llm_and_replans_from_the_new_stay():

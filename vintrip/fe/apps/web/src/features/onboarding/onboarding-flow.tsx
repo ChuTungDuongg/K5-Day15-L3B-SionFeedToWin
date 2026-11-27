@@ -1,6 +1,6 @@
 'use client';
-import { useApiSession } from '@tripflix/api-client';
-import type { MyProfileDto } from '@tripflix/api-client/core-api/model/index';
+import { useApiSession } from '@vintrip/api-client';
+import type { MyProfileDto } from '@vintrip/api-client/core-api/model/index';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   INTEREST_IDS,
@@ -11,8 +11,8 @@ import {
   type OnboardingStep,
   type Pace,
   type SurveyStatus,
-} from '@tripflix/app-core';
-import { t, vi } from '@tripflix/i18n';
+} from '@vintrip/app-core';
+import { t, vi } from '@vintrip/i18n';
 import Image, { getImageProps } from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

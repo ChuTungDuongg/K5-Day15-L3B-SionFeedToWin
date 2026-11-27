@@ -9,8 +9,8 @@ import {
   sampleFrameTimes,
   type MediaFramesRequestedV1,
   type MediaFramesCompletedV1,
-} from '@tripflix/contracts';
-import type { ObjectStorage } from '@tripflix/storage';
+} from '@vintrip/contracts';
+import type { ObjectStorage } from '@vintrip/storage';
 import type { Transcoder } from './ffmpeg.js';
 
 export const MAX_FRAME_SOURCE_BYTES = 1_073_741_824;

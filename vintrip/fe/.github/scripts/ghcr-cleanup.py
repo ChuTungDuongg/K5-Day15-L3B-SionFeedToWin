@@ -6,7 +6,7 @@ trỏ tới (image thật, attestation của buildx), để không làm hỏng i
 Mặc định chỉ liệt kê; DRY_RUN=false mới xoá. Bản đã xoá khôi phục được trong 30 ngày.
 
 Biến môi trường: GITHUB_TOKEN, OWNER, PACKAGES (tên cách nhau bởi dấu cách, ví dụ
-"tripflix-be/core-api"), KEEP_TAGS (tag không bao giờ xoá, cách nhau bởi dấu cách hoặc dấu phẩy),
+"vintrip-be/core-api"), KEEP_TAGS (tag không bao giờ xoá, cách nhau bởi dấu cách hoặc dấu phẩy),
 KEEP_RECENT (mặc định 5), DRY_RUN (mặc định true).
 """
 

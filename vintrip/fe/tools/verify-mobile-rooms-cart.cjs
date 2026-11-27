@@ -11,7 +11,7 @@ const hotelName = 'Khách sạn Biển Xanh dành cho những ngày nghỉ thong
 const roomName = 'Phòng Gia đình hướng biển với ban công riêng và hai giường lớn';
 const basic = 'Gói tiết kiệm dành cho gia đình';
 const flex = 'Gói linh hoạt có bữa sáng và hoàn huỷ';
-const key = 'tripflix.bookingCart.v1';
+const key = 'vintrip.bookingCart.v1';
 const amenities = [
   'Wi-Fi tốc độ cao trong phòng',
   'Ban công riêng nhìn ra biển',

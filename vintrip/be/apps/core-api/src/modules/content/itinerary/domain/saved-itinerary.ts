@@ -59,7 +59,7 @@ export function fromReel(post: { id: string; title: string; tripAttachment: Trip
 export interface TripiTrip {
   place?: string;
   days?: { id: string; name: string; lat?: number; lng?: number; slot?: SavedItineraryItem['slot'] }[][];
-  stay?: { source: 'tripflix' | 'external'; id: string; name: string } | null;
+  stay?: { source: 'vintrip' | 'external'; id: string; name: string } | null;
   transport?: TripiTransport | null;
   returnTransport?: TripiTransport | null;
 }
@@ -91,7 +91,7 @@ export function fromTripi(trip: TripiTrip, title?: string): SavedItineraryDraft 
     items.push({
       day: 1,
       title: clip(trip.stay.name, 120),
-      ...(trip.stay.source === 'tripflix' && { hotel: { hotelId: trip.stay.id } }),
+      ...(trip.stay.source === 'vintrip' && { hotel: { hotelId: trip.stay.id } }),
     });
   }
   days.forEach((stops, index) => {

@@ -1,4 +1,4 @@
-import type { ModuleName } from '@tripflix/db';
+import type { ModuleName } from '@vintrip/db';
 import type pg from 'pg';
 
 export const CORE_ENV = Symbol('CORE_ENV');

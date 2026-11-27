@@ -1,5 +1,5 @@
 'use client';
-import { vi } from '@tripflix/i18n';
+import { vi } from '@vintrip/i18n';
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import styles from './soft-picker.module.css';
 

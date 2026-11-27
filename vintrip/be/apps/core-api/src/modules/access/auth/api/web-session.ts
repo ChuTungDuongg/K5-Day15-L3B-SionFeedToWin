@@ -5,11 +5,11 @@ import { DEFAULT_WEB_ORIGINS, type CoreEnv } from '../../../../platform/env.js';
 import { CORE_ENV } from '../../../../platform/tokens.js';
 import { REFRESH_TTL_MS } from '../domain/refresh-rotation.js';
 
-export const REFRESH_COOKIE_NAME = 'tripflix_refresh';
+export const REFRESH_COOKIE_NAME = 'vintrip_refresh';
 /** Cookie chỉ gửi kèm các API dưới /api/auth (refresh, logout), không đi theo mọi request. */
 export const REFRESH_COOKIE_PATH = '/api/auth';
 /** Web, admin gửi header này để nhận refresh token trong cookie thay vì trong body. */
-export const WEB_CLIENT_HEADER = 'x-tripflix-client';
+export const WEB_CLIENT_HEADER = 'x-vintrip-client';
 export const UNTRUSTED_ORIGIN_MESSAGE = 'Nguồn gửi request không được phép';
 
 /**

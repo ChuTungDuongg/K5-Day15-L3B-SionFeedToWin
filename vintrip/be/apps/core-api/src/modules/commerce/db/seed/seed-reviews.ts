@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import type { Db } from '@tripflix/db';
+import type { Db } from '@vintrip/db';
 import { eq, sql } from 'drizzle-orm';
 import { properties, reviews } from '../schema/index.js';
 import { generateReviews, type CatalogHotelForReviews, type ReviewPhoto } from './generate-reviews.js';

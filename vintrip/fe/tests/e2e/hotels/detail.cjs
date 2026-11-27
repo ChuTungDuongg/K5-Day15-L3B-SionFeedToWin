@@ -7,7 +7,7 @@ const { chromium } = require(runtime);
 const { expect } = require(runtime + '/test');
 const { HotelPage } = require('../../pages/hotel-page.cjs');
 const WEB = process.env.WEB_PREVIEW_URL || 'http://localhost:3100';
-const OUTPUT = process.env.HOTEL_EVIDENCE_DIR || join(tmpdir(), 'tripflix-hotel-detail');
+const OUTPUT = process.env.HOTEL_EVIDENCE_DIR || join(tmpdir(), 'vintrip-hotel-detail');
 assert.ok(['localhost', '127.0.0.1'].includes(new URL(WEB).hostname));
 
 (async () => {

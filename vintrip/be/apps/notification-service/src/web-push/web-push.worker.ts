@@ -5,7 +5,7 @@ import {
   type OnApplicationBootstrap,
   type OnModuleDestroy,
 } from '@nestjs/common';
-import { type AuthUser, type SidBlocklist } from '@tripflix/auth';
+import { type AuthUser, type SidBlocklist } from '@vintrip/auth';
 import type pg from 'pg';
 // web-push 4 là ESM chỉ có named export; Node thật không có default (Vitest thì có).
 import * as webPush from 'web-push';

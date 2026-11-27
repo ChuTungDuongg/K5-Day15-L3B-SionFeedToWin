@@ -1,5 +1,5 @@
 {
-  "name": "tripflix-moderation-dev-hard-negatives-v1",
+  "name": "vintrip-moderation-dev-hard-negatives-v1",
   "created_date": "2026-11-11",
   "split": "dev",
   "source": "AI-authored synthetic examples derived from observed test error categories",

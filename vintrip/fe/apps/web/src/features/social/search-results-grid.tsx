@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useRef, type RefObject } from 'react';
-import { t, vi } from '@tripflix/i18n';
-import { useApiSession, useAuthorReels, useAuthorVlogs, usePostSearchFeed, useUserSearch } from '@tripflix/api-client';
-import type { SearchPostsRequestDtoSort } from '@tripflix/api-client/core-api/model/index';
+import { t, vi } from '@vintrip/i18n';
+import { useApiSession, useAuthorReels, useAuthorVlogs, usePostSearchFeed, useUserSearch } from '@vintrip/api-client';
+import type { SearchPostsRequestDtoSort } from '@vintrip/api-client/core-api/model/index';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { AvatarPhoto } from '@/features/shared/avatar-photo';
 import { getAvatarTone } from './avatar-tone';
