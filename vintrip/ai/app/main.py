@@ -5,6 +5,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.c1 import router as c1_router
 from app.api.chat import get_core_client, get_gate
 from app.api.chat import router as chat_router
 from app.api.embedding import router as embedding_router
@@ -47,6 +48,7 @@ app.add_middleware(
     allow_headers=["authorization", "content-type", "accept", "x-request-id", "idempotency-key"],
 )
 app.include_router(health_router)
+app.include_router(c1_router)
 app.include_router(chat_router)
 app.include_router(moderation_router)
 app.include_router(embedding_router)

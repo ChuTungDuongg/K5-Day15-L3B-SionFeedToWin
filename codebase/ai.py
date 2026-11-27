@@ -65,7 +65,8 @@ def call_model(system: str, user: str) -> dict:
     request = Request(f"{base}/chat/completions", method="POST",
                       data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
                       headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"})
-    with urlopen(request, timeout=30) as response:
+    # 90 giây: câu trả lời dài (vd liệt kê cả catalog) có lúc vượt 30 giây ở run-1 (C1-21 timeout).
+    with urlopen(request, timeout=90) as response:
         result = json.load(response)
     usage = result["usage"]
     return {"text": result["choices"][0]["message"]["content"] or "",
