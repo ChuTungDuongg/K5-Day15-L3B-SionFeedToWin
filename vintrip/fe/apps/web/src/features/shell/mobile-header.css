@@ -7,7 +7,7 @@
   /*
    * Kiểu khung header: thanh phẳng full-width. Muốn quay về viên thuốc thu nhỏ thì chỉ sửa khối này, ví dụ:
    *   width: calc(100% - 16px); margin: 8px auto 0; top: 8px;
-   *   border: 1px solid rgb(0 124 110 / 24%); border-radius: 999px;
+   *   border: 1px solid rgb(194 65 12 / 24%); border-radius: 999px;
    * (Khối trang chủ bên dưới đặt lại border-color; đổi cùng lúc nếu cần.)
    */
   .ota-header {

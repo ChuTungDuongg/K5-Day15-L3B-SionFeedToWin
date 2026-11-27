@@ -1,6 +1,6 @@
 import { defineConfig } from 'orval';
 
-// Đọc hợp đồng từ 2 repo đặt cạnh (docs/11 §2.1): ../vintrip-be và ../vintrip-ai.
+// Đọc hợp đồng trong cùng repo: vintrip/be và vintrip/ai (trước đây là 2 repo đặt cạnh).
 // Sinh hook TanStack Query + type vào src/generated/. File sinh ra có commit; không sửa tay.
 const output = (name: string) => ({
   mode: 'tags-split' as const,
@@ -16,11 +16,11 @@ const output = (name: string) => ({
 
 export default defineConfig({
   coreApi: {
-    input: { target: '../../../vintrip-be/contracts/openapi/core-api.json' },
+    input: { target: '../../../be/contracts/openapi/core-api.json' },
     output: output('core-api'),
   },
   aiService: {
-    input: { target: '../../../vintrip-ai/contracts/openapi/ai-service.json' },
+    input: { target: '../../../ai/contracts/openapi/ai-service.json' },
     output: output('ai-service'),
   },
 });

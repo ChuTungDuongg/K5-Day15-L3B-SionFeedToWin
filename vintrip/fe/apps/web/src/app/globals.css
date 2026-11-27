@@ -86,7 +86,7 @@ h3 {
   /* Căn hai mép header theo cùng lưới nội dung với banner bên dưới. */
   width: var(--ota-container-width);
   margin: 12px auto;
-  border: 1px solid rgb(0 124 110 / 24%);
+  border: 1px solid rgb(194 65 12 / 24%);
   border-radius: 999px;
   background: transparent;
   box-shadow: none;
@@ -3441,12 +3441,12 @@ body:has([class*="feedPageWrapper"]) #content {
 }
 .account-page :is(.profile-aside, .profile-card):focus-within {
   border-color: var(--color-teal-soft);
-  box-shadow: 0 0 22px rgb(0 108 99 / 11%);
+  box-shadow: 0 0 22px rgb(154 52 18 / 11%);
 }
 @media (hover: hover) {
   .account-page :is(.profile-aside, .profile-card):hover {
     border-color: var(--color-teal-soft);
-    box-shadow: 0 0 22px rgb(0 108 99 / 11%);
+    box-shadow: 0 0 22px rgb(154 52 18 / 11%);
   }
 }
 .profile-card h2 {

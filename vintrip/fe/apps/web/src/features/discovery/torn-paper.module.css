@@ -144,8 +144,8 @@
 }
 
 .tapeTeal {
-  background: color-mix(in srgb, var(--color-teal, #00B2A3) 75%, transparent);
-  color: color-mix(in srgb, var(--color-teal, #00B2A3) 75%, transparent);
+  background: color-mix(in srgb, var(--color-teal, #C2410C) 75%, transparent);
+  color: color-mix(in srgb, var(--color-teal, #C2410C) 75%, transparent);
   border-block: 1px dashed rgba(255, 255, 255, 0.5);
 }
 

@@ -1,11 +1,11 @@
 .layeredCanvas {
-  --water-ink: #102f36;
-  --water-muted: #29454a;
+  --water-ink: #3b0a1f;
+  --water-muted: #6b2a3c;
   --water-accent: #8c360b;
-  --water-panel: rgb(250 255 251 / 75%);
-  --water-heading-glow: rgb(223 248 237 / 44%);
-  --water-shadow: 0 10px 30px rgb(10 44 49 / 14%);
-  --water-glass: rgb(250 255 251 / 78%);
+  --water-panel: rgb(255 250 247 / 75%);
+  --water-heading-glow: rgb(255 228 230 / 44%);
+  --water-shadow: 0 10px 30px rgb(76 5 25 / 14%);
+  --water-glass: rgb(255 250 247 / 78%);
   position: relative;
   color: var(--water-ink);
 }
@@ -26,7 +26,7 @@
 }
 
 .layeredCanvas[data-water-act='1'] {
-  --water-panel: rgb(242 252 247 / 78%);
+  --water-panel: rgb(255 245 242 / 78%);
 }
 
 .layeredCanvas[data-water-act='2'] {
@@ -34,15 +34,15 @@
 }
 
 .layeredCanvas[data-water-act='3'] {
-  --water-panel: rgb(248 255 240 / 75%);
+  --water-panel: rgb(255 247 240 / 75%);
 }
 
 .layeredCanvas[data-water-act='4'] {
-  --water-ink: #f5fffb;
-  --water-muted: #e1f1ec;
+  --water-ink: #fff5f7;
+  --water-muted: #f6dfe4;
   --water-accent: #ffd0a6;
-  --water-panel: rgb(8 31 39 / 62%);
-  --water-heading-glow: rgb(8 31 39 / 54%);
+  --water-panel: rgb(59 10 31 / 62%);
+  --water-heading-glow: rgb(59 10 31 / 54%);
 }
 
 .layeredCanvas::before,
@@ -55,7 +55,7 @@
 
 .layeredCanvas::before {
   content: '';
-  background: radial-gradient(ellipse at 20% 10%, #c2e5d8, #2c7a7b);
+  background: radial-gradient(ellipse at 20% 10%, #fde2d8, #d9466f);
 }
 
 .layeredCanvas[data-water-visible]::before {
@@ -77,7 +77,7 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: #e7f5f1;
+  background: #fff1ec;
 }
 .inspirationBackdrop::after {
   content: '';

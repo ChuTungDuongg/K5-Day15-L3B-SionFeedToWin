@@ -32,7 +32,7 @@ export function FlightBanner({ activeStep }: { activeStep: 1 | 2 }) {
       </div>
       <Image
         className={styles.bannerMascot}
-        src="/brand/vini/vini-rowing.png"
+        src="/brand/vini/vini-guide.png"
         alt=""
         width={240}
         height={240}
