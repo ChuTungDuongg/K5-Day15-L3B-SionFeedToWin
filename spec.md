@@ -199,6 +199,7 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 | 28/11/2026 · FE-04 | Sửa chữ lỗi ở mobile bằng max-width min(440px, 100%) và wrap; đưa CSS import lên trước font-face, bảo đảm border-box; nối lại bảng nhật ký §10 | Theo lỗi nghiệm thu PM trên trang khách sạn 390px; chỉ sửa globals, không đổi vùng khách sạn hoặc API |
 | 28/11/2026 · FE-05 | Sửa co giãn form/ô ngày/hero và container lồng; đổi nút disabled sang nền nhạt chữ nâu, không giảm opacity | Theo PM báo tràn ngang và thiếu tương phản ở 390px. 576 test web đạt, typecheck/test chỉ route Google cũ; PM kiểm lại viewport theo lựa chọn người dùng |
 | 28/11/2026 · FE-08 | Làm lưới cảm hứng, tim lưu, nút tạo bài pastel, Reels dọc, ngày dạng thẻ, hồ sơ và trạng thái tải/rỗng; chuẩn hoá token thông báo | Giữ API và thao tác hiện có; 576 test web và các package đạt, typecheck/test chỉ route Google cũ. 24 stylesheet parse đạt, không màu cứng/token màu lạ; PM kiểm ảnh theo lựa chọn người dùng |
+| 28/11/2026 · CP3 (Claude, PM) | Gộp `origin/vintrip` (C1 của Lim, đăng nhập demo) vào `vintrip`; cập nhật README và `eval/README.md` theo trạng thái thật: luồng C1 đã chạy, run-4 điểm nháp 29/30 | Không sửa §7, `metric_spec.yaml`, `benchmark.csv`, file khung, cột `pass` của `run-*.csv`. Điểm vẫn là nháp, chờ nhóm duyệt và quyết C1-17 |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

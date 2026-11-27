@@ -14,7 +14,7 @@ Hướng dẫn chính thức: [đề bài](https://github.com/VinUni-AI20k/K5-L3
 
 **Bằng chứng hiện có:** CSV lưu 20 dòng, trong đó 10 dòng được nhóm gắn nhãn người dùng thật và 10 dòng tự viết. Chỉ đếm 10 dòng đầu: 7/10 kể có sự cố, 6/10 chuẩn bị từ 30 phút, 4/10 đi cùng trẻ nhỏ. Khảo sát chưa đạt ngưỡng 20 người đúng đối tượng, phỏng vấn hiện 0/3. Xem [tổng hợp và giới hạn nguồn](evidence/summary.md).
 
-**Cần hoàn thiện trước CP3:** thu bằng chứng đúng đối tượng và đối chiếu bản khảo sát gốc, tạo dữ liệu Công viên Mẫu, triển khai công cụ và validator, nối model thật rồi chạy đánh giá. Các mục chi phí là giả định để kiểm khung, chưa phải chi phí thực tế.
+**Trạng thái CP3 (28/11):** luồng C1 đã chạy trên dữ liệu mô phỏng Công viên Mẫu (`data/cong_vien_mau.json`, snapshot `CVM-2026-11-28-v1`): đủ 6 công cụ trong `codebase/tools.py`, bộ lập lịch và validator ở `codebase/park_engine.py`, luồng trả lời ở `codebase/c1_flow.py`. Đã chạy model thật `gpt-6-luna`. Lượt chính `eval/run-4.csv` trả lời đủ 30/30 câu, 0 lỗi kỹ thuật. Điểm **nháp** 29/30 (14/14 thường, 11/11 khó, 4/5 từ chối), chi tiết ở [eval/report.md](eval/report.md). **Còn chờ nhóm:** duyệt điểm nháp rồi điền cột `pass` vào `eval/run-4.csv`, chạy `python run.py score eval/run-4.csv`, và quyết câu `C1-17`. Đã chạy mô phỏng chi phí `cost/simulate-1` (50 phiên); chi phí trên mỗi task thành công chỉ tính được sau khi chấm xong run-4. Bằng chứng người dùng vẫn ở mức 10 dòng khảo sát thật, phỏng vấn 0/3.
 
 Tài liệu nghiên cứu về điều kiện hủy phòng trong repo thuộc hướng trước. Nhóm cần thu bằng chứng đúng đối tượng của VinTrip trước khi kết luận về nhu cầu hoặc mức tiết kiệm thời gian.
 
@@ -112,9 +112,9 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi model hiện tại | Giả | `MODEL_PROVIDER=fake`, token vào/ra bằng 0. Cần model thật trước CP3 |
-| Lập lịch và kiểm ràng buộc | Chưa triển khai | Sơ đồ và hợp đồng công cụ ở spec.md §4 |
-| Công viên, giá và sự cố trong demo | Dự kiến mô phỏng | Chưa tạo snapshot dữ liệu công viên |
+| Lời gọi model | Thật khi chạy đánh giá | `gpt-6-luna` ở các lượt `eval/run-1..4`, token lấy từ `usage` của API. Mặc định vẫn là `MODEL_PROVIDER=fake` khi không cấu hình khoá. Model chỉ diễn đạt lại căn cứ đã kiểm; giờ và tiền lấy từ công cụ |
+| Lập lịch và kiểm ràng buộc | Thật (code) | `codebase/park_engine.py`: beam search có giới hạn thời gian, validator tính lại độc lập. Test ở `tests/test_c1_park_plan.py` |
+| Công viên, giá và sự cố trong demo | Mô phỏng | `data/cong_vien_mau.json`, `isMock = true`, không phản ánh công viên thật nào |
 | Khảo sát | 10 dòng gắn nhãn thật, 10 dòng tự viết | Không cộng dòng tự viết vào bằng chứng. Cần đối chiếu nguồn gốc |
 
 ## Dùng AI vào việc gì
