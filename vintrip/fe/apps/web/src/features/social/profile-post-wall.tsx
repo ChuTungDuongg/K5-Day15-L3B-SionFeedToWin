@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import { SocialEmptyState } from './social-empty-state';
 import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { socialApi, useApiSession, useAuthorVlogs, useSocialPosts } from '@vintrip/api-client';
@@ -89,9 +91,7 @@ function PostWall({
 
   if (posts.isPending)
     return (
-      <div className={styles.empty}>
-        <LoadingDots />
-      </div>
+      <div className={styles.loadingGrid} role="status" aria-label="Đang tải bài viết">{Array.from({ length: 6 }, (_, i) => <div key={i} />)}</div>
     );
   if (posts.isError && !items.length)
     return <ApiErrorNotice error={posts.error} retry={() => void posts.refetch()} />;
@@ -100,9 +100,7 @@ function PostWall({
     <div className={styles.wall}>
       <ApiErrorNotice error={engagement.error} />
       {!items.length && (
-        <div className={styles.empty}>
-          <h3>{isSavedWall ? vi.api.profileNoSavedPosts : vi.api.profileNoPosts}</h3>
-        </div>
+        <SocialEmptyState action={<Link prefetch={false} className="primary-button" href="/inspiration">Khám phá cảm hứng</Link>}><p>{isSavedWall ? vi.api.profileNoSavedPosts : vi.api.profileNoPosts}</p></SocialEmptyState>
       )}
       {items.map((post) => (
         <div key={post.id} className={styles.wallEntry}>

@@ -64,6 +64,8 @@ Token nằm ở `vintrip/fe/packages/tokens/src/index.ts` và `tokens.css`. Hai 
 
 **Không được có:** mũ hay đặc điểm của nhân vật có sẵn (Teemo hay bất kỳ nhân vật nào khác), ống thổi, nấm, vũ khí, chữ hay logo trên ảnh.
 
+> **Cập nhật 28/11:** người dùng quyết định dùng Teemo cho bài làm trong trường (xem `public/brand/vini/README.md`). Brief nhân vật nguyên bản ở trên giữ lại để dùng khi đưa VinTrip ra ngoài phạm vi lớp học.
+
 **6 tư thế:** PNG nền trong suốt, vuông 1024×1024, nhân vật chiếm khoảng 80% khung. Cả 6 ảnh cùng góc máy 3/4 và cùng ánh sáng.
 
 | File (giữ tên cũ) | Tư thế | Dùng ở |

@@ -1,5 +1,6 @@
 'use client';
 
+import { SocialEmptyState } from '../social-empty-state';
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useQueryClient, useMutation, useQuery, type InfiniteData } from '@tanstack/react-query';
 import { vi, t } from '@vintrip/i18n';
@@ -937,22 +938,12 @@ export function SocialFeedView({
         {/* Loading state */}
         {/* Mở bài qua ?open= thì bài đó hiện trước khi feed tải xong: lúc đó chấm nằm ở cuối feed, không chèn thẻ rỗng. */}
         {isFeedLoading && posts.length === 0 && (
-          <LoadingDots isBlock label="Đang tải bảng tin cảm hứng..." />
+          <div className={styles.feedLoadingGrid} role="status" aria-label="Đang tải bảng tin cảm hứng">{Array.from({ length: 6 }, (_, i) => <div key={i} />)}</div>
         )}
 
         {/* Error state */}
         {!isFocusUnavailable && postsQuery.isError && (
-          <div className={styles.emptyFeed}>
-            <div className={styles.emptyFeedTitle}>Không thể tải bài viết</div>
-            <p className={styles.emptyFeedDesc}>Đã xảy ra lỗi khi kết nối đến máy chủ.</p>
-            <button
-              type="button"
-              className={styles.emptyFeedAction}
-              onClick={() => void postsQuery.refetch()}
-            >
-              Thử lại
-            </button>
-          </div>
+          <ApiErrorNotice error={postsQuery.error} retry={() => void postsQuery.refetch()} />
         )}
 
         {isDirectFocus && (
@@ -964,17 +955,16 @@ export function SocialFeedView({
 
         {/* Empty state */}
         {!isDirectFocus && !postsQuery.isPending && !postsQuery.isError && posts.length === 0 && (
-          <div className={styles.emptyFeed}>
-            <div className={styles.emptyFeedTitle}>Chưa có bài viết nào</div>
-            <p className={styles.emptyFeedDesc}>
-              {activeFilter === 'saved'
-                ? 'Bạn chưa lưu bài viết nào. Hãy khám phá và lưu lại những bài viết bạn yêu thích.'
-                : 'Chưa có bài viết nào phù hợp với bộ lọc hiện tại.'}
-            </p>
-          </div>
+          <SocialEmptyState action={<button type="button" className="primary-button" onClick={() => {
+            if (!user) { window.location.href = loginReturnHref; return; }
+            handleOpenComposer('vlog');
+          }}>Chia sẻ chuyến đi</button>}>
+            <p>{activeFilter === 'saved' ? 'Bạn chưa lưu bài viết nào. Hãy khám phá và lưu lại những bài viết bạn yêu thích.' : 'Chưa có bài viết nào phù hợp với bộ lọc hiện tại.'}</p>
+          </SocialEmptyState>
         )}
 
         {/* Posts list */}
+        <div className={styles.postMasonry}>
         {posts.map((post) => (
           <div key={post.id} data-feed-post-id={post.id}>
             <PostCard
@@ -1001,6 +991,8 @@ export function SocialFeedView({
             />
           </div>
         ))}
+
+        </div>
 
         {/* Infinite Scroll trigger */}
         <div ref={sentinelRef} style={{ height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

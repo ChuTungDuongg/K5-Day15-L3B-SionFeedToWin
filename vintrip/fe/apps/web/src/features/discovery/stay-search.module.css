@@ -28,7 +28,7 @@
 .dateField > button > svg { display: none; }
 .field input::placeholder { color: var(--color-text-muted); }
 .panel .submit { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 12px 20px; border: 0; border-radius: var(--radius-pill); background: var(--color-coral); color: var(--color-background); font-size: var(--text-base); font-weight: 700; }
-.submit:disabled { opacity: .55; cursor: not-allowed; }
+.panel .submit:disabled { opacity: 1; background: var(--color-surface-muted); color: var(--color-text-muted); cursor: not-allowed; }
 .panel :is(button,a,input):focus-visible { outline: 2px solid var(--color-coral); outline-offset: 3px; }
 .toolbar { color: var(--color-text-muted); font-size: var(--text-sm); margin-top: 12px; }
 .suggestions { position: fixed; inset: auto; margin: 0; max-width: calc(100vw - 32px); max-height: 340px; overflow-y: auto; overscroll-behavior: contain; padding: 12px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-background); color: var(--color-text); box-shadow: var(--shadow-raised); }
@@ -46,3 +46,11 @@
   .panel .field input, .panel .dateField > button { font-size: var(--text-sm); }
 }
 @media (prefers-reduced-motion: reduce) { .panel * { animation: none; transition: none; } }
+
+/* FE-05: cho phép ô ngày co theo cột, không ép rộng màn hình. */
+.panel, .searchRow, .fieldContent, .panel .field, .panel .dateField { min-width: 0; max-width: 100%; box-sizing: border-box; }
+.panel { width: 100%; }
+.fieldContent { grid-template-columns: minmax(0, 1fr); }
+.fieldContent > *, .panel .dateField > button, .panel .fieldContent > div > button { min-width: 0; max-width: 100%; }
+.panel .dateField > button > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.panel .submit { width: 100%; margin: 0; }
