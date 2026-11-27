@@ -31,15 +31,15 @@
 | Mã | Việc | Người làm | Phụ thuộc | Trạng thái |
 |---|---|---|---|---|
 | FE-01 | Hệ thiết kế cam pastel: token màu, chữ, bo góc, bóng, trạng thái | **Claude** | — | XONG |
-| FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | TODO |
+| FE-02 | Bản đặc tả giao diện từng trang (bố cục, câu chữ theo CRO, trạng thái rỗng/lỗi/đang tải) | **Claude** | FE-01 | XONG |
 | FE-03 | Linh vật nguyên bản: 6 tư thế 3D nền trong suốt theo brief của PM | **Codex** | FE-01 | TODO |
 | FE-04 | Khung chung: thanh đầu trang, chân trang, thanh điều hướng điện thoại | **Codex** | FE-01, FE-02 | TODO |
-| FE-05 | Trang chủ: đầu trang, ô tìm kiếm, khối gợi ý, nền | **Codex** | FE-04 | TODO |
-| FE-06 | Khách sạn: danh sách, bộ lọc, chi tiết, chọn phòng | **Antigravity** | FE-01, FE-02 | TODO |
+| FE-05 | Trang chủ và trang kết quả tìm khách sạn `/search`: đầu trang, ô tìm kiếm, khối gợi ý, nền, danh sách + bộ lọc | **Codex** | FE-04 | TODO |
+| FE-06 | Trang chi tiết khách sạn `/hotels/[id]`: ảnh, chọn phòng, tiện nghi, đánh giá | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | TODO |
 | FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | TODO |
-| FE-10 | Nghiệm thu từng ticket của Codex và rà tổng thể cuối cùng | **Claude** | mỗi ticket Codex | liên tục |
+| FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
 ## Phân vùng file (không ai sửa vùng của người khác)
 
@@ -48,7 +48,7 @@
 | Hệ thiết kế | **PM (Claude)** | `vintrip/fe/packages/tokens/**`, `docs/design/**`, `docs/tracker/FE-BOARD.md`. Cần token mới thì ghi `KẸT` để PM thêm |
 | Khung chung, trang chủ, cảm hứng, linh vật | **Codex** | `app/globals.css`, `app/layout.tsx`, `app/page.tsx`, `app/loading.tsx`, `app/not-found.tsx`, `features/shell/**`, `features/discovery/**`, `features/social/**`, `features/mascot/**`, `features/notifications/**`, `features/onboarding/**`, `app/inspiration/**`, `app/trip-plans/**`, `app/trips/**`, `app/u/**`, `app/search/**`, `app/onboarding/**`, `app/coming-soon/**`, `vintrip/fe/apps/web/public/brand/**` |
 | Khách sạn, vé máy bay, trợ lý, đặt chỗ, tài khoản | **Antigravity** | `features/hotels/**`, `features/flights/**`, `features/assistant/**`, `features/checkout/**`, `features/auth/**`, `app/hotels/**`, `app/flights/**`, `app/cart/**`, `app/checkout/**`, `app/bookings/**`, `app/payments/**`, `app/account/**`, `app/(auth)/**` |
-| Dùng chung, cấm sửa | — | `vintrip/fe/packages/api-client/**`, `vintrip/fe/packages/app-core/**`, `features/shared/**`, `features/seo/**`, `features/legal/**`. Cần sửa thì ghi `KẸT` để PM quyết |
+| Dùng chung, cấm sửa | — | `vintrip/fe/packages/api-client/**`, `vintrip/fe/packages/app-core/**`, `vintrip/fe/packages/i18n/**`, `vintrip/fe/packages/ui-web/**`, `features/shared/**`, `features/seo/**`, `features/legal/**`. Cần sửa thì ghi `KẸT` để PM quyết |
 
 - **Antigravity không sửa file bảng này.** Antigravity ghi trạng thái ticket vào `docs/tracker/FE-ANTIGRAVITY.md` trong worktree của mình. PM đọc file đó rồi cập nhật bảng này.
 - Cần một thứ ở vùng của người khác (ví dụ một class trong `globals.css`): ghi `KẸT` kèm yêu cầu cụ thể, PM chuyển cho chủ vùng.
@@ -84,9 +84,15 @@
 
 Brief nhân vật và 6 tư thế 3D nền trong suốt: chào, tò mò, lập kế hoạch, hướng dẫn, thành công, buồn (dùng cho trang lỗi). Thay vào `public/brand/vini/`, giữ tên file để không phải sửa code.
 
-## FE-04 → FE-09 · Các trang (Codex)
+**Ghi chú Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Theo cập nhật PM, mọi ticket chờ đặc tả trong `docs/design/fe-redesign.md`; hiện tài liệu mới có mục 1, chưa có mục linh vật được chốt cho FE-03. Đã đọc brief và phân vùng file; chưa thay tài nguyên. Cần PM bổ sung đặc tả để triển khai đúng phạm vi.
+
+## FE-04 → FE-09 · Các trang (Codex: FE-04, FE-05, FE-08 · Antigravity: FE-06, FE-07, FE-09)
 
 Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket kèm ảnh chụp trước và sau ở 1440px và 390px (lưu tạm, không commit ảnh), và danh sách file đã sửa.
+
+- **FE-04 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục khung chung (header/footer/mobile nav) trong `fe-redesign.md`; chưa sửa giao diện. Đã kiểm phụ thuộc và phạm vi file.
+- **FE-05 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Mục 1.3 mới liệt kê điểm lệch màu, chưa có đặc tả trang chủ về bố cục, câu chữ và các trạng thái. FE-04 cũng đang kẹt; chưa sửa trang chủ.
+- **FE-08 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục cảm hứng/bảng tin/reels/lịch trình/hồ sơ trong tài liệu; FE-04 đang kẹt. Chưa sửa vùng social/discovery hoặc các trang tương ứng.
 
 ---
 
@@ -95,3 +101,4 @@ Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket k
 | Thời điểm | Ticket | Kết quả | Bằng chứng |
 |---|---|---|---|
 | 27/11 | FE-01 | XONG | Token cam pastel ở `index.ts` + `tokens.css` (khớp nhau, test token đạt). Thêm `--radius-*`, `--shadow-*`, `--text-*`. Mọi cặp chữ/nền đã đo ≥ 4.5:1, riêng `text-subtle` 3.8:1 chỉ dùng trang trí. Chụp trang chủ và /hotels: token đã áp. Phần còn lệch ghi ở `docs/design/fe-redesign.md` mục 1.3. |
+| 28/11 | FE-02 | XONG | Đặc tả mục 2–8 trong `docs/design/fe-redesign.md`: quy ước chung, linh vật (6 tư thế, thêm `vini-sad.png`), khung chung, trang chủ + `/search`, chi tiết khách sạn, vé máy bay, cảm hứng, trợ lý/giỏ/thanh toán/đặt chỗ/tài khoản/đăng nhập. Mọi token được nhắc đều có trong `tokens.css`. Chuyển `/search` sang FE-05 (Codex) vì dùng chung `features/discovery` với trang chủ; FE-06 còn trang chi tiết. Thêm `packages/i18n`, `packages/ui-web` vào vùng cấm sửa. Mở khoá FE-03, FE-04, FE-05, FE-08. |

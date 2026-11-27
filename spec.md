@@ -182,6 +182,13 @@ Trạng thái: chưa thực hiện, không thuộc phần hoàn thành CP2. `cos
 |---|---|---|
 | 27/11/2026, sau CP2 · C1-00 | Dừng C3 trong chỗ làm C1; cất 25 file C3 đã sửa/thêm vào stash `7f7aaaa` (gồm file chưa theo dõi), giữ nhánh `vintrip`; chuyển ticket sang `CHỜ NGHIỆM THU` | Theo `docs/tracker/BOARD.md`: tách C3 khỏi C1, không xoá công việc đã làm. Stash C1 cũ `24d4494` được giữ nguyên; không chạy eval đầy đủ hoặc gọi model |
 | 27/11/2026, sau CP2 · C1-01 | Phục hồi nguyên bản `data/park_mau.json` từ stash C1 `24d4494`, cập nhật Dataset 1 và thêm test dữ liệu | Kiểm hai tổng 1.370.000đ / 1.270.000đ và đủ 7 trường hợp bắt buộc trong ticket; kiểm thêm giờ show, metadata và ma trận đi bộ. Dữ liệu mô phỏng, không đổi §7, benchmark hay metric |
+| 27/11/2026, sau CP2 · C1-02 | Thêm validator thuần `park_validation.py`, công cụ `validate_park_plan` và 18 test từng luật | Tính lại từ snapshot: giờ, đi bộ, show, điều kiện từng bé, mưa, ăn liên tục, yêu cầu bắt buộc, tiền và phần đã hoàn thành; 72 unittest đạt với model fake, check không thấy vấn đề |
+| 27/11/2026, sau CP2 · C1-03 | Thêm 4 công cụ đọc cho Công viên Mẫu và solver tham lam có mốc show/ăn, giới hạn thời gian; giữ catalog thật hiện có | Lịch gia đình mẫu tính lại 1.370.000đ và qua validator. Chỉ kết luận bất khả thi từ cận dưới; timeout trung thực, sự cố người dùng có nhãn nguồn. 81 unittest fake đạt và check không thấy vấn đề |
+| 28/11/2026 · Dừng C1 theo yêu cầu | Gỡ triển khai C1-01, C1-02, C1-03 bằng đảo thay đổi, hoàn lại chỉnh sửa ai.py chưa commit; giữ lịch sử nghiệm thu và việc cất C3 | Người dùng xác nhận gỡ các thay đổi C1 vừa tạo và chỉ làm FE. Không sửa §7, benchmark, metric hay file kết quả; không gọi model hoặc đọc .env |
+| 28/11/2026 · FE-03 | Đánh dấu KẸT: chờ đặc tả FE-02 cho linh vật; chỉ đọc brief và phạm vi file | Theo cập nhật PM, mọi ticket FE chờ tài liệu được chốt. `fe-redesign.md` hiện chỉ có mục 1; chưa thay tài nguyên hoặc tự thiết kế |
+| 28/11/2026 · FE-04 | Đánh dấu KẸT: chờ đặc tả FE-02 cho khung chung | Chưa có mục header/footer/mobile nav trong tài liệu; giữ phân vùng Codex và Antigravity |
+| 28/11/2026 · FE-05 | Đánh dấu KẸT: chờ đặc tả FE-02 cho trang chủ và phụ thuộc FE-04 | Danh sách lỗi màu ở mục 1.3 chưa thay thế đặc tả trang; chưa đổi bố cục hoặc tự soạn thiết kế |
+| 28/11/2026 · FE-08 | Đánh dấu KẸT: chờ đặc tả FE-02 cho cảm hứng và phụ thuộc FE-04 | Chưa có đặc tả trang tương ứng; chưa sửa code FE, API hoặc vùng của Antigravity |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
