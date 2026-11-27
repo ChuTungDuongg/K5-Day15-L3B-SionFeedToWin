@@ -11,7 +11,7 @@ import type {
   TokenPairDto,
 } from './generated/core-api/model';
 import { BROWSER_PROOF_HEADER, signBrowserProof, type BrowserProofPurpose } from './browser-session-proof';
-import { configureHttp, HttpError, type HttpRequestOptions } from './http';
+import { http, configureHttp, HttpError, type HttpRequestOptions } from './http';
 import { sendWithPasswords } from './password-encryption';
 import { readEntity, SessionSetupError } from './response';
 
@@ -193,6 +193,15 @@ export class SessionClient {
       resendAfterSeconds: typeof resendAfterSeconds === 'number' ? resendAfterSeconds : 0,
     };
   }
+  async startDemo(): Promise<void> {
+    const version = ++this.version;
+    const response = await http<{ data: TokenPairDto }>('/api/auth/demo', {
+      ...(await this.proofOptions('login')),
+      method: 'POST',
+    });
+    await this.completeLogin(response.data, version);
+  }
+
   /** Google ID token from Google Identity Services; tokens are kept exactly like a password login. */
   async loginWithGoogle(input: GoogleLoginDto): Promise<void> {
     const version = ++this.version;

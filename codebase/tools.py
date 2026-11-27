@@ -11,6 +11,7 @@ import unicodedata
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from tracing import tool
+import park_engine
 
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -484,8 +485,8 @@ def _ticket_tier(height_cm):
 @tool
 def get_park_catalog(park: str, visit_date: str = "", guests: list | None = None) -> dict:
     """Tên: Lấy danh mục trò chơi, quy định và giá vé của một khu vui chơi Ocean Park.
-    Input: Công viên (VinWonders Wave Park, VinWonders Water Park, combo hai công viên hoặc Grand
-    World), ngày đi ISO YYYY-MM-DD hoặc "cuối tuần" / "ngày thường" (tùy chọn), nhóm khách: danh sách {"label", "height_cm"}.
+    Input: Công viên (Công viên Mẫu — snapshot mô phỏng C1; VinWonders Wave Park, VinWonders Water
+    Park, combo hai công viên hoặc Grand World — dữ liệu thật), ngày đi ISO YYYY-MM-DD hoặc "cuối tuần" / "ngày thường" (tùy chọn), nhóm khách: danh sách {"label", "height_cm"}.
     Output: Trạng thái (OK, NEEDS_INPUT khi thiếu chiều cao để tính vé, MISSING_DATA khi công viên
     không có trong dữ liệu), snapshot_id, loại ngày, vé từng khách và tổng, quy định vé, dịch vụ
     thu thêm, danh sách hoạt động (khu, trong nhà, cho trẻ em, cảm giác mạnh, gồm trong vé, điều
@@ -493,6 +494,8 @@ def get_park_catalog(park: str, visit_date: str = "", guests: list | None = None
     Tác động ra ngoài: Không, chỉ đọc data/ocean_park_places.json (bảng giá chính thức VinWonders);
     không mua vé.
     """
+    if normalize(park) == normalize(park_engine.MOCK_PARK):
+        return _mock_catalog(guests)
     catalog = _load(PLACES_FILE)["park_catalog"]
     canonical = resolve_park(park) or next((p for p in PARK_ALIASES if normalize(p) == normalize(park)),
                                            None)
@@ -542,3 +545,98 @@ def get_park_catalog(park: str, visit_date: str = "", guests: list | None = None
                 rules=[r["rule"] for r in catalog["ticket_rules"]] if canonical != "Grand World" else [],
                 add_ons=[a for a in catalog["add_ons"] if a["park"] in parks],
                 activities=activities)
+
+
+def _mock_catalog(guests):
+    snap = park_engine.snapshot()
+    members = guests or []
+    activities = []
+    for act in snap["activities"]:
+        reasons = park_engine.eligibility(act, members) if members else []
+        activities.append({**{k: act.get(k) for k in ("id", "name", "zone", "duration_min", "wait_min",
+                                                   "indoor", "intensity", "tags", "surcharge_vnd")},
+                           "zone_name": park_engine.zone_name(act["zone"]),
+                           "conditions": act["conditions"],
+                           "missing_conditions": act["conditions"] is None,
+                           "eligible": None if not members else not reasons, "ineligible_reasons": reasons})
+    return {"status": "OK", "park": park_engine.MOCK_PARK, "snapshot_id": snap["snapshotId"],
+            "is_mock": True, "open": snap["open"], "close": snap["close"],
+            "prices": snap["prices"], "activities": activities}
+
+
+@tool
+def get_show_schedule(park: str, visit_date: str = "") -> dict:
+    """Tên: Lấy lịch suất diễn của khu vui chơi.
+    Input: Công viên, ngày đi (tùy chọn).
+    Output: Trạng thái, snapshot_id, tên show, sân khấu, số phút cần đến sớm và từng suất
+    (mã, giờ bắt đầu, kết thúc, trạng thái theo lịch), hoặc MISSING_DATA nếu không có công viên.
+    Tác động ra ngoài: Không, chỉ đọc snapshot mô phỏng Công viên Mẫu.
+    """
+    if normalize(park) != normalize(park_engine.MOCK_PARK):
+        return {"status": "MISSING_DATA", "park": park, "sessions": []}
+    snap = park_engine.snapshot()
+    shows = snap["shows"]
+    return {"status": "OK", "park": park_engine.MOCK_PARK, "snapshot_id": snap["snapshotId"],
+            "is_mock": True, "visit_date": visit_date or snap["date"], "show": shows["name"],
+            "venue": park_engine.zone_name(shows["venue_zone"]), "indoor": shows["indoor"],
+            "arrive_early_min": shows["arrive_early_min"],
+            "sessions": [dict(s, status="theo lịch") for s in shows["sessions"]]}
+
+
+@tool
+def get_park_incidents(park: str, at_time: str = "") -> dict:
+    """Tên: Lấy sự cố trong ngày của khu vui chơi (show huỷ, điểm đóng).
+    Input: Công viên, thời điểm HH:MM (tùy chọn).
+    Output: Trạng thái, snapshot_id, danh sách sự cố hôm nay (loại, suất bị huỷ kèm giờ, lý do).
+    Mưa do phụ huynh báo tại chỗ được luồng chính ghi riêng, công cụ không tự sinh mưa.
+    Tác động ra ngoài: Không, chỉ đọc nguồn sự cố mô phỏng trong snapshot.
+    """
+    if normalize(park) != normalize(park_engine.MOCK_PARK):
+        return {"status": "MISSING_DATA", "park": park, "incidents": []}
+    snap = park_engine.snapshot()
+    incidents = []
+    for row in snap["incidents_today"]:
+        ses = park_engine.session(row["session_id"]) if row.get("session_id") else None
+        incidents.append(dict(row, start=ses["start"] if ses else None, end=ses["end"] if ses else None))
+    return {"status": "OK", "park": park_engine.MOCK_PARK, "snapshot_id": snap["snapshotId"],
+            "is_mock": True, "at_time": at_time, "incidents": incidents}
+
+
+@tool
+def estimate_walk(from_zone: str, to_zone: str) -> dict:
+    """Tên: Ước tính phút đi bộ giữa hai khu của Công viên Mẫu.
+    Input: Mã khu đi và đến (GATE, KHU_A…KHU_E, STAGE, FOOD).
+    Output: Số phút đi bộ theo ma trận snapshot, tên hai khu, hoặc MISSING_DATA nếu không có cặp khu.
+    Tác động ra ngoài: Không, chỉ đọc snapshot.
+    """
+    minutes = park_engine.walk(from_zone, to_zone)
+    zones = park_engine.snapshot()["zones"]
+    if minutes is None or from_zone not in zones or to_zone not in zones:
+        return {"status": "MISSING_DATA", "from": from_zone, "to": to_zone, "minutes": None}
+    return {"status": "OK", "from": from_zone, "to": to_zone, "minutes": minutes,
+            "from_name": zones[from_zone]["name"], "to_name": zones[to_zone]["name"],
+            "snapshot_id": park_engine.snapshot()["snapshotId"]}
+
+
+@tool
+def build_park_plan(request: dict) -> dict:
+    """Tên: Lập lịch một ngày tại Công viên Mẫu từ yêu cầu đã chuẩn hoá.
+    Input: Yêu cầu: thành viên (người lớn / trẻ kèm tuổi, chiều cao), khung giờ, ngân sách, vị trí
+    xuất phát, có tính vé cổng không, show (bắt buộc / ưu tiên), ăn trưa, ưu tiên, trò bắt buộc,
+    khoảng mưa, suất đã huỷ.
+    Output: Trạng thái tìm kiếm (FOUND / MISSING_DATA / INFEASIBLE có cơ sở / SEARCH_TIMEOUT), danh sách mục lịch
+    (loại, mã, khu, giờ bắt đầu, kết thúc), đã chứng minh hay chưa, lý do.
+    Tác động ra ngoài: Không, chỉ tính toán.
+    """
+    return park_engine.build_plan(request)
+
+
+@tool
+def validate_park_plan(items: list, request: dict) -> dict:
+    """Tên: Kiểm độc lập một lịch trên cùng snapshot trước khi gọi là VALID.
+    Input: Danh sách mục lịch, yêu cầu đã chuẩn hoá.
+    Output: valid (true/false), danh sách vi phạm (khung giờ, đi bộ, suất diễn, đến sớm, điều kiện
+    từng thành viên, ăn trưa, mưa, yêu cầu bắt buộc, ngân sách), bảng tiền và tổng tính lại, snapshot_id.
+    Tác động ra ngoài: Không, chỉ tính toán.
+    """
+    return park_engine.validate_plan(items, request)

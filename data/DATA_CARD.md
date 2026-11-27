@@ -7,13 +7,28 @@
 | | |
 |---|---|
 | Dùng để làm gì | Nguồn duy nhất cho `get_park_catalog`, `get_show_schedule`, `get_park_incidents`, `estimate_walk`; `build_park_plan` và `validate_park_plan` tính trên cùng snapshot |
-| Từ đâu | Nhóm tự dựng theo *kế hoạch sản phẩm C1/C2/C3 của nhóm* mục 4.3; **mô phỏng, không phải công viên thật** |
+| Từ đâu | Nhóm tự dựng theo *kế hoạch sản phẩm C1/C2/C3 của nhóm* mục 4.3; **mô phỏng, không phải công viên thật**. Code C1 (`codebase/park_engine.py`, `codebase/tools.py`) đọc file [`cong_vien_mau.json`](cong_vien_mau.json); `park_mau.json` (ticket C1-01) được giữ làm bản thay thế, xem mục dưới |
 | Trường | Công viên (ID, ngày, múi giờ, giờ mở/đóng, cổng) · Hoạt động (ID, khu, thời lượng, chờ mô phỏng, trong/ngoài trời) · Điều kiện (tuổi, chiều cao, người lớn đi cùng) · Show (suất, giờ đến sớm, trạng thái) · Giá (theo nhóm khách, khoản đã gồm, phụ thu) · Ma trận phút đi bộ · Sự cố (mưa, điểm đóng, show huỷ) · `source`, `observedAt`, `snapshotId`, `isMock` |
-| Số dòng | 15–20 hoạt động, 1 công viên (dự kiến) |
-| Bảng giá demo | Vé 2 người lớn 600.000đ, vé 2 bé 350.000đ, ăn trưa 320.000đ, hoạt động phụ thu 100.000đ (khớp câu thử `C1-01`, `C1-11`) |
-| Phiên bản / ngày | Chưa tạo, xây trước CP3; mỗi bản có `snapshotId` và seed nếu sinh ngẫu nhiên |
+| Số dòng | File `data/cong_vien_mau.json`: 1 công viên (mở 09:00–19:00), 8 khu, ma trận đi bộ 28 cặp khu, 16 hoạt động (`X1` thiếu điều kiện, `X2` Vườn âm thanh cố ý để trống phụ thu để thử trường hợp thiếu giá của trò bắt buộc), 6 suất show (đến sớm 15 phút), 2 sự cố hôm nay (huỷ suất 11:00 và 15:00) |
+| Bảng giá demo | Vé người lớn 300.000đ, trẻ 100–139cm 175.000đ, dưới 100cm miễn phí; ăn trưa 80.000đ/người; chỉ `A1` phụ thu 100.000đ/nhóm → 2 người lớn 600.000đ, 2 bé 350.000đ, ăn trưa 4 người 320.000đ, phụ thu 100.000đ (khớp câu thử `C1-01`, `C1-11`) |
+| Phiên bản / ngày | `snapshotId = CVM-2026-11-28-v1`, ngày 28/11/2026; viết tay, không sinh ngẫu nhiên nên không có seed |
 | Nhãn | `isMock = true` |
-| Giới hạn | Thời gian chờ và đi bộ là mô phỏng; không phản ánh vận hành thật của công viên nào |
+| Giới hạn | Thời gian chờ và đi bộ là mô phỏng; không phản ánh vận hành thật của công viên nào. Mưa không nằm trong snapshot: luồng chính dùng khoảng mưa do phụ huynh báo tại chỗ. Sự cố "hôm nay" chỉ áp dụng khi xếp lại, không áp cho lịch ngày khác |
+
+### Bản thay thế `park_mau.json` (ticket C1-01, code C1 hiện chưa đọc)
+
+Giữ nguyên từ nhánh `vintrip` (commit `0c17673`). Đẹp hơn ở phần show (4 show, 3 sân khấu, có show trong nhà) nhưng danh sách sự cố rỗng, nên chưa đủ căn cứ cho câu thử show bị huỷ (`C1-12`, `C1-27`). Nhóm quyết có chuyển code sang file này không.
+
+| | |
+|---|---|
+| Từ đâu | Nhóm tự dựng theo *kế hoạch sản phẩm C1/C2/C3 của nhóm* mục 4.3; **mô phỏng, không phải công viên thật**. File [`park_mau.json`](park_mau.json) được phục hồi nguyên bản từ stash C1 `24d4494` (nhánh Manh) theo ticket C1-01 |
+| Số dòng | 1 công viên, 16 hoạt động, 4 show (8 suất), ma trận đi bộ đủ 28 cặp giữa 8 khu/vị trí và thời gian cùng khu; danh sách sự cố ban đầu rỗng |
+| Bảng giá demo | Người lớn 300.000đ; trẻ từ 100 đến dưới 140 cm: 175.000đ; dưới 100 cm miễn vé, từ 140 cm tính vé người lớn. Ăn trưa 80.000đ/người. Vé cổng gồm các trò, trừ phụ thu Làng cổ tích 25.000đ/người |
+| Đối chiếu gia đình mẫu | 2 người lớn và bé cao 108, 132 cm: vé 600.000 + 350.000, ăn trưa 4 × 80.000 = 320.000 → tối thiểu **1.270.000đ**, vượt ngân sách 1.000.000đ **270.000đ** (`C1-11`). Thêm Làng cổ tích 4 × 25.000 = 100.000 → **1.370.000đ**, còn 130.000đ trên ngân sách 1.500.000đ (`C1-01`) |
+| Phiên bản / ngày | `snapshotId: park-mau-2026-11-27-v1`, `observedAt: 2026-11-27`; dữ liệu cố định, không sinh ngẫu nhiên nên không dùng seed. Mở cửa 08:00–19:00, múi giờ `Asia/Ho_Chi_Minh` |
+| Nhãn | `isMock = true` |
+| Giới hạn | Giá, thời gian chờ và đi bộ đều tự dựng cho demo; không phản ánh vận hành thật của công viên nào. Ma trận đi bộ lưu một nửa, dùng đối xứng khi đọc; cùng khu dùng `same_zone`. Hoạt động A16 có tuổi/chiều cao `null`: chưa biết điều kiện, không được hiểu thành không giới hạn |
+| Kiểm dữ liệu | [`tests/test_park_data.py`](../tests/test_park_data.py): 7 ca dữ liệu bắt buộc của ticket, hai phép tính tiền độc lập, kiểm cấu trúc, giờ show và độ phủ ma trận đi bộ. Đây là kiểm dữ liệu, chưa xác nhận solver/validator C1 đã triển khai |
 
 ## Dataset 2 · Khảo sát C1 (`evidence/survey/results-c1.csv`)
 
