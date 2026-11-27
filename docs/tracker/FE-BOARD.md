@@ -37,7 +37,7 @@
 | FE-05 | Trang chủ: đầu trang, ô tìm kiếm, khối gợi ý, nền | **Codex** | FE-04 | KẸT |
 | FE-06 | Khách sạn: danh sách, bộ lọc, chi tiết, chọn phòng | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-07 | Vé máy bay: tìm kiếm, kết quả, chi tiết | **Antigravity** | FE-01, FE-02 | TODO |
-| FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | TODO |
+| FE-08 | Cảm hứng: bảng tin, reels, lịch trình mẫu, hồ sơ người dùng | **Codex** | FE-04 | KẸT |
 | FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | TODO |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
@@ -92,6 +92,7 @@ Làm theo mục tương ứng trong `docs/design/fe-redesign.md`. Mỗi ticket k
 
 - **FE-04 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục khung chung (header/footer/mobile nav) trong `fe-redesign.md`; chưa sửa giao diện. Đã kiểm phụ thuộc và phạm vi file.
 - **FE-05 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Mục 1.3 mới liệt kê điểm lệch màu, chưa có đặc tả trang chủ về bố cục, câu chữ và các trạng thái. FE-04 cũng đang kẹt; chưa sửa trang chủ.
+- **FE-08 · Codex 28/11/2026 — KẸT: chờ đặc tả FE-02.** Chưa có mục cảm hứng/bảng tin/reels/lịch trình/hồ sơ trong tài liệu; FE-04 đang kẹt. Chưa sửa vùng social/discovery hoặc các trang tương ứng.
 
 ---
 
