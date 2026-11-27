@@ -36,6 +36,7 @@ Token nằm ở `vintrip/fe/packages/tokens/src/index.ts` và `tokens.css`. Hai 
 
 - Bo góc: `--radius-sm` 10px (ô nhập, chip) · `--radius-md` 16px (thẻ) · `--radius-lg` 24px (khối lớn, đầu trang) · `--radius-pill` (nút tròn dài).
 - Bóng: `--shadow-soft` (thẻ thường) · `--shadow-raised` (thẻ đang di chuột, popup). Bóng tông nâu nhạt, không dùng bóng đen.
+- **Phông chữ (28/11, theo yêu cầu: giống iPhone):** `--font-sans` = `-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Helvetica Neue", "Segoe UI", Roboto, system-ui, sans-serif`. Trên iPhone và Mac, trình duyệt dùng SF Pro có sẵn trong máy. **Không nhúng file SF Pro vào web:** giấy phép của Apple chỉ cho dùng trên thiết bị Apple. Máy Windows và Android dùng **Inter** (giấy phép OFL, nét gần SF, có đủ dấu tiếng Việt) do `globals.css` nạp. Tiêu đề cũng dùng `--font-sans`, đậm 700, `letter-spacing: -0.02em` (kiểu tiêu đề iOS). Bỏ hẳn Be Vietnam Pro và Playfair Display.
 - Thang chữ: `--text-xs` 12px · `--text-sm` 14px · `--text-base` 16px (cỡ chữ nội dung tối thiểu) · `--text-lg` 18px · `--text-xl` 22px · `--text-2xl` 28px · `--text-3xl` co giãn 32–52px (tiêu đề đầu trang). Chiều cao dòng 1.5 cho nội dung.
 
 ### 1.3 Còn lệch tông sau FE-01 (giao cho ticket trang)
@@ -107,6 +108,12 @@ Token nằm ở `vintrip/fe/packages/tokens/src/index.ts` và `tokens.css`. Hai 
 - Giữ nguyên các liên kết pháp lý.
 
 **Toàn trang:**
+- **Phông chữ (theo mục 1.2):**
+  - Trong `globals.css`, thay hai `@font-face` 'Be Vietnam Pro' bằng `@font-face` 'Inter' trỏ tới file Inter bản variable (OFL, tải từ trang chính thức rsms/inter), lưu ở `public/brand/fonts/`, có đủ tiếng Việt, `font-weight: 100 900`, `font-display: swap`.
+  - Xoá dòng `@import` Google Fonts Playfair Display.
+  - Các chỗ `font-family: 'Playfair Display'` trong vùng Codex (`ota-hero.module.css`, `coming-soon.module.css`) đổi sang `var(--font-sans)`, đậm 700, `letter-spacing: -0.02em`.
+  - Xoá `regular.ttf`, `bold.ttf` nếu không còn chỗ nào dùng.
+  - Kiểm: trên Windows, chữ có dấu (ví dụ "Đà Lạt, Huế, Phú Quốc") hiện bằng Inter, không rơi về phông khác.
 - `body` dùng nền `--color-surface`.
 - Vòng focus chung cho mọi phần tử bấm được: `outline: 3px solid var(--color-coral); outline-offset: 2px`. Đặt một lần trong `globals.css`.
 

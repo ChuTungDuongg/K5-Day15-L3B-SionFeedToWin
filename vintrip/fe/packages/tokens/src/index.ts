@@ -39,7 +39,8 @@ export const colors = {
 } as const;
 
 export const fonts = {
-  sans: '"Be Vietnam Pro", "Segoe UI", system-ui, sans-serif',
+  // Giống iPhone: máy Apple hiện SF Pro có sẵn; máy khác dùng Inter (gần SF, có tiếng Việt) do globals.css nạp.
+  sans: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Helvetica Neue", "Segoe UI", Roboto, system-ui, sans-serif',
   mono: '"JetBrains Mono", ui-monospace, Consolas, monospace',
 } as const;
 
