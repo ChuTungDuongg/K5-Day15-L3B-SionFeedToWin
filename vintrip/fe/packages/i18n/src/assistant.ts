@@ -58,10 +58,10 @@ export const assistant = {
   ],
   quickPromptsTitle: 'Gợi ý để bắt đầu',
   quickPrompts: [
-    'Kiểm tra phí hủy phòng trước 36 giờ check-in',
-    'Đổi sang phòng Sea View 2 đêm và soạn bản nháp',
-    'Lập lịch trình 2 ngày Đà Nẵng ngân sách 3 triệu',
-    'Tìm khách sạn gần biển Hội An cuối tuần này',
+    'Lập lịch trình 1 ngày VinUni Ocean Park ngân sách 1 triệu',
+    'Kiểm tra phí hủy phòng FLEX-48H nhận phòng 2026-12-10 14:00+07:00 hủy lúc 2026-12-08 10:00+07:00 giá 3.200.000đ 2 đêm',
+    'Đổi sang căn hộ View Biển Hồ 2 đêm từ Studio Ocean Park và soạn bản nháp',
+    'Lập lịch trình 2 ngày Ocean Park – Bát Tràng ngân sách 2 triệu',
   ],
   contractCards: {
     free: 'Miễn phí hủy',

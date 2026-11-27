@@ -1,4 +1,8 @@
-# SionFeedToWin — Khung repo hackathon AI20K K5 · L3B
+# VinTrip
+
+Dự án của nhóm **SionFeedToWin**, lớp **L3B**, Track **C: Du lịch**, tham gia hackathon AI20K K5.
+
+VinTrip hỗ trợ phụ huynh lên lịch một ngày tại khu vui chơi cho gia đình có trẻ nhỏ. Phạm vi dự kiến là chọn hoạt động và xếp lịch theo thời gian, ngân sách, sở thích cùng điều kiện tuổi và chiều cao của trẻ. Kết quả gồm lịch theo giờ, bảng chi phí và các điều kiện đã kiểm tra. Xem phạm vi, kế hoạch bằng chứng và phân công trong [canvas.md](canvas.md).
 
 Nguồn khung: [`starter-repo/` của BTC](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/tree/6225f90bc65e7751139127abb42bd0ed7241f2de/starter-repo), commit `6225f90bc65e7751139127abb42bd0ed7241f2de`.
 
@@ -6,7 +10,13 @@ Nguồn tham khảo của thư mục `vintrip/`: khung frontend (Next.js), backe
 
 Hướng dẫn chính thức: [đề bài](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/01-challenge-brief.md) · [guide](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/02-guide.md) · [rubric](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/03-rubric.md) · [các track](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/tree/main/tracks).
 
-**Trạng thái:** đã đưa bộ khung vào repo; bản chạy thử dùng model giả. Track, lát cắt, thành viên, bằng chứng và bộ câu thử vẫn cần nhóm hoàn thiện. Các chỗ `____` và dòng ghi “ví dụ” là mẫu, chưa phải nội dung nộp bài.
+**Trạng thái CP2:** đã có canvas, thiết kế ở [spec.md §4](spec.md), bộ thử 30 câu (14 thường, 11 khó, 5 từ chối), 4 metric và danh sách 4 thành viên. `python run.py check` không còn cảnh báo cấu trúc. Mã nguồn vẫn là bộ khung dùng model giả, chưa có công cụ lập lịch và validator của VinTrip. Kiểm tra cấu trúc đạt không có nghĩa là chất lượng trả lời đã đạt.
+
+**Bằng chứng hiện có:** CSV lưu 20 dòng, trong đó 10 dòng được nhóm gắn nhãn người dùng thật và 10 dòng tự viết. Chỉ đếm 10 dòng đầu: 7/10 kể có sự cố, 6/10 chuẩn bị từ 30 phút, 4/10 đi cùng trẻ nhỏ. Khảo sát chưa đạt ngưỡng 20 người đúng đối tượng, phỏng vấn hiện 0/3. Xem [tổng hợp và giới hạn nguồn](evidence/summary.md).
+
+**Cần hoàn thiện trước CP3:** thu bằng chứng đúng đối tượng và đối chiếu bản khảo sát gốc, tạo dữ liệu Công viên Mẫu, triển khai công cụ và validator, nối model thật rồi chạy đánh giá. Các mục chi phí là giả định để kiểm khung, chưa phải chi phí thực tế.
+
+Tài liệu nghiên cứu về điều kiện hủy phòng trong repo thuộc hướng trước. Nhóm cần thu bằng chứng đúng đối tượng của VinTrip trước khi kết luận về nhu cầu hoặc mức tiết kiệm thời gian.
 
 **Thành viên, lớp, track:** xem [TEAMS.md](TEAMS.md). **Điền TEAMS.md đúng format**: khi chấm và đánh giá, BTC quét file này để ghép điểm cho từng người.
 
@@ -24,7 +34,7 @@ Hướng dẫn chính thức: [đề bài](https://github.com/VinUni-AI20k/K5-L3
 | Chấm cột `pass` theo metric spec | Chạy cả bộ một lệnh, có run ID, model, token từng câu (`run.py eval`) · tính % đạt (`run.py score`) |
 | Persona, số người dùng thật, giá model (`cost/personas.yaml`) | Sinh ~50 phiên, chạy thật qua bản chạy thử, tính chi phí / phiên, / task thành công, / tháng 3 kịch bản (`run.py simulate`) |
 
-*Ví dụ track A (ví dụ cỡ, không phải lời giải):* nhóm viết công cụ `search_lesson` tra bài pre-class đã đánh mã đoạn, luồng "tra đoạn → model trả lời kèm mã đoạn, không có thì nói không có", metric "mọi khẳng định có mã đoạn đúng", persona "ôn dồn trước kiểm tra". Khung chạy 25 câu thử ra `run-1.csv`, nhóm chấm `pass`, `score` in % đạt; `simulate` chạy 50 phiên ra chi phí / task thành công cho hai model.
+Luồng dự kiến của VinTrip: hiểu yêu cầu của phụ huynh → lấy dữ liệu công viên → lập lịch → kiểm độc lập → trả lịch và bảng tiền hoặc hỏi lại. Sáu công cụ trong thiết kế chưa được triển khai. Khung hiện tại chỉ dùng `search_example` và model giả để kiểm đường chạy.
 
 ## Chạy trong 3 phút
 
@@ -41,7 +51,7 @@ if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 
 `requirements.txt` hiện chỉ có chú thích vì bộ khung dùng thư viện chuẩn. Nếu nhóm thêm SDK hoặc thư viện, khai báo gói vào file này rồi chạy lại lệnh cài. `.venv/` và `.env` được giữ trên máy và đã có trong `.gitignore`.
 
-Các lệnh bên dưới có thể thay `python` bằng `.\.venv\Scripts\python.exe` để dùng đúng môi trường này. `python run.py check` sẽ còn nhắc về thành viên, track, metric và câu thử mẫu cho đến khi nhóm điền đủ nội dung.
+Các lệnh bên dưới có thể thay `python` bằng `.\.venv\Scripts\python.exe` để dùng đúng môi trường này. `python run.py check` hiện nhận đủ 4 thành viên, 30 câu thử và 4 metric, không còn cảnh báo cấu trúc.
 
 **Bước 1 — Mở cửa sổ lệnh ngay trong thư mục repo**
 
@@ -102,14 +112,14 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | **Thật** (bắt buộc từ CP3) | Model: ____ |
-|  |  |  |
+| Lời gọi model hiện tại | Giả | `MODEL_PROVIDER=fake`, token vào/ra bằng 0. Cần model thật trước CP3 |
+| Lập lịch và kiểm ràng buộc | Chưa triển khai | Sơ đồ và hợp đồng công cụ ở spec.md §4 |
+| Công viên, giá và sự cố trong demo | Dự kiến mô phỏng | Chưa tạo snapshot dữ liệu công viên |
+| Khảo sát | 10 dòng gắn nhãn thật, 10 dòng tự viết | Không cộng dòng tự viết vào bằng chứng. Cần đối chiếu nguồn gốc |
 
 ## Dùng AI vào việc gì
 
-2–3 dòng (bắt buộc): nhóm dùng công cụ AI nào để làm gì, người kiểm lại phần nào. Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
-
-OpenAI Codex hỗ trợ đưa starter kit của BTC vào repo, thiết lập môi trường Python và kiểm tra luồng chạy ở chế độ giả. Nhóm cần tự kiểm lại và hoàn thiện nội dung bài làm; chi tiết thao tác AI ở [docs/ai-usage.md](docs/ai-usage.md).
+Theo khai báo trong spec, nhóm dùng OpenAI Codex, Antigravity và Claude Code để thiết lập khung, soạn thiết kế, sơ đồ và bộ tiêu chí. Codex hỗ trợ rà kết quả merge, cập nhật hồ sơ và kiểm đường chạy với model giả. Nhóm cần đối chiếu nguồn khảo sát, duyệt nội dung và giải thích phần việc của mình. Chi tiết ở [docs/ai-usage.md](docs/ai-usage.md), quy ước ở [AGENTS.md](AGENTS.md).
 
 ## File mẫu — điền ở bước nào
 

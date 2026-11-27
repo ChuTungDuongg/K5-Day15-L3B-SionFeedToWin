@@ -46,6 +46,11 @@ export const ota = {
   browseHotels: 'Xem tất cả khách sạn',
   browseDestination: 'Tìm phòng tại {name}',
   destinations: {
+    'ha-noi': {
+      name: 'Hà Nội · Ocean Park',
+      region: 'VinUni · Gia Lâm',
+      description: 'Biển hồ cát trắng, Mega Grand World và homestay sát VinUni.',
+    },
     'nha-trang': {
       name: 'Nha Trang',
       region: 'Khánh Hòa',

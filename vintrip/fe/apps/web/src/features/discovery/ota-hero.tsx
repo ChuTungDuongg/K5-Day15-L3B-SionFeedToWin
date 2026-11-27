@@ -7,9 +7,19 @@ import styles from './ota-hero.module.css';
 
 const HERO_DESTINATIONS = [
   {
-    tag: 'Tây Bắc',
-    destination: 'Sa Pa • Mù Cang Chải',
-    query: 'Lào Cai',
+    tag: 'Gần VinUni',
+    destination: 'Ocean Park • Hồ Ngọc Trai',
+    query: 'Hà Nội',
+  },
+  {
+    tag: 'Ocean City',
+    destination: 'Mega Grand World • Venice',
+    query: 'Hà Nội',
+  },
+  {
+    tag: '10 phút đi xe',
+    destination: 'Làng Gốm Bát Tràng',
+    query: 'Hà Nội',
   },
   {
     tag: 'Kỳ quan',
@@ -22,19 +32,9 @@ const HERO_DESTINATIONS = [
     query: 'Ninh Bình',
   },
   {
-    tag: 'Cố đô',
-    destination: 'Huế • Cổng Tam Quan',
-    query: 'Huế',
-  },
-  {
     tag: 'Biển xanh',
     destination: 'Đảo Ngọc Phú Quốc',
     query: 'Phú Quốc',
-  },
-  {
-    tag: 'Danh thác',
-    destination: 'Thác Bản Giốc • Cao Bằng',
-    query: 'Cao Bằng',
   },
   {
     tag: 'Đà Nẵng',
@@ -55,9 +55,9 @@ export function OtaHero() {
     <header className={styles.hero} data-home-banner data-home-hero>
       <div className={styles.backdropImageWrapper} data-hero-layer="scenery" aria-hidden="true">
         <picture>
-          <source media="(max-width: 640px)" srcSet="/brand/hero-layered-v1/ha-long-960.webp" />
+          <source media="(max-width: 640px)" srcSet="/brand/ocean-park/mega-grand-world-venice.jpg" />
           <Image
-            src="/brand/hero-layered-v1/ha-long-1600.webp"
+            src="/brand/ocean-park/mega-grand-world-venice.jpg"
             alt=""
             fill
             fetchPriority="high"
