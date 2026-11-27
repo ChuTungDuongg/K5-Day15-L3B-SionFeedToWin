@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Header,
+  NotFoundException,
   HttpCode,
   HttpStatus,
   Inject,
@@ -113,6 +114,17 @@ export class AuthController {
   @ApiCreatedResponse({ type: UserDto })
   register(@Body(new ZodBody(RegisterRequestSchema)) body: z.infer<typeof RegisterRequestSchema>, @Req() req: Request) {
     return this.auth.register(body, readRequestMeta(req));
+  }
+
+  @Post('demo')
+  @HttpCode(HttpStatus.OK)
+  @Header('Cache-Control', 'no-store')
+  @ApiOkResponse({ type: TokenPairDto })
+  async startDemo(@Req() req: Request, @Res({ passthrough: true }) res: Response) {
+    if (process.env.VINTRIP_DEMO_ENABLED !== 'true') throw new NotFoundException();
+    this.web.assertTrustedOrigin(req);
+    const pair = await this.auth.startDemo(readRequestMeta(req), this.readBrowserProof(req));
+    return this.toWebResponse(req, res, pair);
   }
 
   @Post('login-code')

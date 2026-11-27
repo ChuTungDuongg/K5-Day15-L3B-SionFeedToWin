@@ -88,6 +88,7 @@ services:
     environment:
       <<: *be-env
       NODE_OPTIONS: "--max-old-space-size=896"
+      VINTRIP_DEMO_ENABLED: "true"
       APP_ROLE: all
       ENABLE_MOCK_PAYMENT: "true"
       PORT: 3000
@@ -109,6 +110,9 @@ services:
     build: &ai-build
       context: '../../ai'
       dockerfile: Dockerfile.vintrip
+      additional_contexts:
+        c1_code: ../../../codebase
+        c1_data: ../../../data
     environment:
       CORE_API_URL: http://core-api:3000
       REDIS_URL: redis://redis:6379
@@ -140,6 +144,7 @@ services:
     mem_limit: 1280m
     build: { context: '../../fe', dockerfile: apps/web/Dockerfile, target: dev }
     environment:
+      NEXT_PUBLIC_VINTRIP_DEMO_ENABLED: "true"
       NEXT_PUBLIC_API_URL: http://localhost:8080
       NODE_OPTIONS: "--max-old-space-size=896"
     ports: ['3100:3100']
