@@ -17,8 +17,7 @@ DATA = Path(__file__).resolve().parents[1] / "data"
 APPROVAL = "CHỜ NGƯỜI DÙNG DUYỆT"
 UTC = datetime_timezone.utc
 FIXED_OFFSETS = {
-    "Asia/Ho_Chi_Minh": 7, "Asia/Tokyo": 9, "Asia/Singapore": 8,
-    "Asia/Dubai": 4, "UTC": 0,
+    "Asia/Ho_Chi_Minh": 7, "UTC": 0,
 }
 
 
@@ -60,10 +59,35 @@ def room_names(text):
     return [name for _, name in sorted(mentions)]
 
 
+PLACES_FILE = "ocean_park_places.json"
+CITY_ALIASES = ("ocean park", "ocean city", "vinhomes ocean park", "grand world")
+
+
+def _places():
+    """Địa điểm khách vãng lai dùng được (bỏ tiện ích chỉ dành cho cư dân)."""
+    return [row for row in _load(PLACES_FILE)["places"] if not row["requires_resident"]]
+
+
+def _match_scope(city):
+    """Trả (tên hiển thị, hàm lọc) cho 'Ocean Park' hoặc một khu 'Ocean Park 1/2/3'."""
+    key = normalize(city)
+    for area in dict.fromkeys(row["area"] for row in _places()):
+        if key == normalize(area):
+            return area, lambda row, area=area: row["area"] == area
+    if key in {normalize(alias) for alias in CITY_ALIASES}:
+        return "Ocean Park", lambda row: True
+    return None, None
+
+
 def itinerary_cities(text):
     normalized = normalize(text)
-    return [city for city in dict.fromkeys(row["city"] for row in _load("attractions_sample.json"))
-            if contains_phrase(normalized, city)]
+    for area in dict.fromkeys(row["area"] for row in _places()):
+        # "Ocean Park 2 ngày" là số ngày, không phải khu Ocean Park 2.
+        pattern = r"\b" + re.escape(normalize(area)) + r"\b(?! (?:ngay|dem|days?|nights?)\b)"
+        if re.search(pattern, normalized):
+            return [area]
+    return ["Ocean Park"] if any(contains_phrase(normalized, alias)
+                                 for alias in CITY_ALIASES) else []
 
 
 @tool
@@ -88,9 +112,6 @@ def lookup_cancel_policy(query: str) -> list[dict]:
         "STRICT-NO-REFUND": ("không hoàn tiền", "non refundable", "strict"),
         "PARTIAL-50-24H": ("50% trong 24 giờ",),
         "RESORT-PEAK-7D": ("cao điểm",),
-        "JAPAN-RYOKAN-72H": ("ryokan", "nhật bản", "tokyo"),
-        "SG-BUSINESS-24H": ("singapore",),
-        "UAE-CITY-48H": ("dubai",),
     }
     matched = [row for row in policies if any(contains_phrase(normalized, term)
                for term in aliases[row["code"]])]
@@ -257,21 +278,21 @@ def _verify_itinerary(schedule, budget):
 @tool
 def plan_and_verify_itinerary(city: str, days: int = 1, budget_vnd: int = 2000000,
                               interests: str = "") -> dict:
-    """Tên: Lập và kiểm tra lịch trình tại một thành phố.
-    Input: Thành phố, số ngày, ngân sách VND, sở thích và lưu ý thời tiết.
+    """Tên: Lập và kiểm tra lịch trình vui chơi tại Ocean Park (Ocean City).
+    Input: Khu (Ocean Park hoặc Ocean Park 1/2/3), số ngày, ngân sách VND, sở thích và lưu ý thời tiết.
     Output: Lịch, tổng chi phí, số vi phạm và phạm vi lịch có đủ dữ liệu.
-    Tác động ra ngoài: Không, chỉ dùng giờ và chi phí mô phỏng.
+    Tác động ra ngoài: Không, chỉ đọc data/ocean_park_places.json (giá cào từ VinWonders).
     """
     result = {"status": "need_info", "city": city, "days": days, "budget_vnd": budget_vnd,
               "itinerary": [], "estimated_total_vnd": 0, "violations_count": 0,
               "weather_sensitive_count": 0}
     if (type(days) is not int or days < 1 or type(budget_vnd) is not int or budget_vnd < 0):
         return result
-    places = [row for row in _load("attractions_sample.json")
-              if normalize(row["city"]) == normalize(city)]
+    scope, keep = _match_scope(city)
+    places = [row for row in _places() if keep and keep(row)]
     if not places:
         return dict(result, status="unsupported_city", unplanned_days=days)
-    result["city"] = places[0]["city"]
+    result["city"] = scope
     preferences = normalize(interests)
     if any(contains_phrase(preferences, term) for term in
            ("mưa", "trong nhà", "indoor", "rain")):
@@ -300,3 +321,224 @@ def plan_and_verify_itinerary(city: str, days: int = 1, budget_vnd: int = 200000
     return dict(result, status=status, itinerary=deepcopy(schedule), estimated_total_vnd=total,
                 violations_count=violations, unplanned_days=unplanned,
                 weather_sensitive_count=sum(slot["place"]["weather_sensitive"] for slot in schedule))
+
+
+FOOD_KINDS = ("nhà hàng", "quán ăn", "quán nhậu", "cà phê / giải khát", "bar / pub", "karaoke",
+              "vui chơi")
+HANOI_DISTRICTS = ("Hoàn Kiếm", "Ba Đình", "Đống Đa", "Hai Bà Trưng", "Cầu Giấy", "Thanh Xuân",
+                   "Hoàng Mai", "Long Biên", "Tây Hồ", "Nam Từ Liêm", "Bắc Từ Liêm", "Hà Đông",
+                   "Gia Lâm", "Đông Anh", "Thanh Trì")
+VIN_AREAS = ("Times City", "Royal City", "Vinhomes Riverside", "The Harmony", "Smart City",
+             "Aeon Mall Long Biên", "Grand World", "Vincom")
+
+
+def venue_scopes(text):
+    """Khu người dùng nhắc trong câu: khu Ocean Park, khu Vin, quận Hà Nội hoặc 'Hà Nội'."""
+    normalized = normalize(text)
+    found = itinerary_cities(text)
+    found += [name for name in VIN_AREAS + HANOI_DISTRICTS if contains_phrase(normalized, name)]
+    if not found and contains_phrase(normalized, "hà nội"):
+        found.append("Hà Nội")
+    return list(dict.fromkeys(found))
+
+
+def _venue_filter(area):
+    scope, keep = _match_scope(area)
+    if scope:
+        return scope, lambda row: scope == "Ocean Park" and row["area"].startswith("Ocean Park")             or row["area"] == scope
+    key = normalize(area)
+    if key in (normalize("Hà Nội"), "ha noi"):
+        return "Hà Nội", lambda row: True
+    for name in HANOI_DISTRICTS:
+        if key == normalize(name):
+            return name, lambda row, n=name: row["district"] == n or contains_phrase(
+                normalize(row["address"] or ""), n)
+    for name in VIN_AREAS:
+        if key == normalize(name):
+            return name, lambda row, n=name: row["vin_area"] == n or contains_phrase(
+                normalize(row["address"] or ""), n)
+    return None, None
+
+
+@tool
+def find_venues(area: str = "Ocean Park", kind: str = "", budget_vnd: int | None = None,
+                open_late: bool = False, tag: str = "", limit: int = 5) -> dict:
+    """Tên: Tìm chỗ ăn, uống, cà phê, bar, karaoke, chỗ chơi ở Ocean Park và Hà Nội.
+    Input: Khu (Ocean Park, Ocean Park 1/2/3, Hà Nội, một quận Hà Nội hoặc khu Vin như Times City),
+    loại (nhà hàng, quán ăn, quán nhậu, cà phê / giải khát, bar / pub, karaoke, vui chơi hoặc rỗng),
+    ngân sách VND mỗi người (tùy chọn), chỉ lấy chỗ mở khuya (true/false), nhãn (vd chay, buffet,
+    lẩu, ăn đêm, làm việc, nhạc sống), số chỗ tối đa.
+    Output: Danh sách chỗ (tên, loại, khu, quận, địa chỉ, giờ, khoảng giá, nguồn) và số chỗ bị loại
+    vì nguồn không có giá khi đã đặt ngân sách.
+    Tác động ra ngoài: Không, chỉ đọc data/ocean_park_places.json (cào từ VinWonders, GreenSM,
+    Vinhomes Market); không đặt bàn, không đặt phòng hát.
+    """
+    scope, keep = _venue_filter(area)
+    result = {"status": "unsupported_area", "area": area, "kind": kind, "budget_vnd": budget_vnd,
+              "open_late": open_late, "tag": tag, "venues": [], "unpriced_skipped": 0}
+    if scope is None:
+        return result
+    if kind and kind not in FOOD_KINDS:
+        return dict(result, status="need_info")
+    tag_key = normalize(tag)
+    rows = [row for row in _load(PLACES_FILE)["venues"]
+            if keep(row) and (not kind or row["kind"] == kind)
+            and (not open_late or row["open_late"])
+            and (not tag_key or any(normalize(t) == tag_key for t in row["tags"])
+                 or contains_phrase(normalize(row["name"]), tag))]
+    if budget_vnd is not None:
+        priced = [row for row in rows if row.get("price_min_vnd") is not None]
+        result["unpriced_skipped"] = len(rows) - len(priced)
+        rows = [row for row in priced if row["price_min_vnd"] <= budget_vnd]
+    # Chỗ có giá và giờ lên trước để người dùng có đủ dữ kiện quyết định.
+    rows.sort(key=lambda row: (row.get("price_min_vnd") is None, row.get("open_hour") is None,
+                               row.get("price_min_vnd") or 0, row["name"]))
+    picked = [{field: row.get(field) for field in
+               ("name", "kind", "area", "district", "vin_area", "address", "hours", "open_late",
+                "price_min_vnd", "price_max_vnd", "must_try")} | {"source_url": row["sources"][0]["url"]}
+              for row in rows[:max(1, limit)]]
+    return dict(result, status="ok" if picked else "no_match", area=scope, venues=picked)
+
+
+@tool
+def list_transport(free_only: bool = False) -> dict:
+    """Tên: Tra tuyến xe buýt và xe điện đến, đi trong Ocean Park.
+    Input: Chỉ lấy tuyến miễn phí (true/false).
+    Output: Danh sách tuyến (mã, loại, lộ trình, giờ chạy, giá vé, nguồn).
+    Tác động ra ngoài: Không, chỉ đọc data/ocean_park_places.json; không đặt vé, không gọi xe.
+    """
+    routes = [{field: row.get(field) for field in
+               ("code", "kind", "route", "hours", "price_vnd", "price_note", "source_url")}
+              for row in _load(PLACES_FILE)["transport"]
+              if not free_only or row["price_vnd"] == 0]
+    return {"status": "ok" if routes else "no_match", "free_only": free_only, "routes": routes}
+
+
+LODGING_KINDS = ("khách sạn", "homestay", "biệt thự")
+
+
+@tool
+def find_lodging(area: str = "Ocean Park", kind: str = "", budget_per_night_vnd: int | None = None,
+                 limit: int = 5) -> dict:
+    """Tên: Tìm chỗ lưu trú (khách sạn, homestay, biệt thự) ở Ocean Park.
+    Input: Khu (Ocean Park hoặc Ocean Park 1/2/3), loại chỗ ở (khách sạn, homestay, biệt thự
+    hoặc rỗng), ngân sách VND mỗi đêm cho cả căn/phòng (tùy chọn), số chỗ tối đa.
+    Output: Danh sách chỗ ở (tên, loại, khu, địa chỉ, giá ngày thường và cuối tuần, độ tin cậy
+    nguồn, link) và số chỗ bị loại vì nguồn không có giá khi đã đặt ngân sách.
+    Tác động ra ngoài: Không, chỉ đọc data/ocean_park_places.json; không đặt hay giữ phòng.
+    """
+    scope, _ = _match_scope(area)
+    result = {"status": "unsupported_area", "area": area, "kind": kind,
+              "budget_per_night_vnd": budget_per_night_vnd, "lodging": [], "unpriced_skipped": 0}
+    if scope is None:
+        return result
+    if kind and kind not in LODGING_KINDS:
+        return dict(result, status="need_info")
+    # Chỗ ở chỉ biết chung "Ocean Park" vẫn hiện khi hỏi một khu cụ thể, kèm khu để người dùng tự đối chiếu.
+    rows = [row for row in _load(PLACES_FILE)["lodging"]
+            if (scope == "Ocean Park" or row["area"] in (scope, "Ocean Park"))
+            and (not kind or row["kind"] == kind)]
+    if budget_per_night_vnd is not None:
+        priced = [row for row in rows if row["price_min_vnd"] is not None]
+        result["unpriced_skipped"] = len(rows) - len(priced)
+        rows = [row for row in priced if row["price_min_vnd"] <= budget_per_night_vnd]
+    rows.sort(key=lambda row: (row["confidence"] != "nguồn chính", row["area"] != scope,
+                               row["price_min_vnd"] is None, row["price_min_vnd"] or 0))
+    picked = [{field: row.get(field) for field in
+               ("name", "kind", "area", "address", "stars", "price_min_vnd", "price_max_vnd",
+                "weekend_price_min_vnd", "weekend_price_max_vnd", "price_note", "confidence",
+                "source_url")} for row in rows[:max(1, limit)]]
+    return dict(result, status="ok" if picked else "no_match", area=scope, lodging=picked)
+
+
+PARK_ALIASES = {
+    "VinWonders Wave Park": ("wave park", "cong vien song", "bien nhan tao hung yen",
+                             "bien nhan tao ocean park 2", "royal wave"),
+    "VinWonders Water Park": ("water park", "cong vien nuoc", "paradise bay", "aqua bay"),
+    "Grand World": ("grand world",),
+}
+COMBO = "Combo Wave Park & Water Park"
+
+
+def resolve_park(text):
+    """Tên công viên chuẩn từ câu người dùng; None nếu không có trong dữ liệu."""
+    normalized = normalize(text)
+    if contains_phrase(normalized, "combo") or (
+            contains_phrase(normalized, "wave park") and contains_phrase(normalized, "water park")):
+        return COMBO
+    return next((park for park, aliases in PARK_ALIASES.items()
+                 if any(contains_phrase(normalized, alias) for alias in aliases)), None)
+
+
+def _snapshot_id():
+    import hashlib
+    return "OP-" + hashlib.sha1((DATA / PLACES_FILE).read_bytes()).hexdigest()[:10]
+
+
+def _ticket_tier(height_cm):
+    if height_cm is None:
+        return None
+    return "<80cm" if height_cm < 80 else "80–140cm" if height_cm < 140 else "≥140cm"
+
+
+@tool
+def get_park_catalog(park: str, visit_date: str = "", guests: list | None = None) -> dict:
+    """Tên: Lấy danh mục trò chơi, quy định và giá vé của một khu vui chơi Ocean Park.
+    Input: Công viên (VinWonders Wave Park, VinWonders Water Park, combo hai công viên hoặc Grand
+    World), ngày đi ISO YYYY-MM-DD hoặc "cuối tuần" / "ngày thường" (tùy chọn), nhóm khách: danh sách {"label", "height_cm"}.
+    Output: Trạng thái (OK, NEEDS_INPUT khi thiếu chiều cao để tính vé, MISSING_DATA khi công viên
+    không có trong dữ liệu), snapshot_id, loại ngày, vé từng khách và tổng, quy định vé, dịch vụ
+    thu thêm, danh sách hoạt động (khu, trong nhà, cho trẻ em, cảm giác mạnh, gồm trong vé, điều
+    kiện) và các trường còn thiếu dữ liệu.
+    Tác động ra ngoài: Không, chỉ đọc data/ocean_park_places.json (bảng giá chính thức VinWonders);
+    không mua vé.
+    """
+    catalog = _load(PLACES_FILE)["park_catalog"]
+    canonical = resolve_park(park) or next((p for p in PARK_ALIASES if normalize(p) == normalize(park)),
+                                           None)
+    result = {"status": "MISSING_DATA", "park": park, "snapshot_id": _snapshot_id(), "is_mock": False,
+              "day_type": None, "tickets": [], "ticket_total_vnd": None, "missing_heights": [],
+              "rules": [], "add_ons": [], "activities": [],
+              "not_in_data": ["thời lượng từng trò", "thời gian chờ", "phút đi bộ giữa các khu",
+                              "giới hạn chiều cao từng trò", "sự cố trong ngày"]}
+    if canonical is None:
+        return result
+    day_type = None
+    if normalize(visit_date) in ("cuoi tuan", "ngay le", "ngay thuong"):
+        day_type = "ngày thường" if normalize(visit_date) == "ngay thuong" else "cuối tuần"
+    elif visit_date:
+        try:
+            day_type = "cuối tuần" if date.fromisoformat(visit_date).weekday() >= 5 else "ngày thường"
+        except ValueError:
+            return dict(result, status="NEEDS_INPUT", park=canonical, missing_heights=[],
+                        not_in_data=result["not_in_data"] + ["ngày đi hợp lệ"])
+    parks = ("VinWonders Wave Park", "VinWonders Water Park") if canonical == COMBO else (canonical,)
+    prices = {(t["park"], t["guest"]): t for t in catalog["tickets"]}
+    tickets, missing, total = [], [], 0
+    if canonical != "Grand World":  # Grand World vào cổng miễn phí, trò tính riêng
+        for index, guest in enumerate(guests or []):
+            label = guest.get("label") or f"khách {index + 1}"
+            tier = _ticket_tier(guest.get("height_cm"))
+            if tier is None:
+                missing.append(label)
+                continue
+            row = prices.get((canonical, tier)) or prices.get(("Wave Park / Water Park", tier))
+            price = None
+            if row and day_type:
+                price = row["weekday_vnd"] if day_type == "ngày thường" else row["weekend_holiday_vnd"]
+            tickets.append({"label": label, "height_cm": guest["height_cm"], "tier": tier,
+                            "weekday_vnd": row["weekday_vnd"], "weekend_holiday_vnd":
+                            row["weekend_holiday_vnd"], "price_vnd": price})
+            total = None if price is None or total is None else total + price
+    activities = [{field: row.get(field) for field in
+                   ("park", "area", "name", "description", "indoor", "kid_zone", "thrill",
+                    "included_in_ticket", "min_height_cm", "height_note", "price_note",
+                    "duration_min", "source_url")} | {"wait_min": None}
+                  for row in catalog["activities"] if row["park"] in parks]
+    status = "NEEDS_INPUT" if missing else "OK"
+    return dict(result, status=status, park=canonical, day_type=day_type, tickets=tickets,
+                ticket_total_vnd=total if tickets and not missing and day_type else None,
+                missing_heights=missing,
+                rules=[r["rule"] for r in catalog["ticket_rules"]] if canonical != "Grand World" else [],
+                add_ons=[a for a in catalog["add_ons"] if a["park"] in parks],
+                activities=activities)
