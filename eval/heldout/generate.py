@@ -77,6 +77,7 @@ def main():
         writer.writerows(rows)
     manifest = {"created_at": datetime.now(timezone.utc).isoformat(), "seed": SEED,
                 "rows": len(rows), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                "sha256_lf": hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest(),
                 "author": "Codex; synthetic, không phải bộ do người đánh giá độc lập giữ kín",
                 "policy": "Chốt trước sửa; không dùng output để chỉnh code; giữ mọi ca trượt."}
     (ROOT / "manifest.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

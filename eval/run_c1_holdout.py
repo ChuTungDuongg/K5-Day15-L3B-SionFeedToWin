@@ -17,7 +17,7 @@ def main():
     folder = ROOT / "eval" / "heldout"
     bench = folder / "benchmark.csv"
     manifest = json.loads((folder / "manifest.json").read_text(encoding="utf-8"))
-    if hashlib.sha256(bench.read_bytes()).hexdigest() != manifest["sha256"]:
+    if hashlib.sha256(bench.read_bytes().replace(b"\r\n", b"\n")).hexdigest() != manifest["sha256_lf"]:
         raise SystemExit("Bộ heldout khác bản đã chốt; không chạy.")
     with bench.open(encoding="utf-8-sig", newline="") as f:
         items = list(csv.DictReader(f))
@@ -33,7 +33,7 @@ def main():
     sources = list((ROOT / "codebase").glob("*.py")) + [ROOT / "data" / "cong_vien_mau.json"]
     context = {"run_id": run_id, "started_at": datetime.now(timezone.utc).isoformat(),
                "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-               "benchmark_sha256": manifest["sha256"], "ids": ids,
+               "benchmark_sha256_lf": manifest["sha256_lf"], "ids": ids,
                "source_sha256": {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                                  for p in sources}}
     with (folder / f"{name}-context.json").open("x", encoding="utf-8") as f:
