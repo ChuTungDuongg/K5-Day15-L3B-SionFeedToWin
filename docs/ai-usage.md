@@ -17,5 +17,3 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Slide, video, reflection | Chưa thực hiện hoặc chưa có sản phẩm trong repo | Chưa có slide PDF, link video hay bài reflection cá nhân | Chờ nhóm thực hiện và xác nhận. Không tự tạo trải nghiệm hoặc biên nhận nộp bài | Cả bốn thành viên |
 
 **Không dùng AI để:** tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát; sửa kết quả các lượt đã chạy (`eval/run-*.csv`, `cost/simulate-*.csv`, `traces/`).
-
-Codex bổ sung bước model chọn trò, chạy hai tình huống lập lịch thật và đối chiếu bản chấm run-4 trên nhánh Manh. Codex chuẩn bị phiếu chấm trống cho người thứ hai, gửi 5 ca đã bỏ điểm cũ cho model đối chiếu bổ sung (khớp 5/5) và phân tích dữ liệu công khai của TouringPlans.
