@@ -1,6 +1,6 @@
 'use client';
 
-import { SocialEmptyState } from '../social-empty-state';
+import { FeedStatus } from './feed-status';
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useQueryClient, useMutation, useQuery, type InfiniteData } from '@tanstack/react-query';
 import { vi, t } from '@vintrip/i18n';
@@ -935,32 +935,25 @@ export function SocialFeedView({
           </div>
         )}
 
-        {/* Loading state */}
-        {/* Mở bài qua ?open= thì bài đó hiện trước khi feed tải xong: lúc đó chấm nằm ở cuối feed, không chèn thẻ rỗng. */}
-        {isFeedLoading && posts.length === 0 && (
-          <div className={styles.feedLoadingGrid} role="status" aria-label="Đang tải bảng tin cảm hứng">{Array.from({ length: 6 }, (_, i) => <div key={i} />)}</div>
-        )}
-
-        {/* Error state */}
-        {!isFocusUnavailable && postsQuery.isError && (
-          <ApiErrorNotice error={postsQuery.error} retry={() => void postsQuery.refetch()} />
-        )}
+        <FeedStatus
+          loading={isFeedLoading && posts.length === 0}
+          error={!isFocusUnavailable && postsQuery.isError ? postsQuery.error : undefined}
+          empty={!isDirectFocus && posts.length === 0}
+          emptyHint={activeFilter === 'saved'
+            ? 'Bạn chưa lưu bài viết nào. Hãy khám phá và lưu lại những bài viết bạn yêu thích.'
+            : 'Chưa có bài viết nào phù hợp với bộ lọc hiện tại.'}
+          onRetry={() => void postsQuery.refetch()}
+          onCompose={() => {
+            if (!user) { window.location.href = loginReturnHref; return; }
+            handleOpenComposer('vlog');
+          }}
+        />
 
         {isDirectFocus && (
           <ApiErrorNotice error={focusedPostQuery.error} retry={() => void focusedPostQuery.refetch()} />
         )}
         {isFocusUnavailable && !focusedPostQuery.isError && (
           <div className={styles.emptyFeed} role="alert">{vi.api.missing}</div>
-        )}
-
-        {/* Empty state */}
-        {!isDirectFocus && !postsQuery.isPending && !postsQuery.isError && posts.length === 0 && (
-          <SocialEmptyState action={<button type="button" className="primary-button" onClick={() => {
-            if (!user) { window.location.href = loginReturnHref; return; }
-            handleOpenComposer('vlog');
-          }}>Chia sẻ chuyến đi</button>}>
-            <p>{activeFilter === 'saved' ? 'Bạn chưa lưu bài viết nào. Hãy khám phá và lưu lại những bài viết bạn yêu thích.' : 'Chưa có bài viết nào phù hợp với bộ lọc hiện tại.'}</p>
-          </SocialEmptyState>
         )}
 
         {/* Posts list */}

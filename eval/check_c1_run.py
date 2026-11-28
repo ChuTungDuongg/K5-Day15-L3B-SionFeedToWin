@@ -201,10 +201,13 @@ class Catalog:
 
 
 def check_case(row, events, catalog):
-    output = row["output"]
+    # Git có thể đổi LF thành CRLF trong CSV khi checkout trên Windows.
+    # JSONL giữ ký tự \n đã escape, nên chỉ chuẩn hóa xuống dòng khi đối chiếu.
+    normalize_newlines = lambda text: text.replace("\r\n", "\n").replace("\r", "\n")
+    output = normalize_newlines(row["output"])
     source_errors, valid_errors = [], []
     finals = [e for e in events if e["kind"] == "final"]
-    if len(finals) != 1 or finals[0].get("output") != output:
+    if len(finals) != 1 or normalize_newlines(finals[0].get("output", "")) != output:
         source_errors.append("Output CSV khác kết quả cuối của trace")
         valid_errors.append("Không xác nhận được lịch hiển thị từ trace")
     validators, walks = [], set()

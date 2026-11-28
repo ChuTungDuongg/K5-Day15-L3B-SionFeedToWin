@@ -4,6 +4,7 @@ import { Authenticated, CurrentUser, type AuthUser } from '@vintrip/auth';
 import { z } from 'zod';
 import { CommerceErrorFilter, ZodQuery } from '../../inventory/api/http.js';
 import { RoomUpgradeUseCases } from '../application/room-upgrade.use-cases.js';
+import { RoomUpgradeProposalUseCases } from '../application/room-upgrade-proposal.use-cases.js';
 import { QuoteRequestSchema, type QuoteRequest } from '../domain/room-upgrade.js';
 
 const scopeSchema = z.strictObject({ hotelId: z.string().min(1).max(100) });
@@ -15,7 +16,16 @@ const listSchema = scopeSchema.extend({ roomNumber: z.string().min(1).max(100).o
 @Controller('commerce/room-upgrades')
 @UseFilters(CommerceErrorFilter)
 export class RoomUpgradesController {
-  constructor(@Inject(RoomUpgradeUseCases) private readonly upgrades: RoomUpgradeUseCases) {}
+  constructor(
+    @Inject(RoomUpgradeUseCases) private readonly upgrades: RoomUpgradeUseCases,
+    @Inject(RoomUpgradeProposalUseCases) private readonly proposals: RoomUpgradeProposalUseCases,
+  ) {}
+
+  @Get('staff-context')
+  @Header('Cache-Control', 'no-store')
+  staffContext(@CurrentUser() user: AuthUser) {
+    return this.proposals.getStaffContext(user.userId);
+  }
 
   @Get('bookings')
   @Header('Cache-Control', 'no-store')

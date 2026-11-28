@@ -26,7 +26,7 @@ const PROMPT_ICONS: Record<string, AssistantIconName> = {
 
 /** Trang không hiện Vini: đăng nhập/đăng ký (khung riêng), checkout và thanh toán (tránh che nút trả tiền). */
 export function isAssistantHidden(pathname: string): boolean {
-  return /^\/(?:login|register|forgot-password|dat-lai-mat-khau|xac-thuc-email|checkout|payments|onboarding)(?:\/|$)/.test(
+  return /^\/(?:login|register|forgot-password|dat-lai-mat-khau|xac-thuc-email|checkout|payments|onboarding|staff)(?:\/|$)/.test(
     pathname,
   );
 }

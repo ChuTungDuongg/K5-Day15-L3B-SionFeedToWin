@@ -3,12 +3,14 @@
 > Điền ở guide bước 1.2, xong trước **CP3 10:00 Thứ Bảy 28/11**. Chấm ở rubric R1.
 > Ba nguồn ngang nhau — tối thiểu **≥1 nguồn đạt ngưỡng**. Mạnh nhất: đào data ra insight → hỏi người dùng để kiểm lại (hoặc ngược lại).
 
+Nguồn chính nhóm xác nhận là khảo sát qua biểu mẫu. Không bắt buộc làm cả khảo sát lẫn phỏng vấn. Hiện nguồn khảo sát chưa đạt ngưỡng người thật đúng đối tượng, nên phần bằng chứng CP3 vẫn đang chờ.
+
 ## 1. Nguồn đã dùng
 
 | Nguồn | Đạt ngưỡng? | File |
 |---|---|---|
 | Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☐ Chưa, có 10 dòng gắn nhãn thật, trong đó 4 đi cùng trẻ nhỏ | [CSV đã ẩn danh](survey/results-c1.csv), [đối chiếu trường và tình trạng bản câu hỏi gốc](survey/questions.md) |
-| Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | ☐ | `evidence/interviews/P1.md`… *(nhóm cần bổ sung trước CP3)* |
+| Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | Chưa lưu biên bản riêng, không phải nguồn chính hiện tại | Có thể chọn làm nguồn thay thế hoặc đối chiếu nếu nhóm thực hiện, không tạo biên bản từ CSV khảo sát |
 | Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` còn là mẫu chưa điền, chưa có kết quả để dùng cho C1 |
 
 **Phạm vi dữ liệu khảo sát:** bảng trả lời có 20 dòng với cột `loai_du_lieu`. Theo nhãn nhóm lưu, 10 dòng đầu là `nguoi_dung_that`, 10 dòng sau là `tu_viet` và không được đếm vào bằng chứng. Cột nguồn của các dòng đầu ghi “Google Form · có bổ sung trong Sheets”. Repo chưa có bản câu hỏi gốc hoặc lịch sử cho biết ô nào đã được bổ sung, nên phép đếm xác nhận nội dung CSV, chưa xác minh độc lập nguồn gốc và tính nguyên văn. Các số dưới đây chỉ tính bản ghi STT 1 đến 10. Khi trích dẫn “dòng N”, N là giá trị cột `stt`, không tính hàng tiêu đề.
@@ -21,9 +23,11 @@
   - Mỗi người đi khu vui chơi 1 đến 4 lần/năm (trung vị 2).
   - Cách xoay xở: tự tra web/app công viên 5/10; tự kiểm giới hạn tuổi/chiều cao và cộng giá 5/10; xem review/hỏi bạn rồi ước lượng đi bộ, xếp hàng 3/10; hỏi công cụ AI 2/10.
   - 4/10 người đi cùng gia đình có trẻ nhỏ, tức đúng người dùng chính. Trong 4 người này, 2/4 tới nơi mới biết bé không đủ chiều cao/tuổi; 2/4 đi trơn tru nhưng phải tự cân giờ suất diễn với giờ ăn trưa của bé.
-- Phỏng vấn: 0/3, cần làm trước CP3.
+- Chưa lưu biên bản phỏng vấn riêng. Khảo sát là nguồn chính đã chọn, không tính các câu trả lời biểu mẫu thành số cuộc phỏng vấn.
 
-## 3. ≥5 trích dẫn nguyên văn (có nguồn, bỏ tên)
+## 3. Sáu câu trích đang lưu trong CSV
+
+Các câu dưới đây trùng nội dung trả lời mở trong bảng hiện có. Vì nguồn ghi có bổ sung trong Sheets, vẫn cần đối chiếu bản gốc trước khi xác nhận là lời người tham gia nguyên văn đã được phép trích dẫn.
 
 1. *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* (`results-c1.csv` dòng 5, đi cùng gia đình có trẻ nhỏ)
 2. *"Trang bán vé không ghi rõ cách đo chiều cao cho bé."* (dòng 7, đi cùng gia đình có trẻ nhỏ, lên lịch trên 60 phút)
@@ -34,7 +38,7 @@
 
 ## 4. Các nguồn có khớp nhau không
 
-Mới có một nguồn (khảo sát n = 10), chưa đối chiếu được. Các sự cố người trả lời kể khớp với các ràng buộc lát cắt C1 kiểm: điều kiện chiều cao/tuổi, giờ suất diễn, thời gian đi bộ và xếp hàng, xếp lại khi mưa/huỷ show. Cần phỏng vấn ≥3 phụ huynh đi cùng trẻ nhỏ để kiểm lại.
+Mới có một nguồn khảo sát n = 10, chưa có nguồn độc lập để đối chiếu. Các sự cố được kể liên quan đến điều kiện chiều cao/tuổi, giờ suất diễn, đi bộ, xếp hàng và mưa/hủy show. Nhóm cần bổ sung khảo sát đúng đối tượng để đạt ngưỡng hoặc chọn nguồn thay thế đạt yêu cầu. Phỏng vấn ít nhất 3 phụ huynh là một cách đối chiếu nếu nhóm chọn thực hiện.
 
 ## 5. Kết luận
 

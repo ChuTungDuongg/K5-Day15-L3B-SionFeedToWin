@@ -36,7 +36,9 @@ Các cột phiên và tháng chép từ simulate-1-summary. Riêng cột task th
 
 ## 3. So với impact
 
-Chi phí mẫu mỗi người ở kịch bản cơ sở là 0,0337 hoặc 0,1737 USD/tháng tùy bảng giá. Impact mỗi người mỗi tháng theo spec §2 còn chờ số liệu ____. Nhóm cần cả giá gpt-6-luna thật và giá trị thời gian hoặc chi phí tiết kiệm được để kết luận có đáng triển khai. [AI spec §2](../spec.md)
+Chi phí mẫu mỗi người ở kịch bản cơ sở là 0,0337 hoặc 0,1737 USD/tháng tùy bảng giá. Spec §2 đã tổng hợp tần suất đi và thời gian chuẩn bị từ khảo sát, nhưng chưa có quy mô người dùng, tần suất gặp sự cố theo tháng hoặc phép đo thời gian tiết kiệm do VinTrip. Nhóm cần cả đơn giá của model/endpoint đã chạy và mức lợi ích có nguồn trước khi kết luận có đáng triển khai. [AI spec §2](../spec.md)
+
+Các mục đang chờ cho CP4: duyệt lượt eval dùng để tính tỷ lệ thành công, xác nhận đơn giá thật, thay hoặc xác nhận các giả định persona/quy mô với nhãn tự ước tính, rồi tính lại. Không sửa bản simulate-1 hoặc bản tóm tắt do khung đã sinh. Không dùng tỷ lệ nháp 29/30 làm số được duyệt.
 
 ## 4. *(Muốn sâu hơn, không bắt buộc)*
 
