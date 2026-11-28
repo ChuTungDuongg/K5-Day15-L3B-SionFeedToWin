@@ -492,6 +492,9 @@ def _c3_conversation():
 
 def _route(text):
     normalized = normalize(text)
+    validation_refusal = c1_flow.reject_validation_bypass(text)
+    if validation_refusal:
+        return validation_refusal
     if any(re.search(pattern, normalized) for pattern in PROMPT_PATTERNS):
         note("Từ chối yêu cầu can thiệp chỉ dẫn hoặc bỏ bước duyệt")
         return ["Trạng thái: TỪ CHỐI. Vini từ chối tiết lộ chỉ dẫn nội bộ, khoá bí mật trong .env, "

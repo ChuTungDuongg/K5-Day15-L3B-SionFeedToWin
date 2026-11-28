@@ -12,13 +12,13 @@ Nguồn tham khảo của thư mục `vintrip/`: khung frontend (Next.js), backe
 
 Hướng dẫn chính thức: [đề bài](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/01-challenge-brief.md) · [guide](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/02-guide.md) · [rubric](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/blob/main/03-rubric.md) · [các track](https://github.com/VinUni-AI20k/K5-L3-Day15-AI-Product-Hackathon/tree/main/tracks).
 
-**Trạng thái rà soát ngày 28/11:** các file chính của CP1 và CP2 đã có, gồm 4 thành viên, canvas, sơ đồ thiết kế, 30 câu thử và 4 metric. `python run.py check` không báo vấn đề cấu trúc. Nhóm xác nhận chưa làm/nộp CP3. Repo đã có thêm code C1, dữ liệu Công viên Mẫu, bốn lượt eval và một lượt mô phỏng 50 phiên, nhưng các mục này chưa đủ để xác nhận CP3 hoặc CP4 hoàn tất. Xem [bảng kiểm từng checkpoint và phần đang chờ](docs/tracker/BOARD.md#rà-soát-hồ-sơ-checkpoint-ngày-28112026).
+**Trạng thái ngày 28/11:** CP1–CP2 đã có hồ sơ trong repo. Nhóm xác nhận đã nộp CP3 trên Form; repo chưa lưu biên nhận và link video để kiểm tra độc lập. CP4 đang hoàn thiện. Bộ 30 câu sau sửa C1-17 đạt nháp 30/30, bộ kiểm định riêng đạt nháp 19/20 và phát hiện lỗi show đã hủy vẫn được xếp VALID. [Kết quả và giới hạn](eval/c1-validation-review.md).
 
-**Bằng chứng hiện có:** CSV lưu 20 dòng, trong đó 10 dòng được nhóm gắn nhãn người dùng thật và 10 dòng tự viết. Chỉ đếm 10 dòng đầu: 7/10 kể có sự cố, 6/10 chuẩn bị từ 30 phút, 4/10 đi cùng trẻ nhỏ. Nguồn đào dữ liệu bổ sung có 20/260 mốc chờ thực tế vượt giờ niêm yết ít nhất 10 phút và năm ví dụ đối chiếu. Khảo sát chưa đạt ngưỡng 20 người ngoài đội đúng đối tượng. Chỉ cần ít nhất một nguồn đạt ngưỡng, không bắt buộc đồng thời phỏng vấn và khảo sát. Xem [tổng hợp và giới hạn nguồn](evidence/summary.md).
+**Bằng chứng hiện có:** repo lưu 3 biên bản phỏng vấn phụ huynh ngoài nhóm và nguồn đào dữ liệu có 20/260 mốc chờ vượt giờ niêm yết ít nhất 10 phút, kèm 5 ví dụ đối chiếu. Khảo sát bổ sung có 10 dòng gắn nhãn thật và 10 dòng tự viết, chỉ 4/10 dòng thật đi cùng trẻ nhỏ; không dùng 20 dòng này để khai 20 người khảo sát thật. Xem [tổng hợp và giới hạn nguồn](evidence/summary.md).
 
-**[Nội dung điền Form 2 CP3](docs/cp3.md).** [Hai ca chạy model thật](validation/c1-model-choice.json) cho thấy sở thích khác nhau dẫn đến hai lịch hợp lệ khác nhau. [Run-4](eval/report.md) của phiên bản trước đạt 29/30. Còn chờ người thứ hai chấm 5 output, đối chiếu nguồn khảo sát và video 30 giây.
+**[Hồ sơ CP3](docs/cp3.md):** [hai ca model thật](validation/c1-model-choice.json) có lựa chọn trò khác nhau; run-4 đã được người thứ hai đối chiếu 5/5. Các lượt mới có [chấm nháp trước–sau](eval/c1-validation-review.md) chờ nhóm duyệt; đối chiếu run-4 không tự áp dụng cho run-6.
 
-**Đang chờ cho CP4 và cuối ngày:** chọn cặp lượt so sánh và cải tiến, xác minh giá model và giả định quy mô, slide `demo-slides.pdf`, video dự phòng, bốn bài reflection và xác nhận đã nộp Form. Token mô phỏng đã đo, còn giá USD trong báo cáo hiện là giá mẫu.
+**Đang chờ cho CP4 và cuối ngày:** nhóm duyệt điểm các lượt mới; ghi rõ lỗi còn lại; xác minh đơn giá model và giả định quy mô, hoàn thiện chi phí/task, slide `demo-slides.pdf`, video dự phòng và reflection của 4 thành viên. Token đã đo; bảng giá mẫu chưa phải chi phí thực trả.
 
 Tài liệu nghiên cứu về điều kiện hủy phòng trong repo thuộc hướng trước. Nhóm cần thu bằng chứng đúng đối tượng của VinTrip trước khi kết luận về nhu cầu hoặc mức tiết kiệm thời gian.
 
@@ -38,7 +38,7 @@ Tài liệu nghiên cứu về điều kiện hủy phòng trong repo thuộc h�
 | Chấm cột `pass` theo metric spec | Chạy cả bộ một lệnh, có run ID, model, token từng câu (`run.py eval`) · tính % đạt (`run.py score`) |
 | Persona, số người dùng thật, giá model (`cost/personas.yaml`) | Sinh ~50 phiên, chạy thật qua bản chạy thử, tính chi phí / phiên, / task thành công, / tháng 3 kịch bản (`run.py simulate`) |
 
-Luồng C1 hiện tại: code đọc yêu cầu → lấy dữ liệu Công viên Mẫu → bộ tìm lịch bằng beam search → validator tính lại → model diễn đạt câu trả lời → kiểm phản hồi model so với căn cứ. Sáu công cụ đã có trong `codebase/tools.py`, dùng `data/cong_vien_mau.json`. Thiết kế mục tiêu và giới hạn của phần AI ở [spec.md §4](spec.md).
+Luồng C1 hiện tại: đọc yêu cầu → lấy catalog Công viên Mẫu → model chọn trò trong danh mục phù hợp → bộ tìm lịch xếp giờ → validator tính lại → model diễn đạt và kiểm phản hồi so với căn cứ. Yêu cầu bỏ kiểm tra hoặc ép VALID bị từ chối; thiếu lịch/dữ kiện thì validator không xác nhận. Thiết kế và giới hạn ở [spec.md §4](spec.md).
 
 ## Chạy trong 3 phút
 

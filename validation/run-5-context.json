@@ -1,0 +1,19 @@
+{
+  "started_at": "2026-11-28T05:38:14.423313+00:00",
+  "commit": "3d2c9836307643cb612a56e517783446205b14f6",
+  "branch": "vintrip",
+  "command": "python run.py eval",
+  "model_requested": "gpt-6-luna",
+  "case_count": 30,
+  "sha256": {
+    "eval/benchmark.csv": "ca097c629b38fc43a92f015bc13e89448a021d0ca691147d6633f57e0386d749",
+    "eval/metric_spec.yaml": "0fae057c87c52535f85881b8508e6cf76491468fdad3b46c4135d19959f36c83",
+    "spec.md": "0b71b1a66f3e41d0cc6c0049fb9f1cd822561f80fbee15a7c9ed7e20c761be04",
+    "codebase/agent.py": "f9cf393f0897f13fa91004535e31835331ec568b9b4a1232be81c5e669fd06d1",
+    "codebase/ai.py": "eec7897f4d4ddf19df62b5b0f3f957d911f9c481f664a0b3ddfb2c4bd8c370f0",
+    "codebase/c1_flow.py": "7ea92f1ae09f6639841cc8086e7cb7a30663ac9058d72401517ecd3f4068519e",
+    "codebase/park_engine.py": "10c636193d615b4e0d861a2282de5dd69b530bbed49b5e0c3f8edd0d2e6477e3",
+    "codebase/tools.py": "becb7554fe8d8c975d40dc6b2a864bffeb4b874bad3dddbb450da9f00ec4b9e3",
+    "data/cong_vien_mau.json": "3e314e2ee2acff88c12b03acf2c606100d6671fdcb7397b370145c4336d0006d"
+  }
+}
