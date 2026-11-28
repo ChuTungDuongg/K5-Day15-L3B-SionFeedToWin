@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState, type FormEvent } from 'react';
 import { vi } from '@vintrip/i18n';
 import { askParkPlanner, type ParkPlanReply } from './park-planner-api';
 import { PARK_PLANNER_SAMPLE, PARK_PLANNER_SAMPLE_QUESTION } from './park-planner-sample';
+import { ParkPlannerOutput } from './park-planner-output';
 import styles from './park-planner.module.css';
 
 type View = { kind: 'empty' | 'loading' | 'error' }
@@ -25,6 +26,8 @@ export function ParkPlanner() {
   const [text, setText] = useState('');
   const [view, setView] = useState<View>({ kind: 'empty' });
   const request = useRef<AbortController | null>(null);
+  const resultScroll = useRef<HTMLDivElement | null>(null);
+  const [moreBelow, setMoreBelow] = useState(false);
   const busy = view.kind === 'loading';
   const status = view.kind === 'result' ? view.reply.status : '';
   const statusLabel = Object.hasOwn(copy.statuses, status)
@@ -36,6 +39,18 @@ export function ParkPlanner() {
     request.current = null;
     controller?.abort();
   }, []);
+
+  useEffect(() => {
+    const element = resultScroll.current;
+    if (!element) return;
+    element.scrollTop = 0;
+    const update = () => setMoreBelow(element.scrollTop + element.clientHeight < element.scrollHeight - 1);
+    update();
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(update);
+    observer?.observe(element);
+    if (element.firstElementChild) observer?.observe(element.firstElementChild);
+    return () => observer?.disconnect();
+  }, [view]);
 
   function changeQuestion(value: string) {
     setText(value);
@@ -80,7 +95,14 @@ export function ParkPlanner() {
           {busy ? copy.loading : copy.send}
         </button>
       </form>
-      <div className={styles.result} aria-live="polite">
+      <div className={styles.result} aria-live="polite" data-more-below={moreBelow}>
+        <div ref={resultScroll} className={styles.resultScroll} role="region" aria-label={copy.result} tabIndex={0}
+          onScroll={(event) => {
+            const element = event.currentTarget;
+            setMoreBelow(element.scrollTop + element.clientHeight < element.scrollHeight - 1);
+          }}>
+        <div className={styles.scrollContent}>
+        {view.kind !== 'result' && <div className={styles.placeholder}>
         {view.kind === 'empty' && (
           <div className={styles.state}>
             <h3>{copy.empty}</h3>
@@ -106,21 +128,24 @@ export function ParkPlanner() {
             {copy.sample}
           </button>
         )}
+        </div>}
         {view.kind === 'result' && (
           <section className={styles.answer} aria-label={copy.result}>
+            <div className={styles.answerHead}>
+              <h3>{copy.result}</h3>
+              <span className={`${styles.badge} ${statusTone}`}>
+                {statusLabel} ({view.reply.status})
+              </span>
+              <span className={styles.snapshot}>{copy.snapshot} {view.reply.snapshot_id}</span>
+            </div>
+            <div className={styles.answerBody}>
             {view.sample && (
               <>
                 <p className={styles.sampleNotice}>{copy.sampleNotice}</p>
                 <p className={styles.sampleQuestion}><strong>{copy.sampleQuestion}: </strong>{PARK_PLANNER_SAMPLE_QUESTION}</p>
               </>
             )}
-            <div className={styles.answerHead}>
-              <h3>{copy.result}</h3>
-              <span className={`${styles.badge} ${statusTone}`}>
-                {statusLabel} ({view.reply.status})
-              </span>
-            </div>
-            <p className={styles.output}>{view.reply.output}</p>
+            <ParkPlannerOutput output={view.reply.output} />
             <details className={styles.trace}>
               <summary>{copy.trace} ({view.reply.trace.length})</summary>
               <p>{copy.snapshot} {view.reply.snapshot_id}</p>
@@ -130,8 +155,11 @@ export function ParkPlanner() {
                 ))}
               </ol>
             </details>
+            </div>
           </section>
         )}
+        </div>
+        </div>
       </div>
     </div>
   );

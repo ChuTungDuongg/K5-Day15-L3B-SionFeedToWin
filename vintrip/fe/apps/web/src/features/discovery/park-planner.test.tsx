@@ -7,12 +7,11 @@ import { vi as copy } from '@vintrip/i18n';
 const hooks = vi.hoisted(() => {
   const states: unknown[] = [];
   const refs: Array<{ current: unknown }> = [];
-  let stateIndex = 0; let refIndex = 0;
-  let cleanup: (() => void) | undefined;
-  let mounted = false;
+  const effects: Array<{ effect: () => void | (() => void); deps?: readonly unknown[]; pending: boolean; cleanup?: () => void }> = [];
+  let stateIndex = 0; let refIndex = 0; let effectIndex = 0;
   return {
-    begin() { stateIndex = 0; refIndex = 0; },
-    unmount() { cleanup?.(); cleanup = undefined; mounted = false; },
+    begin() { stateIndex = 0; refIndex = 0; effectIndex = 0; },
+    unmount() { for (const entry of effects) entry.cleanup?.(); effects.length = 0; },
     reset() { this.unmount(); states.length = 0; refs.length = 0; this.begin(); },
     useState<T>(initial: T): [T, (value: T) => void] {
       const index = stateIndex++;
@@ -24,8 +23,18 @@ const hooks = vi.hoisted(() => {
       if (!(index in refs)) refs[index] = { current: initial };
       return refs[index] as { current: T };
     },
-    useEffect(effect: () => () => void) {
-      if (!mounted) { mounted = true; cleanup = effect(); }
+    useEffect(effect: () => void | (() => void), deps?: readonly unknown[]) {
+      const index = effectIndex++;
+      const previous = effects[index];
+      if (!previous || !deps || !previous.deps || deps.length !== previous.deps.length
+        || deps.some((value, i) => !Object.is(value, previous.deps?.[i]))) {
+        previous?.cleanup?.(); effects[index] = { effect, deps, pending: true };
+      }
+    },
+    flush() {
+      for (const entry of effects) {
+        if (entry.pending) { entry.pending = false; entry.cleanup = entry.effect() ?? undefined; }
+      }
     },
   };
 });
@@ -46,7 +55,12 @@ function elements(node: ReactNode): Element[] {
   if (!isValidElement<Record<string, unknown>>(node)) return [];
   return [node, ...Children.toArray(node.props.children as ReactNode).flatMap(elements)];
 }
-function render() { hooks.begin(); return ParkPlanner(); }
+function render() { hooks.begin(); const tree = ParkPlanner(); hooks.flush(); return tree; }
+function textContent(tree: ReactNode) {
+  return renderToStaticMarkup(tree).replace(/<[^>]*>/g, '')
+    .replace(/&quot;/g, '"').replace(/&#x27;/g, "'")
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+}
 function find(tree: ReactNode, type: string, text?: string) {
   const element = elements(tree).find((node) => node.type === type
     && (!text || renderToStaticMarkup(node).includes(text)));
@@ -102,7 +116,7 @@ describe('Khung lập lịch dùng chung trang chủ và /c1', () => {
     await vi.waitFor(() => expect(renderToStaticMarkup(render())).toContain('role="alert"'));
     const tree = render(); const html = renderToStaticMarkup(tree);
     expect(html).toContain(copy.parkPlanner.error);
-    expect(html).not.toContain(reply.output); expect(html).not.toContain(PARK_PLANNER_SAMPLE.output);
+    expect(html).not.toContain(reply.output); expect(textContent(tree)).not.toContain(PARK_PLANNER_SAMPLE.output);
     expect(html).not.toContain(copy.parkPlanner.sampleNotice);
     expect(find(tree, 'button', copy.parkPlanner.sample)).toBeTruthy();
     click(tree, copy.parkPlanner.retry);
@@ -133,7 +147,7 @@ describe('Khung lập lịch dùng chung trang chủ và /c1', () => {
     const callsBefore = vi.mocked(askParkPlanner).mock.calls.length;
     click(render(), copy.parkPlanner.sample);
     const html = renderToStaticMarkup(render());
-    expect(html).toContain(PARK_PLANNER_SAMPLE.output);
+    expect(textContent(render())).toContain(PARK_PLANNER_SAMPLE.output);
     expect(html).toContain(copy.parkPlanner.sampleNotice);
     expect(html).toContain(`${copy.parkPlanner.trace} (${PARK_PLANNER_SAMPLE.trace.length})`);
     expect(askParkPlanner).toHaveBeenCalledTimes(callsBefore);
@@ -150,5 +164,28 @@ describe('Khung lập lịch dùng chung trang chủ và /c1', () => {
     vi.mocked(askParkPlanner).mockReturnValue(new Promise(() => {})); submit(question());
     const signal = vi.mocked(askParkPlanner).mock.calls[0]?.[1];
     expect(signal?.aborted).toBe(false); hooks.unmount(); expect(signal?.aborted).toBe(true);
+  });
+
+  it('kết quả có nhãn giờ riêng, chip snapshot, header và khung cuộn; kết quả mới cuộn về đầu', async () => {
+    const node = { scrollTop: 200, clientHeight: 400, scrollHeight: 1000, firstElementChild: null };
+    const scroller = elements(render()).find((element) => element.props.className === styles.resultScroll)!;
+    (scroller.props.ref as { current: unknown }).current = node;
+    vi.mocked(askParkPlanner).mockResolvedValue(PARK_PLANNER_SAMPLE);
+    submit(question());
+    await vi.waitFor(() => expect(renderToStaticMarkup(render())).toContain(styles.timeBadge));
+    const tree = render(); const html = renderToStaticMarkup(tree);
+    expect(html).toContain(`class="${styles.timeBadge}">09:05–10:15</span>`);
+    expect(html).toContain(`class="${styles.resultScroll}"`);
+    expect(html).toContain(`class="${styles.answerHead}"`);
+    expect(html).toContain(`class="${styles.snapshot}"`);
+    expect(node.scrollTop).toBe(0);
+    expect(html).toContain('data-more-below="true"');
+    node.scrollTop = 600;
+    const scroll = elements(tree).find((element) => element.props.className === styles.resultScroll)!;
+    (scroll.props.onScroll as (event: { currentTarget: typeof node }) => void)({ currentTarget: node });
+    expect(renderToStaticMarkup(render())).toContain('data-more-below="false"');
+    submit(render());
+    await vi.waitFor(() => expect(renderToStaticMarkup(render())).toContain(styles.timeBadge));
+    expect(node.scrollTop).toBe(0);
   });
 });
