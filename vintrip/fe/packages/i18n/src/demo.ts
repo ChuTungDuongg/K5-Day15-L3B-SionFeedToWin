@@ -69,7 +69,7 @@ export const demo = {
     otherTrips: 'Thêm một chút cảm hứng',
     notFoundTitle: 'Chuyến đi này chưa có trong danh mục.',
     notFoundBody: 'Quay về khám phá để chọn một chuyến khác.',
-    footer: 'Vintrip · Thấy là thích, nhích là đi.',
+    footer: 'Vintrip · Mỗi hành trình là một câu chuyện đáng nhớ.',
   },
   feed: {
     previous: 'Bài trước',

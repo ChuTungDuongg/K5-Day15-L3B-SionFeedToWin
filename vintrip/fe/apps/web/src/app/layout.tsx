@@ -2,6 +2,7 @@ import { t, vi } from '@vintrip/i18n';
 import type { Metadata, Viewport } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Be_Vietnam_Pro, Dancing_Script } from 'next/font/google';
 import type { ReactNode } from 'react';
 import './globals.css';
 // Sau globals.css để header điện thoại (TF98) thắng các rule header cũ.
@@ -20,6 +21,19 @@ import { MobileTabBar } from '@/features/shell/mobile-tab-bar';
 import { ButtonRipple } from '@/features/shared/button-ripple';
 import { DEFAULT_OG_IMAGE } from '@/features/seo/page-metadata';
 import { getSiteUrl } from '@/lib/site';
+
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-be-vietnam-pro',
+  display: 'swap',
+});
+const dancingScript = Dancing_Script({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['600', '700'],
+  variable: '--font-dancing-script',
+  display: 'swap',
+});
 
 // Metadata mặc định cho mọi trang (TF112): metadataBase biến link tương đối (canonical, ảnh) thành tuyệt đối.
 // Trang con tự đặt title đầy đủ, nên không dùng title.template để tránh lặp "| Vintrip". Canonical và og:url
@@ -55,7 +69,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="vi">
+    <html lang="vi" className={`${beVietnamPro.variable} ${dancingScript.variable}`}>
       <body className="min-h-dvh bg-background text-text antialiased">
         <Providers>
           <ButtonRipple />

@@ -2,7 +2,7 @@
 
 Bundled from the approved mobile/design handoff. Font and photo attribution is recorded in `apps/mobile/assets/brand/README.md`.
 
-- The active web font is [Inter variable](fonts/README.md), with the system SF Pro stack on Apple devices. Legacy `regular.ttf` and `bold.ttf` remain for existing public-asset test references; they are not loaded by `globals.css`.
+- Web fonts: Be Vietnam Pro (body, weights 400–700) and Dancing Script (hero title/slogan only, weights 600–700), loaded and self-hosted by `next/font/google` with Latin and Vietnamese subsets. Sources: [Be Vietnam Pro](https://github.com/bettergui/BeVietnamPro) and [Dancing Script](https://github.com/impallari/DancingScript), both under the SIL Open Font License 1.1. Legacy `regular.ttf` and `bold.ttf` remain for existing public-asset test references; they are not loaded by `globals.css`. Inter and Great Vibes are no longer loaded or bundled as web fonts. The logo's existing Inter outlines remain vector paths.
 - Mascot PNGs in `vini/` were replaced for FE-03; prompts and the user's Teemo direction are recorded in [`vini/README.md`](vini/README.md).
 - Destination and hotel photographs illustrate the UI; they are not verified catalog media.
 - `home-hoi-an-lanterns.jpg` is [Khoi Tran’s photograph of Hội An](https://unsplash.com/photos/a-tree-with-a-bunch-of-colorful-paper-lanterns-hanging-from-its-branches-NPIJb6T4tO4), available under the Unsplash License.
