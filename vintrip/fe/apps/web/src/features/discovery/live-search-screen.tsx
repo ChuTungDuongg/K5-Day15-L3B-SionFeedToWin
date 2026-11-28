@@ -189,6 +189,7 @@ export function LiveSearchScreen({
               {vi.api.hotels}
             </span>
             <Link prefetch={false} href="/flights" className={styles.flightTab}>{vi.flights.title}</Link>
+            <Link prefetch={false} href="/#lich-vui-choi" className={styles.flightTab}>{vi.parkPlanner.nav}</Link>
             {/* Bộ lọc thêm trượt ngang ra trong khoảng trống của hàng tab, không đè lên ô tìm hay nút tìm. */}
             <div
               id="home-more-filters"

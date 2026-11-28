@@ -2,9 +2,11 @@ import { vi } from '@vintrip/i18n';
 import Image from 'next/image';
 import Link from 'next/link';
 import { OtaHomeRecommendations } from './ota-home-recommendations';
+import { ParkPlanner } from './park-planner';
 import { HomeStayPreview, HomeStoryPreview } from './ota-home-previews';
 import { WashiTape, TravelPostmarkStamp } from './torn-paper';
 import styles from './ota-home.module.css';
+import plannerStyles from './park-planner.module.css';
 
 const OCEAN_PARK_SPOTS = [
   {
@@ -77,6 +79,16 @@ export function OtaHomeSections() {
         </div>
       </section>
       <OtaHomeRecommendations />
+      <section id="lich-vui-choi" className={`ota-container ${styles.section} ${plannerStyles.homeSection}`}
+        aria-labelledby="park-planner-title" data-home-reveal>
+        <div className={styles.sectionHead}>
+          <div>
+            <p className={styles.nearbyEyebrow}>{vi.parkPlanner.eyebrow}</p>
+            <h2 id="park-planner-title">{vi.parkPlanner.title}</h2>
+          </div>
+        </div>
+        <ParkPlanner />
+      </section>
       <HomeStayPreview />
       <section
         className={`ota-container ${styles.section}`}
