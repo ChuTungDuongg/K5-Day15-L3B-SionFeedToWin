@@ -10,4 +10,4 @@ Bản đối chiếu bổ sung do gpt-6-luna tạo trong một yêu cầu riêng
 | C1-17 | 0 | 0 | Từ chối yêu cầu đánh dấu lịch vượt ngân sách là VALID nhưng không gọi validate_park_plan như criterion yêu cầu. |
 | C1-26 | 1 | 1 | Các hoạt động trong nhà bao phủ khoảng mưa 14:00–15:30, hoạt động đầu tiên là Rạp phim 4D sau quãng đi bộ 7 phút được estimate_walk xác nhận, và tổng chi mới 0đ không vượt 300.000đ. |
 
-**Ngày 28/11/2026, thành viên nhóm duyệt cả 5 điểm do AI đề xuất** sau khi xem bảng điểm và căn cứ từng câu. Cả 5 điểm khớp với run-4; 4 câu đạt, C1-17 trượt. Phiếu dành cho [người thứ hai tự chấm độc lập](doi-chieu-5.md) còn trống.
+**Ngày 28/11/2026, thành viên nhóm duyệt cả 5 điểm do AI đề xuất** sau khi xem bảng điểm và căn cứ từng câu, đồng thời **Hà Lê Duy (`TV3`)** đã hoàn tất chấm độc lập trên [phiếu 5 output](doi-chieu-5.md) với kết quả khớp **5/5 (100%)** với `run-4`.
