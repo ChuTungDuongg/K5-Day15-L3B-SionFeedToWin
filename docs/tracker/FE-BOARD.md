@@ -44,6 +44,8 @@
 | FE-13 | Hero trang chủ: chữ "VinTrip" lớn + slogan mới "Mỗi hành trình là một câu chuyện đáng nhớ." viết bằng Dancing Script; font chữ chính toàn trang đổi sang Be Vietnam Pro (token đã đổi, xem `fe-redesign.md` §1.2); ảnh hero đổi sang biển hồ Ocean Park `ocean-park/ocean-park-lagoon.jpg` | **Codex** | FE-05 | CHỜ NGHIỆM THU |
 | FE-14 | Khôi phục route `app/auth/google/mobile/route.ts` (đăng nhập Google cho app di động) để `pnpm typecheck` và build Docker chạy được; test có sẵn là đặc tả | **Antigravity** | — | TODO |
 | FE-15 | Gộp C1 vào trang chủ: khung lập lịch Công viên Mẫu (`#lich-vui-choi`) nằm dưới mục "Gợi ý cho bạn", trên dải "VINTRIP TICKET", thêm tab "Lịch vui chơi"; `/c1` dùng chung component | **Codex** | FE-13 | TODO |
+| FE-16 | Chatbot đổi tên "Vini" → "VinTrip", mô tả "Chồn nhỏ đồng hành cùng bạn" (i18n `assistant.ts` + prompt `vintrip/ai/app/prompts/assistant-responder.v5.md`); sửa chuỗi sót `initials: 'TF'`, "rái cá biển". Không đổi `codebase/agent.py` (C1 đã chấm) | **Codex** | FE-13 | TODO |
+| FE-17 | Đánh bóng trang chủ theo `docs/design/fe-polish-handoff.md` đợt 2–3 (bento, tấm vé sổ tay, banner cộng đồng, chân trang, hover) + quyết định màu phụ xanh cổ vịt | **Codex** | FE-15 | SAU CP4 |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
 ## Phân vùng file (không ai sửa vùng của người khác)
