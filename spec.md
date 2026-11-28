@@ -228,4 +228,4 @@ Số dưới đây được đếm từ [kết quả khảo sát C1](evidence/su
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| 28/11/2026 · Reflection cá nhân | Thêm `reflection/chu-nguyen-tung-duong.md` cho Chu Nguyễn Tùng Dương, mã 2A202604016, và cập nhật khai báo AI. Nội dung gồm điều phối, lập kế hoạch, chia việc, viết CP1/CP2, phụ trách C2, thuyết trình và chấm điểm nhóm khác | Theo thông tin tác giả cung cấp; bài học dùng lỗi HO-14 đã ghi trong `eval/c1-validation-review.md`. Chỉ bổ sung hồ sơ cá nhân, không đổi chuẩn đạt hoặc kết quả đã chạy |
