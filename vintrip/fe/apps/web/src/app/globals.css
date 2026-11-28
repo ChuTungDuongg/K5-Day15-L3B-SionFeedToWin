@@ -912,7 +912,8 @@ h3 {
   transform: translateY(1px);
 }
 .primary-button:disabled {
-  opacity: 0.6;
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
   cursor: wait;
 }
 .secondary-button {
