@@ -235,5 +235,98 @@ class FlowTests(unittest.TestCase):
         self.assertNotIn("09:15", out)
 
 
+class BudgetParsingTests(unittest.TestCase):
+    """Phụ huynh hay viết ngân sách theo đơn vị (triệu, tr, nghìn, k), không chỉ số đủ chữ số."""
+
+    def budget(self, phrase):
+        import c1_flow
+        return c1_flow.parse_request(f"Công viên Mẫu, hai vợ chồng, đi 9h–13h, ngân sách {phrase}")["budget_vnd"]
+
+    def test_unit_forms(self):
+        cases = {"1.250.000 đồng": 1_250_000, "1,2 triệu": 1_200_000, "3.5 triệu": 3_500_000,
+                 "2tr4": 2_400_000, "1 triệu 750": 1_750_000, "3 triệu rưỡi": 3_500_000,
+                 "40 triệu": 40_000_000, "40,5 triệu": 40_500_000, "850k": 850_000,
+                 "750 nghìn": 750_000, "650 ngàn": 650_000}
+        for phrase, expected in cases.items():
+            with self.subTest(phrase=phrase):
+                self.assertEqual(self.budget(phrase), expected)
+
+    def test_trailing_number_is_not_read_as_money(self):
+        self.assertEqual(self.budget("2tr, 3 người lớn"), 2_000_000)
+        self.assertEqual(self.budget("2 triệu 3 người lớn"), 2_000_000)
+        self.assertEqual(self.budget("1tr5, cần ăn trưa"), 1_500_000)
+        self.assertEqual(self.budget("2 triệu 4."), 2_400_000)
+
+    def test_unknown_budget_still_needs_input(self):
+        self.assertIsNone(self.budget("vừa phải"))
+
+    def test_replan_reads_units(self):
+        out = agent.answer("Nhà mình 2 người lớn, hiện là 13:00, đang ở khu ăn uống, trời mưa đến 14:30. Đã chi 750k, "
+                           "ngân sách tổng 1,2 triệu, xếp lại phần còn lại đến 16:00. "
+                           "Phần đã hoàn thành: tham quan khu A 09:30–10:40.", include_status=True)["output"]
+        self.assertIn("1.200.000đ − 750.000đ đã chi = 450.000đ", out)
+
+
+class CancelledShowTodayTests(unittest.TestCase):
+    """Sự cố huỷ show trong snapshot là của hôm nay: chỉ loại suất khi phụ huynh lập lịch cho hôm nay."""
+
+    BASE = "Công viên Mẫu, hai vợ chồng, đi 9h–14h, ngân sách 1,2 triệu, muốn xem show 11:00."
+
+    def ask(self, text):
+        return agent.answer(text, include_status=True)
+
+    def test_advance_plan_keeps_show_but_warns(self):
+        reply = self.ask(self.BASE)
+        self.assertEqual(reply["status"], "VALID")
+        self.assertIn("nếu nhà mình đi hôm nay", reply["output"])
+
+    def test_today_asks_before_dropping_chosen_show(self):
+        reply = self.ask("Hôm nay " + self.BASE)
+        self.assertEqual(reply["status"], "NEEDS_INPUT")
+        self.assertIn("bỏ show, hay đổi sang suất khác", reply["output"])
+        self.assertNotIn("Trạng thái: VALID", reply["output"])
+
+    def test_today_reply_with_new_session_or_no_show(self):
+        moved = self.ask("đổi sang suất 12:30. Hôm nay " + self.BASE)
+        self.assertEqual(moved["status"], "VALID")
+        self.assertIn("suất 12:30 (có mặt", moved["output"])
+        dropped = self.ask("bỏ show. Hôm nay " + self.BASE)
+        self.assertEqual(dropped["status"], "VALID")
+        self.assertNotIn("Show Vũ điệu", dropped["output"])
+
+    def test_today_any_session_skips_cancelled_ones(self):
+        out = self.ask("Hôm nay Công viên Mẫu, hai vợ chồng, 09:00–16:00, ngân sách 1 triệu, "
+                       "muốn xem show đầu giờ chiều")["output"]
+        self.assertIn("Vini không xếp các suất này", out)
+        self.assertIn("suất 14:00 (có mặt", out)
+
+
+class UnitWordingTests(unittest.TestCase):
+    """"1m" là 1 mét khi nói chiều cao, là 1 triệu khi nói ngân sách; "phân" là cm."""
+
+    def members(self, phrase):
+        import c1_flow
+        return [m["height_cm"] for m in c1_flow.parse_members(f"hai vợ chồng, {phrase}")[1]
+                if m["kind"] == "child"]
+
+    def test_heights_in_meters(self):
+        cases = {"bé 6 tuổi cao 1m2": [120], "bé 6 tuổi cao 1m": [100], "bé 6 tuổi cao 1m05": [105],
+                 "bé 6 tuổi cao 1,25m": [125], "bé 6 tuổi cao 1 mét 3": [130],
+                 "bé 6 tuổi cao 118 phân": [118], "bé 5 tuổi 1m1, bé 9 tuổi 1m35": [110, 135]}
+        for phrase, expected in cases.items():
+            with self.subTest(phrase=phrase):
+                self.assertEqual(self.members(phrase), expected)
+
+    def test_m_after_budget_is_money(self):
+        import c1_flow
+        req = c1_flow.parse_request("Công viên Mẫu, ngân sách 1m, bé 6 tuổi cao 1m, hai vợ chồng, 9h–14h")
+        self.assertEqual(req["budget_vnd"], 1_000_000)
+        self.assertEqual([m["height_cm"] for m in req["members"] if m["kind"] == "child"], [100])
+        for phrase, expected in {"1m5": 1_500_000, "1 tr": 1_000_000, "2 m": 2_000_000}.items():
+            with self.subTest(phrase=phrase):
+                text = f"Công viên Mẫu, hai vợ chồng, 9h–14h, ngân sách {phrase}"
+                self.assertEqual(c1_flow.parse_request(text)["budget_vnd"], expected)
+
+
 if __name__ == "__main__":
     unittest.main()

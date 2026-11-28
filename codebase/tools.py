@@ -33,7 +33,10 @@ DEFAULT_TIMEZONE = _DefaultTimezone("Asia/Ho_Chi_Minh")
 @lru_cache
 def _vintrip_skill(name):
     """Load a shared stdlib skill without importing FastAPI or service packages."""
-    path = (DATA.parent / f"vintrip/ai/app/services/assistant/skills/{name}.py")
+    # Repo: <gốc>/vintrip/ai/app/...; image ai-service (Dockerfile.vintrip): /app/codebase cạnh /app/app/...
+    candidates = [DATA.parent / f"{prefix}app/services/assistant/skills/{name}.py"
+                  for prefix in ("vintrip/ai/", "")]
+    path = next((p for p in candidates if p.is_file()), candidates[0])
     spec = importlib.util.spec_from_file_location(f"vintrip_{name}", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

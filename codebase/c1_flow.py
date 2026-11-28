@@ -3,6 +3,7 @@
 Đọc câu của phụ huynh thành yêu cầu chuẩn hoá bằng luật cố định, gọi công cụ, và chỉ gọi lịch là
 VALID khi `validate_park_plan` không báo vi phạm. Giờ và tiền in ra đều lấy từ công cụ.
 """
+from contextvars import ContextVar
 import json
 import re
 import unicodedata
@@ -16,6 +17,8 @@ from tracing import note
 PARK = pe.MOCK_PARK
 NUM = {"mot": 1, "hai": 2, "ba": 3, "bon": 4, "nam": 5}
 TIME = r"(\d{1,2})\s*(?::|h|gio)\s*(\d{2})?(?:\s*(sang|chieu|toi))?"
+# Lịch đã lập trong lượt hiện tại, để dịch vụ web gửi sang core-api kiểm lại (None = không ghi).
+_PLANNED = ContextVar("c1_planned", default=None)
 SCOPE = ("Vini chỉ lập và kiểm lịch một ngày tại khu vui chơi (dữ liệu Công viên Mẫu là mô phỏng); "
          "phụ huynh tự quyết và tự mua vé ở kênh chính thức.")
 
@@ -41,8 +44,52 @@ def _time(match_groups):
     return f"{hour:02d}:{int(minute or 0):02d}"
 
 
+# Số tiền trên câu đã fold: "1.400.000", "1,5 triệu", "1tr5", "1 tr", "1m5", "2 triệu rưỡi", "900k".
+# MONEY chỉ dùng ngay sau "ngân sách" / "đã chi", nên "1m" ở đây là 1 triệu, không phải 1 mét.
+MONEY = (r"(?:\d+(?:[.,]\d+)*\s*(?:trieu|tr(?![a-z])|m(?![a-z]))"
+         r"(?:\s*(?:ruoi\b|\d{1,3}(?![\d:]|[.,]\d|\s*(?:nguoi|be|tuoi|cm|gio|h\b|phut))))?"
+         r"|\d+(?:[.,]\d+)*\s*(?:nghin|ngan(?! sach)|k\b)"
+         r"|[\d.,]{4,})")
+_MONEY_PARTS = re.compile(r"(?P<num>\d+(?:[.,]\d+)*)\s*(?P<unit>trieu|tr|m|nghin|ngan|k)?\s*(?P<tail>ruoi|\d{1,3})?")
+_UNIT_VND = {"trieu": 1_000_000, "tr": 1_000_000, "m": 1_000_000, "nghin": 1_000, "ngan": 1_000, "k": 1_000}
+
+# Chiều cao theo mét / phân: "1m", "1m2", "1m05", "1,2m", "1.25 m", "1 mét 2", "120 phân".
+_METER = re.compile(r"(?<![\d.,])(\d)(?:[.,](\d{1,2})\s*(?:m|met)|\s*(?:m|met)\s*(\d{1,2})?)(?![a-z\d])")
+_PHAN = re.compile(r"(?<![\d.,])(\d{2,3})\s*phan\b")
+_MONEY_CONTEXT = re.compile(r"(ngan sach|da chi|chi phi|tong|con lai)[^\d]{0,12}$")
+
+
+def heights_in_cm(folded):
+    """Đổi chiều cao viết theo mét / phân thành 'NNN cm'; bỏ qua số đứng ngay sau từ chỉ tiền (1m = 1 triệu)."""
+    def to_cm(match):
+        if _MONEY_CONTEXT.search(folded[max(0, match.start() - 24):match.start()]):
+            return match.group(0)
+        fraction = match.group(2) or match.group(3) or ""
+        centimeters = int(match.group(1)) * 100 + (int(fraction.ljust(2, "0")) if fraction else 0)
+        return f"{centimeters} cm" if 50 <= centimeters <= 220 else match.group(0)
+
+    return _PHAN.sub(r"\1 cm", _METER.sub(to_cm, folded))
+
+
 def _money(text):
-    return int(text.replace(".", "").replace(",", ""))
+    """Đổi số tiền đã khớp MONEY sang VND nguyên; số không đơn vị giữ cách đọc cũ (bỏ dấu phân cách)."""
+    parts = _MONEY_PARTS.fullmatch(text.strip())
+    if not parts or not parts["unit"]:
+        return int(re.sub(r"[.,]", "", text))
+    unit = _UNIT_VND[parts["unit"]]
+    number = parts["num"]
+    # "1,5 triệu" / "1.5 triệu": dấu phân cách kèm 1–2 chữ số sau là phần thập phân.
+    if re.fullmatch(r"\d+[.,]\d{1,2}", number):
+        whole, fraction = re.split(r"[.,]", number)
+        amount = int(whole) * unit + int(fraction) * unit // 10 ** len(fraction)
+    else:
+        amount = int(re.sub(r"[.,]", "", number)) * unit
+    tail = parts["tail"]
+    if tail == "ruoi":
+        amount += unit // 2
+    elif tail and unit == 1_000_000:  # "1tr5" = 1.500.000, "1 triệu 250" = 1.250.000
+        amount += int(tail) * unit // 10 ** len(tail)
+    return amount
 
 
 # ---------------------------------------------------------------- nhận diện
@@ -69,7 +116,7 @@ def refusal(text):
 
 # ---------------------------------------------------------------- chuẩn hoá yêu cầu
 def parse_members(text):
-    f = fold(text)
+    f = heights_in_cm(fold(text))
     adults = None
     match = re.search(r"\b(\d+|mot|hai|ba|bon|nam) nguoi lon\b", f)
     if match:
@@ -132,14 +179,15 @@ def parse_request(text):
         req["window"] = [_time(start_only.groups()), _time(until.groups())]
     elif start_only:
         req["start_only"] = _time(start_only.groups())
-    budget = re.search(r"ngan sach(?: tong)?\s*(?:la|khoang)?\s*([\d.,]{4,})", f)
+    budget = re.search(rf"ngan sach(?: tong)?\s*(?:(?:la|khoang|len|thanh|tang len|giam xuong|toi da|duoi)\s*)?({MONEY})", f)
     req["budget_vnd"] = _money(budget.group(1)) if budget else None
     req["adults_given"] = adults is not None
     # show
-    if re.search(r"khong can (xem )?show", f):
+    if re.search(r"khong can (xem )?show|\bbo (xem )?show\b|\bbo qua show\b|khong xem show", f):
         req["show"] = None
     else:
-        at = re.search(rf"(?:show|suat dien)\s*(?:luc\s*)?{TIME}", f)
+        # "suất 12:30" cũng là chọn suất: phụ huynh hay trả lời ngắn khi Vini hỏi đổi suất.
+        at = re.search(rf"(?:show|suat dien|suat)\s*(?:luc\s*)?{TIME}", f)
         if at:
             req["show"] = {"mode": "at", "time": _time(at.groups())}
         elif "show buoi trua" in f:
@@ -184,6 +232,27 @@ def parse_request(text):
         if any(fold(name) in f for name in aliases):
             req["required_activities"].append(act["id"])
     return req
+
+
+DAY_OF = re.compile(r"\b(hom nay|bay gio|hien la|hien tai|dang o|luc nay)\b")
+
+
+def cancelled_shows():
+    """Suất diễn bị huỷ hôm nay theo get_park_incidents, theo mã suất."""
+    return {i["session_id"]: i for i in get_park_incidents(PARK)["incidents"]
+            if i.get("type") == "show_cancelled" and i.get("session_id")}
+
+
+def cancelled_show_question(hit, cancelled, window):
+    """G10: suất phụ huynh chọn đã huỷ hôm nay; hỏi bỏ show hay đổi suất, không tự quyết."""
+    start, end = (pe.to_min(x) for x in window)
+    others = [s["start"] for s in get_show_schedule(PARK)["sessions"]
+              if s["id"] not in cancelled and start <= pe.to_min(s["start"]) and pe.to_min(s["end"]) <= end]
+    offer = f" (suất còn chạy trong khung giờ của bạn: {', '.join(others)})" if others else ""
+    return [f"Trạng thái: NEEDS_INPUT. get_park_incidents ghi suất {hit['start']} hôm nay đã huỷ "
+            f"({hit['reason']}).",
+            f"Vini không tự bỏ show bạn đã chọn. Bạn muốn bỏ show, hay đổi sang suất khác{offer}?",
+            "Vini chưa xếp lịch cho tới khi bạn chọn."]
 
 
 def other_park(text):
@@ -257,8 +326,21 @@ def plan_and_check(req, text):
     return plan, check
 
 
+def start_plan_capture():
+    """Bắt đầu ghi các lịch FOUND trong lượt; gọi trước agent.answer."""
+    _PLANNED.set([])
+
+
+def captured_plans():
+    """Các lịch đã lập kèm yêu cầu chuẩn hoá và kết quả validate_park_plan cục bộ."""
+    return list(_PLANNED.get() or [])
+
+
 def plan_lines(req, plan, check, header=None, spent_note=""):
     snap = pe.snapshot()["snapshotId"]
+    planned = _PLANNED.get()
+    if planned is not None and plan["status"] == "FOUND":
+        planned.append({"request": req, "items": plan["items"], "check": check, "snapshot_id": snap})
     if plan["status"] in ("SEARCH_TIMEOUT", "MISSING_DATA"):
         return [f"Trạng thái: {plan['status']}. {plan['reason']}"]
     if plan["status"] == "INFEASIBLE":
@@ -378,9 +460,9 @@ def replan(text, req):
         req["rain"] = [[_time(rain.groups()[:3]), _time(rain.groups()[3:])]]
     elif rain_until:
         req["rain"] = [[start, _time(rain_until.groups())]]
-    spent = re.search(r"da chi ([\d.,]{4,})", f)
-    total = re.search(r"ngan sach tong ([\d.,]{4,})", f)
-    remaining = re.search(r"ngan sach (?:rieng )?con(?: lai)? ([\d.,]{4,})", f)
+    spent = re.search(rf"da chi ({MONEY})", f)
+    total = re.search(rf"ngan sach tong ({MONEY})", f)
+    remaining = re.search(rf"ngan sach (?:rieng )?con(?: lai)? ({MONEY})", f)
     if remaining:
         req["budget_vnd"] = _money(remaining.group(1))
         money_note = f"Ngân sách còn lại {vnd(req['budget_vnd'])} theo phụ huynh."
@@ -552,12 +634,33 @@ def handle(text):
     if req.get("popular_n"):
         top = [a["id"] for a in snap["activities"] if a["popular"]][:req["popular_n"]]
         req["required_activities"] = top
+    # Sự cố trong snapshot là của hôm nay: chỉ loại suất huỷ khi phụ huynh lập lịch cho hôm nay.
+    cancelled = cancelled_shows()
+    is_today = bool(DAY_OF.search(f))
+    if cancelled and is_today:
+        req["cancelled_sessions"] = sorted(set(req["cancelled_sessions"]) | set(cancelled))
+        wanted = req["show"]
+        hit = next((i for i in cancelled.values()
+                    if wanted and wanted["mode"] == "at" and i.get("start") == wanted["time"]), None)
+        if hit:
+            note("G10: suất phụ huynh chọn đã huỷ hôm nay, hỏi trước khi đổi")
+            return cancelled_show_question(hit, cancelled, req["window"])
+        if wanted:
+            req["notes"].append("Hôm nay " + ", ".join(f"suất {i['start']} đã huỷ ({i['reason']})"
+                                                      for i in cancelled.values())
+                                + " theo get_park_incidents; Vini không xếp các suất này.")
     if re.search(r"kiem giup lich|kiem lich", f) or req["required_activities"]:
         return forced_check(req, text)
     if req["show"] and req["show"]["mode"] in ("between", "first"):
         req["notes"].append(show_choice_note(req))
     plan, check = plan_and_check(req, text)
     chosen = next((i for i in plan["items"] if i["kind"] == "show"), None)
+    if chosen and chosen["id"] in cancelled and not is_today:
+        hit = cancelled[chosen["id"]]
+        day = "/".join(reversed(snap["date"].split("-")[1:]))
+        req["notes"].append(f"Lưu ý: nếu nhà mình đi hôm nay ({day}), suất {hit['start']} đã huỷ "
+                            f"({hit['reason']}) theo get_park_incidents. Đi hôm nay thì bạn báo Vini để "
+                            "đổi suất.")
     if chosen and req["show"]["mode"] != "at":
         lunch = next((i for i in plan["items"] if i["kind"] == "lunch"), None)
         why = f"Chọn suất {chosen['start']}"
