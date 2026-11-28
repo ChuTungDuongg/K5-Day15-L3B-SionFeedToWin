@@ -45,7 +45,7 @@
 | FE-13b | Đổi ảnh hero biển hồ mới; giữ màu ảnh, gradient nhẹ chỉ bên trái và bóng chữ | **Codex** | FE-13 | XONG |
 | FE-14 | Khôi phục route `app/auth/google/mobile/route.ts` (đăng nhập Google cho app di động) để `pnpm typecheck` và build Docker chạy được; test có sẵn là đặc tả | **Antigravity** | — | TODO |
 | FE-15 | Gộp C1 vào trang chủ: khung lập lịch Công viên Mẫu (`#lich-vui-choi`) nằm dưới mục "Gợi ý cho bạn", trên dải "VINTRIP TICKET", thêm tab "Lịch vui chơi"; `/c1` dùng chung component. Làm **giao diện trước** theo hợp đồng `vintrip/CONTRACTS.md` §8; backend do người khác làm | **Codex** | FE-13 | XONG |
-| FE-15b | Kết quả C1: tô nổi khung giờ `HH:MM–HH:MM` ở đầu mỗi dòng lịch (chỉ đổi cách hiển thị, giữ nguyên văn bản) | **Codex** | FE-15 | TODO |
+| FE-15b | Kết quả C1 thiết kế lại: dòng thời gian có khung giờ nổi bật, bảng tiền kiểu hoá đơn, ô kiểm độc lập; cả phần trả lời nằm trong một khung cuộn riêng, không tràn sang khung khác (chỉ đổi cách hiển thị, giữ nguyên văn bản) | **Codex** | FE-15 | TODO |
 | FE-16 | Chatbot đổi tên "Vini" → "VinTrip", mô tả "Chồn nhỏ đồng hành cùng bạn" (i18n `assistant.ts` + prompt `vintrip/ai/app/prompts/assistant-responder.v5.md`); sửa chuỗi sót `initials: 'TF'`, "rái cá biển". Không đổi `codebase/agent.py` (C1 đã chấm) | **Codex** | FE-13 | XONG |
 | FE-17 | Đánh bóng trang chủ theo `docs/design/fe-polish-handoff.md` đợt 2–3 (bento, tấm vé sổ tay, banner cộng đồng, chân trang, hover) + quyết định màu phụ xanh cổ vịt | **Codex** | FE-15 | SAU CP4 |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
