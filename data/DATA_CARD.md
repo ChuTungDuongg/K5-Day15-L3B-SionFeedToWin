@@ -53,7 +53,11 @@ Một số câu xếp lại lịch có thêm lịch trước đó, vị trí hi�
 
 ## Dữ liệu của lát cắt cũ (không dùng cho C1)
 
-Nhánh main hiện không có các bộ dữ liệu nghiệp vụ hủy phòng, khách sạn, chuyến bay hay lịch chuyến đi. Bộ khung chỉ có công cụ trả một đoạn dữ liệu ví dụ. Tài liệu cũ trên máy chưa commit không phải dữ liệu của VinTrip và không được dùng thay bằng chứng C1.
+Các file `policies_sample.json` và `rooms_sample.json` đã có cho các luồng bổ trợ, được mô tả ở Dataset 5 và 6. Chúng không phải bằng chứng pain và không thay snapshot Công viên Mẫu dùng để đánh giá C1. Tài liệu cũ chưa commit trên máy khác không được tính là nguồn của nhánh này.
+
+## Dataset mở rộng C3 · Snapshot chuyến bay mô phỏng trên nhánh vintrip
+
+File: [`c3_snapshot.json`](../vintrip/ai/app/services/assistant/skills/c3_snapshot.json). Nguồn: Codex tự dựng cho demo theo yêu cầu triển khai C3 của nhóm ngày 27/11/2026; nhóm chưa xác nhận kiểm tay. Có 2 đặt chỗ giả, 5 chuyến thay thế giả và 1 quy tắc hoàn/đổi giả; không dùng dữ liệu cá nhân hoặc nhà cung cấp thật. Phiên bản `c3-demo-v1`, `isMock=true`, thời điểm snapshot `2026-11-27T12:00:00+07:00` là mốc mô phỏng; hết hạn báo giá `2026-12-10T09:00:00+07:00`. Giá và tồn chỗ là giá trị tự dựng minh hoạ, không phải số đo thị trường hay bằng chứng pain. Fixture cố định nên không có seed ngẫu nhiên. Xem [giới hạn và kiểm thử C3](../docs/c3-flight-disruption.md).
 
 ## Dữ liệu Ocean Park thật (bổ trợ, không thay Công viên Mẫu)
 

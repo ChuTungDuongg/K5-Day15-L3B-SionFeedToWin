@@ -10,6 +10,7 @@ import { AvatarPhoto } from '@/features/shared/avatar-photo';
 import { LoadingDots } from '@/features/shared/loading-dots';
 import { useHeaderPopover } from '@/features/shared/use-header-popover';
 import { getInitial } from './account-helpers';
+import styles from './account.module.css';
 import { MAX_ZOOM, clampView, initialView, sourceRect, zoomView, type CropView } from './avatar-crop';
 import {
   AVATAR_FRAMES,
@@ -103,11 +104,11 @@ export function AvatarEditor({ user }: { user: MyProfileDto }) {
   };
 
   return (
-    <div className="profile-avatar-editor" ref={menuRoot}>
+    <div className={`profile-avatar-editor ${styles.avatarWrap}`} ref={menuRoot}>
       <button
         ref={menuToggle}
         type="button"
-        className="profile-avatar is-editable"
+        className={`profile-avatar is-editable ${styles.avatarBtn}`}
         aria-label={vi.api.avatarChange}
         aria-haspopup="menu"
         aria-expanded={isMenuOpen}
@@ -128,6 +129,19 @@ export function AvatarEditor({ user }: { user: MyProfileDto }) {
             </svg>
           </span>
         )}
+      </button>
+      <button
+        type="button"
+        className={styles.changeAvatarBtn}
+        aria-label={vi.api.avatarChange}
+        disabled={isBusy}
+        onClick={() => {
+          closeMenu();
+          resetErrors();
+          setIsDecorDialogOpen(true);
+        }}
+      >
+        Đổi ảnh
       </button>
       {isMenuOpen && (
         <div className="profile-avatar-menu" role="menu">

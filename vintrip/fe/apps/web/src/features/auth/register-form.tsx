@@ -23,6 +23,7 @@ import { AuthErrorNotice, AuthField, PasswordField } from './auth-fields';
 import { DateOfBirthSelect } from './date-of-birth-select';
 import { readDeviceName, withReturnTo } from './auth-return';
 import { GoogleButton } from './google-button';
+import styles from './auth.module.css';
 
 const CODE_ONLY_NATIONALITIES: SoftSelectOption[] = COMMON_NATIONALITIES.map((code) => ({
   value: code,
@@ -143,13 +144,19 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
 
   return (
     <>
-      <h2 className="auth-panel-title">{vi.api.authRegisterPageTitle}</h2>
+      <h2 className={styles.title}>{vi.api.authRegisterPageTitle}</h2>
       <ApiErrorNotice
         error={error}
         retry={() => {
           void session.initialize();
         }}
       />
+      {!registrationId && (
+        <>
+          <GoogleButton onCredential={signInWithGoogle} />
+          <AuthErrorNotice error={google.error} action="google" />
+        </>
+      )}
       <form
         className="auth-form"
         noValidate
@@ -164,7 +171,7 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
           }
         }}
       >
-        <div className="auth-register-grid">
+        <div className={styles.registerGrid}>
           <AuthField
             id="auth-display-name"
             label={vi.api.displayName}
@@ -177,13 +184,15 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
             aria-describedby={isMissingName ? 'registration-needs-name' : undefined}
           />
           <PickerField id="auth-dob" label={vi.api.dateOfBirth}>
-            <DateOfBirthSelect
-              id="auth-dob"
-              onChange={setDateOfBirth}
-              isInvalid={
-                visibleIssue === 'signupDateOfBirthMissing' || visibleIssue === 'signupAgeOutOfRange'
-              }
-            />
+            <div className={styles.dobWrap}>
+              <DateOfBirthSelect
+                id="auth-dob"
+                onChange={setDateOfBirth}
+                isInvalid={
+                  visibleIssue === 'signupDateOfBirthMissing' || visibleIssue === 'signupAgeOutOfRange'
+                }
+              />
+            </div>
           </PickerField>
           <AuthField
             id="auth-email"
@@ -203,7 +212,7 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
               register.reset();
             }}
           />
-          <div className="auth-field-pair">
+          <div className={styles.fieldPair}>
             <PickerField id="auth-gender" label={vi.api.gender}>
               <SoftSelect
                 id="auth-gender"
@@ -223,7 +232,7 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
               />
             </PickerField>
           </div>
-          <div className="is-wide">
+          <div className={styles.wide}>
             <PasswordField
               id="auth-password"
               label={vi.api.password}
@@ -276,7 +285,7 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
           </span>
         </label>
         {visibleIssue && hasAccountDetails && (
-          <p role="alert" className="auth-error">
+          <p role="alert" className={styles.errorBox}>
             {vi.api[visibleIssue]}
           </p>
         )}
@@ -313,7 +322,7 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
           </div>
         )}
         {isTooSoon ? (
-          <p role="alert" className="auth-error">
+          <p role="alert" className={styles.errorBox}>
             {t('api.registrationCodeTooSoon', { seconds: cooldown.secondsLeft })}
           </p>
         ) : (
@@ -321,7 +330,7 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
         )}
         <AuthErrorNotice error={register.error} action="register" />
         <button
-          className="primary-button auth-submit"
+          className={`primary-button auth-submit ${styles.submitBtn}`}
           disabled={
             !isReady ||
             isBusy ||
@@ -340,14 +349,7 @@ export function LiveRegister({ returnTo }: { returnTo?: string }) {
                   : vi.api.registrationSendCode}
         </button>
       </form>
-      {/* Đang nhập mã thì bỏ phần Google cho thẻ gọn, vừa một màn hình. */}
-      {!registrationId && (
-        <>
-          <GoogleButton onCredential={signInWithGoogle} />
-          <AuthErrorNotice error={google.error} action="google" />
-        </>
-      )}
-      <Link prefetch={false} className="auth-link auth-switch" href={withReturnTo('/login', returnTo)}>
+      <Link prefetch={false} className={styles.switchLink} href={withReturnTo('/login', returnTo)}>
         {vi.api.haveAccount}
       </Link>
     </>

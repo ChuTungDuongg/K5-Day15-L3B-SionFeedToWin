@@ -1841,6 +1841,62 @@
         "title": "EmbedResponse",
         "type": "object"
       },
+      "FlightDisruption": {
+        "additionalProperties": false,
+        "description": "Untrusted request slots only; C3 always re-reads the mock snapshot.",
+        "properties": {
+          "action": {
+            "default": "review",
+            "enum": [
+              "review",
+              "hold",
+              "change",
+              "refund",
+              "choose"
+            ],
+            "title": "Action",
+            "type": "string"
+          },
+          "arrivalBefore": {
+            "anyOf": [
+              {
+                "maxLength": 40,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrivalbefore"
+          },
+          "bookingCode": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookingcode"
+          },
+          "targetFlightId": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Targetflightid"
+          }
+        },
+        "title": "FlightDisruption",
+        "type": "object"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -2656,6 +2712,21 @@
         "title": "ProposalPreviewExpectationOut",
         "type": "object"
       },
+      "Question": {
+        "properties": {
+          "text": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "Question",
+        "type": "object"
+      },
       "RoomUpgradeChatRequest": {
         "additionalProperties": false,
         "properties": {
@@ -3384,6 +3455,16 @@
               }
             ]
           },
+          "pendingFlightDisruption": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FlightDisruption"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "pendingFlights": {
             "items": {
               "$ref": "#/components/schemas/DraftTransport"
@@ -3642,6 +3723,42 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/c1/ask": {
+      "post": {
+        "operationId": "ask_c1_ask_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Question"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Ask"
+      }
+    },
     "/chat": {
       "post": {
         "operationId": "chat_chat_post",

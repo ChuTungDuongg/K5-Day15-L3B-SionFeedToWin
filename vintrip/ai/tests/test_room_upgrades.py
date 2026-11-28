@@ -2182,3 +2182,117 @@ def test_proposal_draft_openapi_retains_payload_and_metadata_fields() -> None:
     }
     for key in ("recommendationReasonVi", "draftMessageVi"):
         assert metadata["properties"][key]["anyOf"][0]["maxLength"] == 1000
+
+
+def test_resolve_benefit_id_maps_verified_code_and_preserves_fail_closed_behavior() -> None:
+    from app.services.room_upgrades.schemas import BackendBenefit
+    from app.services.room_upgrades.workflow import resolve_benefit_id
+
+    verified_gold = BackendBenefit.model_validate(
+        {
+            "id": "gold-0002",
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0002",
+            "code": "GOLD-10",
+            "verifiedAt": "2026-10-28T00:00:00+07:00",
+            "validFrom": "2026-10-28T00:00:00+07:00",
+            "validUntil": "2027-02-25T00:00:00+07:00",
+            "discountBps": 1000,
+            "roomTypeIds": ["DLX", "STE"],
+            "isMock": True,
+            "version": 1,
+        }
+    )
+    unverified_vip = BackendBenefit.model_validate(
+        {
+            "id": "unverified-0006",
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0006",
+            "code": "VIP-FREE",
+            "verifiedAt": None,
+            "validFrom": "2026-10-28T00:00:00+07:00",
+            "validUntil": "2027-02-25T00:00:00+07:00",
+            "discountBps": 10000,
+            "roomTypeIds": ["DLX"],
+            "isMock": True,
+            "version": 1,
+        }
+    )
+
+    assert resolve_benefit_id([verified_gold], "GOLD-10", request_type="UPGRADE") == "gold-0002"
+    assert resolve_benefit_id([verified_gold], "gold-0002", request_type="UPGRADE") == "gold-0002"
+    assert (
+        resolve_benefit_id([unverified_vip], "VIP-FREE", request_type="COMPLIMENTARY_UPGRADE")
+        is None
+    )
+    assert (
+        resolve_benefit_id([unverified_vip], "VIP-FREE", request_type="UPGRADE")
+        == "unverified-0006"
+    )
+    assert (
+        resolve_benefit_id(
+            [unverified_vip],
+            "unverified-0006",
+            request_type="COMPLIMENTARY_UPGRADE",
+        )
+        == "unverified-0006"
+    )
+    assert (
+        resolve_benefit_id([verified_gold], "UNKNOWN-CODE", request_type="UPGRADE")
+        == "UNKNOWN-CODE"
+    )
+
+
+def test_match_room_type_id_treats_feature_only_hint_as_open_discovery_and_rejects_unknown() -> (
+    None
+):
+    from app.services.room_upgrades.schemas import BackendRoomType
+    from app.services.room_upgrades.workflow import match_room_type_id
+
+    catalog = [
+        BackendRoomType.model_validate(
+            {
+                "id": "STD",
+                "hotelId": "upgrade-demo-hotel",
+                "name": "Tiêu chuẩn",
+                "rank": 1,
+                "maxGuests": 2,
+                "features": ["NON_SMOKING"],
+                "isMock": True,
+                "version": 1,
+            }
+        ),
+        BackendRoomType.model_validate(
+            {
+                "id": "DLX",
+                "hotelId": "upgrade-demo-hotel",
+                "name": "Deluxe hướng vườn",
+                "rank": 2,
+                "maxGuests": 2,
+                "features": ["NON_SMOKING", "GARDEN_VIEW"],
+                "isMock": True,
+                "version": 1,
+            }
+        ),
+        BackendRoomType.model_validate(
+            {
+                "id": "STE",
+                "hotelId": "upgrade-demo-hotel",
+                "name": "Suite gia đình",
+                "rank": 3,
+                "maxGuests": 4,
+                "features": ["NON_SMOKING", "GARDEN_VIEW", "ACCESSIBLE"],
+                "isMock": True,
+                "version": 1,
+            }
+        ),
+    ]
+
+    assert match_room_type_id(
+        catalog, explicit_id=None, hint="phòng hướng vườn, không hút thuốc"
+    ) == (None, False)
+    assert match_room_type_id(catalog, explicit_id=None, hint="Presidential Penthouse") == (
+        None,
+        True,
+    )
+    assert match_room_type_id(catalog, explicit_id="DLX", hint="Deluxe") == ("DLX", False)

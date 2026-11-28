@@ -22,7 +22,6 @@ const ICONS = {
 } as const;
 
 const NAVIGATION = [
-  { href: '/', label: vi.ota.home, icon: ICONS.home },
   { href: '/search', label: vi.api.hotels, icon: ICONS.hotel },
   { href: '/flights', label: vi.flights.title, icon: ICONS.flight },
   { href: '/inspiration', label: vi.api.inspiration, icon: ICONS.inspiration },

@@ -29,18 +29,21 @@ from app.services.assistant.controller import (
 from app.services.assistant.schemas import (
     Answer,
     Awaiting,
-    CardRef,
     Cancellation,
+    CardRef,
     ChatRequest,
+    FlightDisruption,
     TripContext,
     Understanding,
 )
 from app.services.assistant.skills import trip as trip_skill
 from app.services.assistant.skills import weather as weather_skill
 from app.services.assistant.skills.booking_draft import booking_draft
+from app.services.assistant.skills.c3_engine import parse_request
 from app.services.assistant.skills.cancel_policy import cancel_policy, cancellation_request
 from app.services.assistant.skills.content import search
 from app.services.assistant.skills.flight import draft_flights, search_flights
+from app.services.assistant.skills.flight_disruption import flight_disruption
 from app.services.assistant.skills.plan import TripPlanner
 from app.services.assistant.skills.stay import search_stays
 from app.services.assistant.skills.verified_itinerary import verified_itinerary
@@ -132,6 +135,7 @@ class Turn:
         self.places = places or CorePlaces(core)
         self.planned_trip: TripContext | None = None
         self.pending_cancellation: Cancellation | None = None
+        self.pending_flight_disruption: FlightDisruption | None = None
 
     async def answer(self) -> Answer:
         answer = await self._answer()
@@ -198,6 +202,14 @@ class Turn:
             return social.refusal_answer(seed=self._seed(), history=self.request.history)
         parsed = self.parsed
         if parsed and self.request.search_mode != "reel":
+            if parsed.intent == "flight_disruption":
+                previous = self.memory.pending_flight_disruption
+                data = parse_request(
+                    self.request.message,
+                    previous.model_dump(by_alias=True) if previous else None,
+                )
+                self.pending_flight_disruption = FlightDisruption.model_validate(data)
+                return flight_disruption(data)
             if parsed.intent == "cancel_policy":
                 previous = self.memory.pending_cancellation
                 data = cancellation_request(self.request.message, self.today, previous=previous)
@@ -208,7 +220,9 @@ class Turn:
                     self.pending_cancellation = data
                 return answer
             if parsed.intent == "booking_draft":
-                return await self._run("booking_draft", booking_draft(self.core, self.request.message))
+                return await self._run(
+                    "booking_draft", booking_draft(self.core, self.request.message),
+                )
             if parsed.intent == "verified_itinerary":
                 if "plan" in self.disabled_skills:
                     self.degraded.append("plan")
@@ -294,8 +308,9 @@ class Turn:
         memory = (self.planned_trip or self.memory).model_copy(deep=True)
         parsed = self.parsed
         memory.pending_cancellation = self.pending_cancellation
+        memory.pending_flight_disruption = self.pending_flight_disruption
         if parsed is not None and parsed.intent not in SOCIAL | {
-            "cancel_policy", "booking_draft", "verified_itinerary",
+            "cancel_policy", "booking_draft", "verified_itinerary", "flight_disruption",
         }:
             if parsed.place and parsed.place != memory.place:
                 memory.place, memory.date_from, memory.date_to = parsed.place, None, None

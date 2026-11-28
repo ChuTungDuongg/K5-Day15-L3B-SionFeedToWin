@@ -1,45 +1,46 @@
-// Màu, font, khoảng cách theo brand Vintrip: tông hoàng hôn cam hồng.
+// Màu, font, khoảng cách theo brand Vintrip: tông cam pastel (FE-01). Mọi cặp chữ/nền đã đo, đạt AA.
 // Web đọc qua CSS variables trong tokens.css; mobile import object này.
 // Sửa ở đây thì sửa cả tokens.css (test kiểm hai file khớp nhau).
 
 export const colors = {
   // Brand
-  coral: '#D9365A', // màu chính: nút, điểm nhấn
-  coralSoft: '#FB7185',
-  sun: '#FFC531', // vàng mặt trời: huy hiệu, ưu đãi
-  teal: '#C2410C', // cam đất hoàng hôn: màu phụ, đường đi
-  tealSoft: '#FFEDD5',
-  navy: '#141B3D', // chữ chính, logo chữ
+  coral: '#C2560F', // cam đậm: nút chữ trắng (4.53:1)
+  coralSoft: '#FFB98A', // cam pastel: nút phụ, chữ nâu coralInk (5.65:1)
+  sun: '#FFC978', // vàng mặt trời: huy hiệu, ưu đãi
+  teal: '#A24A1E', // đất nung: màu phụ, đường đi
+  tealSoft: '#FFE8D6',
+  navy: '#3D2418', // chữ chính, logo chữ
   // Nền và chữ
   background: '#FFFFFF',
-  surface: '#F8FAFC',
-  surfaceMuted: '#F1F5F9',
-  border: '#E2E8F0',
-  text: '#141B3D',
-  textMuted: '#64748B',
-  textSubtle: '#94A3B8',
+  surface: '#FFF8F2',
+  surfaceMuted: '#FFF1E6',
+  border: '#F3DCCB',
+  text: '#3D2418',
+  textMuted: '#8A5A44',
+  textSubtle: '#A07B68',
   // Trạng thái
-  success: '#15803D',
-  warning: '#FFC531',
-  danger: '#E5484D',
-  ink: '#18242B',
-  warmMist: '#FFF7ED',
-  seaMist: '#FFF4EC',
-  tealInk: '#9A3412',
-  coralInk: '#BE123C',
-  sunSoft: '#FFF6D8',
-  coralTint: '#FFE4E6',
-  overlay: '#18242B80',
-  overlayHeavy: '#18242BCC',
+  success: '#2F7A5F',
+  warning: '#FFC978',
+  danger: '#C2413A',
+  ink: '#3D2418',
+  warmMist: '#FFF8F2',
+  seaMist: '#FFF4EA',
+  tealInk: '#7A2E0E',
+  coralInk: '#7A2E0E',
+  sunSoft: '#FFF3DF',
+  coralTint: '#FFE8D6',
+  overlay: '#3D241880',
+  overlayHeavy: '#3D2418CC',
   tabBar: '#000000',
-  composeStart: '#F97316',
-  composeEnd: '#E11D48',
-  composeIconShadow: '#60180E47',
+  composeStart: '#FFB98A',
+  composeEnd: '#F28A54',
+  composeIconShadow: '#7A2E0E47',
   transparent: 'transparent',
 } as const;
 
 export const fonts = {
-  sans: '"Be Vietnam Pro", "Segoe UI", system-ui, sans-serif',
+  // Giống iPhone: máy Apple hiện SF Pro có sẵn; máy khác dùng Inter (gần SF, có tiếng Việt) do globals.css nạp.
+  sans: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Helvetica Neue", "Segoe UI", Roboto, system-ui, sans-serif',
   mono: '"JetBrains Mono", ui-monospace, Consolas, monospace',
 } as const;
 

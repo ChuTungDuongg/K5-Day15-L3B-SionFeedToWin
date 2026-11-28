@@ -5,11 +5,13 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { Awaiting } from './awaiting';
+import type { Cancellation } from './cancellation';
 import type { CardRef } from './cardRef';
 import type { DraftChoice } from './draftChoice';
 import type { DraftOp } from './draftOp';
 import type { DraftStop } from './draftStop';
 import type { DraftTransport } from './draftTransport';
+import type { FlightDisruption } from './flightDisruption';
 import type { TripContextV } from './tripContextV';
 
 /**
@@ -53,6 +55,8 @@ export interface TripContext {
   originCity?: string;
   /** @maxItems 4 */
   pending?: DraftChoice[];
+  pendingCancellation?: Cancellation | null;
+  pendingFlightDisruption?: FlightDisruption | null;
   /** @maxItems 5 */
   pendingFlights?: DraftTransport[];
   /** @maxLength 100 */

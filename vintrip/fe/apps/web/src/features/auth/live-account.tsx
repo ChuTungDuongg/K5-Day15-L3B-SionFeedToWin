@@ -13,14 +13,14 @@ import { AccountSecurity } from './account-security';
 import { EmailVerificationNotice } from './email-verification-notice';
 import { ACCOUNT_TABS, type AccountTab } from './account-tabs';
 import { AvatarEditor } from './avatar-editor';
-import { LoadingDots } from '@/features/shared/loading-dots';
+import styles from './account.module.css';
 
 // Màn đăng nhập nằm ở login-form.tsx; giữ export ở đây để app/login/page.tsx không phải đổi.
 export { LiveLogin } from './login-form';
 
 /**
- * Trang tài khoản dạng hồ sơ (TF06M): cột trái avatar, thẻ thành viên, menu; bên phải nội dung mục đang chọn.
- * ?tab= mở sẵn một mục (xem account-tabs.ts).
+ * Trang tài khoản dạng hồ sơ: cột trái avatar 96px + nút Đổi ảnh + menu dọc (Hồ sơ · Bảo mật · Sở thích du lịch);
+ * bên phải nội dung mục đang chọn. Điện thoại: menu thành tab cuộn ngang.
  */
 export function LiveAccount({ initialTab = 'profile' }: { initialTab?: AccountTab }) {
   const { user, isReady, session } = useApiSession();
@@ -39,31 +39,33 @@ export function LiveAccount({ initialTab = 'profile' }: { initialTab?: AccountTa
 
   if (!isReady || !user)
     return (
-      <main id="content" className="ota-container results-page account-page">
-        <section className="account-guest is-loading" aria-busy="true">
-          <LoadingDots isBlock />
-        </section>
+      <main id="content" className={`ota-container results-page account-page ${styles.page}`} aria-busy="true">
+        <div className={`profile-layout ${styles.layout}`}>
+          <div className={styles.skeletonAside} />
+          <div className={styles.skeletonCard} />
+        </div>
       </main>
     );
   return (
-    <main id="content" className="ota-container results-page account-page">
-      <div className="profile-layout">
+    <main id="content" className={`ota-container results-page account-page ${styles.page}`}>
+      <div className={`profile-layout ${styles.layout}`}>
         {user.emailVerified === false && (
           <div className="profile-notice">
             <EmailVerificationNotice key={`verify-${user.id}`} />
           </div>
         )}
-        <aside className="profile-aside">
-          <div className="profile-identity">
+        <aside className={`profile-aside ${styles.aside}`}>
+          <div className={`profile-identity ${styles.avatarWrap}`}>
             <AvatarEditor user={user} />
             <h1>{user.displayName}</h1>
-            <span className="account-role">{describeRole(user.role)}</span>
+            <span className={`account-role ${styles.roleBadge}`}>{describeRole(user.role)}</span>
           </div>
-          <nav className="profile-nav" aria-label={vi.api.accountNavLabel}>
+          <nav className={`profile-nav ${styles.nav}`} aria-label={vi.api.accountNavLabel}>
             {ACCOUNT_TABS.map((kind) => (
               <button
                 key={kind}
                 type="button"
+                className={styles.navBtn}
                 aria-current={tab === kind ? 'page' : undefined}
                 onClick={() => setTab(kind)}
               >
@@ -73,7 +75,7 @@ export function LiveAccount({ initialTab = 'profile' }: { initialTab?: AccountTa
             ))}
             <button
               type="button"
-              className="is-logout"
+              className={`is-logout ${styles.navLogout}`}
               disabled={logout.isPending}
               onClick={() => logout.mutate()}
             >
@@ -88,21 +90,19 @@ export function LiveAccount({ initialTab = 'profile' }: { initialTab?: AccountTa
             <ProfileInfoCard key={user.id} userId={user.id} />
           ) : tab === 'security' ? (
             <AccountSecurity key={user.id} userId={user.id} />
-          ) : null}
-        </div>
-        {tab === 'profile' && (
-          <div className="profile-travel">
+          ) : (
             <TravelPreferencesCard key={`travel-${user.id}`} userId={user.id} />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </main>
   );
 }
 
 const TAB_LABELS: Record<AccountTab, string> = {
-  profile: vi.api.profileInfoTitle,
+  profile: vi.api.profileSection,
   security: vi.api.accountNavSecurity,
+  travel: vi.api.travelTitle,
 };
 
 const NAV_ICONS: Record<AccountTab | 'logout', ReactNode> = {
@@ -116,6 +116,12 @@ const NAV_ICONS: Record<AccountTab | 'logout', ReactNode> = {
     <>
       <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z" />
       <path d="m9 12 2 2 4-4" />
+    </>
+  ),
+  travel: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m15.5 8.5-2.2 5.3-5.3 2.2 2.2-5.3 5.3-2.2Z" />
     </>
   ),
   logout: (
@@ -137,7 +143,7 @@ function NavIcon({ name }: { name: keyof typeof NAV_ICONS }) {
 /** Trang tài khoản khi chưa đăng nhập: giải thích trang này để làm gì, nút Đăng nhập và Tạo tài khoản. */
 export function AccountGuest() {
   return (
-    <section className="account-guest" aria-labelledby="account-guest-title">
+    <section className={`account-guest ${styles.guestCard}`} aria-labelledby="account-guest-title">
       <div className="account-guest-body">
         <span className="eyebrow">{vi.api.authEyebrow}</span>
         <h1 id="account-guest-title">{vi.api.accountGuestTitle}</h1>
@@ -148,10 +154,10 @@ export function AccountGuest() {
           ))}
         </ul>
         <div className="account-guest-actions">
-          <Link prefetch={false} className="primary-button" href="/login?returnTo=/account">
+          <Link prefetch={false} className={`primary-button ${styles.primaryBtn}`} href="/login?returnTo=/account">
             {vi.api.login}
           </Link>
-          <Link prefetch={false} className="secondary-button" href="/register?returnTo=%2Faccount">
+          <Link prefetch={false} className={`secondary-button ${styles.secondaryBtn}`} href="/register?returnTo=%2Faccount">
             {vi.api.register}
           </Link>
         </div>

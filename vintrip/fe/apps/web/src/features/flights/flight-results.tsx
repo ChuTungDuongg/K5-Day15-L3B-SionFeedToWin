@@ -362,17 +362,19 @@ function Results({ search, returnDate, outbound, initialProductId, initialFareCo
         })}
       </nav>
       {query.isPending && (
-        <output className={styles.loadingState}>
-          <Image src="/brand/vini/vini-curious.png" alt="" width={88} height={88} />
-          <span>{copy.loadingFlights}</span>
-        </output>
+        <div className={styles.skeletonList} role="status" aria-label={copy.loadingFlights}>
+          <div className={styles.skeletonCard} />
+          <div className={styles.skeletonCard} />
+          <div className={styles.skeletonCard} />
+        </div>
       )}
       <ApiErrorNotice error={query.error} retry={() => void query.refetch()} />
       {query.data?.length === 0 && (
-        <output className={styles.loadingState}>
-          <Image src="/brand/vini/vini-curious.png" alt="" width={88} height={88} />
-          <span>{copy.empty}</span>
-        </output>
+        <div className={styles.emptyState} role="status">
+          <Image src="/brand/vini/vini-curious.png" alt="" width={140} height={140} />
+          <h3>Không có chuyến bay ngày này</h3>
+          <p>Hãy chọn ngày khác trên băng ngày phía trên để xem thêm chuyến bay.</p>
+        </div>
       )}
       {query.data?.map(
         ([first, ...otherCabins]) =>

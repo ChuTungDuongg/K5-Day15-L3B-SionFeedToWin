@@ -54,6 +54,13 @@ export class RoomUpgradeProposalsController {
     return this.proposals.listProposals(user.userId, input);
   }
 
+  @Get('summary')
+  @Header('Cache-Control', 'no-store')
+  summary(@CurrentUser() user: AuthUser,
+    @Query(new ZodQuery(ProposalScopeQuerySchema)) input: z.infer<typeof ProposalScopeQuerySchema>) {
+    return this.proposals.getSummary(user.userId, input.hotelId);
+  }
+
   @Get(':proposalId')
   @Header('Cache-Control', 'no-store')
   detail(@CurrentUser() user: AuthUser, @Param('proposalId', new ProposalIdPipe()) id: string,

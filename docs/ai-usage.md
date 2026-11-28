@@ -6,14 +6,14 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 
 | Việc | Công cụ AI | AI làm gì | Người kiểm/sửa gì | Ai phụ trách |
 |---|---|---|---|---|
-| Thiết lập repo | OpenAI Codex | Chép starter kit của BTC, cập nhật README và thông tin nhóm đã biết, tạo môi trường Python, kiểm tra luồng với model giả | Nhóm cần kiểm lại phần thiết lập; chưa có xác nhận kiểm tay của nhóm | ____ |
-| Code bản chạy thử | | | | |
-| Prompt / thiết kế lời gọi mô hình | | | | |
-| Đào data (viết script đếm, gợi ý nhãn) | | | Kiểm tay __ dòng, khớp __ | |
-| Rà câu hỏi phỏng vấn / khảo sát | | Chỉ rà câu dẫn dắt | | |
-| Viết câu thử (benchmark) | | | Mỗi câu thử có `source`; câu thử AI viết được ghi rõ | |
-| Sinh data `synthetic` (nếu có) | | | Seed __ · kiểm tay __ dòng | |
-| Chấm cột `pass` bằng LLM (nếu có) | | | Kiểm tra thủ công __ câu thử, khớp __/__ | |
-| Slide, văn bản | | | | |
+| Thiết lập repo | OpenAI Codex | Chép starter kit, cập nhật README, cấu hình Python và kiểm luồng model giả | Kiểm lệnh check và đường chạy. Chưa có biên bản một người khác chạy lại từ bản sạch | Chu Nguyễn Tùng Dương điều phối |
+| Thiết kế và code | OpenAI Codex, Antigravity, Claude Code theo khai báo spec §10 | Hỗ trợ luồng C1, công cụ, dữ liệu mô phỏng và sơ đồ. Code và log đã lưu, không coi log là checkpoint đã được nộp | Đối chiếu hợp đồng công cụ và testcase có sẵn. Model hiện diễn đạt cuối luồng, còn chờ hoàn thiện vai trò ở quyết định chính | Nguyễn Lê Trọng Mạnh theo phân công |
+| Mở rộng C3 trên nhánh vintrip | OpenAI Codex | Viết engine kiểm phương án chuyến bay bị huỷ, snapshot giả, bridge CLI, chat SSE, thẻ giao diện, kiểm thử và hướng dẫn demo; mọi giao dịch dừng ở bản nháp | Đã chạy kiểm thử tự động; nhóm cần kiểm tay dữ liệu, luồng và duyệt thay đổi trước commit. Chưa có xác nhận kiểm tay của nhóm | Chưa phân công |
+| Đếm và tổng hợp khảo sát | OpenAI Codex trong lần rà này | Đếm lại các nhãn CSV, nhóm đi cùng trẻ nhỏ, tần suất và thời gian chuẩn bị. Không tạo phản hồi mới | Dữ liệu CSV giữ nguyên. Nhóm còn cần đối chiếu bản khảo sát gốc và quyền trích dẫn | Hà Lê Duy theo phân công |
+| Benchmark | Công cụ soạn trước đây chưa ghi đầy đủ trong repo | Bộ hiện có 30 câu, 11 câu dẫn xuất từ nguồn người dùng theo nhãn và 19 câu tự viết | Rà nguồn, giữ nguyên input/expected/pass_criterion ở lần kiểm này. Chưa có biên bản kiểm tay độc lập của người thứ hai | Nguyễn Thiên Bảo theo phân công |
+| Dữ liệu mô phỏng | Chưa lưu đầy đủ prompt hoặc công cụ sinh ban đầu | Công viên Mẫu và các dữ liệu bổ trợ ghi nhãn mô phỏng trong data card | Không dùng làm bằng chứng người dùng thật. Seed của mô phỏng phiên là 42, không suy thành seed của mọi dataset | Người phụ trách dữ liệu cần xác nhận phần đã làm |
+| Chấm chất lượng | Có checker Python và bản chấm nháp, chưa xác nhận dùng LLM chấm | Kiểm ngoại tuyến hai metric từ output/snapshot/trace, sửa riêng khác biệt CRLF/LF trên Windows | Các run gốc còn trống pass. Chưa ghi người thứ hai đối chiếu 5 output. Không tự duyệt điểm | Nguyễn Thiên Bảo và người duyệt của nhóm |
+| Rà checkpoint và văn bản | OpenAI Codex | Đối chiếu hai HTML do nhóm cung cấp, sửa trạng thái cũ, ghi các mục CP3/CP4 đang chờ | Nhóm xác nhận chưa làm/nộp CP3, chưa có slide/video và yêu cầu dùng dữ liệu hiện có | Chu Nguyễn Tùng Dương điều phối |
+| Slide, video, reflection | Chưa thực hiện hoặc chưa có sản phẩm trong repo | Chưa có slide PDF, link video hay bài reflection cá nhân | Chờ nhóm thực hiện và xác nhận. Không tự tạo trải nghiệm hoặc biên nhận nộp bài | Cả bốn thành viên |
 
 **Không dùng AI để:** tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát; sửa kết quả các lượt đã chạy (`eval/run-*.csv`, `cost/simulate-*.csv`, `traces/`).

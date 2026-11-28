@@ -15,11 +15,11 @@
   border-radius: 16px;
   background: var(--color-background, white);
   color: var(--color-ink);
-  box-shadow: 0 20px 60px rgb(0 0 0 / 0.16);
+  box-shadow: var(--shadow-soft);
   overflow: auto;
 }
 .dialog::backdrop {
-  background: rgb(15 23 42 / 0.45);
+  background: color-mix(in srgb, var(--color-navy) 45%, transparent);
 }
 .content {
   padding: 20px 24px 24px;

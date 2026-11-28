@@ -51,11 +51,15 @@ describe('isMobileTabBarHidden', () => {
     '/onboarding',
     '/checkout/abc',
     '/payments/abc/return',
+    '/staff',
+    '/staff/',
+    '/staff/room-upgrades',
+    '/staff/bookings/C2-0001',
   ])('hides on %s', (pathname) => {
     expect(isMobileTabBarHidden(pathname)).toBe(true);
   });
 
-  it.each(['/', '/search', '/flights', '/inspiration', '/u/abc', '/account', '/cart', '/bookings', '/loginx'])(
+  it.each(['/', '/search', '/flights', '/inspiration', '/u/abc', '/account', '/cart', '/bookings', '/loginx', '/staffing'])(
     'shows on %s',
     (pathname) => {
       expect(isMobileTabBarHidden(pathname)).toBe(false);

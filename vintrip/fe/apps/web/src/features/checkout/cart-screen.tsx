@@ -15,11 +15,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { formatPrice } from '@/features/discovery/trip-card';
 import { CheckoutError } from './checkout-error';
+import { CheckoutIcon } from './checkout-icon';
 import { saveBookingCart, useBookingCart } from './cart-store';
 import styles from './cart.module.css';
 import { CartWarnings } from './cart-warnings';
 import { useHoldCart } from './use-hold-cart';
-import { BusyLabel, LoadingDots } from '@/features/shared/loading-dots';
+import { BusyLabel } from '@/features/shared/loading-dots';
 
 const copy = vi.commerce;
 const formatDate = (date: string) => date.split('-').reverse().join('/');
@@ -39,8 +40,12 @@ export function CartScreen() {
 
   if (!isReady || !user) {
     return (
-      <main className={`ota-container ${styles.page}`}>
-        <LoadingDots isBlock />
+      <main className={`ota-container ${styles.page}`} aria-busy="true">
+        <div className={styles.skeletonBar} style={{ width: '220px', height: '28px' }} />
+        <div className={styles.layout}>
+          <div className={styles.skeletonCard} />
+          <div className={styles.skeletonSummary} />
+        </div>
       </main>
     );
   }
@@ -65,19 +70,27 @@ export function CartScreen() {
               const setQty = (qty: number) => saveBookingCart(setBookingCartItemQty(cart, key, qty));
               return (
                 <li key={key} className={styles.item}>
-                  <div>
-                    <p className={styles.property}>{line.propertyName}</p>
-                    <h2>{line.roomName}</h2>
-                    <p className="small muted">
-                      {line.ratePlanName} · {formatDate(line.checkIn)} → {formatDate(line.checkOut)}
-                    </p>
+                  <div className={styles.itemLead}>
+                    <span className={styles.itemThumb} aria-hidden="true">
+                      <CheckoutIcon name="bed" size={24} />
+                    </span>
+                    <div className={styles.itemMeta}>
+                      <p className={styles.property}>{line.propertyName}</p>
+                      <h2>{line.roomName}</h2>
+                      <p className={styles.itemSub}>
+                        {line.ratePlanName} · {formatDate(line.checkIn)} → {formatDate(line.checkOut)}
+                      </p>
+                      <p className={styles.itemSub}>
+                        {countBookingCartGuests(cart)} {copy.guests}
+                      </p>
+                    </div>
                   </div>
                   <div className={styles.itemActions}>
                     <div className={styles.stepper}>
                       <button type="button" aria-label={copy.cartDecrease} onClick={() => setQty(line.qty - 1)}>
                         −
                       </button>
-                      <span>
+                      <span className={styles.stepperValue}>
                         {line.qty} {copy.cartRooms}
                       </span>
                       <button
@@ -89,7 +102,7 @@ export function CartScreen() {
                         +
                       </button>
                     </div>
-                    <b>{formatPrice(lineTotals[lineIndex] ?? 0)}</b>
+                    <b className={styles.linePrice}>{formatPrice(lineTotals[lineIndex] ?? 0)}</b>
                     <button type="button" className={styles.remove} onClick={() => setQty(0)}>
                       {copy.cartRemove}
                     </button>
@@ -100,16 +113,11 @@ export function CartScreen() {
           </ul>
         ) : (
           <div className={styles.emptyCard}>
-            <div className={styles.emptyIcon}>
-              <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-                <path d="M3 4h2l2.4 11h10.8L21 8H6" strokeLinecap="round" strokeLinejoin="round" />
-                <circle cx="9.5" cy="19.5" r="1.4" />
-                <circle cx="17" cy="19.5" r="1.4" />
-              </svg>
-            </div>
+            {/* oxlint-disable-next-line nextjs/no-img-element -- mascot Vini trạng thái giỏ hàng trống */}
+            <img className={styles.emptyMascot} src="/brand/vini/vini-curious.png" alt="" width={140} height={140} />
             <h2>{copy.cartEmpty}</h2>
             <p>{copy.cartEmptyHint}</p>
-            <Link className="primary-button" href="/search">
+            <Link className={`primary-button ${styles.primaryCta}`} href="/search">
               {copy.findHotel}
             </Link>
           </div>

@@ -2,7 +2,7 @@ import { Inject, Injectable, Optional } from '@nestjs/common';
 import { InjectTransactionHost, type ModuleTransactionHost } from '@vintrip/db';
 import { and, asc, count, desc, eq, inArray, sql } from 'drizzle-orm';
 import {
-  upgradeBookings, upgradeMemberBenefits, upgradePolicies, upgradeRoomInventory, upgradeRoomRates,
+  upgradeBookings, upgradeHotels, upgradeStaffAssignments, upgradeMemberBenefits, upgradePolicies, upgradeRoomInventory, upgradeRoomRates,
   upgradeProposalAuditEvents, upgradeProposalIdempotency, upgradeProposalRevisions, upgradeProposals,
 } from '../../db/schema/room-upgrades.js';
 import {
@@ -80,6 +80,15 @@ export class DrizzleRoomUpgradeProposalStore implements RoomUpgradeProposalStore
     // normalization and SnapshotSchema.parse remain the single implementation.
     const snapshots = new DrizzleRoomUpgradeStore({ tx: db });
     return {
+      listStaffAssignments: async (userId) => db.select({
+        hotelId: upgradeHotels.id, hotelName: upgradeHotels.name, timezone: upgradeHotels.timezone,
+        fixtureVersion: upgradeHotels.fixtureVersion, staffRole: upgradeStaffAssignments.role,
+      }).from(upgradeStaffAssignments).innerJoin(upgradeHotels, eq(upgradeStaffAssignments.hotelId, upgradeHotels.id))
+        .where(and(eq(upgradeStaffAssignments.userId, userId), eq(upgradeStaffAssignments.active, true)))
+        .orderBy(asc(upgradeStaffAssignments.hotelId)),
+      countProposalsByStatus: async (hotelId) => db.select({
+        status: upgradeProposals.status, count: sql<number>`count(*)::int`,
+      }).from(upgradeProposals).where(eq(upgradeProposals.hotelId, hotelId)).groupBy(upgradeProposals.status),
       staffRole: (hotelId, userId) => snapshots.staffRole(hotelId, userId),
       loadSnapshot: (hotelId) => snapshots.loadSnapshot(hotelId),
       findIdempotency: async (scope) => {

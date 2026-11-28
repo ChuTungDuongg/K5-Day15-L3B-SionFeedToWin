@@ -29,6 +29,7 @@ export function HeaderAutoHide() {
 
     const update = () => {
       frame = 0;
+      header.toggleAttribute('data-header-scrolled', window.scrollY > 8);
       if (!media.matches) {
         if (state.isHidden) apply(false);
         return;
@@ -48,6 +49,7 @@ export function HeaderAutoHide() {
     const show = () => apply(false);
 
     apply(false);
+    update();
     window.addEventListener('scroll', onScroll, { passive: true });
     header.addEventListener('focusin', show);
     media.addEventListener('change', show);
@@ -57,6 +59,7 @@ export function HeaderAutoHide() {
       header.removeEventListener('focusin', show);
       media.removeEventListener('change', show);
       header.removeAttribute(HIDDEN_ATTRIBUTE);
+      header.removeAttribute('data-header-scrolled');
     };
     // Đổi trang thì bắt đầu lại từ trạng thái hiện.
   }, [pathname]);

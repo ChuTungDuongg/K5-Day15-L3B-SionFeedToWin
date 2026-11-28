@@ -9,7 +9,8 @@ import c1_flow
 from tools import (APPROVAL, calculate_cancel_fee, contains_phrase, draft_room_change,
                    find_lodging, find_venues, get_park_catalog, itinerary_cities, list_transport,
                    lookup_cancel_policy,
-                   normalize, plan_and_verify_itinerary, resolve_park, room_names, venue_scopes)
+                   normalize, plan_and_verify_itinerary, resolve_park, room_names, venue_scopes,
+                   flight_disruption_engine, flight_flow_module, resolve_flight_disruption, C3_TOOLS)
 from tracing import note
 
 
@@ -479,6 +480,16 @@ def _park_lines(text):
     return lines
 
 
+_C3 = {}
+
+
+def _c3_conversation():
+    # shortcut: một phiên C3 cho cả tiến trình CLI (một người dùng); nhiều người cần khoá theo phiên.
+    if "flow" not in _C3:
+        _C3["flow"] = flight_flow_module().C3Conversation(tools=C3_TOOLS)
+    return _C3["flow"]
+
+
 def _route(text):
     normalized = normalize(text)
     if any(re.search(pattern, normalized) for pattern in PROMPT_PATTERNS):
@@ -491,6 +502,15 @@ def _route(text):
     if c1_lines:
         note("Luồng C1: lập và kiểm lịch khu vui chơi")
         return c1_lines
+    flow = _c3_conversation()
+    if flow.claims(text):
+        note(f"C3 TRV: luồng có trạng thái, đang ở {flow.state}")
+        return flow.handle(text)["lines"]
+    engine = flight_disruption_engine()
+    if engine.is_disruption(text):
+        note("C3: kiểm phương án mô phỏng và soạn bản nháp chờ duyệt")
+        result = resolve_flight_disruption(text)
+        return [f"{label}: {detail}" for label, detail in engine.result_lines(result)]
     room_change = _has(normalized, "đổi phòng", "đổi hạng", "nâng hạng", "chuyển phòng",
                        "room change", "upgrade room") or bool(re.search(
                            r"\b(?:đổi|đổi từ|chuyển từ|nâng cấp)\b", text, re.I)
