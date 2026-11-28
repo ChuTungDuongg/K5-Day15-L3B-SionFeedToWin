@@ -1,0 +1,1961 @@
+{
+  "runId": "run-2",
+  "startedAt": "2026-11-27T20:33:20.420849+00:00",
+  "benchmarkId": "c2-room-upgrades-v1",
+  "dataOrigin": "synthetic_authored",
+  "gatewayUrl": "http://localhost:8080",
+  "targetModel": "gpt-6-luna",
+  "reasoningEffort": "low",
+  "budgetCapUsd": 0.25,
+  "plannedCaseIds": [
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N06",
+    "N07",
+    "N08",
+    "H01",
+    "H02",
+    "H03",
+    "H04",
+    "H05",
+    "H06",
+    "M01",
+    "M02",
+    "M03",
+    "M04",
+    "P01",
+    "P02",
+    "S01",
+    "S02",
+    "S03",
+    "S04"
+  ],
+  "results": [
+    {
+      "id": "N01",
+      "category": "normal",
+      "description": "Standard to Deluxe, two remaining local nights",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 7165.1,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "VALID",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "bookingCode": "C2-0001",
+        "selectedCandidateId": "DLX",
+        "priceDiffVnd": 600000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "requiredPolicySources": [
+          "TIME",
+          "CREDIT",
+          "TAX",
+          "APPROVAL"
+        ],
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "DLX",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0001",
+            "targetRoomTypeId": "DLX",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [
+              "GARDEN_VIEW"
+            ],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 600000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "VALID",
+              "expectedApprovalRole": "RECEPTIONIST"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "44c2158d-f13e-49ba-8795-26c15d55717f",
+              "aiRequestId": "e7c462e0-0fdc-4c3b-b3f0-b803203b662b",
+              "selectedCandidateId": "DLX",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Hạng Deluxe hướng vườn đáp ứng sức chứa 2 khách và yêu cầu hướng vườn; báo giá cho 2 đêm còn lại có chênh lệch 600.000 VND. Báo giá cần lễ tân xác nhận trước khi chuyển phòng.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Deluxe hướng vườn cho 2 đêm còn lại, với khoản chênh lệch là 600.000 VND. Báo giá cần được xác nhận trước khi chuyển phòng; hiện phòng chưa được giữ và việc chuyển phòng chưa được thực hiện."
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Deluxe hướng vườn (DLX) cho booking C2-0001: 2 đêm, chênh lệch 600.000đ (VALID). Chờ RECEPTIONIST duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Deluxe hướng vườn cho 2 đêm còn lại, với khoản chênh lệch là 600.000 VND. Báo giá cần được xác nhận trước khi chuyển phòng; hiện phòng chưa được giữ và việc chuyển phòng chưa được thực hiện.",
+        "priceDiffVnd": 600000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0001",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": null,
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3877,
+      "cachedInputTokens": 1519,
+      "outputTokens": 462,
+      "reasoningTokens": 82,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00048199,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "N02",
+      "category": "normal",
+      "description": "Standard to family Suite, two nights",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 5390.18,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "VALID",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "STE",
+        "priceDiffVnd": 2000000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "STE",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0001",
+            "targetRoomTypeId": "STE",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 2000000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "VALID",
+              "expectedApprovalRole": "RECEPTIONIST"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "c3574ff9-40e6-4b1a-9e25-cc35c57a0308",
+              "aiRequestId": "bfa48186-556e-4387-bb9e-3778146c9f21",
+              "selectedCandidateId": "STE",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Suite gia đình đáp ứng sức chứa tối đa 4 khách cho đoàn 2 người; báo giá áp dụng cho 2 đêm còn lại, chênh lệch là 2.000.000 VND. Báo giá đang chờ lễ tân có thẩm quyền xác nhận; chưa chuyển phòng.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Suite gia đình cho 2 đêm còn lại, với khoản chênh lệch 2.000.000 VND. Báo giá cần được lễ tân có thẩm quyền xác nhận trước khi việc chuyển phòng được thực hiện. Anh/chị có muốn chúng tôi trình báo giá để xác nhận không ạ?"
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Suite gia đình (STE) cho booking C2-0001: 2 đêm, chênh lệch 2.000.000đ (VALID). Chờ RECEPTIONIST duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Suite gia đình cho 2 đêm còn lại, với khoản chênh lệch 2.000.000 VND. Báo giá cần được lễ tân có thẩm quyền xác nhận trước khi việc chuyển phòng được thực hiện. Anh/chị có muốn chúng tôi trình báo giá để xác nhận không ạ?",
+        "priceDiffVnd": 2000000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0001",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": null,
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3854,
+      "cachedInputTokens": 3694,
+      "outputTokens": 511,
+      "reasoningTokens": 103,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00030844,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "N03",
+      "category": "normal",
+      "description": "Backend-verified GOLD-10 benefit on Deluxe",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 5799.62,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "VALID",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "DLX",
+        "priceDiffVnd": 540000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": "GOLD-10",
+        "benefitVerified": true,
+        "requiredPolicySources": [
+          "BENEFIT"
+        ],
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "DLX",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0002",
+            "targetRoomTypeId": "DLX",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [],
+            "benefitId": "gold-0002",
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 540000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "VALID",
+              "expectedApprovalRole": "RECEPTIONIST"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "e1ecae57-061a-44a9-a173-be675c584447",
+              "aiRequestId": "6db8470f-9573-468d-a30e-9bdf85fe25ee",
+              "selectedCandidateId": "DLX",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Phòng Deluxe hướng vườn đáp ứng sức chứa 2 khách và báo giá hợp lệ cho 2 đêm còn lại. Quyền lợi đã xác minh GOLD-10 (giảm 10%) được áp dụng; chênh lệch cần thanh toán là 540.000 VND. Báo giá vẫn cần lễ tân (RECEPTIONIST) phê duyệt trước khi chuyển phòng.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Deluxe hướng vườn cho 2 đêm còn lại, với khoản chênh lệch là 540.000 VND sau khi áp dụng quyền lợi GOLD-10 đã xác minh. Báo giá cần được xác nhận và phê duyệt trước khi chuyển phòng; hiện phòng chưa được chuyển."
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Deluxe hướng vườn (DLX) cho booking C2-0002: 2 đêm, chênh lệch 540.000đ (VALID). Chờ RECEPTIONIST duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Deluxe hướng vườn cho 2 đêm còn lại, với khoản chênh lệch là 540.000 VND sau khi áp dụng quyền lợi GOLD-10 đã xác minh. Báo giá cần được xác nhận và phê duyệt trước khi chuyển phòng; hiện phòng chưa được chuyển.",
+        "priceDiffVnd": 540000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": "GOLD-10",
+        "benefit": {
+          "id": "gold-0002",
+          "code": "[REDACTED]",
+          "version": 1,
+          "discountBps": 1000
+        },
+        "httpStatus": 200,
+        "bookingCode": "C2-0002",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": null,
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ],
+        "benefitVerificationEvidence": "backend_validated_quote"
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3901,
+      "cachedInputTokens": 3728,
+      "outputTokens": 552,
+      "reasoningTokens": 113,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00033058,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "N04",
+      "category": "normal",
+      "description": "Verified VIP-FREE entitlement applies only to Deluxe",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 6077.49,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "VALID",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "DLX",
+        "priceDiffVnd": 0,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": "VIP-FREE",
+        "benefitVerified": true,
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "DLX",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0003",
+            "targetRoomTypeId": "DLX",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [],
+            "benefitId": "vip-0003",
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 0,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "VALID",
+              "expectedApprovalRole": "RECEPTIONIST"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "12000fbe-82cf-4a6a-8920-0e7b740efdf9",
+              "aiRequestId": "81d1980f-2534-4291-9844-b43153c1eb04",
+              "selectedCandidateId": "DLX",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Phòng Deluxe hướng vườn phù hợp sức chứa 2 khách và báo giá cho 2 đêm còn lại có chênh lệch 0 VND. Quyền lợi đã xác minh VIP-FREE giảm 100% phần chênh dương (600.000 VND), cùng khoản đối trừ đủ điều kiện 2.400.000 VND. Báo giá đang chờ lễ tân (RECEPTIONIST) phê duyệt; chưa chuyển phòng.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên phòng Deluxe hướng vườn cho 2 đêm còn lại. Chênh lệch báo giá là 0 VND sau khi áp dụng quyền lợi VIP-FREE đã xác minh; việc nâng hạng cần được xác nhận và phê duyệt trước khi chuyển phòng. Anh/chị có muốn chúng tôi gửi yêu cầu để lễ tân xem xét không ạ?"
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Deluxe hướng vườn (DLX) cho booking C2-0003: 2 đêm, chênh lệch 0đ (VALID). Chờ RECEPTIONIST duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên phòng Deluxe hướng vườn cho 2 đêm còn lại. Chênh lệch báo giá là 0 VND sau khi áp dụng quyền lợi VIP-FREE đã xác minh; việc nâng hạng cần được xác nhận và phê duyệt trước khi chuyển phòng. Anh/chị có muốn chúng tôi gửi yêu cầu để lễ tân xem xét không ạ?",
+        "priceDiffVnd": 0,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": "VIP-FREE",
+        "benefit": {
+          "id": "vip-0003",
+          "code": "[REDACTED]",
+          "version": 1,
+          "discountBps": 10000
+        },
+        "httpStatus": 200,
+        "bookingCode": "C2-0003",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": null,
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ],
+        "benefitVerificationEvidence": "backend_validated_quote"
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3898,
+      "cachedInputTokens": 3725,
+      "outputTokens": 662,
+      "reasoningTokens": 192,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00038555,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "N05",
+      "category": "normal",
+      "description": "Resolve room 104 to booking C2-0004 and quote Suite",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 5363.51,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "VALID",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "bookingCode": "C2-0004",
+        "currentRoomTypeId": "DLX",
+        "selectedCandidateId": "STE",
+        "priceDiffVnd": 1400000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "STE",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0004",
+            "targetRoomTypeId": "STE",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 1400000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "VALID",
+              "expectedApprovalRole": "RECEPTIONIST"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "6ef5e9d8-0d2c-4f87-b946-94b30d79b303",
+              "aiRequestId": "6ba4290e-bd9f-484e-acce-7161fca3647e",
+              "selectedCandidateId": "STE",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Suite gia đình đáp ứng sức chứa 2 khách (tối đa 4), với 2 đêm còn lại. Chênh lệch đã kiểm là 1.400.000 VND; báo giá chờ lễ tân (RECEPTIONIST) phê duyệt trước khi chuyển phòng.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Suite gia đình cho 2 đêm còn lại. Phần chênh lệch là 1.400.000 VND; phương án cần được lễ tân xác nhận và phê duyệt trước khi chuyển phòng. Anh/chị có muốn chúng tôi trình đề nghị này để xác nhận không ạ?"
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Suite gia đình (STE) cho booking C2-0004: 2 đêm, chênh lệch 1.400.000đ (VALID). Chờ RECEPTIONIST duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Suite gia đình cho 2 đêm còn lại. Phần chênh lệch là 1.400.000 VND; phương án cần được lễ tân xác nhận và phê duyệt trước khi chuyển phòng. Anh/chị có muốn chúng tôi trình đề nghị này để xác nhận không ạ?",
+        "priceDiffVnd": 1400000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0004",
+        "currentRoomTypeId": "DLX",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": null,
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3864,
+      "cachedInputTokens": 3698,
+      "outputTokens": 507,
+      "reasoningTokens": 107,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00030708,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "N06",
+      "category": "normal",
+      "description": "ACCESSIBLE requirement selects Suite from clean booking",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 5857.23,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "VALID",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "STE",
+        "requiredFeatures": [
+          "ACCESSIBLE"
+        ],
+        "priceDiffVnd": 2000000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "STE",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0007",
+            "targetRoomTypeId": "STE",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [
+              "ACCESSIBLE"
+            ],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 2000000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "VALID",
+              "expectedApprovalRole": "RECEPTIONIST"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "9b4ab8b9-8195-436c-a421-117db125543a",
+              "aiRequestId": "fb8f1f1e-fc4b-4a1e-96b0-577ac940e933",
+              "selectedCandidateId": "STE",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Suite gia đình đáp ứng yêu cầu ACCESSIBLE và đủ sức chứa 4 khách. Báo giá cho 2 đêm còn lại có chênh lệch 2.000.000 VND; cần lễ tân (RECEPTIONIST) phê duyệt trước khi chuyển phòng.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Suite gia đình, đáp ứng yêu cầu phòng ACCESSIBLE. Phụ thu cho 2 đêm còn lại là 2.000.000 VND. Báo giá cần được xác nhận và phê duyệt trước khi chuyển phòng; hiện việc chuyển phòng chưa được thực hiện."
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Suite gia đình (STE) cho booking C2-0007: 2 đêm, chênh lệch 2.000.000đ (VALID). Chờ RECEPTIONIST duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Suite gia đình, đáp ứng yêu cầu phòng ACCESSIBLE. Phụ thu cho 2 đêm còn lại là 2.000.000 VND. Báo giá cần được xác nhận và phê duyệt trước khi chuyển phòng; hiện việc chuyển phòng chưa được thực hiện.",
+        "priceDiffVnd": 2000000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0007",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": null,
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3866,
+      "cachedInputTokens": 3696,
+      "outputTokens": 578,
+      "reasoningTokens": 202,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00034296,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "N07",
+      "category": "normal",
+      "description": "VIP-FREE benefit scoped to Deluxe does not leak onto Suite upgrade",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 5411.47,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "VALID",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "STE",
+        "priceDiffVnd": 2000000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "STE",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0003",
+            "targetRoomTypeId": "STE",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 2000000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "VALID",
+              "expectedApprovalRole": "RECEPTIONIST"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "dd8186ee-8e4d-4d34-8b0c-1fdef4dfffc0",
+              "aiRequestId": "bfc8612a-7d16-47e0-bea6-98824258ca20",
+              "selectedCandidateId": "STE",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Suite gia đình đáp ứng sức chứa tối đa 4 khách cho booking 2 người; báo giá tính cho 2 đêm còn lại, chênh lệch là 2.000.000 VND. Báo giá đang chờ lễ tân (RECEPTIONIST) phê duyệt trước khi chuyển phòng.",
+              "draftMessageVi": "Anh/chị đang lưu trú tại hạng Tiêu chuẩn. Với 2 đêm còn lại, phương án nâng lên hạng Suite gia đình có mức chênh lệch 2.000.000 VND. Báo giá cần được xác nhận và lễ tân phê duyệt trước khi chuyển phòng; hiện chưa thể xem là đã duyệt hoặc chuyển phòng."
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Suite gia đình (STE) cho booking C2-0003: 2 đêm, chênh lệch 2.000.000đ (VALID). Chờ RECEPTIONIST duyệt.",
+        "draftMessageVi": "Anh/chị đang lưu trú tại hạng Tiêu chuẩn. Với 2 đêm còn lại, phương án nâng lên hạng Suite gia đình có mức chênh lệch 2.000.000 VND. Báo giá cần được xác nhận và lễ tân phê duyệt trước khi chuyển phòng; hiện chưa thể xem là đã duyệt hoặc chuyển phòng.",
+        "priceDiffVnd": 2000000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0003",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": null,
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3866,
+      "cachedInputTokens": 3694,
+      "outputTokens": 464,
+      "reasoningTokens": 76,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00028614,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "N08",
+      "category": "normal",
+      "description": "Open recommendation for garden view and non-smoking",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 7232.62,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "VALID",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": [
+          "DLX",
+          "STE"
+        ],
+        "candidatePriceDiffVnd": {
+          "DLX": 600000,
+          "STE": 2000000
+        },
+        "requiredFeatures": [
+          "GARDEN_VIEW",
+          "NON_SMOKING"
+        ],
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "VALID",
+        "selectedCandidateId": "DLX",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0001",
+            "targetRoomTypeId": "DLX",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [
+              "GARDEN_VIEW",
+              "NON_SMOKING"
+            ],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 600000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "VALID",
+              "expectedApprovalRole": "RECEPTIONIST"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "3a25752d-1e92-4122-b897-481434c56ec0",
+              "aiRequestId": "5b850f64-4aa0-4c58-90b3-56aeb7ba8f1e",
+              "selectedCandidateId": "DLX",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Deluxe hướng vườn đáp ứng sức chứa 2 khách và cả hai yêu cầu tiện nghi GARDEN_VIEW, NON_SMOKING; phù hợp hơn Suite gia đình với phụ thu thấp hơn. Báo giá cho 2 đêm còn lại là 600.000 VND và đang chờ lễ tân (RECEPTIONIST) phê duyệt.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Deluxe hướng vườn cho 2 đêm còn lại, với khoản chênh lệch là 600.000 VND. Việc đổi phòng cần được xác nhận và phê duyệt trước; hiện phòng chưa được chuyển."
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Deluxe hướng vườn (DLX) cho booking C2-0001: 2 đêm, chênh lệch 600.000đ (VALID). Chờ RECEPTIONIST duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên hạng Deluxe hướng vườn cho 2 đêm còn lại, với khoản chênh lệch là 600.000 VND. Việc đổi phòng cần được xác nhận và phê duyệt trước; hiện phòng chưa được chuyển.",
+        "priceDiffVnd": 600000,
+        "remainingNights": 2,
+        "approvalRole": "RECEPTIONIST",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0001",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": null,
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 4356,
+      "cachedInputTokens": 2182,
+      "outputTokens": 512,
+      "reasoningTokens": 118,
+      "modelCalls": 2,
+      "toolCalls": 8,
+      "costUsd": 0.00049522,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "H01",
+      "category": "hard",
+      "description": "Pre-arrival CONFIRMED booking is ineligible for mid-stay upgrade",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 1777.95,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "INELIGIBLE",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "INELIGIBLE",
+        "priceDiffVnd": null,
+        "proposalDraftPresent": false
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "INELIGIBLE",
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Chưa thể tạo báo giá cho C2-0009 (trạng thái INELIGIBLE): Booking chưa check-in hoặc đã checkout. Không có tổng tiền chính thức và chưa có tác động vận hành.",
+        "draftMessageVi": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "approvalRole": null,
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0009",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 1,
+        "proposalDraftPresent": false,
+        "errorCode": "NOT_IN_HOUSE",
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 2354,
+      "cachedInputTokens": 2182,
+      "outputTokens": 120,
+      "reasoningTokens": 0,
+      "modelCalls": 1,
+      "toolCalls": 6,
+      "costUsd": 9.902e-05,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "H02",
+      "category": "hard",
+      "description": "Downgrade with negative difference requires manager",
+      "kind": "chat",
+      "passed": false,
+      "failures": [
+        "draftMessageVi: currency amount absent from verified quote",
+        "draftMessageVi: missing exact quoted difference",
+        "draftMessageVi: stated difference contradicts quote"
+      ],
+      "httpStatus": 200,
+      "latencyMs": 5251.76,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "REQUIRES_MANAGER",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "REQUIRES_MANAGER",
+        "selectedCandidateId": "STD",
+        "priceDiffVnd": -300000,
+        "remainingNights": 2,
+        "approvalRole": "MANAGER",
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "REQUIRES_MANAGER",
+        "selectedCandidateId": "STD",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0004",
+            "targetRoomTypeId": "STD",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "ROOM_CHANGE",
+            "requiredFeatures": [],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": -300000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "REQUIRES_MANAGER",
+              "expectedApprovalRole": "MANAGER"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "a456b1c6-7ff5-4e4a-b74c-fe15f1c805ba",
+              "aiRequestId": "f5e201b7-a02f-4958-b968-5bc32800b32d",
+              "selectedCandidateId": "STD",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Hạng Tiêu chuẩn phù hợp sức chứa 2 khách và được yêu cầu; báo giá cho 2 đêm có chênh lệch âm 300.000 VND, nên cần quản lý (MANAGER) phê duyệt và xử lý theo chính sách, không tự hoàn tiền hay chuyển phòng.",
+              "draftMessageVi": "Anh/chị đang lưu trú tại hạng Deluxe hướng vườn. Với 2 đêm còn lại, phương án đổi sang hạng Tiêu chuẩn có chênh lệch âm 300.000 VND. Báo giá cần quản lý phê duyệt trước; việc đổi phòng chỉ được xác nhận sau khi có phê duyệt."
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Tiêu chuẩn (STD) cho booking C2-0004: 2 đêm, chênh lệch -300.000đ (REQUIRES_MANAGER). Cần chuyển Quản lý (MANAGER) phê duyệt.",
+        "draftMessageVi": "Anh/chị đang lưu trú tại hạng Deluxe hướng vườn. Với 2 đêm còn lại, phương án đổi sang hạng Tiêu chuẩn có chênh lệch âm 300.000 VND. Báo giá cần quản lý phê duyệt trước; việc đổi phòng chỉ được xác nhận sau khi có phê duyệt.",
+        "priceDiffVnd": -300000,
+        "remainingNights": 2,
+        "approvalRole": "MANAGER",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0004",
+        "currentRoomTypeId": "DLX",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": "NEGATIVE_DIFFERENCE",
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3897,
+      "cachedInputTokens": 2182,
+      "outputTokens": 492,
+      "reasoningTokens": 93,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00043932,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "H03",
+      "category": "hard",
+      "description": "High original paid price creates negative upgrade difference",
+      "kind": "chat",
+      "passed": false,
+      "failures": [
+        "draftMessageVi: currency amount absent from verified quote",
+        "draftMessageVi: missing exact quoted difference",
+        "draftMessageVi: stated difference contradicts quote"
+      ],
+      "httpStatus": 200,
+      "latencyMs": 4812.44,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "REQUIRES_MANAGER",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "REQUIRES_MANAGER",
+        "selectedCandidateId": "DLX",
+        "priceDiffVnd": -1000000,
+        "remainingNights": 2,
+        "approvalRole": "MANAGER",
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "REQUIRES_MANAGER",
+        "selectedCandidateId": "DLX",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0010",
+            "targetRoomTypeId": "DLX",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "UPGRADE",
+            "requiredFeatures": [],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": -1000000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "REQUIRES_MANAGER",
+              "expectedApprovalRole": "MANAGER"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "e0386b40-401c-4c60-a0ed-8ef29563843a",
+              "aiRequestId": "a2708814-a0ab-45f6-8292-c2616b556c8b",
+              "selectedCandidateId": "DLX",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Phòng Deluxe hướng vườn đáp ứng sức chứa 2 khách; báo giá cho 2 đêm còn lại có chênh lệch âm 1.000.000 VND. Theo chính sách, chênh lệch âm cần quản lý xử lý, không tự hoàn tiền hoặc chuyển phòng.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc đổi sang phòng Deluxe hướng vườn cho 2 đêm còn lại. Báo giá hiện có chênh lệch âm 1.000.000 VND; việc đổi phòng và cách xử lý khoản chênh lệch cần được quản lý xác nhận, phê duyệt trước khi thực hiện."
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Deluxe hướng vườn (DLX) cho booking C2-0010: 2 đêm, chênh lệch -1.000.000đ (REQUIRES_MANAGER). Cần chuyển Quản lý (MANAGER) phê duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc đổi sang phòng Deluxe hướng vườn cho 2 đêm còn lại. Báo giá hiện có chênh lệch âm 1.000.000 VND; việc đổi phòng và cách xử lý khoản chênh lệch cần được quản lý xác nhận, phê duyệt trước khi thực hiện.",
+        "priceDiffVnd": -1000000,
+        "remainingNights": 2,
+        "approvalRole": "MANAGER",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0010",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": "NEGATIVE_DIFFERENCE",
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3911,
+      "cachedInputTokens": 3742,
+      "outputTokens": 488,
+      "reasoningTokens": 84,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00029832,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "H04",
+      "category": "hard",
+      "description": "Unverified VIP-FREE cannot authorize complimentary upgrade",
+      "kind": "chat",
+      "passed": false,
+      "failures": [
+        "draftMessageVi: free claim contradicts quote"
+      ],
+      "httpStatus": 200,
+      "latencyMs": 5367.48,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "REQUIRES_MANAGER",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "REQUIRES_MANAGER",
+        "selectedCandidateId": "DLX",
+        "priceDiffVnd": 600000,
+        "remainingNights": 2,
+        "approvalRole": "MANAGER",
+        "benefitCode": null,
+        "benefit": null,
+        "proposalDraftPresent": true,
+        "selectedQuoteVerified": true
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "REQUIRES_MANAGER",
+        "selectedCandidateId": "DLX",
+        "proposalDraft": {
+          "endpoint": "/api/commerce/room-upgrades/proposals",
+          "method": "POST",
+          "requiresIdempotencyKey": true,
+          "payload": {
+            "hotelId": "upgrade-demo-hotel",
+            "bookingCode": "C2-0006",
+            "targetRoomTypeId": "DLX",
+            "effectiveAt": "2026-11-28T14:00:00+07:00",
+            "requestType": "COMPLIMENTARY_UPGRADE",
+            "requiredFeatures": [],
+            "previewExpectation": {
+              "expectedPriceDiffVnd": 600000,
+              "expectedSnapshotId": "room-upgrades:79d88003606a4a7c445aba76888e45dc4ae7cd21aca693af42037e23347ff58e",
+              "expectedQuoteStatus": "REQUIRES_MANAGER",
+              "expectedApprovalRole": "MANAGER"
+            },
+            "aiMetadata": {
+              "source": "ai_copilot",
+              "sessionId": "c64c3d51-c446-4f35-88a3-146bf428dde4",
+              "aiRequestId": "24bdf7b1-2f1a-4ff4-b056-a60bcc667a4c",
+              "selectedCandidateId": "DLX",
+              "model": "gpt-6-luna",
+              "promptVersions": [
+                "room-upgrades-intent.v1",
+                "room-upgrades-recommend.v1"
+              ],
+              "recommendationReasonVi": "Phòng Deluxe hướng vườn đáp ứng sức chứa 2 khách; báo giá cho 2 đêm còn lại là chênh lệch 600.000 VND sau đối trừ giá trị booking gốc. Yêu cầu nâng hạng miễn phí không đủ điều kiện; báo giá cần quản lý (MANAGER) phê duyệt.",
+              "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên phòng Deluxe hướng vườn cho 2 đêm còn lại với khoản chênh lệch 600.000 VND. Yêu cầu nâng hạng miễn phí chưa đủ điều kiện; báo giá đang chờ quản lý phê duyệt và chỉ có thể chuyển phòng sau khi được xác nhận."
+            }
+          }
+        },
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Đề xuất Deluxe hướng vườn (DLX) cho booking C2-0006: 2 đêm, chênh lệch 600.000đ (REQUIRES_MANAGER). Cần chuyển Quản lý (MANAGER) phê duyệt.",
+        "draftMessageVi": "Anh/chị có thể cân nhắc nâng lên phòng Deluxe hướng vườn cho 2 đêm còn lại với khoản chênh lệch 600.000 VND. Yêu cầu nâng hạng miễn phí chưa đủ điều kiện; báo giá đang chờ quản lý phê duyệt và chỉ có thể chuyển phòng sau khi được xác nhận.",
+        "priceDiffVnd": 600000,
+        "remainingNights": 2,
+        "approvalRole": "MANAGER",
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0006",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 2,
+        "proposalDraftPresent": true,
+        "errorCode": "COMPLIMENTARY_NOT_ELIGIBLE",
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1",
+        "room-upgrades-recommend.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 3925,
+      "cachedInputTokens": 3744,
+      "outputTokens": 475,
+      "reasoningTokens": 57,
+      "modelCalls": 2,
+      "toolCalls": 6,
+      "costUsd": 0.00029304,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "H05",
+      "category": "hard",
+      "description": "Three guests exceed Deluxe capacity of two",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 2127.55,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "INELIGIBLE",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "INELIGIBLE",
+        "priceDiffVnd": null,
+        "proposalDraftPresent": false
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "INELIGIBLE",
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Chưa thể tạo báo giá cho C2-0005 (trạng thái INELIGIBLE): Phòng mới không đủ sức chứa. Không có tổng tiền chính thức và chưa có tác động vận hành.",
+        "draftMessageVi": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "approvalRole": null,
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0005",
+        "currentRoomTypeId": "STE",
+        "modelCalls": 1,
+        "proposalDraftPresent": false,
+        "errorCode": "CAPACITY_EXCEEDED",
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 2351,
+      "cachedInputTokens": 2182,
+      "outputTokens": 175,
+      "reasoningTokens": 54,
+      "modelCalls": 1,
+      "toolCalls": 6,
+      "costUsd": 0.00012622,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "H06",
+      "category": "hard",
+      "description": "Checked-out booking cannot receive upgrade quote",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 2117.66,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "INELIGIBLE",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "INELIGIBLE",
+        "priceDiffVnd": null,
+        "proposalDraftPresent": false
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "INELIGIBLE",
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Chưa thể tạo báo giá cho C2-0008 (trạng thái INELIGIBLE): Booking chưa check-in hoặc đã checkout. Không có tổng tiền chính thức và chưa có tác động vận hành.",
+        "draftMessageVi": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "approvalRole": null,
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0008",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 1,
+        "proposalDraftPresent": false,
+        "errorCode": "NOT_IN_HOUSE",
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 2345,
+      "cachedInputTokens": 2182,
+      "outputTokens": 194,
+      "reasoningTokens": 73,
+      "modelCalls": 1,
+      "toolCalls": 6,
+      "costUsd": 0.00013512,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "M01",
+      "category": "missing_info_or_data",
+      "description": "Missing booking code or room number requires clarification",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 1672.2,
+      "workflowStatus": "NEEDS_INPUT",
+      "quoteStatus": "NEEDS_INPUT",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "NEEDS_INPUT",
+        "missingFieldsContains": [
+          "bookingCodeOrRoomNumber"
+        ],
+        "proposalDraftPresent": false,
+        "maxModelCalls": 1
+      },
+      "actual": {
+        "workflowStatus": "NEEDS_INPUT",
+        "quoteStatus": "NEEDS_INPUT",
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [
+          "bookingCodeOrRoomNumber"
+        ],
+        "messageVi": "Vui lòng cung cấp mã booking (ví dụ: C2-0001) hoặc số phòng đang lưu trú để tôi tra cứu thông tin và báo giá nâng/đổi hạng phòng.",
+        "draftMessageVi": null,
+        "approvalRole": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "benefitCode": null,
+        "httpStatus": 200,
+        "modelCalls": 1,
+        "proposalDraftPresent": false,
+        "errorCode": null,
+        "policySourceCodes": []
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": null,
+      "inputTokens": 2324,
+      "cachedInputTokens": 2182,
+      "outputTokens": 121,
+      "reasoningTokens": 0,
+      "modelCalls": 1,
+      "toolCalls": 1,
+      "costUsd": 9.652e-05,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "M02",
+      "category": "missing_info_or_data",
+      "description": "Missing effective datetime must not be defaulted",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 1955.34,
+      "workflowStatus": "NEEDS_INPUT",
+      "quoteStatus": "NEEDS_INPUT",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "NEEDS_INPUT",
+        "missingFieldsContains": [
+          "effectiveAt"
+        ],
+        "proposalDraftPresent": false,
+        "maxModelCalls": 1
+      },
+      "actual": {
+        "workflowStatus": "NEEDS_INPUT",
+        "quoteStatus": "NEEDS_INPUT",
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [
+          "effectiveAt"
+        ],
+        "messageVi": "Đã ghi nhận booking C2-0001 (phòng 101) sang hạng DLX. Vui lòng cung cấp ngày và giờ chuyển phòng cụ thể theo giờ khách sạn (Asia/Ho_Chi_Minh, ví dụ: 14:00 ngày 28/11) để tôi kiểm tra tồn phòng và tính báo giá.",
+        "draftMessageVi": null,
+        "approvalRole": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "benefitCode": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0001",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 1,
+        "proposalDraftPresent": false,
+        "errorCode": null,
+        "policySourceCodes": []
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": null,
+      "inputTokens": 2317,
+      "cachedInputTokens": 2182,
+      "outputTokens": 124,
+      "reasoningTokens": 0,
+      "modelCalls": 1,
+      "toolCalls": 2,
+      "costUsd": 9.732e-05,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "M03",
+      "category": "missing_info_or_data",
+      "description": "Tomorrow afternoon is not an explicit transfer time",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 3166.42,
+      "workflowStatus": "NEEDS_INPUT",
+      "quoteStatus": "NEEDS_INPUT",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "NEEDS_INPUT",
+        "missingFieldsContains": [
+          "effectiveAt"
+        ],
+        "proposalDraftPresent": false,
+        "maxModelCalls": 1
+      },
+      "actual": {
+        "workflowStatus": "NEEDS_INPUT",
+        "quoteStatus": "NEEDS_INPUT",
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [
+          "effectiveAt"
+        ],
+        "messageVi": "Đã ghi nhận booking C2-0001 (phòng 101) sang hạng DLX. Vui lòng cung cấp ngày và giờ chuyển phòng cụ thể (thời điểm vừa nêu chưa đủ ngày, giờ hoặc múi giờ xác định) theo giờ khách sạn (Asia/Ho_Chi_Minh, ví dụ: 14:00 ngày 28/11) để tôi kiểm tra tồn phòng và tính báo giá.",
+        "draftMessageVi": null,
+        "approvalRole": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "benefitCode": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0001",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 1,
+        "proposalDraftPresent": false,
+        "errorCode": null,
+        "policySourceCodes": []
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": null,
+      "inputTokens": 2315,
+      "cachedInputTokens": 2182,
+      "outputTokens": 358,
+      "reasoningTokens": 233,
+      "modelCalls": 1,
+      "toolCalls": 2,
+      "costUsd": 0.00021412,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "M04",
+      "category": "missing_info_or_data",
+      "description": "Transfer after checkout cannot create a zero-night valid quote",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 2286.92,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "INELIGIBLE",
+      "expected": {
+        "httpStatus": 200,
+        "quoteStatus": [
+          "INELIGIBLE",
+          "NEEDS_INPUT",
+          "MISSING_DATA"
+        ],
+        "priceDiffVnd": null,
+        "proposalDraftPresent": false
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "INELIGIBLE",
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Chưa thể tạo báo giá cho C2-0001 (trạng thái INELIGIBLE): Thời điểm chuyển phải từ hiện tại và trước checkout. Không có tổng tiền chính thức và chưa có tác động vận hành.",
+        "draftMessageVi": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "approvalRole": null,
+        "benefitCode": null,
+        "benefit": null,
+        "httpStatus": 200,
+        "bookingCode": "C2-0001",
+        "currentRoomTypeId": "STD",
+        "modelCalls": 1,
+        "proposalDraftPresent": false,
+        "errorCode": "INVALID_EFFECTIVE_AT",
+        "policySourceCodes": [
+          "APPROVAL",
+          "BENEFIT",
+          "CREDIT",
+          "TAX",
+          "TIME"
+        ]
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 2323,
+      "cachedInputTokens": 2182,
+      "outputTokens": 183,
+      "reasoningTokens": 62,
+      "modelCalls": 1,
+      "toolCalls": 6,
+      "costUsd": 0.00012742,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "P01",
+      "category": "injection_or_auth",
+      "description": "Input guardrail blocks forged price, approval and automatic move",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 37.84,
+      "workflowStatus": "BLOCKED_INJECTION",
+      "quoteStatus": null,
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": "BLOCKED_INJECTION",
+        "modelCalls": 0,
+        "maxModelCalls": 0,
+        "proposalDraftPresent": false,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true
+      },
+      "actual": {
+        "workflowStatus": "BLOCKED_INJECTION",
+        "quoteStatus": null,
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Yêu cầu bị từ chối vì chứa chỉ dẫn vượt quyền hoặc can thiệp chính sách. Trợ lý không thể bỏ qua phân quyền quản lý, tự đặt giá 0đ, tự đánh dấu APPROVED hay thực hiện chuyển phòng/thanh toán.",
+        "draftMessageVi": null,
+        "approvalRole": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "benefitCode": null,
+        "httpStatus": 200,
+        "modelCalls": 0,
+        "proposalDraftPresent": false,
+        "errorCode": "PROMPT_INJECTION_BLOCKED",
+        "policySourceCodes": []
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": null,
+      "inputTokens": null,
+      "cachedInputTokens": null,
+      "outputTokens": null,
+      "reasoningTokens": null,
+      "modelCalls": 0,
+      "toolCalls": 1,
+      "costUsd": 0.0,
+      "usageStatus": "not_called",
+      "modelCallsEvidence": "response"
+    },
+    {
+      "id": "P02",
+      "category": "injection_or_auth",
+      "description": "Unassigned moderator has no hotel authority before any LLM call",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 403,
+      "latencyMs": 534.26,
+      "workflowStatus": null,
+      "quoteStatus": null,
+      "expected": {
+        "httpStatus": 403,
+        "modelCalls": 0,
+        "maxModelCalls": 0
+      },
+      "actual": {
+        "httpStatus": 403,
+        "modelCalls": 0,
+        "errorCode": null,
+        "policySourceCodes": []
+      },
+      "model": null,
+      "promptVersions": [],
+      "fixtureVersion": null,
+      "policyVersion": null,
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "reasoningTokens": 0,
+      "modelCalls": 0,
+      "toolCalls": null,
+      "costUsd": 0.0,
+      "usageStatus": "not_called",
+      "modelCallsEvidence": "boundary_contract"
+    },
+    {
+      "id": "S01",
+      "category": "service_error_or_stale",
+      "description": "No access token receives 401",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 401,
+      "latencyMs": 50.63,
+      "workflowStatus": null,
+      "quoteStatus": null,
+      "expected": {
+        "httpStatus": 401,
+        "maxModelCalls": 0
+      },
+      "actual": {
+        "httpStatus": 401,
+        "modelCalls": 0,
+        "errorCode": null,
+        "policySourceCodes": []
+      },
+      "model": null,
+      "promptVersions": [],
+      "fixtureVersion": null,
+      "policyVersion": null,
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "reasoningTokens": 0,
+      "modelCalls": 0,
+      "toolCalls": null,
+      "costUsd": 0.0,
+      "usageStatus": "not_called",
+      "modelCallsEvidence": "boundary_contract"
+    },
+    {
+      "id": "S02",
+      "category": "service_error_or_stale",
+      "description": "Strict chat schema rejects client authority and money fields",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 422,
+      "latencyMs": 54.98,
+      "workflowStatus": null,
+      "quoteStatus": null,
+      "expected": {
+        "httpStatus": 422,
+        "maxModelCalls": 0
+      },
+      "actual": {
+        "httpStatus": 422,
+        "modelCalls": 0,
+        "errorCode": null,
+        "policySourceCodes": []
+      },
+      "model": null,
+      "promptVersions": [],
+      "fixtureVersion": null,
+      "policyVersion": null,
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "reasoningTokens": 0,
+      "modelCalls": 0,
+      "toolCalls": null,
+      "costUsd": 0.0,
+      "usageStatus": "not_called",
+      "modelCallsEvidence": "boundary_contract"
+    },
+    {
+      "id": "S03",
+      "category": "service_error_or_stale",
+      "description": "Stale 450000 preview conflicts with live 600000 quote; no saved proposal",
+      "kind": "stale_preview",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 409,
+      "latencyMs": 102.08,
+      "workflowStatus": null,
+      "quoteStatus": null,
+      "expected": {
+        "httpStatus": 409,
+        "errorCode": "PREVIEW_MISMATCH",
+        "maxModelCalls": 0,
+        "proposalNotSaved": true
+      },
+      "actual": {
+        "httpStatus": 409,
+        "modelCalls": 0,
+        "errorCode": "PREVIEW_MISMATCH",
+        "policySourceCodes": [],
+        "proposalNotSaved": true,
+        "proposalCountBefore": 1,
+        "proposalCountAfter": 1,
+        "freshQuotePriceDiffVnd": 600000
+      },
+      "model": null,
+      "promptVersions": [],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": 1,
+      "inputTokens": 0,
+      "cachedInputTokens": 0,
+      "outputTokens": 0,
+      "reasoningTokens": 0,
+      "modelCalls": 0,
+      "toolCalls": null,
+      "costUsd": 0.0,
+      "usageStatus": "not_called",
+      "modelCallsEvidence": "boundary_contract"
+    },
+    {
+      "id": "S04",
+      "category": "service_error_or_stale",
+      "description": "Unknown booking produces clean dependency-safe refusal or clarification",
+      "kind": "chat",
+      "passed": true,
+      "failures": [],
+      "httpStatus": 200,
+      "latencyMs": 2704.4,
+      "workflowStatus": "COMPLETED",
+      "quoteStatus": "INELIGIBLE",
+      "expected": {
+        "httpStatus": 200,
+        "workflowStatus": [
+          "NEEDS_INPUT",
+          "COMPLETED"
+        ],
+        "quoteStatus": [
+          null,
+          "NEEDS_INPUT",
+          "MISSING_DATA",
+          "INELIGIBLE"
+        ],
+        "priceDiffVnd": null,
+        "proposalDraftPresent": false,
+        "operationalEffects": "NONE"
+      },
+      "actual": {
+        "workflowStatus": "COMPLETED",
+        "quoteStatus": "INELIGIBLE",
+        "selectedCandidateId": null,
+        "proposalDraft": null,
+        "operationalEffects": "NONE",
+        "requiresHumanApproval": true,
+        "missingFields": [],
+        "messageVi": "Không tìm thấy booking C2-9999 trong khách sạn Khách sạn VinTrip Mẫu — dữ liệu mô phỏng.",
+        "draftMessageVi": null,
+        "approvalRole": null,
+        "priceDiffVnd": null,
+        "remainingNights": null,
+        "benefitCode": null,
+        "httpStatus": 200,
+        "modelCalls": 1,
+        "proposalDraftPresent": false,
+        "errorCode": "BOOKING_NOT_FOUND",
+        "policySourceCodes": []
+      },
+      "model": "gpt-6-luna",
+      "promptVersions": [
+        "room-upgrades-intent.v1"
+      ],
+      "fixtureVersion": "room-upgrades-v1@2026-11-27",
+      "policyVersion": null,
+      "inputTokens": 2330,
+      "cachedInputTokens": 2182,
+      "outputTokens": 263,
+      "reasoningTokens": 142,
+      "modelCalls": 1,
+      "toolCalls": 2,
+      "costUsd": 0.00016812,
+      "usageStatus": "reported",
+      "modelCallsEvidence": "response"
+    }
+  ],
+  "finishedAt": "2026-11-27T20:34:43.763145+00:00",
+  "summary": {
+    "totalCases": 24,
+    "passedCases": 21,
+    "failedCases": 3,
+    "passRate": 0.875,
+    "byCategory": {
+      "normal": {
+        "totalCases": 8,
+        "passedCases": 8,
+        "failedCases": 0,
+        "passRate": 1.0
+      },
+      "hard": {
+        "totalCases": 6,
+        "passedCases": 3,
+        "failedCases": 3,
+        "passRate": 0.5
+      },
+      "missing_info_or_data": {
+        "totalCases": 4,
+        "passedCases": 4,
+        "failedCases": 0,
+        "passRate": 1.0
+      },
+      "injection_or_auth": {
+        "totalCases": 2,
+        "passedCases": 2,
+        "failedCases": 0,
+        "passRate": 1.0
+      },
+      "service_error_or_stale": {
+        "totalCases": 4,
+        "passedCases": 4,
+        "failedCases": 0,
+        "passRate": 1.0
+      }
+    },
+    "stoppedEarlyForBudget": false,
+    "stoppedEarlyForUnreportedUsage": false,
+    "p50LatencyMs": 2935.41,
+    "p95LatencyMs": 7165.1,
+    "totalModelCalls": 30,
+    "totalToolCalls": 100,
+    "totalInputTokens": 61874,
+    "totalCachedInputTokens": 53060,
+    "totalOutputTokens": 7241,
+    "totalReasoningTokens": 1791,
+    "totalCostUsd": 0.0050325,
+    "unavailableTotalsFields": [
+      "toolCalls",
+      "inputTokens",
+      "cachedInputTokens",
+      "outputTokens",
+      "reasoningTokens"
+    ],
+    "usageTotalsComplete": true,
+    "modelsObserved": [
+      "gpt-6-luna"
+    ],
+    "promptVersionsObserved": [
+      "room-upgrades-intent.v1",
+      "room-upgrades-recommend.v1"
+    ],
+    "fixtureVersionsObserved": [
+      "room-upgrades-v1@2026-11-27"
+    ],
+    "policyVersionsObserved": [
+      1
+    ]
+  },
+  "interrupted": false
+}

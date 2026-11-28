@@ -35,6 +35,7 @@ from app.services.room_upgrades.guardrails import (
 )
 from app.services.room_upgrades.llm_runner import AsyncStructuredLlm, RoomUpgradeLlmRunner
 from app.services.room_upgrades.schemas import (
+    BackendBenefit,
     BackendBookingContextResponse,
     BackendBookingListResponse,
     BackendIssue,
@@ -172,7 +173,7 @@ def match_room_type_id(
     if not folded_hint:
         return None, False
 
-    # Generic phrases ("hạng cao hơn", "phòng đẹp hơn") mean open discovery, not an unknown type.
+    # Generic or feature-only phrases mean open discovery, not an unknown room category.
     if folded_hint in {
         "hang cao hon",
         "phong cao hon",
@@ -182,6 +183,35 @@ def match_room_type_id(
         "upgrade",
     }:
         return None, False
+
+    if not explicit_id:
+        feature_only = folded_hint
+        for phrase in (
+            "khong hut thuoc",
+            "non smoking",
+            "non-smoking",
+            "huong vuon",
+            "garden view",
+            "xe lan",
+            "nguoi khuyet tat",
+            "ho tro di chuyen",
+            "accessible",
+            "hang phong",
+            "phong",
+            "co",
+            "va",
+            "hoac",
+            "phu hop",
+            "rong hon",
+            "yen tinh",
+            "cao hon",
+            "tot hon",
+            "dep hon",
+            "tien nghi",
+        ):
+            feature_only = re.sub(rf"\b{re.escape(phrase)}\b", " ", feature_only)
+        if not re.sub(r"[\s,.;:/()-]+", "", feature_only):
+            return None, False
 
     # Check exact ID or normalized room name / distinctive keyword match.
     matches: list[str] = []
@@ -205,7 +235,40 @@ def match_room_type_id(
 
     if len(matches) == 1:
         return matches[0], False
+    if len(matches) > 1 and not explicit_id:
+        return None, False
     return None, True
+
+
+def resolve_benefit_id(
+    benefits: list[BackendBenefit],
+    raw_benefit_id: str | None,
+    *,
+    request_type: str,
+) -> str | None:
+    """Map an extracted benefit code (e.g. GOLD-10, VIP-FREE) to the backend benefit ID.
+
+    Preserves exact IDs and unknown values so backend remains the sole eligibility authority.
+    """
+    if not raw_benefit_id:
+        return None
+    cleaned = raw_benefit_id.strip()
+    if not cleaned:
+        return None
+    for benefit in benefits:
+        if benefit.id == cleaned:
+            return benefit.id
+    folded_code = cleaned.upper()
+    code_matches = [b for b in benefits if b.code.upper() == folded_code]
+    if not code_matches:
+        return cleaned
+    verified = [b for b in code_matches if b.verified_at is not None]
+    if verified:
+        best = sorted(verified, key=lambda b: (-b.discount_bps, b.id))[0]
+        return best.id
+    if request_type == "COMPLIMENTARY_UPGRADE":
+        return None
+    return sorted(code_matches, key=lambda b: b.id)[0].id
 
 
 def _booking_summary(context: BackendBookingContextResponse) -> BookingSummaryOut:
@@ -934,6 +997,14 @@ class RoomUpgradeWorkflow:
             )
             if resolved_target_id:
                 session_ctx.target_room_type_id = resolved_target_id
+
+            # Resolve human-readable benefit code (e.g. GOLD-10, VIP-FREE) against booking benefits.
+            if session_ctx.benefit_id:
+                session_ctx.benefit_id = resolve_benefit_id(
+                    booking_context.benefits,
+                    session_ctx.benefit_id,
+                    request_type=session_ctx.request_type,
+                )
 
             # If booking is not IN_HOUSE and effectiveAt is missing, report INELIGIBLE right away.
             if booking_context.booking.status != "IN_HOUSE" and not session_ctx.effective_at:

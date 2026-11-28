@@ -11,7 +11,7 @@ const INSPIRATION_PATH = /^\/(?:inspiration|trips\/[^/]+|trip-plans\/[^/]+)(?:\/
 const PROFILE_PATH = /^\/u\/([^/]+)\/?$/;
 // Giữ cùng danh sách với isAssistantHidden (features/assistant/assistant-widget.tsx): các trang toàn màn hình.
 const TAB_BAR_HIDDEN_PATH =
-  /^\/(?:login|register|forgot-password|dat-lai-mat-khau|xac-thuc-email|checkout|payments|onboarding)(?:\/|$)/;
+  /^\/(?:login|register|forgot-password|dat-lai-mat-khau|xac-thuc-email|checkout|payments|onboarding|staff)(?:\/|$)/;
 
 /** Mục thanh đáy đang chọn theo đường dẫn; null nếu trang không thuộc mục nào. */
 export function findActiveMobileTab(pathname: string, userId: string | null): MobileTabId | null {

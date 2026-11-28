@@ -351,6 +351,42 @@ export class RoomUpgradeProposalUseCases {
     });
   }
 
+  getStaffContext(userId: string) {
+    return this.store.withReadTransaction(async (tx) => {
+      const assignments = await tx.listStaffAssignments(userId);
+      return { caseId: 'C2' as const, isMock: true as const, operationalEffects: 'NONE' as const,
+        requestId: this.requestId(), userId, hasAccess: assignments.length > 0, assignments };
+    });
+  }
+
+  getSummary(userId: string, hotelId: string) {
+    return this.store.withReadTransaction(async (tx) => {
+      const staffRole = await this.authorize(tx, hotelId, userId);
+      const data = await this.snapshot(tx, hotelId);
+      const now = this.clock();
+      const inHouseBookings = data.bookings.filter((b) => b.status === 'IN_HOUSE' &&
+        Date.parse(b.checkInAt) <= now.getTime() && Date.parse(b.checkOutAt) > now.getTime()).length;
+      const statusCounts = await tx.countProposalsByStatus(hotelId);
+      const byStatus = new Map(statusCounts.map((row) => [row.status, row.count]));
+      const { items } = await tx.listProposals({ hotelId, limit: 5, offset: 0 });
+      const revisions = await tx.listRevisionsByProposalIds(hotelId, items.map((proposal) => proposal.id));
+      const byRevision = new Map(revisions.map((revision) => [`${revision.proposalId}:${revision.revisionNumber}`, revision]));
+      const { id, name, timezone, fixtureVersion } = data.hotel;
+      return { caseId: 'C2' as const, isMock: true as const, operationalEffects: 'NONE' as const,
+        requestId: this.requestId(), hotel: { id, name, timezone, fixtureVersion }, staffRole,
+        counts: { inHouseBookings, totalProposals: statusCounts.reduce((total, row) => total + row.count, 0),
+          draft: byStatus.get('DRAFT') ?? 0, pendingReceptionist: byStatus.get('PENDING_RECEPTIONIST') ?? 0,
+          pendingManager: byStatus.get('PENDING_MANAGER') ?? 0, approved: byStatus.get('APPROVED') ?? 0,
+          rejected: byStatus.get('REJECTED') ?? 0, expired: byStatus.get('EXPIRED') ?? 0,
+          requoteRequired: byStatus.get('REQUOTE_REQUIRED') ?? 0 },
+        recentProposals: items.map((proposal) => {
+          const revision = byRevision.get(`${proposal.id}:${proposal.currentRevision}`);
+          if (!revision) throw new ServiceUnavailableException({ code: 'PROPOSAL_REVISION_MISSING', message: 'Thiếu revision hiện tại của đề xuất.' });
+          return summary(proposal, revision, staffRole, now);
+        }) };
+    });
+  }
+
   listProposals(userId: string, input: ListProposalsQuery) {
     return this.store.withReadTransaction(async (tx) => {
       const role = await this.authorize(tx, input.hotelId, userId);
@@ -393,4 +429,6 @@ export class RoomUpgradeProposalUseCases {
 }
 
 export type ProposalListResponse = Awaited<ReturnType<RoomUpgradeProposalUseCases['listProposals']>>;
+export type StaffContextResponse = Awaited<ReturnType<RoomUpgradeProposalUseCases['getStaffContext']>>;
+export type ProposalSummaryResponse = Awaited<ReturnType<RoomUpgradeProposalUseCases['getSummary']>>;
 export type ProposalHistoryResponse = Awaited<ReturnType<RoomUpgradeProposalUseCases['getProposalHistory']>>;

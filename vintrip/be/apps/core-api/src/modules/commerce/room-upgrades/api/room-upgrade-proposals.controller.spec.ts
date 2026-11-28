@@ -64,6 +64,19 @@ class MemoryProposalStore implements RoomUpgradeProposalStore {
     const data = structuredClone(this.data);
     const proposal = (hotelId: string, id: string) => state.proposals.find((row) => row.hotelId === hotelId && row.id === id) ?? null;
     return {
+      listStaffAssignments: async (userId) => [...assignments.entries()]
+        .filter(([key]) => key.endsWith(`:${userId}`))
+        .map(([key, staffRole]) => ({ hotelId: key.slice(0, -(userId.length + 1)),
+          hotelName: key.startsWith(`${data.hotel.id}:`) ? data.hotel.name : 'Other synthetic hotel',
+          timezone: data.hotel.timezone, fixtureVersion: data.hotel.fixtureVersion, staffRole }))
+        .sort((a, b) => a.hotelId.localeCompare(b.hotelId)),
+      countProposalsByStatus: async (hotelId) => {
+        const counts = new Map<ProposalRecord['status'], number>();
+        for (const row of state.proposals.filter((item) => item.hotelId === hotelId)) {
+          counts.set(row.status, (counts.get(row.status) ?? 0) + 1);
+        }
+        return [...counts].map(([status, count]) => ({ status, count }));
+      },
       staffRole: async (hotelId, userId) => assignments.get(scope(hotelId, userId)) ?? null,
       loadSnapshot: async (hotelId) => data.hotel.id === hotelId ? structuredClone(data) : null,
       findIdempotency: async (input) => structuredClone(state.idempotency.find((row) => row.hotelId === input.hotelId &&
@@ -178,6 +191,91 @@ describe('room-upgrade proposals HTTP: approval lifecycle, isolation and replay'
     expect(response.headers['cache-control']).toBe('no-store');
     return response.body as ProposalHistoryResponse;
   }
+
+  it('staff-context requires authentication and returns ordered active assignments with no writes', async () => {
+    const path = '/api/commerce/room-upgrades/staff-context';
+    await request(app.getHttpServer()).get(path).expect(401);
+    const before = structuredClone(store.state);
+    const response = await request(app.getHttpServer()).get(path).auth('manager', { type: 'bearer' }).expect(200);
+    expect(response.headers['cache-control']).toBe('no-store');
+    expect(response.body).toEqual({ caseId: 'C2', isMock: true, operationalEffects: 'NONE',
+      requestId: 'proposal-http-test', userId: users.manager.userId, hasAccess: true,
+      assignments: [
+        { hotelId: otherHotel, hotelName: 'Other synthetic hotel', timezone: store.data.hotel.timezone,
+          fixtureVersion: store.data.hotel.fixtureVersion, staffRole: 'MANAGER' },
+        { hotelId: DEMO_HOTEL_ID, hotelName: store.data.hotel.name, timezone: store.data.hotel.timezone,
+          fixtureVersion: store.data.hotel.fixtureVersion, staffRole: 'MANAGER' },
+      ].sort((a, b) => a.hotelId.localeCompare(b.hotelId)) });
+    expect(store.state).toEqual(before);
+    expect(store.readTransactions).toBe(1);
+    expect(store.writeTransactions).toBe(0);
+  });
+
+  it.each(['customer', 'unassigned', 'superadmin', 'receptionist'] as const)(
+    'staff-context returns 200 without access for %s (including revoked staff)', async (token) => {
+      if (token === 'receptionist') store.assignments.delete(scope(DEMO_HOTEL_ID, users.receptionist.userId));
+      const response = await request(app.getHttpServer()).get('/api/commerce/room-upgrades/staff-context')
+        .auth(token, { type: 'bearer' }).expect(200);
+      expect(response.body).toMatchObject({ userId: users[token].userId, hasAccess: false, assignments: [] });
+      const denied = await get('/summary', {}, token).expect(403);
+      expect(denied.body.code).toBe('HOTEL_ACCESS_DENIED');
+      expect(store.writeTransactions).toBe(0);
+    },
+  );
+
+  it('summary is routed before proposalId, validates scope and returns zero counts for an empty hotel', async () => {
+    await request(app.getHttpServer()).get(`${route}/summary?hotelId=${DEMO_HOTEL_ID}`).expect(401);
+    await request(app.getHttpServer()).get(`${route}/summary`).auth('manager', { type: 'bearer' }).expect(400);
+    await get('/summary', { unknown: 'value' }).expect(400);
+    const response = await get('/summary').expect(200);
+    expect(response.headers['cache-control']).toBe('no-store');
+    expect(response.body).toEqual({ caseId: 'C2', isMock: true, operationalEffects: 'NONE', requestId: 'proposal-http-test',
+      hotel: { id: DEMO_HOTEL_ID, name: store.data.hotel.name, timezone: store.data.hotel.timezone,
+        fixtureVersion: store.data.hotel.fixtureVersion }, staffRole: 'RECEPTIONIST',
+      counts: { inHouseBookings: 8, totalProposals: 0, draft: 0, pendingReceptionist: 0, pendingManager: 0,
+        approved: 0, rejected: 0, expired: 0, requoteRequired: 0 }, recentProposals: [] });
+  });
+
+  it('summary counts all statuses beyond pagination, isolates hotels and hydrates the current revision', async () => {
+    const statuses: ProposalRecord['status'][] = ['DRAFT', 'PENDING_RECEPTIONIST', 'PENDING_MANAGER', 'APPROVED',
+      'REJECTED', 'EXPIRED', 'REQUOTE_REQUIRED'];
+    for (let i = 0; i < 23; i++) {
+      const created = await create();
+      const row = store.state.proposals.find((proposal) => proposal.id === created.proposalId)!;
+      row.status = statuses[i % statuses.length]!;
+      row.updatedAt = new Date(now.getTime() + i * 1000).toISOString();
+    }
+    const latest = store.state.proposals.at(-1)!;
+    const revision = store.state.revisions.find((row) => row.proposalId === latest.id)!;
+    latest.currentRevision = 2;
+    store.state.revisions.push({ ...structuredClone(revision), revisionNumber: 2, priceDiffVnd: 777_000 });
+    store.state.proposals.push({ ...structuredClone(latest), id: randomUUID(), hotelId: otherHotel });
+    // Boundary rule: include check-in == now, exclude checkout == now and future check-in.
+    store.data.bookings[0]!.checkInAt = now.toISOString();
+    store.data.bookings[1]!.checkOutAt = now.toISOString();
+    store.data.bookings[2]!.checkInAt = new Date(now.getTime() + 1).toISOString();
+    const before = structuredClone(store.state);
+    const source = structuredClone(store.data);
+    const response = await get('/summary', {}, 'manager').expect(200);
+    expect(response.body.counts).toEqual({ inHouseBookings: 6, totalProposals: 23, draft: 4, pendingReceptionist: 4,
+      pendingManager: 3, approved: 3, rejected: 3, expired: 3, requoteRequired: 3 });
+    expect(response.body.recentProposals).toHaveLength(5);
+    expect(response.body.recentProposals[0]).toMatchObject({ proposalId: latest.id, currentRevision: 2, priceDiffVnd: 777_000 });
+    expect(response.body.recentProposals.map((row: { proposalId: string }) => row.proposalId))
+      .toEqual(store.state.proposals.slice(0, 23).slice(-5).reverse().map((row) => row.id));
+    expect(store.state).toEqual(before);
+    expect(store.data).toEqual(source);
+    expect(store.batchReads).toBe(1);
+    expect(store.readTransactions).toBe(1);
+    expect(store.writeTransactions).toBe(23);
+  });
+
+  it('summary fails closed if the current revision is missing', async () => {
+    await create();
+    store.state.revisions = [];
+    const response = await get('/summary').expect(503);
+    expect(response.body.code).toBe('PROPOSAL_REVISION_MISSING');
+  });
 
   it('creates a server-validated 600,000 VND quote and receptionist approves without operational writes', async () => {
     const source = structuredClone(store.data);

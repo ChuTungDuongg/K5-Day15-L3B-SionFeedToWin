@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { Global, Module, type INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import { AuthModule, InvalidAccessTokenError, MemorySidBlocklist, type AuthUser } from '@vintrip/auth';
-import { buildDrizzleToken, createDb, createPool, createTransactionalPlugins, MODULES, type Db } from '@vintrip/db';
+import { buildDrizzleToken, buildTransactionHostToken, createDb, createPool, createTransactionalPlugins, MODULES, type Db, type ModuleTransactionHost } from '@vintrip/db';
 import { migrateModule, startPostgres, type PostgresFixture } from '@vintrip/testing';
 import { and, eq, sql } from 'drizzle-orm';
 import { ClsModule } from 'nestjs-cls';
@@ -32,6 +32,7 @@ const users = {
   manager: { userId: '00000000-0000-4000-8000-000000000002', role: 'member', sid: 'pg-m', exp: 9_999_999_999 },
   superadmin: { userId: '00000000-0000-4000-8000-000000000003', role: 'superadmin', sid: 'pg-s', exp: 9_999_999_999 },
   customer: { userId: '00000000-0000-4000-8000-000000000004', role: 'member', sid: 'pg-c', exp: 9_999_999_999 },
+  unassigned: { userId: '00000000-0000-4000-8000-000000000005', role: 'member', sid: 'pg-u', exp: 9_999_999_999 },
   otherStaff: { userId: '00000000-0000-4000-8000-000000000006', role: 'member', sid: 'pg-o', exp: 9_999_999_999 },
 } satisfies Record<string, AuthUser>;
 type Token = keyof typeof users;
@@ -238,6 +239,139 @@ describe('room-upgrade proposals: REAL PostgreSQL lifecycle, concurrency, stale 
       eq(upgradeRoomRates.hotelId, DEMO_HOTEL_ID), eq(upgradeRoomRates.roomTypeId, 'DLX'), eq(upgradeRoomRates.date, '2026-12-12'),
     ));
   }
+
+  describe('WP1a — read-only staff context and exact summary', () => {
+    const staffPath = '/api/commerce/room-upgrades/staff-context';
+
+    it('uses real REPEATABLE READ READ ONLY and rejects writes at the database boundary', async () => {
+      const store = app.get<DrizzleRoomUpgradeProposalStore>(ROOM_UPGRADE_PROPOSAL_STORE);
+      const host = app.get<ModuleTransactionHost>(buildTransactionHostToken('commerce'));
+      const before = await tableBytes('room_upgrade_hotels');
+      await store.withReadTransaction(async (tx) => {
+        await tx.listStaffAssignments(users.manager.userId);
+        const settings = await host.tx.execute<{ isolation: string; read_only: string }>(sql`
+          select current_setting('transaction_isolation') as isolation, current_setting('transaction_read_only') as read_only`);
+        const rows = Array.isArray(settings) ? settings[0]!.rows : settings.rows;
+        expect(rows[0]).toEqual({ isolation: 'repeatable read', read_only: 'on' });
+      });
+      await expect(store.withReadTransaction(async () => {
+        await host.tx.update(upgradeHotels).set({ name: 'forbidden write' });
+      })).rejects.toThrow();
+      expect((await tableBytes('room_upgrade_hotels')).equals(before)).toBe(true);
+    });
+
+    it('keeps assignment reads on one snapshot and the next HTTP request observes revocation', async () => {
+      const store = app.get<DrizzleRoomUpgradeProposalStore>(ROOM_UPGRADE_PROPOSAL_STORE);
+      await store.withReadTransaction(async (tx) => {
+        const before = await tx.listStaffAssignments(users.receptionist.userId);
+        expect(before).toHaveLength(1);
+        await db.update(upgradeStaffAssignments).set({ active: false }).where(and(
+          eq(upgradeStaffAssignments.hotelId, DEMO_HOTEL_ID), eq(upgradeStaffAssignments.userId, users.receptionist.userId),
+        ));
+        expect(await tx.listStaffAssignments(users.receptionist.userId)).toEqual(before);
+      });
+      const response = await request(app.getHttpServer()).get(staffPath).auth('receptionist', { type: 'bearer' }).expect(200);
+      expect(response.body).toMatchObject({ hasAccess: false, assignments: [] });
+      await get('/summary').expect(403);
+    });
+
+    it('authenticates both endpoints and validates summary scope before UUID routing', async () => {
+      await request(app.getHttpServer()).get(staffPath).expect(401);
+      await request(app.getHttpServer()).get(`${route}/summary?hotelId=${DEMO_HOTEL_ID}`).expect(401);
+      await request(app.getHttpServer()).get(`${route}/summary`).auth('manager', { type: 'bearer' }).expect(400);
+      await get('/summary', { unexpected: 'field' }).expect(400);
+      const response = await get('/summary').expect(200);
+      expect(response.headers['cache-control']).toBe('no-store');
+      expect(response.body).toMatchObject({ caseId: 'C2', isMock: true, operationalEffects: 'NONE',
+        hotel: { id: DEMO_HOTEL_ID, name: fixture.hotel.name, timezone: fixture.hotel.timezone,
+          fixtureVersion: fixture.hotel.fixtureVersion }, staffRole: 'RECEPTIONIST',
+        counts: { inHouseBookings: 8, totalProposals: 0, draft: 0, pendingReceptionist: 0, pendingManager: 0,
+          approved: 0, rejected: 0, expired: 0, requoteRequired: 0 }, recentProposals: [] });
+    });
+
+    it('joins active assignments to hotel metadata in hotelId order without any writes', async () => {
+      const before = await invariantBytes();
+      const proposalBefore = await Promise.all(proposalTables.map((table) => tableBytes(table)));
+      const response = await request(app.getHttpServer()).get(staffPath).auth('manager', { type: 'bearer' }).expect(200);
+      expect(response.headers['cache-control']).toBe('no-store');
+      expect(response.body).toMatchObject({ userId: users.manager.userId, hasAccess: true,
+        caseId: 'C2', isMock: true, operationalEffects: 'NONE', requestId: expect.any(String),
+        assignments: [
+          { hotelId: otherHotel, hotelName: 'Other synthetic hotel', timezone: fixture.hotel.timezone,
+            fixtureVersion: fixture.hotel.fixtureVersion, staffRole: 'MANAGER' },
+          { hotelId: DEMO_HOTEL_ID, hotelName: fixture.hotel.name, timezone: fixture.hotel.timezone,
+            fixtureVersion: fixture.hotel.fixtureVersion, staffRole: 'MANAGER' },
+        ] });
+      await get('/summary').expect(200);
+      expect((await invariantBytes()).equals(before)).toBe(true);
+      for (const [index, table] of proposalTables.entries()) {
+        expect((await tableBytes(table)).equals(proposalBefore[index]!)).toBe(true);
+      }
+    });
+
+    it.each(['customer', 'unassigned', 'superadmin', 'receptionist'] as const)(
+      'returns no navigation access for %s (including revoked assignment), but denies hotel reads', async (token) => {
+        if (token === 'receptionist') await db.update(upgradeStaffAssignments).set({ active: false }).where(and(
+          eq(upgradeStaffAssignments.hotelId, DEMO_HOTEL_ID), eq(upgradeStaffAssignments.userId, users[token].userId),
+        ));
+        const response = await request(app.getHttpServer()).get(staffPath).auth(token, { type: 'bearer' }).expect(200);
+        expect(response.body).toMatchObject({ userId: users[token].userId, hasAccess: false, assignments: [] });
+        const denied = await get('/summary', {}, token).expect(403);
+        expect(denied.body.code).toBe('HOTEL_ACCESS_DENIED');
+      },
+    );
+
+    it('counts every status across 23 proposals, hydrates revision 2, keeps top 5 ordered and never mutates rows', async () => {
+      const ids: string[] = [];
+      for (let i = 0; i < 23; i++) ids.push((await create()).proposalId);
+      const latestId = ids.at(-1)!;
+      await post(`/${latestId}/revise`, { ...decisionInput, effectiveAt: '2026-12-12T14:00:00+07:00' }).expect(200);
+      const statuses = ['DRAFT', 'PENDING_RECEPTIONIST', 'PENDING_MANAGER', 'APPROVED', 'REJECTED', 'EXPIRED', 'REQUOTE_REQUIRED'];
+      for (const [index, id] of ids.entries()) {
+        await pool.query('UPDATE commerce.room_upgrade_proposals SET status = $1, updated_at = $2 WHERE id = $3',
+          [statuses[index % statuses.length], new Date(now.getTime() + index * 1000).toISOString(), id]);
+      }
+      await db.update(upgradeBookings).set({ checkInAt: now.toISOString() }).where(and(
+        eq(upgradeBookings.hotelId, DEMO_HOTEL_ID), eq(upgradeBookings.bookingCode, 'C2-0001'),
+      ));
+      await db.update(upgradeBookings).set({ checkOutAt: now.toISOString() }).where(and(
+        eq(upgradeBookings.hotelId, DEMO_HOTEL_ID), eq(upgradeBookings.bookingCode, 'C2-0002'),
+      ));
+      await db.update(upgradeBookings).set({ checkInAt: new Date(now.getTime() + 1).toISOString() }).where(and(
+        eq(upgradeBookings.hotelId, DEMO_HOTEL_ID), eq(upgradeBookings.bookingCode, 'C2-0003'),
+      ));
+      const before = await invariantBytes();
+      const proposalBefore = await Promise.all(proposalTables.map((table) => tableBytes(table)));
+      const response = await get('/summary', {}, 'manager').expect(200);
+      expect(response.body.counts).toEqual({ inHouseBookings: 6, totalProposals: 23, draft: 4, pendingReceptionist: 4,
+        pendingManager: 3, approved: 3, rejected: 3, expired: 3, requoteRequired: 3 });
+      expect(response.body.recentProposals.map((row: { proposalId: string }) => row.proposalId)).toEqual(ids.slice(-5).reverse());
+      expect(response.body.recentProposals[0]).toMatchObject({ proposalId: latestId, currentRevision: 2,
+        effectiveAt: '2026-12-12T07:00:00.000Z', priceDiffVnd: 300_000 });
+      const other = await get('/summary', { hotelId: otherHotel }, 'manager').expect(200);
+      expect(other.body.counts.totalProposals).toBe(0);
+      expect(other.body.recentProposals).toEqual([]);
+      const denied = await get('/summary', {}, 'otherStaff').expect(403);
+      expect(denied.body.code).toBe('HOTEL_ACCESS_DENIED');
+      expect((await invariantBytes()).equals(before)).toBe(true);
+      for (const [index, table] of proposalTables.entries()) {
+        expect((await tableBytes(table)).equals(proposalBefore[index]!)).toBe(true);
+      }
+    });
+
+    it('fails closed for a missing current revision and keeps GET from expiring proposals', async () => {
+      const proposal = await create();
+      now = new Date(proposal.expiresAt);
+      const before = await counts();
+      const read = await get('/summary').expect(200);
+      expect(read.body.counts).toMatchObject({ expired: 0, pendingReceptionist: 1 });
+      expect(read.body.recentProposals[0]).toMatchObject({ status: 'PENDING_RECEPTIONIST', isExpired: true, allowedActions: [] });
+      expect(await counts()).toEqual(before);
+      await pool.query('DELETE FROM commerce.room_upgrade_proposal_revisions WHERE proposal_id = $1', [proposal.proposalId]);
+      const missing = await get('/summary').expect(503);
+      expect(missing.body.code).toBe('PROPOSAL_REVISION_MISSING');
+    });
+  });
 
   describe('A — happy path on real PostgreSQL', () => {
     it('A1 creates 600,000 VND and receptionist approves; all four tables persist atomically', async () => {
