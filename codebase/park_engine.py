@@ -9,6 +9,7 @@ from functools import lru_cache
 from itertools import permutations
 import json
 from pathlib import Path
+import re
 import time as clock
 
 DATA = Path(__file__).resolve().parents[1] / "data"
@@ -302,6 +303,27 @@ def build_plan(req):
 # ---------------------------------------------------------------- kiểm độc lập
 def validate_plan(items, req):
     """Tính lại mọi ràng buộc trên snapshot; không dùng số do bộ lập lịch tính."""
+    # Thiếu lịch/yêu cầu là một kết quả kiểm không đạt, không phải lịch rỗng hợp lệ.
+    # Không điền khách, giờ hoặc ngân sách mặc định để hợp thức hoá yêu cầu.
+    req = req if isinstance(req, dict) else {}
+    missing = []
+    if not isinstance(items, list) or not items:
+        missing.append("items")
+    if not isinstance(req.get("members"), list) or not req["members"]:
+        missing.append("members")
+    window = req.get("window")
+    clock_pattern = r"(?:[01]\d|2[0-3]):[0-5]\d"
+    if (not isinstance(window, (list, tuple)) or len(window) != 2
+            or not all(isinstance(t, str) and re.fullmatch(clock_pattern, t) for t in window)
+            or window[0] >= window[1]):
+        missing.append("window")
+    budget = req.get("budget_vnd")
+    if not isinstance(budget, int) or isinstance(budget, bool) or budget < 0:
+        missing.append("budget_vnd")
+    if missing:
+        return {"valid": False, "violations": ["Thiếu hoặc không hợp lệ: " + ", ".join(missing)],
+                "missing_fields": missing, "total_vnd": None, "breakdown": [],
+                "snapshot_id": snapshot()["snapshotId"]}
     snap, members = snapshot(), req["members"]
     violations, breakdown = [], []
     win_start, win_end = to_min(req["window"][0]), to_min(req["window"][1])

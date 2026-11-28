@@ -175,6 +175,7 @@ Số dưới đây được đếm từ [kết quả khảo sát C1](evidence/su
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
+| 28/11/2026 12:47 · sửa luồng kiểm lịch | Chặn yêu cầu bỏ validator/ép VALID; validator trả không đạt khi thiếu lịch, thành viên, khung giờ hoặc ngân sách, không dựng lịch hay tiền giả. Thêm 3 test hồi quy và bộ kiểm định synthetic riêng 20 câu, khóa trước sửa | Theo lỗi C1-17 trong run-5; giữ nguyên §7, metric, benchmark 30 câu và log cũ. Kiểm tra ngoại tuyến: 96 test qua; kết quả chạy thật được lưu ở eval/c1-validation-review.md |
 | 27/11 ~17:50 | Chuyển lát cắt từ "đọc điều khoản hoàn/huỷ" sang **C1** (canvas + TEAMS, commit `6c01cdd`); 18:32 đặt tên dự án VinTrip (commit `20d52c2`) | Nhóm chọn C1 làm case chính để đánh giá và nộp bài |
 | 27/11 ~18:45 | Viết lại thiết kế, metric, bộ thử 30 câu C1, tổng hợp khảo sát và sơ đồ | Chuyển hồ sơ sang phạm vi lập lịch khu vui chơi |
 | 27/11 trước CP2 | Rà merge `df1caa9` và `db2cbc0`, đồng bộ README, bổ sung §3, bỏ số thiếu nguồn và đường dẫn tới dữ liệu không có; bổ sung ngữ cảnh đầu vào các ca xếp lại lịch | Giữ tên VinTrip cùng bằng chứng CP2, sửa các điểm lệch sau merge. Giữ nguyên §7, metric, expected và pass_criterion |
