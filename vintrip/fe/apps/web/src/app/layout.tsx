@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   title: vi.seo.defaultTitle,
   description: vi.seo.defaultDescription,
   applicationName: t('app.name'),
-  icons: { icon: '/brand/vintrip-mark.svg' },
+  icons: { icon: '/brand/vintrip-mark.svg?v=20261128-portal' },
   openGraph: {
     type: 'website',
     siteName: t('app.name'),
