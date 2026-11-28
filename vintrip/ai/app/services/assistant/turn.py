@@ -44,6 +44,7 @@ from app.services.assistant.skills.cancel_policy import cancel_policy, cancellat
 from app.services.assistant.skills.content import search
 from app.services.assistant.skills.flight import draft_flights, search_flights
 from app.services.assistant.skills.flight_disruption import flight_disruption
+from app.services.assistant.skills.park_plan import park_plan_handoff
 from app.services.assistant.skills.plan import TripPlanner
 from app.services.assistant.skills.stay import search_stays
 from app.services.assistant.skills.verified_itinerary import verified_itinerary
@@ -202,6 +203,8 @@ class Turn:
             return social.refusal_answer(seed=self._seed(), history=self.request.history)
         parsed = self.parsed
         if parsed and self.request.search_mode != "reel":
+            if parsed.intent == "park_plan":
+                return park_plan_handoff(self.request.message)
             if parsed.intent == "flight_disruption":
                 previous = self.memory.pending_flight_disruption
                 data = parse_request(
@@ -311,6 +314,7 @@ class Turn:
         memory.pending_flight_disruption = self.pending_flight_disruption
         if parsed is not None and parsed.intent not in SOCIAL | {
             "cancel_policy", "booking_draft", "verified_itinerary", "flight_disruption",
+            "park_plan",
         }:
             if parsed.place and parsed.place != memory.place:
                 memory.place, memory.date_from, memory.date_to = parsed.place, None, None

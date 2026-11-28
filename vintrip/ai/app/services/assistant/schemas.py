@@ -207,6 +207,8 @@ class Understanding(WireModel):
         "booking_draft",
         "verified_itinerary",
         "flight_disruption",
+        # C1 (2026-11-28): day plan at Công viên Mẫu, answered by the C1 agent in a popup
+        "park_plan",
     ]
     query: str = Field(default="", max_length=200)
     budget_vnd: int | None = Field(default=None, ge=0, le=10**12)

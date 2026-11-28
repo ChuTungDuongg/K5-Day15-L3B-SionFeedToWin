@@ -24,6 +24,7 @@ import { ReconcileInventoryJob } from './booking/jobs/reconcile-inventory.job.js
 import { ReconcileInventoryUseCases } from './booking/application/reconcile-inventory.use-cases.js';
 import { CommerceFacade } from './commerce.facade.js';
 import { RoomUpgradesModule } from './room-upgrades/room-upgrades.module.js';
+import { ParkPlansModule } from './park-plans/park-plans.module.js';
 import { commerceIdempotencyKeys, commerceOutboxEvents } from './db/schema/index.js';
 import { AdminCalendarController } from './inventory/api/admin-calendar.controller.js';
 import { FlightsController } from './inventory/api/flights.controller.js';
@@ -123,6 +124,7 @@ function buildMediaUrl(cdnBaseUrl: string | undefined): MediaUrl {
 @Module({
   imports: [
     RoomUpgradesModule,
+    ParkPlansModule,
     IdempotencyModule.forFeature({
       inject: [buildDrizzleToken('commerce')],
       useFactory: (db: Db) => new DrizzleIdempotencyStore(db, commerceIdempotencyKeys),

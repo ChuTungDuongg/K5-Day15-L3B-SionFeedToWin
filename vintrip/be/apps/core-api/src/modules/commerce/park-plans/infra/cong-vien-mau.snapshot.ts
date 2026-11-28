@@ -1,0 +1,452 @@
+import type { ParkSnapshot } from '../domain/park-snapshot.js';
+
+// Bản sao data/cong_vien_mau.json của repo hackathon (dữ liệu mô phỏng, isMock). Đổi dữ liệu thì sửa file
+// gốc rồi sinh lại để AI và core-api cùng một snapshotId; park-plans.spec.ts kiểm hai bản khớp nhau.
+export const CONG_VIEN_MAU_SNAPSHOT: ParkSnapshot = {
+  "snapshotId": "CVM-2026-11-28-v1",
+  "isMock": true,
+  "park": "Công viên Mẫu",
+  "date": "2026-11-28",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "open": "09:00",
+  "close": "19:00",
+  "source": "Nhóm tự dựng theo spec C1 §4 và bảng giá demo; không phải công viên thật",
+  "zones": {
+    "GATE": {
+      "name": "Cổng chính",
+      "indoor": false
+    },
+    "KHU_A": {
+      "name": "Khu A – Vườn sinh thái",
+      "indoor": false
+    },
+    "KHU_B": {
+      "name": "Khu B – Trò nhẹ gia đình",
+      "indoor": false
+    },
+    "KHU_C": {
+      "name": "Khu C – Trò nước",
+      "indoor": false
+    },
+    "KHU_D": {
+      "name": "Khu D – Cảm giác mạnh",
+      "indoor": false
+    },
+    "KHU_E": {
+      "name": "Khu E – Nhà trong nhà",
+      "indoor": true
+    },
+    "STAGE": {
+      "name": "Sân khấu ngoài trời",
+      "indoor": false
+    },
+    "FOOD": {
+      "name": "Khu ăn uống",
+      "indoor": true
+    }
+  },
+  "walk_minutes": {
+    "GATE": {
+      "KHU_A": 5,
+      "KHU_B": 6,
+      "KHU_C": 10,
+      "KHU_D": 12,
+      "KHU_E": 8,
+      "STAGE": 12,
+      "FOOD": 7
+    },
+    "KHU_A": {
+      "KHU_B": 5,
+      "KHU_C": 8,
+      "KHU_D": 10,
+      "KHU_E": 7,
+      "STAGE": 8,
+      "FOOD": 6
+    },
+    "KHU_B": {
+      "KHU_C": 5,
+      "KHU_D": 6,
+      "KHU_E": 5,
+      "STAGE": 6,
+      "FOOD": 4
+    },
+    "KHU_C": {
+      "KHU_D": 7,
+      "KHU_E": 8,
+      "STAGE": 9,
+      "FOOD": 6
+    },
+    "KHU_D": {
+      "KHU_E": 6,
+      "STAGE": 5,
+      "FOOD": 7
+    },
+    "KHU_E": {
+      "STAGE": 7,
+      "FOOD": 3
+    },
+    "STAGE": {
+      "FOOD": 5
+    }
+  },
+  "prices": {
+    "gate": [
+      {
+        "tier": "người lớn",
+        "rule": "từ 140cm hoặc người lớn",
+        "price_vnd": 300000
+      },
+      {
+        "tier": "trẻ em",
+        "rule": "100–139cm",
+        "price_vnd": 175000
+      },
+      {
+        "tier": "miễn phí",
+        "rule": "dưới 100cm",
+        "price_vnd": 0
+      }
+    ],
+    "lunch_per_person_vnd": 80000,
+    "lunch_zone": "FOOD",
+    "default_lunch_window": [
+      "11:00",
+      "14:00"
+    ],
+    "includes": "Vé cổng gồm mọi trò và show; chỉ hoạt động có ghi phụ thu mới tính thêm (một lần cho cả nhóm)"
+  },
+  "activities": [
+    {
+      "id": "A1",
+      "name": "Tham quan Khu A – Vườn sinh thái",
+      "zone": "KHU_A",
+      "duration_min": 60,
+      "wait_min": 10,
+      "indoor": false,
+      "intensity": "nhẹ",
+      "tags": [
+        "tham quan"
+      ],
+      "popular": false,
+      "surcharge_vnd": 100000,
+      "conditions": {
+        "min_height_cm": null,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "B1",
+      "name": "Đu quay mini",
+      "zone": "KHU_B",
+      "duration_min": 15,
+      "wait_min": 10,
+      "indoor": false,
+      "intensity": "nhẹ",
+      "tags": [],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": 90,
+        "min_age": null,
+        "adult_required_below_cm": 110
+      }
+    },
+    {
+      "id": "B2",
+      "name": "Tàu hỏa vòng quanh",
+      "zone": "KHU_B",
+      "duration_min": 20,
+      "wait_min": 10,
+      "indoor": false,
+      "intensity": "nhẹ",
+      "tags": [],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": null,
+        "min_age": null,
+        "adult_required_below_cm": 120
+      }
+    },
+    {
+      "id": "B3",
+      "name": "Xe điện đụng mini",
+      "zone": "KHU_B",
+      "duration_min": 15,
+      "wait_min": 15,
+      "indoor": false,
+      "intensity": "vừa",
+      "tags": [],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": 100,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "C1",
+      "name": "Sân chơi nước trẻ em",
+      "zone": "KHU_C",
+      "duration_min": 30,
+      "wait_min": 5,
+      "indoor": false,
+      "intensity": "nhẹ",
+      "tags": [
+        "nước"
+      ],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": null,
+        "min_age": null,
+        "adult_required_below_cm": 120
+      }
+    },
+    {
+      "id": "C2",
+      "name": "Máng trượt nước gia đình",
+      "zone": "KHU_C",
+      "duration_min": 20,
+      "wait_min": 15,
+      "indoor": false,
+      "intensity": "vừa",
+      "tags": [
+        "nước"
+      ],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": 110,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "C3",
+      "name": "Thuyền vòng xoay",
+      "zone": "KHU_C",
+      "duration_min": 15,
+      "wait_min": 10,
+      "indoor": false,
+      "intensity": "nhẹ",
+      "tags": [
+        "nước"
+      ],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": 100,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "D1",
+      "name": "Tàu lượn Sấm Sét",
+      "zone": "KHU_D",
+      "duration_min": 10,
+      "wait_min": 30,
+      "indoor": false,
+      "intensity": "mạnh",
+      "tags": [
+        "tàu lượn"
+      ],
+      "popular": true,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": 120,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "D2",
+      "name": "Tháp rơi tự do",
+      "zone": "KHU_D",
+      "duration_min": 5,
+      "wait_min": 25,
+      "indoor": false,
+      "intensity": "mạnh",
+      "tags": [],
+      "popular": true,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": 130,
+        "min_age": 10,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "D3",
+      "name": "Đĩa bay xoay",
+      "zone": "KHU_D",
+      "duration_min": 10,
+      "wait_min": 20,
+      "indoor": false,
+      "intensity": "mạnh",
+      "tags": [],
+      "popular": true,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": 110,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "E1",
+      "name": "Rạp phim 4D",
+      "zone": "KHU_E",
+      "duration_min": 20,
+      "wait_min": 10,
+      "indoor": true,
+      "intensity": "vừa",
+      "tags": [],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": 100,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "E2",
+      "name": "Khu trò chơi điện tử",
+      "zone": "KHU_E",
+      "duration_min": 30,
+      "wait_min": 0,
+      "indoor": true,
+      "intensity": "nhẹ",
+      "tags": [],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": null,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "E3",
+      "name": "Thủy cung mini",
+      "zone": "KHU_E",
+      "duration_min": 25,
+      "wait_min": 5,
+      "indoor": true,
+      "intensity": "nhẹ",
+      "tags": [
+        "tham quan"
+      ],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": null,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "E4",
+      "name": "Mê cung gương",
+      "zone": "KHU_E",
+      "duration_min": 15,
+      "wait_min": 5,
+      "indoor": true,
+      "intensity": "nhẹ",
+      "tags": [],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": {
+        "min_height_cm": null,
+        "min_age": 4,
+        "adult_required_below_cm": null
+      }
+    },
+    {
+      "id": "X1",
+      "name": "Trượt cỏ",
+      "zone": "KHU_A",
+      "duration_min": 15,
+      "wait_min": 10,
+      "indoor": false,
+      "intensity": "vừa",
+      "tags": [],
+      "popular": false,
+      "surcharge_vnd": 0,
+      "conditions": null
+    },
+    {
+      "id": "X2",
+      "name": "Vườn âm thanh",
+      "zone": "KHU_E",
+      "duration_min": 15,
+      "wait_min": 5,
+      "indoor": true,
+      "intensity": "nhẹ",
+      "tags": [],
+      "popular": false,
+      "surcharge_vnd": null,
+      "conditions": {
+        "min_height_cm": null,
+        "min_age": null,
+        "adult_required_below_cm": null
+      }
+    }
+  ],
+  "shows": {
+    "venue_zone": "STAGE",
+    "name": "Vũ điệu đại dương",
+    "indoor": false,
+    "arrive_early_min": 15,
+    "sessions": [
+      {
+        "id": "S1",
+        "start": "09:15",
+        "end": "09:45"
+      },
+      {
+        "id": "S2",
+        "start": "11:00",
+        "end": "11:30"
+      },
+      {
+        "id": "S3",
+        "start": "12:30",
+        "end": "13:00"
+      },
+      {
+        "id": "S4",
+        "start": "14:00",
+        "end": "14:30"
+      },
+      {
+        "id": "S5",
+        "start": "15:00",
+        "end": "15:30"
+      },
+      {
+        "id": "S6",
+        "start": "17:30",
+        "end": "18:00"
+      }
+    ]
+  },
+  "incidents_today": [
+    {
+      "id": "INC-01",
+      "type": "show_cancelled",
+      "session_id": "S2",
+      "reason": "sân khấu bảo trì đột xuất"
+    },
+    {
+      "id": "INC-02",
+      "type": "show_cancelled",
+      "session_id": "S5",
+      "reason": "mưa"
+    }
+  ]
+};
