@@ -8,10 +8,20 @@
   border-radius: var(--radius-lg);
   background: var(--color-surface-muted);
 }
-.backdropImg { z-index: -2; object-fit: cover; object-position: 50% 35%; }
-/* Even a white source pixel stays dark enough for white text (over 7:1). */
-.overlay { position: absolute; inset: 0; z-index: -1; background: var(--color-overlay-heavy); }
+.backdropImg { z-index: -2; object-fit: cover; object-position: 50% 60%; }
 .copy { position: relative; padding: 40px 204px 76px 32px; color: var(--color-background); }
+/* Shade only the copy area; the right-hand side of the photo stays untouched. */
+.copy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--color-tab-bar) 35%, transparent) 0%,
+    color-mix(in srgb, var(--color-tab-bar) 12%, transparent) 40%,
+    transparent 65%);
+}
 .copy h1, .copy p {
   margin: 0;
   max-width: 100%;
@@ -20,6 +30,9 @@
   font-synthesis: none;
   letter-spacing: normal;
   line-height: 1.15;
+  text-shadow:
+    0 2px 12px color-mix(in srgb, var(--color-tab-bar) 45%, transparent),
+    0 1px 3px color-mix(in srgb, var(--color-tab-bar) 45%, transparent);
   overflow-wrap: anywhere;
 }
 .copy h1 { font-size: clamp(72px, 6.2vw, 96px); }
