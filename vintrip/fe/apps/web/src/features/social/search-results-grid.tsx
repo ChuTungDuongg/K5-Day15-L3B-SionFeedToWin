@@ -1,4 +1,6 @@
 'use client';
+import Link from 'next/link';
+import { SocialEmptyState } from './social-empty-state';
 
 import { useEffect, useMemo, useRef, type RefObject } from 'react';
 import { t, vi } from '@vintrip/i18n';
@@ -223,7 +225,7 @@ function PostResults({
           ))}
         </div>
       ) : cards.length === 0 ? (
-        <p className={styles.stateBox}>{t('api.noPostsForKeyword', { query: keyword })}</p>
+        <SocialEmptyState action={<Link prefetch={false} className="primary-button" href="/inspiration?view=posts">Khám phá bảng tin</Link>}><p>{t('api.noPostsForKeyword', { query: keyword })}</p></SocialEmptyState>
       ) : (
         <ul className={styles.grid}>
           {cards.map((card) => {

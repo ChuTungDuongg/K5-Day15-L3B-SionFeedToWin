@@ -12,7 +12,8 @@ import { t, vi } from '@vintrip/i18n';
 import { formatVnd } from '@vintrip/utils';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
-import { useState, type ReactNode } from 'react';
+import { useCallback, useState, type ReactNode } from 'react';
+import { ParkPlanDialog } from '../park-plan/park-plan-dialog';
 import { getAssistantBookingLinks, getAssistantCardHref } from './assistant-card-href';
 import { AssistantIcon, type AssistantIconName } from './assistant-icon';
 import styles from './assistant.module.css';
@@ -56,6 +57,8 @@ const INFO_KINDS = new Set([
   'cancel_policy',
   'approval_draft',
   'verified_itinerary',
+  'flight_disruption',
+  'park_plan',
 ]);
 const INFO_ICONS: Record<string, AssistantIconName> = {
   weather: 'sun',
@@ -64,6 +67,8 @@ const INFO_ICONS: Record<string, AssistantIconName> = {
   summary: 'chat',
   compare: 'compare',
   transport: 'bus',
+  flight_disruption: 'plane',
+  park_plan: 'map',
 };
 const PART_ICONS: Record<DayPart, AssistantIconName> = {
   morning: 'sun',
@@ -227,7 +232,10 @@ function ItineraryCard({
       <CardHeader icon="map" title={card.title} subtitle={subtitle} />
       {verified && (
         <>
-          <span className={styles.statusBadge} data-tone="free">{copy.contractCards.verified}</span>
+          <span className={styles.statusBadge} data-tone="free">
+            <AssistantIcon name="check" size={14} />
+            {copy.contractCards.verified}
+          </span>
           <PriceSummary items={[
             [copy.contractCards.estimate, card.priceFrom == null ? copy.contractCards.unavailable : formatVnd(card.priceFrom)],
             [copy.contractCards.budget, card.totalPrice == null ? copy.contractCards.unavailable : formatVnd(card.totalPrice)],
@@ -408,7 +416,10 @@ function CancelPolicyCard({ card }: { card: AssistantCard }) {
   return (
     <div className={styles.card}>
       <CardHeader icon="info" title={card.title} />
-      <span className={styles.statusBadge} data-tone={status}>{POLICY_STATUSES[status]}</span>
+      <span className={styles.statusBadge} data-tone={status}>
+        <AssistantIcon name={status === 'free' ? 'check' : 'info'} size={14} />
+        {POLICY_STATUSES[status]}
+      </span>
       <PriceSummary items={[[contractCopy.fee, fee], [contractCopy.refund, refund]]} />
       {cutoff && (
         <p className={styles.cutoff}>
@@ -455,6 +466,7 @@ function ApprovalDraftCard({ card }: { card: AssistantCard }) {
     <div className={styles.card}>
       <CardHeader icon="checklist" title={card.title} />
       <span aria-live="polite" className={styles.statusBadge} data-tone={approved ? 'free' : 'partial'}>
+        <AssistantIcon name={approved ? 'check' : 'clock'} size={14} />
         {approved ? contractCopy.approved : contractCopy.pending}
       </span>
       {change && <p className={styles.strong}>{change}</p>}
@@ -484,7 +496,41 @@ function ApprovalDraftCard({ card }: { card: AssistantCard }) {
   );
 }
 
+/** Câu lập lịch Công viên Mẫu: Vini chuyển sang trợ lý C1, mở popup và chạy luôn câu vừa hỏi. */
+const PARK_PLAN_OPENED_KEY = 'vintrip.parkPlan.opened';
+
+/** Mỗi câu chỉ tự mở popup một lần trong phiên: mở lại khung chat hay tải lại trang không bật lại. */
+function shouldAutoOpenParkPlan(question: string): boolean {
+  try {
+    const opened: string[] = JSON.parse(sessionStorage.getItem(PARK_PLAN_OPENED_KEY) ?? '[]');
+    if (opened.includes(question)) return false;
+    sessionStorage.setItem(PARK_PLAN_OPENED_KEY, JSON.stringify([...opened, question].slice(-20)));
+  } catch {
+    // sessionStorage bị chặn: vẫn mở, chỉ mất phần nhớ đã mở.
+  }
+  return true;
+}
+
+function ParkPlanCard({ card, isLatest }: { card: AssistantCard; isLatest: boolean }) {
+  const question = card.lines?.[0]?.detail ?? '';
+  const [isOpen, setIsOpen] = useState(() => isLatest && !!question && shouldAutoOpenParkPlan(question));
+  const close = useCallback(() => setIsOpen(false), []);
+  return (
+    <div className={styles.card}>
+      <CardHeader icon="map" title={card.title} subtitle={card.source ?? undefined} />
+      {!!question && <p className={styles.meta}>{question}</p>}
+      <div className={styles.cardActions}>
+        <button type="button" className={styles.cardActionPrimary} disabled={!question} onClick={() => setIsOpen(true)}>
+          Mở trợ lý lập lịch C1
+        </button>
+      </div>
+      {isOpen && <ParkPlanDialog question={question} onClose={close} />}
+    </div>
+  );
+}
+
 function infoCard(card: AssistantCard, reel: Reel | undefined, onOpen: () => void, actions?: CardActions): ReactNode {
+  if (card.kind === 'park_plan') return <ParkPlanCard card={card} isLatest={!!actions} />;
   if (card.kind === 'cancel_policy') return <CancelPolicyCard card={card} />;
   if (card.kind === 'approval_draft') return <ApprovalDraftCard card={card} />;
   if (card.kind === 'itinerary' || card.kind === 'verified_itinerary') {

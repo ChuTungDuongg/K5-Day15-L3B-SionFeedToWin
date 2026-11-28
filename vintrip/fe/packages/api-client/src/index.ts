@@ -1,4 +1,5 @@
 export { commentControlsApi, useCommentPermissions } from './comment-controls';
+export * from './room-upgrades';
 // Hook và type sinh ra import theo đường dẫn con, ví dụ:
 //   import { useHealthControllerCheck } from '@vintrip/api-client/core-api/health/health';
 //   import type { ParseQueryResponse } from '@vintrip/api-client/ai-service/model';

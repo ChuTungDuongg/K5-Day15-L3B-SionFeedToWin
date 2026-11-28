@@ -1,5 +1,6 @@
 'use client';
 
+import { FeedStatus } from './feed-status';
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useQueryClient, useMutation, useQuery, type InfiniteData } from '@tanstack/react-query';
 import { vi, t } from '@vintrip/i18n';
@@ -934,26 +935,19 @@ export function SocialFeedView({
           </div>
         )}
 
-        {/* Loading state */}
-        {/* Mở bài qua ?open= thì bài đó hiện trước khi feed tải xong: lúc đó chấm nằm ở cuối feed, không chèn thẻ rỗng. */}
-        {isFeedLoading && posts.length === 0 && (
-          <LoadingDots isBlock label="Đang tải bảng tin cảm hứng..." />
-        )}
-
-        {/* Error state */}
-        {!isFocusUnavailable && postsQuery.isError && (
-          <div className={styles.emptyFeed}>
-            <div className={styles.emptyFeedTitle}>Không thể tải bài viết</div>
-            <p className={styles.emptyFeedDesc}>Đã xảy ra lỗi khi kết nối đến máy chủ.</p>
-            <button
-              type="button"
-              className={styles.emptyFeedAction}
-              onClick={() => void postsQuery.refetch()}
-            >
-              Thử lại
-            </button>
-          </div>
-        )}
+        <FeedStatus
+          loading={isFeedLoading && posts.length === 0}
+          error={!isFocusUnavailable && postsQuery.isError ? postsQuery.error : undefined}
+          empty={!isDirectFocus && posts.length === 0}
+          emptyHint={activeFilter === 'saved'
+            ? 'Bạn chưa lưu bài viết nào. Hãy khám phá và lưu lại những bài viết bạn yêu thích.'
+            : 'Chưa có bài viết nào phù hợp với bộ lọc hiện tại.'}
+          onRetry={() => void postsQuery.refetch()}
+          onCompose={() => {
+            if (!user) { window.location.href = loginReturnHref; return; }
+            handleOpenComposer('vlog');
+          }}
+        />
 
         {isDirectFocus && (
           <ApiErrorNotice error={focusedPostQuery.error} retry={() => void focusedPostQuery.refetch()} />
@@ -962,19 +956,8 @@ export function SocialFeedView({
           <div className={styles.emptyFeed} role="alert">{vi.api.missing}</div>
         )}
 
-        {/* Empty state */}
-        {!isDirectFocus && !postsQuery.isPending && !postsQuery.isError && posts.length === 0 && (
-          <div className={styles.emptyFeed}>
-            <div className={styles.emptyFeedTitle}>Chưa có bài viết nào</div>
-            <p className={styles.emptyFeedDesc}>
-              {activeFilter === 'saved'
-                ? 'Bạn chưa lưu bài viết nào. Hãy khám phá và lưu lại những bài viết bạn yêu thích.'
-                : 'Chưa có bài viết nào phù hợp với bộ lọc hiện tại.'}
-            </p>
-          </div>
-        )}
-
         {/* Posts list */}
+        <div className={styles.postMasonry}>
         {posts.map((post) => (
           <div key={post.id} data-feed-post-id={post.id}>
             <PostCard
@@ -1001,6 +984,8 @@ export function SocialFeedView({
             />
           </div>
         ))}
+
+        </div>
 
         {/* Infinite Scroll trigger */}
         <div ref={sentinelRef} style={{ height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

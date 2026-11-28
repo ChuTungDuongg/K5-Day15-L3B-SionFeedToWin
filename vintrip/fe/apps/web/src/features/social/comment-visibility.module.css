@@ -47,7 +47,7 @@
   border-radius: 12px;
   background: var(--color-background, white);
   color: var(--color-ink);
-  box-shadow: 0 8px 28px rgb(15 23 42 / 0.14);
+  box-shadow: var(--shadow-soft);
 }
 .menu button,
 .menu a {

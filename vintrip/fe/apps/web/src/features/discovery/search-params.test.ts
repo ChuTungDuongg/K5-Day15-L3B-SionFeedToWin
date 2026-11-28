@@ -10,10 +10,10 @@ describe('parseSearchParams', () => {
   const today = getStayToday();
 
   it('xử lý placeId sai định dạng khi không có q và khi có q', () => {
-    // Không có q, placeId sai định dạng -> fallback về điểm đến mặc định (nha-trang)
+    // Không có q, placeId sai định dạng -> fallback về điểm đến mặc định (ha-noi)
     const result1 = parseSearchParams(createReader({ placeId: 'ha-long@invalid!' }));
-    expect(result1.initialFilters.placeId).toBe('nha-trang');
-    expect(result1.placeName).toBe('Nha Trang');
+    expect(result1.initialFilters.placeId).toBe('ha-noi');
+    expect(result1.placeName).toBe('Hà Nội · Ocean Park');
 
     // Có q, placeId sai định dạng -> placeId rỗng, placeName lấy theo q
     const result2 = parseSearchParams(createReader({ placeId: 'ha-long@invalid!', q: 'Hạ Long Bay' }));
@@ -146,8 +146,8 @@ describe('parseFullSearchParams', () => {
 
   it('query rỗng rơi về điểm đến mặc định giống bản render server', () => {
     const result = parseFullSearchParams('');
-    expect(result.filters.placeId).toBe('nha-trang');
-    expect(result.placeName).toBe('Nha Trang');
+    expect(result.filters.placeId).toBe('ha-noi');
+    expect(result.placeName).toBe('Hà Nội · Ocean Park');
   });
 
   it('tên điểm đến lấy theo q, không phụ thuộc chữ người dùng đang gõ', () => {

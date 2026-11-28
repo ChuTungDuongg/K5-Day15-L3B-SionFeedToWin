@@ -2,12 +2,12 @@
 export const aiUsage = {
   eyebrow: 'AI / Chi phí',
   title: 'Chi phí AI',
-  description: 'Số lần gọi, token và chi phí ước tính của trợ lý Vini, tóm tắt bình luận, kiểm duyệt và OCR ảnh bìa video.',
+  description: 'Số lần gọi, token và chi phí ước tính của trợ lý VinTrip, tóm tắt bình luận, kiểm duyệt và OCR ảnh bìa video.',
   range: 'Khoảng thời gian',
   ranges: { '1': 'Hôm nay', '7': '7 ngày', '30': '30 ngày', '90': '90 ngày' },
   groupBy: 'Xem theo',
   groups: { feature: 'Tính năng', day: 'Ngày', model: 'Model' },
-  features: { chat: 'Trợ lý Vini', summary: 'Tóm tắt bình luận', moderation: 'Kiểm duyệt', cover_ocr: 'OCR ảnh bìa video' },
+  features: { chat: 'Trợ lý VinTrip', summary: 'Tóm tắt bình luận', moderation: 'Kiểm duyệt', cover_ocr: 'OCR ảnh bìa video' },
   columns: {
     key: 'Nhóm',
     calls: 'Lần gọi',
@@ -63,7 +63,7 @@ export const aiUsage = {
   traceBoard: {
     title: 'Trace lượt chat',
     description:
-      'Mỗi dòng là một lượt chat với Vini: câu hỏi đã che thông tin cá nhân, kết quả, thời gian xử lý, token và chi phí.',
+      'Mỗi dòng là một lượt chat với VinTrip: câu hỏi đã che thông tin cá nhân, kết quả, thời gian xử lý, token và chi phí.',
     answerKind: 'Kết quả',
     answerKinds: {
       all: 'Tất cả',
@@ -103,7 +103,7 @@ export const aiUsage = {
     timeline: 'Dòng thời gian',
     steps: 'Các bước gọi LLM',
     noSteps:
-      'Lượt này chưa có các bước gọi LLM: lượt chat cũ, hoặc Vini không gọi LLM (bấm nút trên thẻ, tắt LLM).',
+      'Lượt này chưa có các bước gọi LLM: lượt chat cũ, hoặc VinTrip không gọi LLM (bấm nút trên thẻ, tắt LLM).',
     totalLatency: 'Tổng thời gian',
     stepNames: { controller: 'Điều phối (controller)', responder: 'Trả lời (responder)' },
     columns: {
@@ -115,7 +115,7 @@ export const aiUsage = {
       costUsd: 'Chi phí (USD)',
     },
     estimated: 'Chi phí ước tính theo bảng giá trong ai-service, không phải hoá đơn của nhà cung cấp.',
-    metadataOnly: 'Chỉ lưu siêu dữ liệu: không lưu prompt đầy đủ hay câu trả lời của Vini.',
+    metadataOnly: 'Chỉ lưu siêu dữ liệu: không lưu prompt đầy đủ hay câu trả lời của VinTrip.',
   },
   latency: { ms: '{value} ms', seconds: '{value} giây' },
 } as const;

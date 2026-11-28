@@ -4,6 +4,7 @@ from copy import deepcopy
 from datetime import date, datetime, time, timedelta, timezone as datetime_timezone
 from fractions import Fraction
 from functools import lru_cache
+import importlib.util
 import json
 from pathlib import Path
 import re
@@ -27,6 +28,44 @@ class _DefaultTimezone(str):
 
 
 DEFAULT_TIMEZONE = _DefaultTimezone("Asia/Ho_Chi_Minh")
+
+
+@lru_cache
+def _vintrip_skill(name):
+    """Load a shared stdlib skill without importing FastAPI or service packages."""
+    # Repo: <gốc>/vintrip/ai/app/...; image ai-service (Dockerfile.vintrip): /app/codebase cạnh /app/app/...
+    candidates = [DATA.parent / f"{prefix}app/services/assistant/skills/{name}.py"
+                  for prefix in ("vintrip/ai/", "")]
+    path = next((p for p in candidates if p.is_file()), candidates[0])
+    spec = importlib.util.spec_from_file_location(f"vintrip_{name}", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def flight_disruption_engine():
+    return _vintrip_skill("c3_engine")
+
+
+def flight_flow_module():
+    return _vintrip_skill("c3_flow")
+
+
+# C3 có trạng thái: 10 công cụ (docstring ở c3_flow.py) chạy trên adapter mô phỏng.
+C3_TOOLS = {name: tool(getattr(flight_flow_module(), name))
+            for name in flight_flow_module().TOOL_NAMES}
+globals().update(C3_TOOLS)
+
+
+@tool
+def resolve_flight_disruption(text):
+    """Tên: resolve_flight_disruption · đề xuất xử lý chuyến bay bị huỷ (C3).
+    Input: yêu cầu chứa mã đặt chỗ mẫu, hành động và mã chuyến thay thế nếu cần.
+    Output: phương án kiểm từ snapshot hoặc bản nháp PENDING_USER_APPROVAL.
+    Tác động ra ngoài: không; không giữ chỗ, đổi vé, hoàn tiền hay gửi tin.
+    """
+    engine = flight_disruption_engine()
+    return engine.evaluate(engine.parse_request(text))
 
 
 @lru_cache
@@ -637,6 +676,8 @@ def validate_park_plan(items: list, request: dict) -> dict:
     Input: Danh sách mục lịch, yêu cầu đã chuẩn hoá.
     Output: valid (true/false), danh sách vi phạm (khung giờ, đi bộ, suất diễn, đến sớm, điều kiện
     từng thành viên, ăn trưa, mưa, yêu cầu bắt buộc, ngân sách), bảng tiền và tổng tính lại, snapshot_id.
+    Thiếu lịch/thành viên/khung giờ/ngân sách: valid=false, missing_fields, total_vnd=null;
+    không tự điền dữ kiện còn thiếu.
     Tác động ra ngoài: Không, chỉ tính toán.
     """
     return park_engine.validate_plan(items, request)

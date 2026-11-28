@@ -9,7 +9,8 @@ import { useState, type ReactNode } from 'react';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { SoftDatePicker } from '@/features/shared/soft-date-picker';
 import { SoftSelect } from '@/features/shared/soft-select';
-import { LoadingDots } from '@/features/shared/loading-dots';
+import { SaveToast } from './account-toast';
+import styles from './account.module.css';
 
 type Gender = keyof typeof vi.api.genderOptions;
 type FieldName = 'displayName' | 'phone' | 'dateOfBirth' | 'gender' | 'nationality';
@@ -85,6 +86,7 @@ export function ProfileInfoCard({ userId }: { userId: string }) {
   const client = useQueryClient();
   const profile = useMyProfile(userId);
   const [draft, setDraft] = useState<Draft | null>(null);
+  const [toastKey, setToastKey] = useState(0);
   const isEditing = draft !== null;
   const save = useMutation({
     mutationFn: async (patch: UpdateProfileDto) => {
@@ -96,6 +98,7 @@ export function ProfileInfoCard({ userId }: { userId: string }) {
     onSuccess: (saved) => {
       client.setQueryData(['account', 'me', userId], saved);
       setDraft(null);
+      setToastKey((k) => k + 1);
     },
   });
   const fieldErrors = readFieldErrors(save.error);
@@ -104,13 +107,14 @@ export function ProfileInfoCard({ userId }: { userId: string }) {
 
   if (profile.isPending)
     return (
-      <section className="profile-card" aria-busy="true">
-        <LoadingDots isBlock />
+      <section className={`profile-card ${styles.card}`} aria-busy="true">
+        <div className={styles.skeletonLine} style={{ width: '40%', marginBottom: '16px' }} />
+        <div className={styles.skeletonLine} style={{ width: '100%', height: '240px' }} />
       </section>
     );
   if (!profile.data)
     return (
-      <section className="profile-card">
+      <section className={`profile-card ${styles.card}`}>
         <ApiErrorNotice error={profile.error} retry={() => void profile.refetch()} />
       </section>
     );
@@ -132,15 +136,18 @@ export function ProfileInfoCard({ userId }: { userId: string }) {
   };
 
   return (
-    <section className="profile-card" aria-labelledby="profile-info-title">
+    <section className={`profile-card ${styles.card}`} aria-labelledby="profile-info-title">
+      <SaveToast message={vi.api.profileSaved} showKey={toastKey} />
       <header className="profile-card-header">
         <div>
-          <h2 id="profile-info-title">{vi.api.profileInfoTitle}</h2>
+          <h2 id="profile-info-title" className={styles.cardTitle}>
+            {vi.api.profileInfoTitle}
+          </h2>
         </div>
         {!isEditing && (
           <button
             type="button"
-            className="secondary-button profile-edit"
+            className={`secondary-button profile-edit ${styles.secondaryBtn}`}
             onClick={() => {
               save.reset();
               setDraft(toDraft(data));
@@ -156,7 +163,7 @@ export function ProfileInfoCard({ userId }: { userId: string }) {
       </header>
 
       <form
-        className={isEditing ? 'profile-fields is-editing' : 'profile-fields'}
+        className={isEditing ? `profile-fields is-editing ${styles.fields}` : `profile-fields ${styles.fields}`}
         onSubmit={(event) => {
           event.preventDefault();
           submit();
@@ -258,15 +265,14 @@ export function ProfileInfoCard({ userId }: { userId: string }) {
         </div>
 
         {save.error && Object.keys(fieldErrors).length === 0 && <ApiErrorNotice error={save.error} />}
-        {save.isSuccess && !isEditing && <output className="auth-success">{vi.api.profileSaved}</output>}
         {isEditing && (
           <div className="profile-actions">
-            <button className="primary-button" disabled={save.isPending || !draft.displayName.trim()}>
+            <button className={`primary-button ${styles.primaryBtn}`} disabled={save.isPending || !draft.displayName.trim()}>
               {save.isPending ? vi.api.saving : vi.api.save}
             </button>
             <button
               type="button"
-              className="secondary-button"
+              className={`secondary-button ${styles.secondaryBtn}`}
               disabled={save.isPending}
               onClick={() => {
                 save.reset();
@@ -300,7 +306,10 @@ function ProfileField({
   // Khi chỉ xem, children là false (isEditing && …): hiện giá trị thay cho ô nhập.
   const hasEditor = Boolean(children);
   return (
-    <div className={error ? 'profile-field has-error' : 'profile-field'}>
+    <div
+      className={error ? `profile-field has-error ${styles.fieldBox}` : `profile-field ${styles.fieldBox}`}
+      data-invalid={error ? 'true' : undefined}
+    >
       {hasEditor ? (
         <label className="profile-field-label" htmlFor={id}>
           {label}
@@ -316,8 +325,12 @@ function ProfileField({
         </span>
       )}
       {error && (
-        <span className="profile-field-error" id={errorId} role="alert">
-          {error}
+        <span className={`profile-field-error ${styles.fieldError}`} id={errorId} role="alert">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8v5M12 16h.01" strokeLinecap="round" />
+          </svg>
+          <span>{error}</span>
         </span>
       )}
     </div>

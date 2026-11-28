@@ -12,6 +12,7 @@ import {
 import { formatProfileCount, getNameInitials } from '@vintrip/app-core';
 import { vi } from '@vintrip/i18n';
 import Link from 'next/link';
+import { SocialEmptyState } from './social-empty-state';
 import { useState, type ReactNode } from 'react';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { AvatarPhoto } from '@/features/shared/avatar-photo';
@@ -295,16 +296,12 @@ function GridState({
 }) {
   if (query.isPending)
     return (
-      <p className={grid.stateBox}>
-        <LoadingDots />
-      </p>
+      <div className={styles.loadingGrid} role="status" aria-label="Đang tải bài viết">{Array.from({ length: 6 }, (_, i) => <div key={i} />)}</div>
     );
   if (query.error) return <ApiErrorNotice error={query.error} retry={() => void query.refetch()} />;
   if (isEmpty)
     return (
-      <div className={styles.empty}>
-        <h3>{emptyText}</h3>
-      </div>
+      <SocialEmptyState action={<Link prefetch={false} className="primary-button" href="/inspiration">Khám phá cảm hứng</Link>}><p>{emptyText}</p></SocialEmptyState>
     );
   return (
     <>

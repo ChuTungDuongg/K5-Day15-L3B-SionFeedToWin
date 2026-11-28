@@ -106,7 +106,7 @@ async def booking_draft(core: httpx.AsyncClient, message: str) -> Answer:
         CardLine(label="Lưu ý an toàn", detail="Vui lòng kiểm tra và tự xác nhận trước khi gửi."),
     ]
     subject = "đổi phòng" if room_change else "hỗ trợ khách sạn"
-    return Answer(kind="answer", text=f"Vini đã soạn bản nháp {subject}. {PENDING}.", cards=[
+    return Answer(kind="answer", text=f"VinTrip đã soạn bản nháp {subject}. {PENDING}.", cards=[
         Card(
             ref="r1", id=draft_id, kind="approval_draft", title=f"Bản nháp {subject} · {PENDING}",
             price_from=price, price_basis="per_night_per_room", observed_at=datetime.now(UTC),

@@ -4,6 +4,8 @@ import { t, vi } from '@vintrip/i18n';
 import { ApiErrorNotice } from '@/features/shared/api-state';
 import { formatPrice } from './trip-card';
 import { StayThumbnail } from './stay-thumbnail';
+import Image from 'next/image';
+import { StayFilterSheet } from './stay-filter-sheet';
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -117,6 +119,25 @@ export function LiveSearchScreen({
   const appliedPlaceName = isHomepage ? placeName : parseFullSearchParams(searchParamsString).placeName;
   const resultHref = search.submitted ? getSearchHref(search.submitted, appliedPlaceName, childGuests) : '/search';
   const canSubmit = !!search.filters.placeId || search.selection?.type === 'hotel';
+  const resetFilters = () => {
+                      const cleared = {
+                        ...search.filters,
+                        minStars: '',
+                        stars: '',
+                        priceMin: '',
+                        priceMax: '',
+                        sort: 'price',
+                      } as const;
+                      search.setFilters(cleared);
+                      if (cleared.placeId) {
+                        const href = getSearchHref(cleared, placeName, childGuests);
+                        if (isHomepage) {
+                          router.push(href, { scroll: false });
+                        } else {
+                          window.history.pushState(null, '', href);
+                        }
+                      }
+  };
   const Container = isHomepage ? 'section' : 'div';
   return (
     <Container
@@ -167,6 +188,8 @@ export function LiveSearchScreen({
               <StaySearchIcon name="hotel" />
               {vi.api.hotels}
             </span>
+            <Link prefetch={false} href="/flights" className={styles.flightTab}>{vi.flights.title}</Link>
+            <Link prefetch={false} href="/#lich-vui-choi" className={styles.flightTab}>{vi.parkPlanner.nav}</Link>
             {/* Bộ lọc thêm trượt ngang ra trong khoảng trống của hàng tab, không đè lên ô tìm hay nút tìm. */}
             <div
               id="home-more-filters"
@@ -380,6 +403,7 @@ export function LiveSearchScreen({
       {!isHomepage && (
         <div className={listing.layout}>
           <div className={listing.sidebar}>
+            <StayFilterSheet>
             <aside className={listing.filterPanel} aria-labelledby="stay-filter-title">
               <div className={listing.panelHead}>
                 <h2 id="stay-filter-title">
@@ -390,25 +414,7 @@ export function LiveSearchScreen({
                   <button
                     type="button"
                     className={listing.panelReset}
-                    onClick={() => {
-                      const cleared = {
-                        ...search.filters,
-                        minStars: '',
-                        stars: '',
-                        priceMin: '',
-                        priceMax: '',
-                        sort: 'price',
-                      } as const;
-                      search.setFilters(cleared);
-                      if (cleared.placeId) {
-                        const href = getSearchHref(cleared, placeName, childGuests);
-                        if (isHomepage) {
-                          router.push(href, { scroll: false });
-                        } else {
-                          window.history.pushState(null, '', href);
-                        }
-                      }
-                    }}
+                    onClick={resetFilters}
                   >
                     {vi.ota.resetFilters}
                   </button>
@@ -489,6 +495,7 @@ export function LiveSearchScreen({
                 {vi.ota.applyFilters}
               </button>
             </aside>
+            </StayFilterSheet>
             <SearchAdBanner />
           </div>
           <section
@@ -539,7 +546,7 @@ export function LiveSearchScreen({
               })}
             </nav>
             {!search.submitted && <p className={listing.state}>{vi.api.choosePlace}</p>}
-            {search.stays.isPending && search.stays.isFetching && <LoadingDots isBlock />}
+            {search.stays.isPending && search.stays.isFetching && <div className={listing.loadingCards} role="status" aria-label="Đang tải khách sạn"><div /><div /><div /></div>}
             <ApiErrorNotice
               error={search.stays.error}
               retry={() => {
@@ -548,8 +555,10 @@ export function LiveSearchScreen({
             />
             {search.stays.data?.items.length === 0 && (
               <div className={listing.state}>
-                <strong>{vi.ota.noMatchingStays}</strong>
+                <Image src="/brand/vini/vini-curious.png" alt="" width={140} height={140} />
+                <strong>Chưa có khách sạn khớp bộ lọc</strong>
                 <p>{vi.ota.noStaysHint}</p>
+                <button type="button" className="secondary-button" onClick={resetFilters}>Xoá bộ lọc</button>
               </div>
             )}
             <div className={listing.cards}>
@@ -580,6 +589,7 @@ export function LiveSearchScreen({
                             : ''}
                         </p>
                         <h3>{stay.name}</h3>
+                        {stay.stars ? <p className={listing.stars} aria-label={t('ota.starsExact', { count: stay.stars })}>{'★'.repeat(Math.min(5, stay.stars))}</p> : null}
                       </div>
                       <div className={listing.price}>
                         <strong>{formatPrice(stay.unitPrice)}</strong>
@@ -587,8 +597,8 @@ export function LiveSearchScreen({
                         <p>
                           {vi.api.total} · {formatPrice(stay.totalPrice)}
                         </p>
-                        <span className="primary-button" aria-hidden="true">
-                          {vi.hotel.chooseRoom}
+                        <span className="secondary-button" aria-hidden="true">
+                          Xem phòng
                         </span>
                       </div>
                     </Link>

@@ -108,6 +108,15 @@ class Cancellation(WireModel):
     nights: int | None = Field(default=None, ge=1, le=30)
 
 
+class FlightDisruption(WireModel):
+    """Untrusted request slots only; C3 always re-reads the mock snapshot."""
+
+    booking_code: str | None = Field(default=None, max_length=32)
+    action: Literal["review", "hold", "change", "refund", "choose"] = "review"
+    target_flight_id: str | None = Field(default=None, max_length=32)
+    arrival_before: str | None = Field(default=None, max_length=40)
+
+
 class TripContext(WireModel):
     """What Tripi remembers of the trip being planned (trip memory, v3 "Trip Draft" lite).
 
@@ -143,6 +152,7 @@ class TripContext(WireModel):
     # ("Vũng tàu") finishes that request; and a plan of food stops only.
     awaiting: Awaiting | None = None
     pending_cancellation: Cancellation | None = None
+    pending_flight_disruption: FlightDisruption | None = None
     meals_only: bool = False
 
 
@@ -196,6 +206,9 @@ class Understanding(WireModel):
         "cancel_policy",
         "booking_draft",
         "verified_itinerary",
+        "flight_disruption",
+        # C1 (2026-11-28): day plan at Công viên Mẫu, answered by the C1 agent in a popup
+        "park_plan",
     ]
     query: str = Field(default="", max_length=200)
     budget_vnd: int | None = Field(default=None, ge=0, le=10**12)

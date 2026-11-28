@@ -23,7 +23,12 @@ export function buildOpenApiDocument(app: INestApplication) {
  * App mobile không bị CORS chặn nên không cần ở đây.
  */
 export function applyCors(app: INestApplication, webOrigins: string[]) {
-  app.enableCors({ origin: webOrigins, credentials: true, exposedHeaders: ['Retry-After'], maxAge: 600 });
+  app.enableCors({
+    origin: webOrigins,
+    credentials: true,
+    exposedHeaders: ['Retry-After', 'Idempotency-Replayed'],
+    maxAge: 600,
+  });
 }
 
 /**

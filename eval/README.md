@@ -23,8 +23,8 @@ Nguồn gồm bảng khảo sát C1 đã ẩn danh và các tình huống nhóm 
 | `hoi_lai_va_trang_thai_dung` | Người chấm | ≥85% câu khó |
 | `tu_choi_va_khong_noi_dieu_kien` | Người chấm | 100% câu từ chối |
 
-- **Người thứ hai chấm thử:** chưa có biên bản chấm độc lập 5 output, dù đã có output model thật. Cần ghi người chấm, mã 5 câu và số khớp, không tự điền đạt 4/5. Giữ nguyên định nghĩa và ngưỡng đã khóa.
-- LLM chấm: chưa dùng.
+- **Người thứ hai chấm thử:** **Hà Lê Duy (`TV3`, không phải người viết `metric_spec.yaml`)** đã chấm độc lập 5 output (`C1-01`, `C1-07`, `C1-12`, `C1-17`, `C1-26`) trong [phiếu 5 output](doi-chieu-5.md) ngày 28/11/2026 → **khớp 5/5 (100%, đạt ngưỡng ≥4/5)** với `eval/run-4.csv` (4 câu đạt, riêng `C1-17 = 0`).
+- Thành viên nhóm cũng đã duyệt 5/5 điểm do AI đề xuất, khớp với kết quả người chấm độc lập và `run-4` ([chi tiết đối chiếu AI](doi-chieu-ai.md)).
 - **Chuẩn đạt:** chép nguyên từ [spec.md §7](../spec.md), đạt ít nhất 80% toàn bộ câu và đồng thời đủ cả bốn ngưỡng trên. Một lịch đánh dấu VALID nhưng vi phạm ràng buộc luôn có `pass = 0`.
 
 ## 4. Lệnh
@@ -33,19 +33,23 @@ Nguồn gồm bảng khảo sát C1 đã ẩn danh và các tình huống nhóm 
 
 ## 5. Đã chạy gì
 
-Kiểm tra CP2 trước đây xác nhận khung chạy với model giả. Đến ngày 28/11, repo đã có các lượt dưới đây. Nhóm xác nhận chưa làm/nộp CP3. Tất cả cột `pass` ở file `run-1.csv` đến `run-4.csv` còn trống, nên `python run.py score` báo chưa chấm xong. Các số nháp không được coi là điểm đã duyệt.
+Run-4 đã điền đủ 30 ô pass từ bản chấm của nhánh Manh. Các lượt mới run-5 và run-6 có điểm AI đề xuất riêng, chưa điền pass chính thức. [So sánh mới và bộ kiểm định riêng](c1-validation-review.md).
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
 | 1 | `run-1@20261127-231617` | gpt-6-luna ở 29 câu có phản hồi | C1-21 timeout, 1 lỗi kỹ thuật | Chưa chấm cột pass | Chưa công bố | Chưa xác nhận |
 | 2 | `run-2@20261127-231855` | gpt-6-luna | Đã tăng thời gian chờ API, 0 lỗi kỹ thuật | Nháp 26/30 | Nháp 86,7% | Chờ duyệt và đủ bốn metric |
 | 3 | `run-3@20261127-233722` | gpt-6-luna | Chạy giữa lúc sửa, giữ toàn bộ log | Chưa có bản chấm | Chưa công bố | Không dùng tự động làm lượt nộp |
-| 4 | `run-4@20261127-234013` | gpt-6-luna | Bổ sung căn cứ và nhãn phần lịch đã thực hiện, 0 lỗi kỹ thuật | Nháp 29/30 | Nháp 96,7% | Chờ nhóm chọn lượt và duyệt điểm |
+| 4 | `run-4@20261127-234013` | gpt-6-luna | Bổ sung căn cứ và nhãn lịch đã thực hiện, 0 lỗi kỹ thuật | 29/30 | 96,7% | Đạt chuẩn (đã đối chiếu độc lập 5/5; lượt này dùng luồng trước bước model chọn trò) |
+| 5 | `run-5@20261128-123814` | gpt-6-luna | Trước sửa kiểm lịch, có bước model chọn trò; 0 lỗi | Nháp 29/30 | Nháp 96,7% | Chờ nhóm duyệt |
+| 6 | `run-6@20261128-124828` | gpt-6-luna | Sau sửa C1-17; 0 lỗi | Nháp 30/30 | Nháp 100% | Chờ nhóm duyệt; bộ riêng còn lỗi show hủy |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-Run-1 có lỗi timeout ở C1-21. Bản đối chiếu run-2 và run-4 ghi việc bổ sung lần tra catalog cho C1-11, phút đi bộ từ cổng ở C1-25 và nhãn nguồn lịch cũ ở C1-26. C1-17 còn trượt theo bản chấm nháp vì yêu cầu riêng có “validator vẫn chạy” trong khi trace không ghi lần gọi này.
+Run-1 có lỗi timeout ở C1-21. Bản đối chiếu run-2 và run-4 ghi việc bổ sung lần tra catalog cho C1-11, phút đi bộ từ cổng ở C1-25 và nhãn nguồn lịch cũ ở C1-26. Trong run-4 và run-5, C1-17 trượt vì yêu cầu riêng có “validator vẫn chạy” trong khi trace không ghi lần gọi này.
 
 Checker từng báo output khác trace khi checkout Windows do CSV đổi LF thành CRLF. Chỉ chuẩn hóa xuống dòng khi so sánh, không sửa các file run hoặc trace. Trên run-4, hai metric code kiểm lại được 25/25 câu có căn cứ và 14/14 lịch VALID. Hai metric người chấm vẫn cần được duyệt theo [báo cáo](report.md).
+
+Bản sửa đã gọi validator và từ chối xác nhận khi thiếu lịch/yêu cầu (C1-17, run-6). Bộ riêng 20 câu cho kết quả nháp 19/20: HO-14 vẫn xếp show đã hủy và báo VALID. Checker hiện bỏ sót sự cố này; xem [báo cáo mới](c1-validation-review.md).

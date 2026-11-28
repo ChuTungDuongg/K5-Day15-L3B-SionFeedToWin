@@ -6,13 +6,14 @@ import { usePathname } from 'next/navigation';
 import { OTA_DESTINATIONS, getDestinationHref } from '@/features/discovery/ota-destinations';
 import { ViniMascot } from '@/features/mascot/tripi-mascot';
 import { AppDownloadBadges } from '@/features/discovery/app-download-badges';
+import { isStaffPath } from '@/features/staff/staff-path';
 import styles from '@/features/discovery/ota-shell.module.css';
 
 export function OtaFooter() {
   const pathname = usePathname();
 
   // Ẩn footer ở tab Cảm hứng (/inspiration) để giao diện 3-panel immersive bao quát toàn màn hình
-  if (pathname === '/inspiration') {
+  if (pathname === '/inspiration' || isStaffPath(pathname)) {
     return null;
   }
 

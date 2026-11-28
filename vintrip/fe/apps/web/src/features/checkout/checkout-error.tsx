@@ -14,7 +14,11 @@ export function CheckoutError({ error, retry }: { error: unknown; retry?: () => 
     if (typeof body.message === 'string')
       return (
         <p role="alert" className={styles.error}>
-          {body.message}
+          <svg className={styles.alertIcon} viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 8v5M12 16h.01" strokeLinecap="round" />
+          </svg>
+          <span>{body.message}</span>
         </p>
       );
   }

@@ -106,7 +106,12 @@ export function FlightDateStrip({ search, hrefFor, minDate }: FlightDateStripPro
                       ? t('flights.millions', { value: millionFormatter.format(price / 1_000_000) })
                       : copy.noFlightsDay}
                 </strong>
-                {isCheapest && <span className={styles.srOnly}>{copy.cheapest}</span>}
+                {isCheapest && (
+                  <span className={styles.stripCheapest}>
+                    <span className={styles.stripCheapestDot} aria-hidden="true" />
+                    rẻ nhất
+                  </span>
+                )}
                 {price != null && (
                   <span className={styles.stripDot} style={{ bottom: 9 + lift(price) }} aria-hidden="true" />
                 )}

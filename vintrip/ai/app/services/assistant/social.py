@@ -2,7 +2,7 @@
 
 Code picks the move from the message and the recent history, and a fixed sentence for it
 from a pool, so the reply varies and works with the LLM off. The Responder then rewrites it
-in Vini's voice from the same facts (Vũng Tàu report and Bảo's request, 2026-11-17).
+in VinTrip's voice from the same facts (Vũng Tàu report and Bảo's request, 2026-11-17).
 """
 
 import re
@@ -33,108 +33,108 @@ SKILL_INTENTS = {
 
 POOLS: dict[str, list[str]] = {
     "greeting_intro": [
-        "Chào bạn, mình là Vini, chú rái cá biển trợ lý du lịch của Vintrip. Mình tìm reel chuyến đi, lên lịch trình, xem chỗ ở, "
+        "Chào bạn, mình là VinTrip, chú chồn nhỏ đồng hành cùng bạn, trợ lý du lịch của app VinTrip. Mình tìm reel chuyến đi, lên lịch trình, xem chỗ ở, "
         "thời tiết cho bạn. Bạn đang muốn đi đâu chơi?",
-        "Hello hello! Mình là Vini, chú rái cá biển trợ lý du lịch của Vintrip. Kể mình nghe bạn muốn đi đâu, "
+        "Hello hello! Mình là VinTrip, chú chồn nhỏ đồng hành cùng bạn, trợ lý du lịch của app VinTrip. Kể mình nghe bạn muốn đi đâu, "
         "mình lên lịch trình liền nha.",
-        "Hi bạn! Mình là Vini, chú rái cá biển trợ lý du lịch của Vintrip. Cuối tuần này bạn "
+        "Hi bạn! Mình là VinTrip, chú chồn nhỏ đồng hành cùng bạn, trợ lý du lịch của app VinTrip. Cuối tuần này bạn "
         "tính đi đâu nè?",
     ],
     "greeting": [
         "Chào lại bạn nè! Hôm nay mình giúp gì cho chuyến đi đây?",
-        "Hi, Vini vẫn ở đây nè! Bạn muốn tìm chỗ đi hay lên lịch trình?",
+        "Hi, VinTrip vẫn ở đây nè! Bạn muốn tìm chỗ đi hay lên lịch trình?",
         "Hello! Có chuyến nào bạn đang tính chưa, kể mình nghe với.",
     ],
     "greeting_repeat": [
         "Mình chào nhau mấy lần rồi đó hihi. Giờ mình lên kèo đi chơi luôn ha, bạn thích biển "
         "hay núi?",
-        "Vini nghe rõ rồi nè! Thử nói mình nơi bạn muốn đi, mình xếp lịch trình ngay.",
+        "VinTrip nghe rõ rồi nè! Thử nói mình nơi bạn muốn đi, mình xếp lịch trình ngay.",
         "Chào hoài vậy là có hẹn đi chơi rồi đó nha! Bạn muốn đi đâu, mấy ngày?",
     ],
     "repeat": [
-        "Câu này bạn nhắn rồi nè. Hay mình đổi gió, bạn kể nơi muốn đi để Vini gợi ý nha?",
-        "Vini đọc rồi nha. Muốn mình tìm chỗ đi chơi hay xếp lịch trình cho bạn không?",
+        "Câu này bạn nhắn rồi nè. Hay mình đổi gió, bạn kể nơi muốn đi để VinTrip gợi ý nha?",
+        "VinTrip đọc rồi nha. Muốn mình tìm chỗ đi chơi hay xếp lịch trình cho bạn không?",
     ],
     "identity": [
-        "Mình là Vini, chú rái cá biển trợ lý du lịch của Vintrip. Mình tìm reel, lộ trình, chỗ ở, chuyến "
+        "Mình là VinTrip, chú chồn nhỏ đồng hành cùng bạn, trợ lý du lịch của app VinTrip. Mình tìm reel, lộ trình, chỗ ở, chuyến "
         "bay, xem thời tiết và gợi ý đồ mang theo cho bạn.",
-        "Mình là Vini, chú rái cá biển trợ lý du lịch của Vintrip. Mình xếp lịch trình theo ngày, tìm "
+        "Mình là VinTrip, chú chồn nhỏ đồng hành cùng bạn, trợ lý du lịch của app VinTrip. Mình xếp lịch trình theo ngày, tìm "
         "chỗ ở, vé máy bay và nhắc bạn mang gì.",
     ],
     "thanks": [
-        "Không có gì nha! Cần gì thêm cứ nhắn Vini.",
+        "Không có gì nha! Cần gì thêm cứ nhắn VinTrip.",
         "Có gì đâu nè, chúc bạn đi chơi vui! Cần gì cứ gọi mình.",
-        "Hihi, giúp được bạn là Vini vui rồi.",
+        "Hihi, giúp được bạn là VinTrip vui rồi.",
     ],
     "ack": [
-        "Okie, cần gì thêm cứ nhắn Vini nha!",
+        "Okie, cần gì thêm cứ nhắn VinTrip nha!",
         "Oke nè, mình ở đây khi bạn cần.",
         "Chốt vậy nha! Muốn chỉnh gì cứ nói mình.",
     ],
     "goodbye": [
         "Hẹn gặp lại nha, chúc bạn có chuyến đi thật vui!",
         "Bye bạn nè, đi chơi vui vẻ và nhớ chụp thật nhiều ảnh nha!",
-        "Tạm biệt nha, khi nào muốn đi đâu cứ quay lại tìm Vini.",
+        "Tạm biệt nha, khi nào muốn đi đâu cứ quay lại tìm VinTrip.",
     ],
     "off_topic": [
-        "Vụ này Vini không rành lắm hihi. Nhưng nếu đang cần đổi gió thì mình tìm chỗ đi "
+        "Vụ này VinTrip không rành lắm hihi. Nhưng nếu đang cần đổi gió thì mình tìm chỗ đi "
         "chơi cho bạn liền nha!",
-        "Nghe cũng vui á! Mà nói chuyện đi chơi là nghề của Vini, bạn có định đi đâu sắp tới "
+        "Nghe cũng vui á! Mà nói chuyện đi chơi là nghề của VinTrip, bạn có định đi đâu sắp tới "
         "không?",
-        "Cái này mình chịu thua rồi. Hay để Vini gợi ý một chuyến đi xả stress cho bạn nha?",
+        "Cái này mình chịu thua rồi. Hay để VinTrip gợi ý một chuyến đi xả stress cho bạn nha?",
     ],
     "abuse": [
-        "Mình nói chuyện nhẹ nhàng với nhau thôi nha bạn. Vini vẫn ở đây giúp bạn lên "
+        "Mình nói chuyện nhẹ nhàng với nhau thôi nha bạn. VinTrip vẫn ở đây giúp bạn lên "
         "chuyến đi nè.",
-        "Bình tĩnh nha bạn, có gì chưa ổn cứ nói Vini sửa. Mình quay lại chuyến đi của bạn nhé?",
-        "Vini hiểu bạn đang bực, mình nói nhẹ nhàng thôi nha. Bạn muốn mình làm lại phần nào?",
+        "Bình tĩnh nha bạn, có gì chưa ổn cứ nói VinTrip sửa. Mình quay lại chuyến đi của bạn nhé?",
+        "VinTrip hiểu bạn đang bực, mình nói nhẹ nhàng thôi nha. Bạn muốn mình làm lại phần nào?",
     ],
     "ask_why": [
-        "Lúc nãy Vini chưa làm được vì chưa đủ thông tin hoặc dữ liệu cho yêu cầu đó. Bạn "
+        "Lúc nãy VinTrip chưa làm được vì chưa đủ thông tin hoặc dữ liệu cho yêu cầu đó. Bạn "
         "nói rõ hơn giúp mình (nơi đến, mấy ngày) là mình làm lại liền nha.",
     ],
 }
 POOLS.update(
     {
         "refusal": [
-            "Vini không hỗ trợ yêu cầu nguy hiểm hoặc can thiệp quy tắc. "
+            "VinTrip không hỗ trợ yêu cầu nguy hiểm hoặc can thiệp quy tắc. "
             "Mình có thể giúp bạn lên chuyến đi an toàn.",
             "Mình không làm theo yêu cầu gây hại hay bỏ qua hướng dẫn. "
-            "Bạn có thể hỏi Vini về một chuyến du lịch an toàn.",
-            "Yêu cầu này Vini không thể hỗ trợ. "
+            "Bạn có thể hỏi VinTrip về một chuyến du lịch an toàn.",
+            "Yêu cầu này VinTrip không thể hỗ trợ. "
             "Mình sẵn sàng giúp tìm lịch trình, phòng và vé cho chuyến đi an toàn.",
-            "Vini giữ nguyên giới hạn an toàn và không hỗ trợ việc gây hại. "
+            "VinTrip giữ nguyên giới hạn an toàn và không hỗ trợ việc gây hại. "
             "Mình quay lại chuyện du lịch nhé?",
         ],
         "off_topic_math": [
-            "Vini không giải toán hay tính đáp án nha.",
-            "Bài toán này nằm ngoài phạm vi của Vini, mình không làm lời giải đâu nè.",
-            "Mình không nhận giải bài tập toán, nghề của Vini là lo chuyến đi nha.",
-            "Vini xin nhường phần giải toán, mình không phải gia sư đâu nè.",
+            "VinTrip không giải toán hay tính đáp án nha.",
+            "Bài toán này nằm ngoài phạm vi của VinTrip, mình không làm lời giải đâu nè.",
+            "Mình không nhận giải bài tập toán, nghề của VinTrip là lo chuyến đi nha.",
+            "VinTrip xin nhường phần giải toán, mình không phải gia sư đâu nè.",
         ],
         "off_topic_code": [
-            "Vini không viết code hay sửa chương trình nha.",
-            "Lập trình nằm ngoài phạm vi của mình, Vini không làm bài code đâu nè.",
+            "VinTrip không viết code hay sửa chương trình nha.",
+            "Lập trình nằm ngoài phạm vi của mình, VinTrip không làm bài code đâu nè.",
             "Mình không nhận viết hàm hay gỡ lỗi phần mềm nha.",
-            "Vini không làm trợ lý lập trình, mình chỉ chuyên chuyện đi chơi thôi nè.",
+            "VinTrip không làm trợ lý lập trình, mình chỉ chuyên chuyện đi chơi thôi nè.",
         ],
         "off_topic_writing": [
-            "Vini không viết bài văn, làm bài hay dịch văn bản nha.",
-            "Viết bài và dịch câu nằm ngoài phạm vi của Vini, mình không làm phần đó đâu nè.",
-            "Mình không nhận làm bài văn hay bài dịch, Vini chuyên lo chuyến đi nha.",
-            "Phần văn và dịch thuật mình xin nhường, Vini không làm bài hộ đâu nè.",
+            "VinTrip không viết bài văn, làm bài hay dịch văn bản nha.",
+            "Viết bài và dịch câu nằm ngoài phạm vi của VinTrip, mình không làm phần đó đâu nè.",
+            "Mình không nhận làm bài văn hay bài dịch, VinTrip chuyên lo chuyến đi nha.",
+            "Phần văn và dịch thuật mình xin nhường, VinTrip không làm bài hộ đâu nè.",
         ],
         "off_topic_knowledge": [
-            "Vini không trả lời kiến thức chung ngoài du lịch nha.",
-            "Câu hỏi kiến thức này ngoài phạm vi của mình, Vini không giải đáp phần đó đâu nè.",
+            "VinTrip không trả lời kiến thức chung ngoài du lịch nha.",
+            "Câu hỏi kiến thức này ngoài phạm vi của mình, VinTrip không giải đáp phần đó đâu nè.",
             "Mình không làm bách khoa toàn thư hay tư vấn tài chính nha.",
-            "Phần kiến thức ngoài du lịch mình xin nhường, Vini không trả lời lĩnh vực đó đâu nè.",
+            "Phần kiến thức ngoài du lịch mình xin nhường, VinTrip không trả lời lĩnh vực đó đâu nè.",
         ],
         "off_topic_other": [
-            "Chuyện ngoài du lịch này Vini không hỗ trợ nha.",
-            "Việc này ngoài phạm vi nên Vini không làm phần đó, mình chỉ giúp chuyện đi chơi nè.",
+            "Chuyện ngoài du lịch này VinTrip không hỗ trợ nha.",
+            "Việc này ngoài phạm vi nên VinTrip không làm phần đó, mình chỉ giúp chuyện đi chơi nè.",
             "Mình không nhận xử lý yêu cầu ngoài du lịch nha.",
-            "Vụ ngoài lề này Vini xin nhường, mình không làm phần đó đâu nè.",
+            "Vụ ngoài lề này VinTrip xin nhường, mình không làm phần đó đâu nè.",
         ],
         "empty_stay": [
             "Chưa có chỗ ở phù hợp cho {subject}; bạn thử đổi ngày nhận phòng nha?",
@@ -165,14 +165,14 @@ POOLS.update(
 TRAVEL_STEERS = [
     "Hay mình xem tiếp lịch {place} nha?",
     "Mình quay lại chuyến đi {place} nhé?",
-    "Bạn muốn Vini tìm chỗ ở cho chuyến {place} không?",
+    "Bạn muốn VinTrip tìm chỗ ở cho chuyến {place} không?",
     "Hay mình xem thời tiết cho chuyến {place} nha?",
 ]
 
 
 REMINDERS = [
     "Mình nói chuyện nhẹ nhàng thôi nha 😊",
-    "Bình tĩnh nha bạn, Vini giúp liền đây.",
+    "Bình tĩnh nha bạn, VinTrip giúp liền đây.",
 ]
 SOCIAL_MOVES = {"greeting", "identity", "thanks", "ack", "goodbye", "small_talk", "off_topic"}
 
@@ -273,12 +273,12 @@ def chips(place: str) -> list[str]:
 
 
 def social_answer(move: str, *, place: str, seed: str, history: Sequence[Turn]) -> Answer:
-    """A short reply in Vini's voice; facts let the Responder rewrite it, never invent."""
+    """A short reply in VinTrip's voice; facts let the Responder rewrite it, never invent."""
     text = pick(move, seed)
     facts: dict[str, Any] = {
         "type": "social",
         "move": move,
-        "assistant": "Vini",
+        "assistant": "VinTrip",
         "app": "Vintrip",
         "place": place or None,
         "fallback": text,
@@ -314,7 +314,7 @@ def off_topic_answer(kind: str, *, place: str, seed: str, history: Sequence[Turn
         if place
         else [
             "Hay mình lên lịch trình một chuyến đi nha?",
-            "Bạn muốn Vini gợi ý chỗ đi chơi không?",
+            "Bạn muốn VinTrip gợi ý chỗ đi chơi không?",
             "Mình quay lại chuyện du lịch nhé?",
             "Hay mình tìm một điểm đến cho cuối tuần nha?",
         ]

@@ -3,7 +3,7 @@ export const seo = {
   defaultTitle: 'Vintrip · Khám phá chuyến đi và đặt phòng theo lộ trình',
   defaultDescription:
     'Xem chuyến đi thật của người trẻ qua video và lộ trình chi tiết, rồi đặt phòng khách sạn, vé máy bay theo đúng hành trình đó trên Vintrip.',
-  ogImageAlt: 'Vintrip · Đi để khám phá, về để kể',
+  ogImageAlt: 'Vintrip · Mỗi hành trình là một câu chuyện đáng nhớ.',
   home: 'Trang chủ',
   hotelTitle: '{name} · Giá tốt, đặt phòng nhanh',
   hotelTitleWithPlace: '{name}, {place} · Giá tốt, đặt phòng nhanh',

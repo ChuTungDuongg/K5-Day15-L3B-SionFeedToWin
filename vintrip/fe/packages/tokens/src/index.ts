@@ -1,45 +1,48 @@
-// Màu, font, khoảng cách theo brand Vintrip: xanh rừng, xanh ngọc và nền sương sáng.
+// Màu, font, khoảng cách theo brand Vintrip: tông cam pastel (FE-01). Mọi cặp chữ/nền đã đo, đạt AA.
 // Web đọc qua CSS variables trong tokens.css; mobile import object này.
 // Sửa ở đây thì sửa cả tokens.css (test kiểm hai file khớp nhau).
 
 export const colors = {
   // Brand
-  coral: '#166553', // giữ tên token để tương thích; màu chính xanh rừng
-  coralSoft: '#79B89B',
-  sun: '#FFC531', // vàng mặt trời: huy hiệu, ưu đãi
-  teal: '#1D7A70', // xanh ngọc: màu phụ, đường đi
-  tealSoft: '#D9EFD9',
-  navy: '#173D35', // chữ chính, logo chữ
+  coral: '#C2560F', // cam đậm: nút chữ trắng (4.53:1)
+  coralSoft: '#FFB98A', // cam pastel: nút phụ, chữ nâu coralInk (5.65:1)
+  sun: '#FFC978', // vàng mặt trời: huy hiệu, ưu đãi
+  teal: '#A24A1E', // đất nung: màu phụ, đường đi
+  tealSoft: '#FFE8D6',
+  navy: '#3D2418', // chữ chính, logo chữ
   // Nền và chữ
   background: '#FFFFFF',
-  surface: '#F5F8F5',
-  surfaceMuted: '#EBF1EC',
-  border: '#D5E2D9',
-  text: '#173D35',
-  textMuted: '#5F7469',
-  textSubtle: '#8A9E92',
+  surface: '#FFF8F2',
+  surfaceMuted: '#FFF1E6',
+  border: '#F3DCCB',
+  text: '#3D2418',
+  textMuted: '#8A5A44',
+  textSubtle: '#A07B68',
   // Trạng thái
-  success: '#15803D',
-  warning: '#FFC531',
-  danger: '#E5484D',
-  ink: '#183B32',
-  warmMist: '#F7F8EE',
-  seaMist: '#F0F6F0',
-  tealInk: '#164D43',
-  coralInk: '#12513F',
-  sunSoft: '#F7F3DC',
-  coralTint: '#E4F0E5',
-  overlay: '#153D3580',
-  overlayHeavy: '#153D35CC',
+  success: '#2F7A5F',
+  warning: '#FFC978',
+  danger: '#C2413A',
+  ink: '#3D2418',
+  warmMist: '#FFF8F2',
+  seaMist: '#FFF4EA',
+  tealInk: '#7A2E0E',
+  coralInk: '#7A2E0E',
+  sunSoft: '#FFF3DF',
+  coralTint: '#FFE8D6',
+  overlay: '#3D241880',
+  overlayHeavy: '#3D2418CC',
   tabBar: '#000000',
-  composeStart: '#3C9171',
-  composeEnd: '#166553',
-  composeIconShadow: '#103B2C47',
+  composeStart: '#FFB98A',
+  composeEnd: '#F28A54',
+  composeIconShadow: '#7A2E0E47',
   transparent: 'transparent',
 } as const;
 
 export const fonts = {
-  sans: '"Nunito", "Segoe UI", system-ui, sans-serif',
+  // Be Vietnam Pro (chữ chính) và Dancing Script (chỉ chữ VinTrip + slogan ở hero), cả hai OFL, có tiếng Việt.
+  // app/layout.tsx nạp bằng next/font/google và đặt hai biến --font-be-vietnam-pro, --font-dancing-script.
+  sans: 'var(--font-be-vietnam-pro), "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif',
+  script: 'var(--font-dancing-script), "Dancing Script", cursive',
   mono: '"JetBrains Mono", ui-monospace, Consolas, monospace',
 } as const;
 

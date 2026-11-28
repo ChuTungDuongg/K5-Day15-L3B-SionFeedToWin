@@ -71,6 +71,7 @@ export function HotelGallery({
   const stageRef = useRef<HTMLDivElement>(null);
   const activeThumbnail = useRef<HTMLButtonElement>(null);
   const [index, setIndex] = useState(0);
+  const [mobileIndex, setMobileIndex] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const urls = [...new Set(images)].filter((url) => /^https?:\/\//i.test(url));
   const count = urls.length;
@@ -118,50 +119,75 @@ export function HotelGallery({
   }, [activeIndex]);
   if (!count) return null;
   const isCarousel = layout === 'carousel';
+  const isGrid = layout === 'grid';
   const previews = isCarousel
     ? [{ url: urls[activeIndex]!, position: activeIndex }]
-    : urls.slice(0, layout === 'compact' ? 3 : 5).map((url, position) => ({ url, position }));
+    : urls.slice(0, layout === 'compact' ? 3 : 12).map((url, position) => ({ url, position }));
+  const track = (
+    <div
+      className={galleryLayouts[layout]}
+      role={isCarousel ? 'group' : undefined}
+      aria-label={isCarousel ? `${vi.hotel.gallery}: ${name}` : undefined}
+      onScroll={
+        isGrid
+          ? (event) => {
+              const width = event.currentTarget.clientWidth;
+              if (width <= 0) return;
+              const next = Math.round(event.currentTarget.scrollLeft / width);
+              setMobileIndex(Math.max(0, Math.min(previews.length - 1, next)));
+            }
+          : undefined
+      }
+    >
+      {previews.map(({ url, position }) => (
+        <button
+          type="button"
+          key={isCarousel ? 'active-photo' : url}
+          className={isCarousel ? styles.carouselPhoto : undefined}
+          aria-haspopup="dialog"
+          onClick={() => {
+            setIndex(position);
+            zoom.shrinkExpanded();
+            setIsDialogOpen(true);
+            dialog.current?.showModal();
+          }}
+          aria-label={`${vi.hotel.photo} ${position + 1}: ${name}`}
+        >
+          <HotelPhoto key={url} url={url} alt={`${name} · ${vi.hotel.photo} ${position + 1}`} />
+          {isGrid && position === Math.min(4, previews.length - 1) && (
+            <span className={styles.galleryCount}>
+              {vi.hotel.gallery} ({count})
+            </span>
+          )}
+        </button>
+      ))}
+      {isCarousel && count > 1 && (
+        <>
+          <button className={styles.carouselArrow} type="button" aria-label={vi.hotel.previous} onClick={() => move(-1)}>
+            <GalleryIcon name="previous" />
+          </button>
+          <button className={styles.carouselArrow} type="button" aria-label={vi.hotel.next} onClick={() => move(1)}>
+            <GalleryIcon name="next" />
+          </button>
+          <output className={styles.carouselCount}>{activeIndex + 1} / {count}</output>
+        </>
+      )}
+    </div>
+  );
   return (
     <>
-      <div
-        className={galleryLayouts[layout]}
-        role={isCarousel ? 'group' : undefined}
-        aria-label={isCarousel ? `${vi.hotel.gallery}: ${name}` : undefined}
-      >
-        {previews.map(({ url, position }) => (
-          <button
-            type="button"
-            key={isCarousel ? 'active-photo' : url}
-            className={isCarousel ? styles.carouselPhoto : undefined}
-            aria-haspopup="dialog"
-            onClick={() => {
-              setIndex(position);
-              zoom.shrinkExpanded();
-              setIsDialogOpen(true);
-              dialog.current?.showModal();
-            }}
-            aria-label={`${vi.hotel.photo} ${position + 1}: ${name}`}
-          >
-            <HotelPhoto key={url} url={url} alt={`${name} · ${vi.hotel.photo} ${position + 1}`} />
-            {layout === 'grid' && position === Math.min(4, count - 1) && (
-              <span className={styles.galleryCount}>
-                {vi.hotel.gallery} ({count})
-              </span>
-            )}
-          </button>
-        ))}
-        {isCarousel && count > 1 && (
-          <>
-            <button className={styles.carouselArrow} type="button" aria-label={vi.hotel.previous} onClick={() => move(-1)}>
-              <GalleryIcon name="previous" />
-            </button>
-            <button className={styles.carouselArrow} type="button" aria-label={vi.hotel.next} onClick={() => move(1)}>
-              <GalleryIcon name="next" />
-            </button>
-            <output className={styles.carouselCount}>{activeIndex + 1} / {count}</output>
-          </>
-        )}
-      </div>
+      {isGrid ? (
+        <div className={styles.galleryWrap}>
+          {track}
+          {count > 1 && (
+            <output className={styles.galleryMobileCount} aria-live="polite">
+              {mobileIndex + 1}/{count}
+            </output>
+          )}
+        </div>
+      ) : (
+        track
+      )}
       <dialog
         ref={dialog}
         className={styles.photoDialog}

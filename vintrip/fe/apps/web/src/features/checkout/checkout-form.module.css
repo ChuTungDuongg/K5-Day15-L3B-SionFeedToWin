@@ -1,8 +1,25 @@
 /* Giao diện trang Thông tin & thanh toán. Các màn khác (Chuyến đi, VNPay) vẫn dùng checkout.module.css. */
 
 .page {
-  --line: color-mix(in srgb, var(--color-teal-ink) 12%, var(--color-border));
+  --line: var(--color-border);
   padding-block: 28px 80px;
+}
+
+.skeletonBar {
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+}
+
+.skeletonCard {
+  height: 360px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+}
+
+.skeletonAside {
+  height: 420px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
 }
 
 /* ---------- Quay lại trang trước ---------- */
@@ -11,17 +28,30 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-height: 44px;
   margin-bottom: 16px;
-  padding: 6px 12px 6px 8px;
-  border-radius: 999px;
-  color: var(--color-teal-ink);
-  font-size: 14px;
+  padding: 6px 14px 6px 10px;
+  border-radius: var(--radius-pill);
+  color: var(--color-coral-ink);
+  font-size: var(--text-sm);
   font-weight: 700;
-  transition: background 256ms;
+  transition: background 180ms ease-out;
 }
 
-.backLink:is(:hover, :focus-visible) {
-  background: color-mix(in srgb, var(--color-teal-ink) 8%, transparent);
+.backLink:hover {
+  background: var(--color-coral-tint);
+}
+
+.backLink:focus-visible,
+.testCard:focus-visible,
+.summaryToggle:focus-visible,
+.cancelLink:focus-visible,
+.cancelKeepButton:focus-visible,
+.cancelDangerButton:focus-visible,
+.pillButton:focus-visible,
+.promoLink:focus-visible {
+  outline: 3px solid var(--color-coral);
+  outline-offset: 2px;
 }
 
 /* ---------- Thanh bước ---------- */
@@ -33,7 +63,7 @@
   margin: 0 0 20px;
   padding: 0;
   list-style: none;
-  font-size: 13px;
+  font-size: var(--text-sm);
   color: var(--color-text-muted);
 }
 
@@ -45,18 +75,18 @@
   padding-right: 12px;
 }
 
-/* Đường nối giữa các bước; bước đã xong tô Teal. */
+/* Đường nối giữa các bước; bước đã xong tô --color-success. */
 .steps li:not(:last-child)::after {
   content: '';
   flex: 1;
   min-width: 16px;
   height: 3px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-surface-muted);
 }
 
 .steps li[data-state='done']::after {
-  background: var(--color-teal-ink);
+  background: var(--color-success);
 }
 
 .steps span {
@@ -66,31 +96,33 @@
   width: 30px;
   height: 30px;
   border: 1.5px solid var(--color-border);
-  border-radius: 50%;
-  background: var(--color-background);
-  font-size: 13px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
 .steps li[data-state='current'] {
-  color: var(--color-ink);
+  color: var(--color-text);
   font-weight: 700;
 }
 
 .steps li[data-state='current'] span {
-  border-color: var(--color-coral-ink);
-  background: var(--color-coral-ink);
+  border-color: var(--color-coral);
+  background: var(--color-coral);
   color: var(--color-background);
   box-shadow: 0 0 0 5px var(--color-coral-tint);
 }
 
 .steps li[data-state='done'] {
-  color: var(--color-teal-ink);
+  color: var(--color-success);
+  font-weight: 600;
 }
 
 .steps li[data-state='done'] span {
-  border-color: var(--color-teal-ink);
-  background: var(--color-teal-ink);
+  border-color: var(--color-success);
+  background: var(--color-success);
   color: var(--color-background);
 }
 
@@ -138,10 +170,10 @@
   min-width: 0;
   margin: 0;
   padding: 24px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   background: var(--color-background);
-  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-ink) 4%, transparent);
+  box-shadow: var(--shadow-soft);
 }
 
 .card:disabled {
@@ -178,7 +210,7 @@
   display: grid;
   flex-shrink: 0;
   place-items: center;
-  color: var(--color-teal-ink);
+  color: var(--color-coral);
 }
 
 .subTitle {
@@ -187,24 +219,24 @@
   align-items: center;
   gap: 10px;
   margin: 0;
-  color: var(--color-ink);
+  color: var(--color-text);
   font-weight: 700;
 }
 
-/* ---------- Ô nhập ---------- */
+/* ---------- Ô nhập: form 1 cột, nhãn nằm trên ô ---------- */
 
 .fields {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px 16px;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
 
 .field {
   display: grid;
   gap: 6px;
   min-width: 0;
-  color: var(--color-text-muted);
-  font-size: 12px;
+  color: var(--color-text);
+  font-size: var(--text-sm);
   font-weight: 600;
 }
 
@@ -214,55 +246,64 @@
 
 .field input {
   width: 100%;
-  min-height: 46px;
+  min-height: 44px;
   padding: 10px 14px;
   border: 1px solid var(--color-border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--color-background);
-  color: var(--color-ink);
-  font-size: 15px;
+  color: var(--color-text);
+  font-size: var(--text-base);
   font-weight: 500;
   transition:
-    border-color 256ms,
-    background 256ms,
-    box-shadow 256ms;
+    border-color 180ms ease-out,
+    background 180ms ease-out,
+    box-shadow 180ms ease-out;
 }
 
 .field input:hover {
-  border-color: color-mix(in srgb, var(--color-teal-ink) 40%, var(--color-border));
+  border-color: var(--color-coral-soft);
 }
 
 .field input:focus {
-  border-color: var(--color-teal-ink);
+  border-color: var(--color-coral);
   background: var(--color-background);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-teal-ink) 12%, transparent);
+  box-shadow: 0 0 0 3px var(--color-coral-tint);
+  outline: none;
 }
 
-/* Ô sai: viền đỏ và câu báo ngay bên dưới. */
+/* Ô sai: viền --color-danger và câu báo kèm icon ngay bên dưới. */
 .field[data-invalid='true'] > span:first-child {
-  color: var(--color-coral-ink);
+  color: var(--color-danger);
 }
 
 .field input[aria-invalid='true'],
 .field input[aria-invalid='true']:hover {
-  border-color: var(--color-coral-ink);
+  border-color: var(--color-danger);
   background: var(--color-coral-tint);
 }
 
 .field input[aria-invalid='true']:focus {
-  border-color: var(--color-coral-ink);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-coral-ink) 14%, transparent);
+  border-color: var(--color-danger);
+  box-shadow: 0 0 0 3px var(--color-coral-tint);
 }
 
 .datePicker button[aria-invalid='true'] {
+  border-color: var(--color-danger);
   background: var(--color-coral-tint);
 }
 
 .fieldError {
-  color: var(--color-coral-ink);
-  font-size: 13px;
-  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-danger);
+  font-size: var(--text-xs);
+  font-weight: 600;
   line-height: 1.4;
+}
+
+.fieldError svg {
+  flex: none;
 }
 
 .inputIcon {
@@ -299,13 +340,13 @@
 }
 
 .guestsNote svg {
-  color: var(--color-teal-ink);
+  color: var(--color-coral);
 }
 
 .guest {
   padding: 16px;
-  border-radius: 8px;
-  background: color-mix(in srgb, var(--color-sea-mist) 55%, var(--color-background));
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
 }
 
 .guest .field input {
@@ -314,10 +355,10 @@
 
 .guestType {
   padding: 3px 10px;
-  border-radius: 999px;
-  background: var(--color-sea-mist);
-  color: var(--color-teal-ink);
-  font-size: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-coral-tint);
+  color: var(--color-coral-ink);
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
@@ -326,10 +367,10 @@
   place-items: center;
   width: 26px;
   height: 26px;
-  border-radius: 8px;
-  background: var(--color-teal-ink);
+  border-radius: var(--radius-pill);
+  background: var(--color-coral);
   color: var(--color-background);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 /* ---------- Phương thức thanh toán ---------- */
@@ -372,12 +413,12 @@
 }
 
 .method:has(input:focus-visible) {
-  outline: 2px solid var(--color-teal-ink);
-  outline-offset: 3px;
+  outline: 3px solid var(--color-coral);
+  outline-offset: 2px;
 }
 
 .method[data-selected='true'] {
-  border-color: var(--color-coral-ink);
+  border-color: var(--color-coral);
   background: var(--color-coral-tint);
 }
 
@@ -386,7 +427,7 @@
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  color: var(--color-ink);
+  color: var(--color-text);
 }
 
 .methodIcon[data-method='vnpay'] img {
@@ -402,14 +443,14 @@
   display: grid;
   flex: 1;
   gap: 2px;
-  color: var(--color-ink);
-  font-size: 15px;
+  color: var(--color-text);
+  font-size: var(--text-base);
   font-weight: 700;
 }
 
 .methodText small {
   color: var(--color-text-muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 400;
 }
 
@@ -420,13 +461,13 @@
   width: 22px;
   height: 22px;
   border: 1.5px solid var(--color-border);
-  border-radius: 50%;
+  border-radius: var(--radius-pill);
   color: transparent;
 }
 
 .method[data-selected='true'] .methodCheck {
-  border-color: var(--color-coral-ink);
-  background: var(--color-coral-ink);
+  border-color: var(--color-coral);
+  background: var(--color-coral);
   color: var(--color-background);
 }
 
@@ -576,8 +617,8 @@
 }
 
 .consent:has(input:checked) {
-  border-color: var(--color-teal-ink);
-  background: var(--color-sea-mist);
+  border-color: var(--color-coral);
+  background: var(--color-coral-tint);
 }
 
 .consent input {
@@ -585,7 +626,7 @@
   width: 18px;
   height: 18px;
   margin-top: 2px;
-  accent-color: var(--color-teal-ink);
+  accent-color: var(--color-coral);
 }
 
 .consent small {
@@ -596,15 +637,15 @@
 
 .otp {
   max-width: 460px;
-  border-color: var(--color-teal-ink);
-  background: var(--color-sea-mist);
+  border-color: var(--color-coral);
+  background: var(--color-surface);
 }
 
 .warning,
 .info {
   margin: 0;
   padding: 14px 16px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
 }
 
 .warning {
@@ -612,19 +653,20 @@
   justify-items: start;
   gap: 12px;
   background: var(--color-sun-soft);
+  color: var(--color-text);
 }
 
 .info {
-  background: var(--color-sea-mist);
-  color: var(--color-teal-ink);
+  background: var(--color-coral-tint);
+  color: var(--color-coral-ink);
 }
 
 .error {
   margin: 0;
   padding: 12px 16px;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--color-coral-tint);
-  color: var(--color-coral-ink);
+  color: var(--color-danger);
   font-weight: 600;
 }
 
@@ -638,10 +680,12 @@
 .payButton {
   gap: 10px;
   width: 100%;
-  min-height: 58px;
-  border-radius: 8px;
-  font-size: 16px;
-  box-shadow: 0 16px 28px -18px var(--color-coral-ink);
+  min-height: 52px;
+  border-radius: var(--radius-pill);
+  background: var(--color-coral);
+  color: var(--color-background);
+  font-size: var(--text-base);
+  box-shadow: var(--shadow-soft);
 }
 
 .payNote {
@@ -651,11 +695,11 @@
   gap: 6px;
   margin: 0;
   color: var(--color-text-muted);
-  font-size: 12px;
+  font-size: var(--text-xs);
 }
 
 .payNote svg {
-  color: var(--color-teal-ink);
+  color: var(--color-coral);
 }
 
 /* ---------- Tóm tắt đơn (cột phải) ---------- */
@@ -665,15 +709,58 @@
   gap: 12px;
 }
 
+.summaryToggle {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-background);
+  color: var(--color-text);
+  box-shadow: var(--shadow-soft);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.summaryToggleLead {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.summaryToggleTotal {
+  color: var(--color-coral-ink);
+  font-size: var(--text-lg);
+}
+
+.summaryToggleChevron {
+  flex: none;
+  transition: transform 180ms ease-out;
+}
+
+.summaryToggleChevron[data-open='true'] {
+  transform: rotate(180deg);
+}
+
+.summaryCollapse {
+  display: block;
+  height: 100%;
+  min-height: 0;
+}
+
 .summary {
   --notch: 12px;
   position: relative;
   display: grid;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   background: var(--color-background);
-  box-shadow: 0 18px 36px -26px color-mix(in srgb, var(--color-teal-ink) 60%, transparent);
+  box-shadow: var(--shadow-soft);
   text-align: left;
 }
 
@@ -683,18 +770,13 @@
   align-items: center;
   gap: 12px;
   padding: 14px 20px;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--color-background) 7%, transparent) 0 10px,
-      transparent 10px 20px
-    ),
-    var(--color-teal-ink);
-  color: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-coral-tint);
+  color: var(--color-coral-ink);
 }
 
 .summaryTitle {
-  font-size: 12px;
+  font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -702,22 +784,22 @@
 
 .status {
   padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--color-sun-soft);
-  color: var(--color-ink);
-  font-size: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-sun);
+  color: var(--color-text);
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
 .status[data-status='paid'] {
-  background: var(--color-teal-soft);
-  color: var(--color-teal-ink);
+  background: var(--color-success);
+  color: var(--color-background);
 }
 
 .status[data-status='expired'],
 .status[data-status='cancelled'] {
-  background: var(--color-coral-tint);
-  color: var(--color-coral-ink);
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
 }
 
 .timer {
@@ -726,9 +808,9 @@
   gap: 12px;
   margin: 16px 20px 0;
   padding: 10px 12px;
-  border-radius: 8px;
-  background: var(--color-sea-mist);
-  color: var(--color-teal-ink);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-coral-ink);
 }
 
 .timer svg {
@@ -813,15 +895,15 @@
 }
 
 .itemBody p.property {
-  color: var(--color-teal-ink);
-  font-size: 11px;
+  color: var(--color-coral-ink);
+  font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .itemBody p.refundable {
-  color: var(--color-teal-ink);
+  color: var(--color-success);
   font-weight: 600;
 }
 
@@ -944,7 +1026,7 @@
 .perks li::before {
   content: '✓';
   margin-right: 8px;
-  color: var(--color-teal-ink);
+  color: var(--color-success);
   font-weight: 800;
 }
 
@@ -958,11 +1040,11 @@
   min-height: 0;
   padding: 14px 18px;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   color: var(--color-background);
   background:
     radial-gradient(circle at 82% 18%, var(--color-sun) 0 36px, transparent 37px),
-    linear-gradient(180deg, var(--color-teal) 0 50%, var(--color-teal-ink) 100%);
+    linear-gradient(180deg, var(--color-coral) 0 55%, var(--color-coral-ink) 100%);
 }
 
 .promo h3,
@@ -971,33 +1053,36 @@
 }
 
 .promo h3 {
-  font-size: 18px;
+  font-size: var(--text-lg);
   line-height: 1.25;
 }
 
 .promo p {
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .promoTag {
   align-self: flex-start;
   margin-bottom: auto;
   padding: 3px 10px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--color-background);
-  color: var(--color-teal-ink);
-  font-size: 12px;
+  color: var(--color-coral-ink);
+  font-size: var(--text-xs);
   font-weight: 700;
 }
 
 .promoLink {
   align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   margin-top: 8px;
-  padding: 7px 13px;
-  border-radius: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
   background: var(--color-sun-soft);
-  color: var(--color-ink);
-  font-size: 13px;
+  color: var(--color-text);
+  font-size: var(--text-sm);
   font-weight: 700;
 }
 
@@ -1012,9 +1097,15 @@
   text-align: center;
 }
 
+.successMascot {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+}
+
 .success h1 {
-  margin: 8px 0 0;
-  font-size: clamp(28px, 3vw, 36px);
+  margin: 4px 0 0;
+  font-size: var(--text-2xl);
   font-weight: 800;
 }
 
@@ -1023,17 +1114,26 @@
   color: var(--color-text-muted);
 }
 
+.successBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-coral-tint);
+  color: var(--color-success);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+
 .successIcon {
   display: grid;
   place-items: center;
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  background: var(--color-teal);
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  background: var(--color-success);
   color: var(--color-background);
-  box-shadow:
-    0 0 0 10px var(--color-sea-mist),
-    0 0 0 20px color-mix(in srgb, var(--color-sea-mist) 45%, transparent);
 }
 
 .code {
@@ -1041,11 +1141,16 @@
   gap: 4px;
   margin: 10px 0;
   padding: 14px 28px;
-  border: 1.5px dashed var(--color-teal-ink);
-  border-radius: 8px;
-  background: var(--color-sea-mist);
+  border: 1.5px dashed var(--color-success);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
   color: var(--color-text-muted);
-  font-size: 13px;
+  font-size: var(--text-sm);
+}
+
+.pillButton {
+  min-height: 44px;
+  border-radius: var(--radius-pill);
 }
 
 .code strong {
@@ -1190,6 +1295,14 @@
     min-height: 0;
   }
 
+  .summaryToggle {
+    display: flex;
+  }
+
+  .summaryCollapse:not([data-expanded='true']) {
+    display: none;
+  }
+
   .aside .summary {
     height: auto;
     overflow-y: visible;
@@ -1207,7 +1320,7 @@
 
 @media (max-width: 640px) {
   .steps {
-    font-size: 11px;
+    font-size: var(--text-xs);
   }
 
   .steps li {
@@ -1236,18 +1349,25 @@
 
 @media (prefers-reduced-motion: reduce) {
   .testCard,
-  .timer circle:last-child {
+  .timer circle:last-child,
+  .summaryToggleChevron,
+  .backLink,
+  .field input {
     transition: none;
   }
 }
 
 .cancelLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   margin-top: 8px;
-  padding: 4px;
+  padding: 6px 12px;
   border: 0;
-  background: none;
-  color: var(--color-coral-ink);
-  font-size: 13px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-danger);
+  font-size: var(--text-sm);
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
@@ -1258,15 +1378,27 @@
   gap: 10px;
   width: min(100%, 460px);
   margin-top: 12px;
-  padding: 18px 20px;
+  padding: 20px;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: var(--radius-md);
   background: var(--color-background);
+  box-shadow: var(--shadow-soft);
   text-align: left;
 }
 
 .cancelPanel p {
   margin: 0;
+}
+
+.cancelSkeleton {
+  display: grid;
+  gap: 8px;
+}
+
+.skeletonLine {
+  height: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
 }
 
 .cancelRow {
@@ -1277,11 +1409,43 @@
 
 .cancelNote {
   color: var(--color-text-muted);
-  font-size: 13px;
+  font-size: var(--text-sm);
 }
 
 .cancelActions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 8px;
+}
+
+.cancelKeepButton,
+.cancelDangerButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancelKeepButton {
+  border: 1px solid var(--color-border);
+  background: var(--color-coral-tint);
+  color: var(--color-coral-ink);
+}
+
+.cancelDangerButton {
+  border: 0;
+  background: var(--color-danger);
+  color: var(--color-background);
+}
+
+.cancelKeepButton:disabled,
+.cancelDangerButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

@@ -1,37 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&display=swap');
 @import '@vintrip/ui-web/styles.css';
 
 /* Cho Tailwind quét class trong code của app. */
 @source "../";
 
-@font-face {
-  font-family: 'Great Vibes';
-  src: url('/brand/great-vibes.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-}
 
-@font-face {
-  font-family: 'Nunito';
-  src: url('/brand/nunito-variable.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 200 1000;
-  font-display: swap;
-}
 
-@font-face {
-  font-family: 'Be Vietnam Pro';
-  src: url('/brand/regular.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Be Vietnam Pro';
-  src: url('/brand/bold.ttf') format('truetype');
-  font-weight: 600 900;
-  font-display: swap;
-}
+
+*, *::before, *::after { box-sizing: border-box; }
 
 * {
   scrollbar-width: none;
@@ -66,12 +41,12 @@ input:is([type='checkbox'], [type='radio']) {
 button:focus-visible,
 a:focus-visible,
 input:is([type='checkbox'], [type='radio']):focus-visible {
-  outline: 2px solid var(--color-teal-ink);
+  outline: 3px solid var(--color-coral);
+  outline-offset: 2px;
 }
 :where(input:not([type='checkbox'], [type='radio']), select, textarea):focus {
-  outline: 2px solid transparent;
-  outline-offset: -2px;
-  box-shadow: inset 0 0 0 1px var(--color-teal-ink);
+  outline: 3px solid var(--color-coral);
+  outline-offset: 2px;
 }
 @media (forced-colors: active) {
   :where(input:not([type='checkbox'], [type='radio']), select, textarea):focus {
@@ -102,7 +77,7 @@ h3 {
   /* Căn hai mép header theo cùng lưới nội dung với banner bên dưới. */
   width: var(--ota-container-width);
   margin: 12px auto;
-  border: 1px solid rgb(22 101 83 / 22%);
+  border: 1px solid color-mix(in srgb, var(--color-coral) 24%, transparent);
   border-radius: 999px;
   background: transparent;
   box-shadow: none;
@@ -242,7 +217,7 @@ h3 {
   background: none;
 }
 .header-actions > a:not(.header-login):hover {
-  background: rgb(255 255 255 / 48%);
+  background: color-mix(in srgb, var(--color-background) 48%, transparent);
   color: var(--color-coral-ink);
 }
 .header-notifications {
@@ -360,7 +335,7 @@ h3 {
   transition: background 0.15s;
 }
 .header-notifications-item.is-unread {
-  background: var(--color-teal-soft);
+  background: var(--color-coral-tint);
   color: var(--color-ink);
 }
 .header-notifications-item:hover {
@@ -461,7 +436,7 @@ h3 {
   flex: none;
   width: 10px;
   height: 10px;
-  color: var(--color-teal);
+  color: var(--color-coral);
 }
 .header-notifications-empty {
   display: grid;
@@ -619,40 +594,7 @@ h3 {
 }
 
 /* Ignore hero markup inside hidden streaming segments until it joins the page. */
-body:has(> [data-living-home] [data-home-hero]) .ota-header {
-  border-color: rgb(255 255 255 / 85%);
-  background: rgb(255 255 255 / 88%);
-  box-shadow: 0 4px 24px rgb(24 36 43 / 5%);
-}
 @media (min-width: 641px) {
-  body:has(> [data-living-home] [data-home-hero]) .ota-header {
-    position: absolute;
-    top: 12px;
-    left: 50%;
-    margin: 0;
-    transform: translateX(-50%);
-    z-index: 50;
-  }
-}
-body:has(> [data-living-home] [data-home-hero]) .header-logo-dark { display: block; }
-body:has(> [data-living-home] [data-home-hero]) .header-logo-light { display: none; }
-body:has(> [data-living-home] [data-home-hero]) .header-brand { filter: none; }
-body:has(> [data-living-home] [data-home-hero]) .header-content nav a,
-body:has(> [data-living-home] [data-home-hero]) .header-icon-button,
-body:has(> [data-living-home] [data-home-hero]) .header-actions > a:not(.header-login) {
-  color: var(--color-ink);
-  text-shadow: none;
-}
-body:has(> [data-living-home] [data-home-hero]) .header-content nav {
-  --nav-tray-fill: var(--color-surface);
-  --nav-indicator-fill: var(--color-coral-tint);
-  --nav-current-color: var(--color-coral-ink);
-}
-body:has(> [data-living-home] [data-home-hero]) .header-content nav a:hover,
-body:has(> [data-living-home] [data-home-hero]) .header-icon-button:is(:hover, :focus-visible, [aria-expanded='true']),
-body:has(> [data-living-home] [data-home-hero]) .header-actions > a:not(.header-login):hover {
-  color: var(--color-coral-ink);
-  background: var(--color-coral-tint);
 }
 .header-account {
   position: relative;
@@ -970,7 +912,8 @@ body:has(> [data-living-home] [data-home-hero]) .header-actions > a:not(.header-
   transform: translateY(1px);
 }
 .primary-button:disabled {
-  opacity: 0.6;
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
   cursor: wait;
 }
 .secondary-button {
@@ -1257,7 +1200,9 @@ body:has(> [data-living-home] [data-home-hero]) .header-actions > a:not(.header-
 }
 .empty-state p {
   font-size: 13px;
-  max-width: 440px;
+  max-width: min(440px, 100%);
+  min-width: 0;
+  overflow-wrap: anywhere;
   color: var(--color-text-muted);
   line-height: 1.9;
 }
@@ -1726,9 +1671,6 @@ body:has([class*="feedPageWrapper"]) {
 html:has([class*="feedPageWrapper"]),
 body:has([class*="feedPageWrapper"]) {
   background: var(--color-surface);
-}
-body:has([class*="feedPageWrapper"]) .ota-header {
-  background: var(--color-background);
 }
 /* Cùng số đo với khung trang Cảm hứng (inspiration-view.tsx đặt --feed-header-height ở thẻ gốc). */
 body:has([class*="feedPageWrapper"]) #content {
@@ -2825,13 +2767,13 @@ body:has([class*="feedPageWrapper"]) #content {
 .post-unavailable-card {
   margin-top: 32px;
   padding: 48px 24px;
-  background-color: var(--color-surface, #ffffff);
-  border: 1px solid var(--color-border-subtle, #e2e8f0);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
   border-radius: 16px;
   text-align: center;
   max-width: 520px;
   margin-inline: auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-soft);
 }
 .post-unavailable-icon {
   font-size: 40px;
@@ -2841,12 +2783,12 @@ body:has([class*="feedPageWrapper"]) #content {
 .post-unavailable-card h2 {
   font-size: 20px;
   font-weight: 700;
-  color: var(--color-text, #1e293b);
+  color: var(--color-text);
   margin: 0 0 8px;
 }
 .post-unavailable-card p {
   font-size: 14px;
-  color: var(--color-text-muted, #64748b);
+  color: var(--color-text-muted);
   line-height: 1.6;
   margin: 0 0 24px;
 }
@@ -3454,17 +3396,17 @@ body:has([class*="feedPageWrapper"]) #content {
   background: var(--color-background);
 }
 .account-page :is(.profile-aside, .profile-card) {
-  box-shadow: 0 0 18px rgb(23 36 44 / 6%);
+  box-shadow: var(--shadow-soft);
   transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 .account-page :is(.profile-aside, .profile-card):focus-within {
   border-color: var(--color-teal-soft);
-  box-shadow: 0 0 22px rgb(22 77 67 / 11%);
+  box-shadow: var(--shadow-soft);
 }
 @media (hover: hover) {
   .account-page :is(.profile-aside, .profile-card):hover {
     border-color: var(--color-teal-soft);
-    box-shadow: 0 0 22px rgb(22 77 67 / 11%);
+    box-shadow: var(--shadow-soft);
   }
 }
 .profile-card h2 {

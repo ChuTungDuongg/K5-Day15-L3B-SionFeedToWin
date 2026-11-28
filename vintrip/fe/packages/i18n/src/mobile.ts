@@ -33,7 +33,7 @@ export const mobile = {
     loading: 'Đang tải giao diện…',
     fontError: 'Chưa tải được phông chữ. Bạn vẫn có thể khám phá.',
     logo: 'Vintrip',
-    mascot: 'Vini, người bạn đồng hành',
+    mascot: 'VinTrip, người bạn đồng hành',
   },
   tabs: {
     reels: 'Reels',
@@ -193,10 +193,10 @@ export const mobile = {
     viewAll: 'Xem tất cả',
     booked: 'Chuyến đã đặt',
     empty:
-      'Chưa có lộ trình nào. Bấm Lưu lộ trình ở reel, ở thẻ Vini hoặc khi tự lên lộ trình để xem lại ở đây.',
+      'Chưa có lộ trình nào. Bấm Lưu lộ trình ở reel, ở thẻ VinTrip hoặc khi tự lên lộ trình để xem lại ở đây.',
     loginHint: 'Đăng nhập để lưu và xem lại lộ trình của bạn.',
     days: '{days} ngày · {stops} điểm',
-    sources: { reel: 'Từ reel', tripi: 'Vini lên', builder: 'Tự lên' },
+    sources: { reel: 'Từ reel', tripi: 'VinTrip lên', builder: 'Tự lên' },
     day: 'Ngày {day}',
     emptyDay: 'Chưa có điểm nào',
     book: 'Đặt lộ trình này',
@@ -241,11 +241,11 @@ export const mobile = {
     planNewTitle: 'Lên chuyến mới',
     upcomingEmpty:
       'Bạn chưa có chuyến nào sắp đi. Chọn một lộ trình ở tab Khám phá hoặc tự lên lộ trình bên dưới.',
-    askTripiTitle: 'Nhờ Vini lên lộ trình',
+    askTripiTitle: 'Nhờ VinTrip lên lộ trình',
     askTripiBody:
-      'Kể Vini nghe bạn muốn đi đâu, mấy ngày, bao nhiêu tiền. Lộ trình Vini lập đặt được ngay tại đây.',
+      'Kể VinTrip nghe bạn muốn đi đâu, mấy ngày, bao nhiêu tiền. Lộ trình VinTrip lập đặt được ngay tại đây.',
     askTripiPlaceholder: 'VD: Đà Lạt 3 ngày 2 đêm, 5 triệu',
-    askTripiSend: 'Hỏi Vini',
+    askTripiSend: 'Hỏi VinTrip',
     askTripiPrefix: 'Lên lộ trình chi tiết từng ngày (chỗ ở, đi lại, ăn chơi) cho chuyến: ',
     askTripiAgain: 'Hỏi lại từ đầu',
     allDestinations: 'Tất cả',
@@ -283,7 +283,7 @@ export const mobile = {
     comboTotal: 'Tổng vé bay và chỗ ở',
     bookNow: 'Đặt ngay',
     booking: 'Đang giữ chỗ...',
-    askTripi: 'Nhờ Vini đổi giúp',
+    askTripi: 'Nhờ VinTrip đổi giúp',
     daysNights: '{days} ngày · {nights} đêm',
     bookHint: 'Chọn từng vé bay hoặc phòng muốn đặt. Chạm vào dịch vụ để đổi chuyến bay hoặc phòng.',
     otaBadge: 'Vintrip đặt được',
@@ -456,7 +456,7 @@ export const mobile = {
     heroBody: 'Nạp vitamin sea, theo cách của bạn.',
     heroBadge: 'MỘT CHIẾC HẸN VỚI BIỂN',
     curated: 'Những chuyến đi hợp gu',
-    assistantTitle: 'Chưa biết đi đâu? Hỏi Vini nhé.',
+    assistantTitle: 'Chưa biết đi đâu? Hỏi VinTrip nhé.',
     assistantBody: 'Bạn kể gu. Mình tìm chuyến đi.',
     searchTitle: 'Chuyến đi hợp gu',
     understood: 'Mình hiểu là bạn đang tìm:',
@@ -702,7 +702,7 @@ export const mobile = {
   },
   assistant: {
     title: 'Bạn đồng hành',
-    badge: 'Vini · Chú rái cá biển',
+    badge: 'VinTrip · Chồn nhỏ đồng hành cùng bạn',
     headline: 'Bạn muốn đi đâu,\nkể mình nghe nhé.',
     body: 'Hợp gu, hợp túi tiền, dễ xách balo đi.',
     greeting:
@@ -710,7 +710,7 @@ export const mobile = {
     placeholder: 'Mình muốn đi…',
     send: 'Gửi tin nhắn',
     reset: 'Bắt đầu hội thoại mới',
-    notice: 'Vini đang dùng gợi ý cục bộ. Giá và chỗ trống cần kiểm tra khi đặt.',
+    notice: 'VinTrip đang dùng gợi ý cục bộ. Giá và chỗ trống cần kiểm tra khi đặt.',
     reply:
       'Mình tìm thấy chuyến Nha Trang trong danh mục mẫu. Xem điều kiện và giá chi tiết trước khi quyết định nhé!',
     emptyReply:

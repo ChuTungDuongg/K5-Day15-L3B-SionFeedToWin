@@ -136,19 +136,84 @@ Giữ nguyên toàn bộ cấu trúc `Card` + `CardLine` trong `vintrip/ai/app/s
 - `codebase/tools.py`: mỗi công cụ có `@tool` và docstring đủ 4 mục (`tên · input · output · có tác động ra ngoài không`).
 - **KHÔNG BAO GIỜ SỬA:** `run.py`, `codebase/tracing.py`, `eval/run_eval.py`, `cost/simulate.py`.
 
-## 6. Room upgrades — lễ tân khách sạn (case C2, CP1–CP3)
+## 6. Mở rộng demo C3 trên nhánh vintrip
 
-- Backend CP1 (`/api/commerce/room-upgrades`): bắt buộc access token và phân công nhân viên tại đúng khách sạn trên server.
-  - `GET /bookings?hotelId=...`, `GET /bookings/:bookingCode?hotelId=...`, `POST /quotes`.
+Theo yêu cầu triển khai C3 ngày 27/11/2026, bổ sung `kind: "flight_disruption"` ngoài ba loại thẻ ở §4. Giữ nguyên hợp đồng `Card`/SSE; thẻ C3 có `priceFrom: null`, `priceBasis: "unavailable"`, `actions: null`, chi tiết phương án và nội dung bản nháp nằm trong `lines`. `source` bắt buộc ghi mô phỏng và không tự động gửi. Giao diện hiển thị qua thẻ thông tin với biểu tượng máy bay.
+
+`trip.pendingFlightDisruption` chỉ chứa `bookingCode`, `action` (`review`, `hold`, `change`, `refund`, `choose`), `targetFlightId`, `arrivalBefore`; không nhận giá hay tồn chỗ từ client. Engine đọc lại snapshot `c3-demo-v1` mỗi lượt. Các yêu cầu giao dịch chỉ tạo bản nháp `PENDING_USER_APPROVAL`; không có API thực thi giao dịch hay thay đổi dữ liệu đặt chỗ. Bridge CLI và AI service dùng chung engine thư viện chuẩn trong `ai/app/services/assistant/skills/c3_engine.py`.
+
+Hướng dẫn, dữ liệu giả, trạng thái và giới hạn: [`docs/c3-flight-disruption.md`](../docs/c3-flight-disruption.md). Đây là demo mở rộng; bộ đánh giá và chuẩn đạt C1 giữ nguyên.
+
+## 7. Room upgrades — lễ tân khách sạn (case C2, CP1–CP4)
+
+- Backend CP1/CP4 (`/api/commerce/room-upgrades`): bắt buộc access token và phân công nhân viên tại đúng khách sạn trên server.
+  - `GET /staff-context` (trả `{ hasAccess, assignments[] }` không tạo lỗi 403 cho khách hàng thường), `GET /bookings?hotelId=...`, `GET /bookings/:bookingCode?hotelId=...`, `POST /quotes`.
 - AI Copilot CP2 (`POST /ai/room-upgrades/chat` qua Traefik → FastAPI `POST /room-upgrades/chat`):
   - Bắt buộc access token hợp lệ (`401` nếu thiếu/sai), xác minh phân công khách sạn trên Core API trước khi gọi LLM (`403` nếu không được phân công, kể cả global `superadmin`).
   - Dùng trực tiếp OpenAI Responses API (`gpt-6-luna`, `reasoning.effort = "low"`, Structured Outputs); tách biệt khỏi cấu hình chat C1/C3 (`gpt-4o-mini`).
   - Phát sự kiện FinOps `ai.usage.recorded` (`feature: "room_upgrades"`) lên `stream:ai`; `core-api` analytics consumer chấp nhận `room_upgrades`.
-  - Bổ sung trường tùy chọn chỉ đọc `proposalDraft` (khớp payload `POST /api/commerce/room-upgrades/proposals` kèm `previewExpectation` và `aiMetadata`); không thêm write/approve tool cho LLM.
-- HITL Approval Workflow CP3 (`/api/commerce/room-upgrades/proposals`):
-  - 8 endpoint: `POST /`, `GET /`, `GET /:proposalId`, `GET /:proposalId/history`, `POST /:proposalId/revise`, `POST /:proposalId/approve`, `POST /:proposalId/reject`, `POST /:proposalId/escalate`.
+  - Trả trường chỉ đọc `proposalDraft` (khớp payload `POST /api/commerce/room-upgrades/proposals` kèm `previewExpectation` và `aiMetadata`); không thêm write/approve tool cho LLM.
+- HITL Approval Workflow CP3/CP4 (`/api/commerce/room-upgrades/proposals`):
+  - 9 endpoint: `POST /`, `GET /`, `GET /summary`, `GET /:proposalId`, `GET /:proposalId/history`, `POST /:proposalId/revise`, `POST /:proposalId/approve`, `POST /:proposalId/reject`, `POST /:proposalId/escalate`.
+  - CORS `core-api` expose thêm `Idempotency-Replayed` để trình duyệt đọc cờ replay; FE gọi `/ai/room-upgrades/chat` với `credentials: 'omit'` (chỉ gửi Bearer JWT).
   - Lưu 4 bảng sandbox (`is_mock = true`): `room_upgrade_proposals`, `room_upgrade_proposal_revisions` (bất biến), `room_upgrade_proposal_audit_events` (append-only), `room_upgrade_proposal_idempotency` (nguyên tử trong transaction).
   - Transaction `SERIALIZABLE` + `FOR UPDATE` + `FOR SHARE` dòng nguồn + CAS `WHERE version AND status` + bounded retry (`40001`/`40P01`/`23505` idempotency PK); kiểm quyền trước replay; tự kiểm stale quote/expiry khi duyệt.
-  - `APPROVED` chỉ duyệt nội dung đề xuất báo giá (`operationalEffects: "NONE"`, `requiresHumanApproval: true`); không chuyển phòng, giữ phòng, sửa booking vận hành, giảm tồn kho, thu/hoàn tiền hay gửi thông báo thật. Chưa có UI Staff Dashboard (CP4).
-- Hợp đồng chi tiết và ví dụ request/response (đủ cho CP4): [room-upgrades-contract.md](docs/room-upgrades-contract.md).
+  - `APPROVED` chỉ duyệt nội dung đề xuất báo giá (`operationalEffects: "NONE"`, `requiresHumanApproval: true`); không chuyển phòng, giữ phòng, sửa booking vận hành, giảm tồn kho, thu/hoàn tiền hay gửi thông báo thật.
+- Staff Portal CP4 (`vintrip/fe/apps/web/src/app/staff/*` & `vintrip/fe/packages/api-client/src/room-upgrades.ts`):
+  - 6 route tách biệt hoàn toàn chrome khách hàng (`robots: noindex, nofollow`): `/staff`, `/staff/bookings`, `/staff/bookings/[bookingCode]`, `/staff/room-upgrades`, `/staff/proposals`, `/staff/proposals/[proposalId]`.
+  - Điểm vào `"Cổng nhân viên khách sạn"` trên menu tài khoản chỉ hiển thị khi server `GET /staff-context` trả `hasAccess: true`.
+  - Bộ đánh giá C2 độc lập tại `eval/room-upgrades/` (24 ca synthetic, tách biệt hoàn toàn với C1 `eval/benchmark.csv`).
+- Hợp đồng chi tiết và hướng dẫn chạy local: [room-upgrades-contract.md](docs/room-upgrades-contract.md).
+- Bằng chứng CP4 và nghiệm thu tổng thể CP1–CP4: [evidence CP4](docs/evidence/room-upgrades-cp4.md), [final acceptance](docs/evidence/room-upgrades-final-acceptance.md).
 - Endpoint mẫu `/api/commerce/bookings/draft-change` và consumer cũ giữ nguyên để tương thích; không dùng phụ thu mẫu của nó cho room-upgrades.
+
+## 8. C1 · Lập lịch một ngày ở Công viên Mẫu (`vintrip/ai` ↔ `vintrip/fe`)
+
+Frontend (khung lập lịch trên trang chủ `#lich-vui-choi` và trang `/c1`) chỉ phụ thuộc vào hợp đồng này. Backend được đổi cách xử lý bên trong, nhưng giữ nguyên đường dẫn và hình dạng dữ liệu.
+
+**Yêu cầu:** `POST {NEXT_PUBLIC_API_URL}/ai/c1/ask`, `Content-Type: application/json`
+
+```json
+{ "text": "Công viên Mẫu, 2 người lớn, bé 5 tuổi cao 108 cm. Đi 09:00–14:00, ngân sách 1.500.000 đồng." }
+```
+
+- `text`: chuỗi 1–4000 ký tự sau khi bỏ khoảng trắng hai đầu. Sai thì trả `422`.
+
+**Trả về `200`:**
+
+```json
+{
+  "output": "VinTrip — ...\nTrạng thái: VALID · snapshot CVM-2026-11-28-v1 · dữ liệu mô phỏng\n...",
+  "status": "VALID",
+  "snapshot_id": "CVM-2026-11-28-v1",
+  "trace": [
+    { "kind": "tool", "name": "get_park_catalog", "latency_s": 0.0 },
+    { "kind": "model", "name": "call_model", "latency_s": 5.234 }
+  ]
+}
+```
+
+| Trường | Kiểu | Ý nghĩa |
+|---|---|---|
+| `output` | string, có xuống dòng `\n` | Câu trả lời đã kiểm, hiển thị nguyên văn (`white-space: pre-wrap`). Frontend không tự tính giờ hay tiền |
+| `status` | một trong `VALID`, `NEEDS_INPUT`, `MISSING_DATA`, `INFEASIBLE`, `SEARCH_TIMEOUT`, `TỪ CHỐI`, `CHƯA HỢP LỆ`, `THÔNG TIN` | Nhãn trạng thái. Giá trị lạ thì frontend hiện nhãn trung tính |
+| `snapshot_id` | string | Phiên bản dữ liệu mô phỏng |
+| `trace` | mảng `{kind: "tool" \| "model", name, latency_s}` | Các bước công cụ và model, theo thứ tự chạy |
+
+**Lỗi:** `422` khi đầu vào sai; `503` khi dịch vụ chưa cài bộ lập lịch C1; `500` khi lời gọi model hỏng (ví dụ khoá API không hợp lệ). Mọi mã khác 200 thì frontend hiện thông báo lỗi kèm nút "Thử lại", không hiện kết quả.
+
+**Thời gian:** một lần gọi model thật mất khoảng 5–10 giây. Frontend phải có trạng thái chờ và không cho gửi trùng.
+
+**CORS:** backend cho phép origin của web (`http://localhost:3100` khi chạy local).
+
+### 8.1 Luồng backend C1 và các trường mở rộng (chỉ thêm, tương thích ngược với §8)
+
+Luồng đầy đủ: FE `/c1` → `POST /ai/c1/ask` (Traefik → FastAPI `POST /c1/ask`) → `codebase/c1_flow` lập lịch bằng `build_park_plan` và kiểm cục bộ bằng `validate_park_plan` → AI gửi lịch sang Core API kiểm độc lập → trả kết quả cho FE.
+
+- Core API (`be/apps/core-api/src/modules/commerce/park-plans`), không cần đăng nhập, không ghi dữ liệu, không giữ chỗ hay mua vé:
+  - `GET /api/commerce/parks/:parkId/snapshot` → snapshot Công viên Mẫu (`snapshotId`, `isMock: true`, hoạt động, giá, suất diễn, `incidents_today`, phút đi bộ). `parkId` duy nhất ở P0: `cong-vien-mau`; mã khác → `404`.
+  - `POST /api/commerce/park-plans/validate` body `{ parkId, snapshotId, request: { members[{kind,label,age?,heightCm?}], window, budgetVnd, includeGate, startZone, lunch{minDurationMin,window,beforeShow}|null, show{required}|null, requiredActivities, rain, cancelledSessions }, items[{kind,id,zone,start,end}] }` → `{ valid, violations[], warnings[], totalVnd, breakdown[{label,amountVnd}], snapshotId, isMock, validatedBy: "core-api" }`. Snapshot khác snapshot hiện tại → `409` `{ reason: "SNAPSHOT_MISMATCH", currentSnapshotId }`; body sai → `400`.
+  - Validator TypeScript giữ quy tắc khớp `validate_plan` của `codebase/park_engine.py` (giờ mở cửa, đi bộ, chờ + chơi, điều kiện từng thành viên, suất diễn và giờ đến sớm, mưa, ăn trưa, trò bắt buộc, ngân sách), cộng thêm: hoạt động sai khu, giờ kết thúc không sau giờ bắt đầu, ăn trưa ngoài khu ăn. Suất diễn nằm trong `incidents_today` nhưng yêu cầu chưa khai báo huỷ chỉ là `warnings`.
+  - Snapshot của core (`infra/cong-vien-mau.snapshot.ts`) sinh từ `data/cong_vien_mau.json`; test `vintrip/ai/tests/test_c1.py::test_core_snapshot_fixture_matches_planner_data` chặn hai bản lệch nhau.
+- AI `POST /c1/ask` nhận thêm `previous` (tuỳ chọn, tối đa 10 câu phụ huynh đã gửi trước trong cùng khung chat, cũ → mới; câu mới nhất được ưu tiên khi ghép). Trả thêm (chỉ thêm trường): `reply` (lời Vini cho khung chat, không mã trạng thái hay tên công cụ; `output` giữ nguyên làm căn cứ), `status_label` (nhãn tiếng Việt), `input_hint` (gợi ý cách trả lời khi Vini hỏi lại, rỗng nếu không cần), `plan` (các mục của lịch cuối) và `core_validation` (`status`: `VALID` | `INVALID` | `SNAPSHOT_MISMATCH` | `UNAVAILABLE`, kèm kết quả core). Lịch cục bộ `VALID` mà core báo `INVALID` hoặc `SNAPSHOT_MISMATCH` → `status` hạ thành `CHƯA HỢP LỆ` và `output` thêm dòng lý do. Core không trả lời → giữ trạng thái cục bộ, `core_validation.status = "UNAVAILABLE"`. AI đọc `CORE_API_URL` (compose: `http://core-api:3000`).
+- Chat Vini (`POST /ai/chat`): câu nhắc Công viên Mẫu (hoặc lập lịch khu vui chơi) có intent `park_plan`, trả thẻ `kind: "park_plan"` (`priceFrom: null`, `priceBasis: "unavailable"`, `lines[0].detail` = câu hỏi). Web mở popup chat gọi `/ai/c1/ask` với câu đó.

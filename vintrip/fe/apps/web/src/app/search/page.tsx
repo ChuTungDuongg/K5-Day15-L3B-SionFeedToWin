@@ -1,86 +1,50 @@
 import { LiveSearchScreen } from '@/features/discovery/live-search-screen';
 import { parseSearchParams } from '@/features/discovery/search-params';
 import { isStayInteger, MAX_STAY_GUESTS } from '@/features/discovery/stay-search-validation';
+import { OTA_DESTINATIONS, getDestinationHref } from '@/features/discovery/ota-destinations';
 import styles from '@/features/discovery/hotel-listing.module.css';
-import banner from '@/features/flights/flights.module.css';
 import { vi } from '@vintrip/i18n';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { NOINDEX_ROBOTS } from '@/features/seo/page-metadata';
 
-// Kết quả lọc theo tham số URL: vô số biến thể trùng nội dung, không cho lên kết quả tìm kiếm (TF112).
-export const metadata: Metadata = { title: `${vi.ota.listingTitle} | Vintrip`, robots: NOINDEX_ROBOTS };
+export const metadata: Metadata = { title: vi.ota.listingTitle + ' | Vintrip', robots: NOINDEX_ROBOTS };
 
-const bookingSteps = ['Tìm khách sạn', 'Chọn phòng', 'Đặt phòng'];
-const stayPhotos = ['/brand/home-stays-ninh-binh.jpg', '/brand/hoian.jpg', '/brand/beach.jpg'];
-
-export default async function SearchPage({
-  searchParams,
-}: {
+export default async function SearchPage({ searchParams }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
-  const read = (key: string) => {
-    const value = params[key];
-    return typeof value === 'string' ? value : '';
-  };
+  const read = (key: string) => typeof params[key] === 'string' ? params[key] as string : '';
+  const hasDestination = !!(read('q').trim() || read('placeId').trim());
   const { placeName, initialFilters } = parseSearchParams(read);
-  // Trẻ em, em bé chỉ để mang sang trang khách sạn; tổng khách tối đa 9 như ô chọn khách.
-  const readCount = (key: string) => (isStayInteger(read(key), 0, MAX_STAY_GUESTS) ? Number(read(key)) : 0);
+  const readCount = (key: string) => isStayInteger(read(key), 0, MAX_STAY_GUESTS) ? Number(read(key)) : 0;
   const initialGuests = { children: readCount('children'), infants: readCount('infants') };
   return (
-    <main id="content" className={`ota-container ${banner.page} ${styles.page}`}>
-      <header className={`${banner.banner} ${styles.banner}`}>
-        <div className={`${banner.bannerMedia} ${styles.bannerMedia}`} aria-hidden="true">
-          <Image src="/brand/hotel-resort-4k.webp" alt="" fill priority sizes="(min-width: 1800px) 1600px, 100vw" />
+    <main id="content" className={'ota-container ' + styles.page}>
+      <header className={styles.banner}>
+        <div className={styles.bannerMedia} aria-hidden="true">
+          <Image src="/brand/hotel-resort-4k.webp" alt="" fill priority sizes="(min-width: 1440px) 1280px, 100vw" />
         </div>
-        <ol className={`${banner.steps} ${styles.bannerSteps}`} aria-label="Các bước đặt phòng">
-          {bookingSteps.map((label, index) => (
-            <li key={label} aria-current={index === 0 ? 'step' : undefined} title={label}>
-              <span aria-hidden="true">{index + 1}</span>
-              <span className="sr-only">{label}</span>
-            </li>
-          ))}
-        </ol>
-        <div className={`${banner.bannerCopy} ${styles.bannerCopy}`}>
-          <p className={banner.bannerEyebrow}>{vi.ota.listingEyebrow.toLocaleUpperCase('vi')}</p>
+        <div className={styles.bannerCopy}>
+          <p className={styles.bannerEyebrow}>{vi.ota.listingEyebrow.toLocaleUpperCase('vi')}</p>
           <h1>{vi.ota.listingTitle}</h1>
-          <p className={banner.bannerIntro}>{vi.ota.listingIntro}</p>
-        </div>
-        <Image
-          className={banner.bannerMascot}
-          src="/brand/vini/vini-welcome.png"
-          alt=""
-          width={240}
-          height={240}
-          priority
-        />
-        <div className={`${banner.feature} ${styles.bannerFeature}`}>
-          <Link prefetch={false} href="/inspiration" className={`${banner.featureCard} ${styles.bannerFeatureCard}`}>
-            <span className={banner.featureHead}>
-              <strong>Cảm hứng cho kỳ nghỉ tới</strong>
-              <span className={banner.featureArrow} aria-hidden="true">→</span>
-            </span>
-            <span className={banner.featureBody}>
-              <span className={banner.featurePhotos} aria-hidden="true">
-                {stayPhotos.map((src) => (
-                  <Image key={src} src={src} alt="" width={40} height={40} />
-                ))}
-              </span>
-              <span className={banner.featureText}>
-                <b>Khám phá</b>
-                Xem gợi ý nơi lưu trú từ cộng đồng Vintrip
-              </span>
-            </span>
-          </Link>
+          <p className={styles.bannerIntro}>{vi.ota.listingIntro}</p>
         </div>
       </header>
-      <LiveSearchScreen
-        initialGuests={initialGuests}
-        initialQuery={placeName}
-        initialFilters={initialFilters}
-      />
+      {hasDestination ? <LiveSearchScreen initialGuests={initialGuests} initialQuery={placeName} initialFilters={initialFilters} /> : (
+        <>
+          <LiveSearchScreen isHomepage />
+          <section className={styles.emptyStart} aria-labelledby="choose-destination-title">
+            <Image src="/brand/vini/vini-curious.png" alt="" width={140} height={140} />
+            <h2 id="choose-destination-title">Bạn muốn nghỉ ở đâu?</h2>
+            <p>Chọn điểm đến để xem khách sạn và giá theo ngày.</p>
+            <nav aria-label={vi.ota.findByPlace}>
+              {OTA_DESTINATIONS.map((place) => <Link key={place.id} prefetch={false} className="secondary-button" href={getDestinationHref(place)}>{place.name}</Link>)}
+            </nav>
+          </section>
+        </>
+      )}
     </main>
   );
 }

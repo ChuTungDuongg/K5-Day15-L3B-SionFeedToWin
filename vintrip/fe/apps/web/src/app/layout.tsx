@@ -2,10 +2,12 @@ import { t, vi } from '@vintrip/i18n';
 import type { Metadata, Viewport } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Be_Vietnam_Pro, Dancing_Script } from 'next/font/google';
 import type { ReactNode } from 'react';
 import './globals.css';
 // Sau globals.css để header điện thoại (TF98) thắng các rule header cũ.
 import '@/features/shell/mobile-header.css';
+import '@/features/shell/fe-shell.css';
 import { HeaderAccount } from '@/features/auth/header-account';
 import { AssistantHeaderButton } from '@/features/assistant/assistant-widget';
 import { CartLink } from '@/features/checkout/cart-link';
@@ -14,10 +16,24 @@ import { Providers } from './providers';
 import { OtaNavigation } from '@/features/discovery/ota-navigation';
 import { OtaFooter } from '@/features/discovery/ota-footer';
 import { HeaderAutoHide } from '@/features/shell/header-auto-hide';
+import { CustomerHeader } from '@/features/shell/customer-header';
 import { MobileTabBar } from '@/features/shell/mobile-tab-bar';
 import { ButtonRipple } from '@/features/shared/button-ripple';
 import { DEFAULT_OG_IMAGE } from '@/features/seo/page-metadata';
 import { getSiteUrl } from '@/lib/site';
+
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-be-vietnam-pro',
+  display: 'swap',
+});
+const dancingScript = Dancing_Script({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['600', '700'],
+  variable: '--font-dancing-script',
+  display: 'swap',
+});
 
 // Metadata mặc định cho mọi trang (TF112): metadataBase biến link tương đối (canonical, ảnh) thành tuyệt đối.
 // Trang con tự đặt title đầy đủ, nên không dùng title.template để tránh lặp "| Vintrip". Canonical và og:url
@@ -27,7 +43,7 @@ export const metadata: Metadata = {
   title: vi.seo.defaultTitle,
   description: vi.seo.defaultDescription,
   applicationName: t('app.name'),
-  icons: { icon: '/brand/vintrip-mark.svg' },
+  icons: { icon: '/brand/vintrip-mark.svg?v=20261128-portal' },
   openGraph: {
     type: 'website',
     siteName: t('app.name'),
@@ -53,10 +69,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="vi">
+    <html lang="vi" className={`${beVietnamPro.variable} ${dancingScript.variable}`}>
       <body className="min-h-dvh bg-background text-text antialiased">
         <Providers>
           <ButtonRipple />
+          <CustomerHeader>
           <header className="ota-header" id="top">
             <div className="ota-container header-content">
               <Link prefetch={false} href="/" aria-label={vi.demo.common.logo} className="header-brand">
@@ -89,6 +106,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </div>
           </header>
           <HeaderAutoHide />
+          </CustomerHeader>
           {children}
           <OtaFooter />
           <MobileTabBar />
