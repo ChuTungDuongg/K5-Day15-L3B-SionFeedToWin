@@ -1,19 +1,19 @@
 ﻿# Báo cáo đánh giá C1
 
-**Run-4 là ứng viên để nhóm duyệt làm lượt nộp, chưa được chốt.** Model gpt-6-luna trả lời đủ 30/30 câu, 0 lỗi kỹ thuật. Điểm ở bản chấm nháp là **29/30 (96,7%)**. Cột `pass` của file run gốc còn trống, chưa được công bố là điểm chính thức. Hai metric code được kiểm lại ngoại tuyến, hai metric người chấm còn cần duyệt. Nhóm xác nhận chưa làm/nộp CP3. [Bản chấm từng câu](run-4-cham-nhap.csv) · [Tiêu chí](metric_spec.yaml)
+**Run-4 đã có điểm 30/30 câu, đạt 29/30 (96,7%).** Đã đối chiếu bản chấm ở commit `420ccf8` của nhánh Manh với từng ID và chạy lại `python run.py score eval/run-4.csv`. Lượt này đo phiên bản trước khi thêm bước model chọn trò. [Phiếu chờ người thứ hai đối chiếu](doi-chieu-5.md)
 
 ## Các lượt chạy gpt-6-luna
 
-> **Cần nhóm quyết:** bốn lượt `run-1..4` có đánh số được chạy trước khi biết luật trên [`docs/tracker/BOARD.md`](../docs/tracker/BOARD.md) ("không chạy `python run.py eval` bản đầy đủ"). Không lượt nào bị xoá hay sửa. Nhóm chọn lượt dùng để chấm và ghi vào `spec.md` §7 / §10.
+> **Lịch sử trước đợt chuẩn bị CP3:** bốn lượt `run-1..4` có đánh số được chạy trước khi biết luật trên [`docs/tracker/BOARD.md`](../docs/tracker/BOARD.md) ("không chạy `python run.py eval` bản đầy đủ"). Giữ toàn bộ các lượt chạy. Hồ sơ CP3 nêu riêng kết quả lượt đầu theo thời gian và lượt đã điền đủ cột pass.
 
 | Lượt | Run ID | Kết quả |
 |---|---|---|
-| [Run-1](run-1.csv) | `run-1@20261127-231617` | Nháp 25/30. C1-21 gặp một lỗi timeout khi đọc phản hồi model. |
+| [Run-1](run-1.csv) | `run-1@20261127-231617` | [Chấm hồi cứu, bản nháp 25/30](cham-nhap-luot-dau.csv). 29 output giống hệt run-2 theo cùng tiêu chí; C1-21 timeout tính 0. Checker run-1 xác nhận 21/25 câu có căn cứ và 14/14 lịch VALID. |
 | [Run-2](run-2.csv) | `run-2@20261127-231855` | Bản chấm nháp đầu đạt 26/30. Sau khi tăng thời gian chờ từ 30 lên 90 giây, C1-21 đã có câu trả lời. [Điểm từng câu](run-2-cham-nhap.csv) |
 | [Run-3](run-3.csv) | `run-3@20261127-233722` | Chạy giữa lúc sửa, giữ nguyên file và trace. Chưa có điểm duyệt, không tự dùng làm lượt nộp. |
-| [Run-4](run-4.csv) | `run-4@20261127-234013` | Nháp 29/30, gồm 14/14 câu thường, 11/11 câu khó và 4/5 câu từ chối. [Trace](../traces/run-4.jsonl) |
+| [Run-4](run-4.csv) | `run-4@20261127-234013` | Đạt 29/30: thường 14/14, khó 11/11, từ chối 4/5. [Trace](../traces/run-4.jsonl) |
 
-## Điểm nháp run-4
+## Điểm run-4 và các metric trong bản chấm
 
 | Metric | Tập câu | Đạt / tổng | Tỉ lệ | Ngưỡng |
 |---|---|---:|---:|---:|
@@ -37,4 +37,8 @@ Khi checkout Windows, CSV có thể dùng CRLF còn chuỗi trong JSONL vẫn l�
 
 Có 26/30 output giống hệt run-2. Đã đối chiếu lại bốn output thay đổi. C1-04, C1-26 và C1-27 chỉ thêm nhãn nguồn cho phần đã xong. Trong hai metric do người chấm, chỉ C1-11 đổi output và được chấm lại đạt về trạng thái. Các câu còn lại của hai metric này giữ đánh giá cũ.
 
-**Bước chốt điểm** — chấm nháp, chờ nhóm duyệt và điền cột pass vào run-4.csv rồi chạy `python run.py score eval/run-4.csv`.
+**Đối chiếu bổ sung:** AI khớp 5/5 với bản chấm trong một yêu cầu đã bỏ điểm và ghi chú cũ. [Chi tiết](doi-chieu-ai.md). **Đối chiếu bởi người:** chờ người thứ hai hoàn thành [phiếu 5 output](doi-chieu-5.md) và ghi số khớp thực tế.
+
+## Kiểm phiên bản chọn trò trước CP3
+
+Lượt thử `run-try@20261128-092922` chạy trên đủ 30 câu, 0 lỗi kỹ thuật, 45 lần gọi gpt-6-luna. API ghi nhận 31.257 token vào và 18.203 token ra. Chạy lại hai metric code bằng `python eval/check_c1_run.py validation/cp3-run-try.csv --trace validation/cp3-run-try.jsonl`: căn cứ 25/25, lịch VALID 14/14. Hai metric người chấm chưa được chấm lại cho phiên bản này. [Output](../validation/cp3-run-try.csv) · [Trace](../validation/cp3-run-try.jsonl)

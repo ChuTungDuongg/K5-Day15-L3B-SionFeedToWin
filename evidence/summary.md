@@ -3,7 +3,7 @@
 > Điền ở guide bước 1.2, xong trước **CP3 10:00 Thứ Bảy 28/11**. Chấm ở rubric R1.
 > Ba nguồn ngang nhau — tối thiểu **≥1 nguồn đạt ngưỡng**. Mạnh nhất: đào data ra insight → hỏi người dùng để kiểm lại (hoặc ngược lại).
 
-Nguồn chính nhóm xác nhận là khảo sát qua biểu mẫu. Không bắt buộc làm cả khảo sát lẫn phỏng vấn. Hiện nguồn khảo sát chưa đạt ngưỡng người thật đúng đối tượng, nên phần bằng chứng CP3 vẫn đang chờ.
+**Nguồn đào dữ liệu cho CP3:** trong 260 mốc tại cùng một trò có cả số phút niêm yết và thực chờ, có 20 mốc chờ lâu hơn ít nhất 10 phút (7,7%). Năm ví dụ có thời điểm để đối chiếu và phép đếm tái lập nằm ở [bảng dữ liệu TouringPlans.com](data-mining.md). Khảo sát của nhóm bổ sung bối cảnh phụ huynh lập lịch.
 
 ## 1. Nguồn đã dùng
 
@@ -11,7 +11,7 @@ Nguồn chính nhóm xác nhận là khảo sát qua biểu mẫu. Không bắt 
 |---|---|---|
 | Khảo sát (≥20 người ngoài nhóm, đúng người dùng) | ☐ Chưa, có 10 dòng gắn nhãn thật, trong đó 4 đi cùng trẻ nhỏ | [CSV đã ẩn danh](survey/results-c1.csv), [đối chiếu trường và tình trạng bản câu hỏi gốc](survey/questions.md) |
 | Phỏng vấn (≥3 người ngoài nhóm, đúng người dùng) | Chưa lưu biên bản riêng, không phải nguồn chính hiện tại | Có thể chọn làm nguồn thay thế hoặc đối chiếu nếu nhóm thực hiện, không tạo biên bản từ CSV khảo sát |
-| Đào data (x/N, %, cách đếm chạy lại được, ≥5 ví dụ) | ☐ | `evidence/data-mining.md` còn là mẫu chưa điền, chưa có kết quả để dùng cho C1 |
+| Đào data (x/N, %, phép đếm chạy lại, ≥5 ví dụ) | Có 20/260 mốc chờ vượt niêm yết ≥10 phút (7,7%), kèm 5 mốc đối chiếu | [TouringPlans, phương pháp và giới hạn](data-mining.md) |
 
 **Phạm vi dữ liệu khảo sát:** bảng trả lời có 20 dòng với cột `loai_du_lieu`. Theo nhãn nhóm lưu, 10 dòng đầu là `nguoi_dung_that`, 10 dòng sau là `tu_viet` và không được đếm vào bằng chứng. Cột nguồn của các dòng đầu ghi “Google Form · có bổ sung trong Sheets”. Repo chưa có bản câu hỏi gốc hoặc lịch sử cho biết ô nào đã được bổ sung, nên phép đếm xác nhận nội dung CSV, chưa xác minh độc lập nguồn gốc và tính nguyên văn. Các số dưới đây chỉ tính bản ghi STT 1 đến 10. Khi trích dẫn “dòng N”, N là giá trị cột `stt`, không tính hàng tiêu đề.
 
@@ -38,7 +38,7 @@ Các câu dưới đây trùng nội dung trả lời mở trong bảng hiện c
 
 ## 4. Các nguồn có khớp nhau không
 
-Mới có một nguồn khảo sát n = 10, chưa có nguồn độc lập để đối chiếu. Các sự cố được kể liên quan đến điều kiện chiều cao/tuổi, giờ suất diễn, đi bộ, xếp hàng và mưa/hủy show. Nhóm cần bổ sung khảo sát đúng đối tượng để đạt ngưỡng hoặc chọn nguồn thay thế đạt yêu cầu. Phỏng vấn ít nhất 3 phụ huynh là một cách đối chiếu nếu nhóm chọn thực hiện.
+Hai nguồn cùng ghi nhận rủi ro khi căn giờ. Dòng 10 trong CSV kể việc lỡ show do ước lượng sai hàng chờ. Nguồn TouringPlans đo trực tiếp chênh lệch thời gian chờ ở một trò tại Mỹ; không thể suy ra tỷ lệ lỡ show hay tỷ lệ phụ huynh Việt Nam gặp vấn đề từ nguồn này.
 
 ## 5. Kết luận
 

@@ -18,9 +18,9 @@
 
 | Mục | Đã có | Chờ gì / ai dự kiến phụ trách theo TEAMS |
 |---|---|---|
-| Bằng chứng CP3 | 10 dòng gắn nhãn thật, 10 tự viết; chỉ 4/10 đi cùng trẻ nhỏ; 6 câu trả lời mở | Hà Lê Duy: khảo sát đủ ≥20 người ngoài đội đúng đối tượng và đối chiếu nguồn gốc, sự đồng ý trích dẫn. Có thể chọn nguồn thay thế đạt ngưỡng, không bắt buộc làm thêm cả khảo sát lẫn phỏng vấn |
-| Vai trò model trong C1 | Model có token trong log, code lập và kiểm lịch | Nguyễn Lê Trọng Mạnh: hiện model chỉ diễn đạt kết quả cuối, chưa tham gia quyết định trung tâm. Cần hoàn thiện và chứng minh trước khi xác nhận điều kiện AI thật |
-| Điểm eval CP3 | Run-2 nháp 26/30, run-4 nháp 29/30, hai metric code run-4 kiểm được 25/25 và 14/14 | Nguyễn Thiên Bảo và người duyệt: chọn lượt, duyệt từng câu và hai metric người chấm, người thứ hai kiểm 5 output. Các run gốc còn trống pass, chưa có điểm chính thức |
+| Bằng chứng CP3 | [Phân tích 260 mốc thời gian chờ và 5 ví dụ](../../evidence/data-mining.md); khảo sát có 4/10 dòng gắn nhãn thật đi cùng trẻ | Hà Lê Duy: kiểm bản gốc và quyền trích lời khảo sát; dữ liệu hàng chờ không đo tỷ lệ phụ huynh Việt Nam gặp pain |
+| Vai trò model trong C1 | [Hai ca model thật](../../validation/c1-model-choice.json) chọn A1 hoặc E2 theo sở thích; cả hai lịch qua validator | Dùng phiên bản này khi quay demo |
+| Điểm eval CP3 | Run-4 đã chấm, 29/30; C1-17 = 0 | Người thứ hai chấm [5 output](../../eval/doi-chieu-5.md) rồi ghi số khớp |
 | Video CP3 | Nhóm xác nhận chưa có | Chu Nguyễn Tùng Dương điều phối quay 30 giây với input, lời gọi thật và kết quả; cấp quyền và mở thử ẩn danh |
 | Hai lượt CP4 | Có run-1 đến run-4 và log thay đổi | Nhóm chọn cặp lượt, ghi rõ cải tiến và so sánh bằng cùng benchmark. Giữ cả lượt lỗi và lượt chạy giữa lúc sửa |
 | Chi phí CP4 | Simulate-1 có 50 phiên, seed 42, token model gpt-6-luna | Chờ nguồn đơn giá model/endpoint, duyệt tỷ lệ thành công và xác nhận giả định persona/quy mô. Giá Gemini trong bảng là kịch bản mẫu, không phải phí thực trả |

@@ -1,40 +1,25 @@
-# Đào data — cách đếm và kết quả
+# Chênh lệch thời gian chờ tại Kilimanjaro Safaris
 
-> Điền ở guide bước 1.2. Ôn lại: ngày 2, ngày 6 · lab ngày 2, lab ngày 6.
-> Không đào data thì xoá file này. Script / công thức đếm để trong repo (vd `evidence/count.py` hoặc ghi công thức Sheets ngay dưới), người khác chạy lại phải ra cùng số.
-> Repo chỉ chứa số đã tổng hợp và vài dòng ví dụ — không chép lại nguyên file data.
+Nguồn dữ liệu: **TouringPlans.com**, quan sát tại Disney’s Animal Kingdom (Florida, Mỹ). Phân tích riêng rủi ro một gia đình dùng số phút niêm yết để căn giờ cho hoạt động kế tiếp. [Kho dữ liệu, định nghĩa cột và giấy phép](https://github.com/TouringPlans/DisneyAnimalKingdomWaitTimes/tree/933161b8bebb7cd50e0d54bcb3578484875487fa)
 
-## 1. Cách đếm — viết TRƯỚC khi chạy
+Trong năm 2018, **20/260 mốc ghép được (7,7%)** có thời gian chờ thực tế dài hơn bảng niêm yết ít nhất 10 phút. Ví dụ ngày 10/1 lúc 10:46, bảng ghi 55 phút và khách đo được 71 phút. Một lịch chỉ chừa 10 phút đệm sau trò này sẽ thiếu 6 phút nếu các chặng khác diễn ra đúng dự kiến.
 
-- Data dùng: __ (file nào, từ ngày nào đến ngày nào)
-- Đếm gì: __ · trên tập nào: __ · lọc gì: __
-- **Mẫu số là gì:** __ *(lỗi hay gặp nhất là mẫu số sai)*
-- Script / công thức: __
+## Cách đếm lại
 
-## 2. Đọc trước, đếm sau
+Chạy `python evidence/count_waits.py` từ gốc repo. Script tải riêng AK07.csv tại commit cố định. Đơn vị đếm là mốc bắt đầu xếp hàng (giờ địa phương). Ghép SACTMIN và SPOSTMIN đúng cùng timestamp, mỗi cột phải có đúng một giá trị phân biệt, không âm. Loại mốc thiếu một bên, có số mâu thuẫn hoặc báo đóng cửa. Mẫu số là toàn bộ mốc ghép được trong năm. Tử số thỏa `SACTMIN - SPOSTMIN >= 10`.
 
-Đã đọc __ dòng đầu và từ điển cột. Các *kiểu* hành vi thấy được (trước khi định nghĩa thứ cần đếm):
-- __
-- __
+Năm mốc đầu tiên thỏa điều kiện, theo thời gian:
 
-## 3. Kết quả
+| Mốc tại trò (giờ miền Đông Mỹ) | Niêm yết (phút) | Đã chờ (phút) | Lệch (phút) |
+|---|---:|---:|---:|
+| 2018-01-10 10:12:00 | 15 | 26 | +11 |
+| 2018-01-10 10:46:00 | 55 | 71 | +16 |
+| 2018-01-12 10:14:00 | 40 | 56 | +16 |
+| 2018-01-30 15:55:00 | 15 | 27 | +12 |
+| 2018-01-31 13:33:00 | 35 | 51 | +16 |
 
-| Đếm gì | x / N | % | Ghi chú |
-|---|---|---|---|
-| | | | |
-| | | | |
+## Phạm vi suy luận
 
-Ghi dạng "x/N (y%)". "Nhiều bạn…" không phải số.
+Nguồn ghi nhận một trò và các lượt có người đo được thời gian. Việc chỉ ghép đúng timestamp có thể tạo thiên lệch chọn mẫu. Dữ liệu không ghi thành phần gia đình, người Việt, thời gian chuẩn bị lịch hay việc khách thực sự lỡ show. Kết quả hỗ trợ riêng giả thuyết về sai số chờ; đối chiếu trải nghiệm tại Việt Nam trong [khảo sát C1](summary.md).
 
-## 4. ≥5 ví dụ cụ thể (mã dòng / mã đã ẩn danh, không đoán ai là ai)
-
-1.
-2.
-3.
-4.
-5.
-
-## 5. Giới hạn của data
-
-Data cho biết người ta **làm gì**, không cho biết **vì sao**. Thiếu gì, lệch về phía nào: __
-→ Kiểm lại bằng phỏng vấn / khảo sát nào: __
+Điều khoản của nguồn đối với dữ liệu trích lại: “Any publications or redistributions credit TouringPlans.com clearly at the beginning of those publications or distributions”; “Any redistributions include these license terms”. [Giấy phép gốc](https://github.com/TouringPlans/DisneyAnimalKingdomWaitTimes/blob/933161b8bebb7cd50e0d54bcb3578484875487fa/LICENSE.md)

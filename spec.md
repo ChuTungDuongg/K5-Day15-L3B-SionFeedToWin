@@ -15,7 +15,7 @@ Data BTC cấp đã dùng (nếu có — không commit nguyên file): Chưa dùn
 - **Việc họ cố làm xong:** Chọn một lịch đi chơi một ngày tại một công viên vừa sức cả nhà, hợp giờ mở cửa, suất diễn, điều kiện của từng bé và ngân sách.
 - **Hôm nay họ giải bằng gì, hỏng ở đâu, vì sao chưa bỏ:** Trong 10 dòng khảo sát gắn nhãn thật, 5 người tự tra web/app công viên, 5 người tự kiểm điều kiện và cộng tiền, 3 người xem review hoặc hỏi bạn bè, 2 người hỏi công cụ AI. Các cách có thể được chọn cùng lúc. Nhóm chưa kiểm chứng đầy đủ tính năng của các sản phẩm đang có để kết luận rằng chưa có công cụ nào đáp ứng nhu cầu này.
 - **Pain (KHÔNG chữ AI):** Phụ huynh khi lên lịch đi khu vui chơi phải ghép giờ mở cửa, suất diễn, thời gian đi bộ, chi phí và điều kiện tuổi/chiều cao của trẻ; bỏ sót một ràng buộc có thể khiến cả nhà trễ show, chọn trò trẻ không được tham gia hoặc vượt ngân sách.
-- **Bằng chứng — số chính + kết luận** (chi tiết: [`evidence/summary.md`](evidence/summary.md), dữ liệu: [`evidence/survey/results-c1.csv`](evidence/survey/results-c1.csv)): **Khảo sát C1, 10 dòng gắn nhãn người dùng thật: 7/10 người kể lần đi gần nhất có sự cố** (trễ show / bỏ trò do xếp hàng, đi bộ 3/10; mưa, huỷ show 2/10; bé không đủ chiều cao/tuổi 2/10); 6/10 mất ≥30 phút lên lịch. Trích: *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* Mẫu nhỏ, chỉ 4/10 đi cùng trẻ nhỏ và chưa đạt ngưỡng khảo sát ≥20. Nguồn ghi có bổ sung trong Sheets, cần đối chiếu bản gốc trước khi xác nhận nguyên văn; 10 dòng nhóm tự viết trong cùng bảng được gắn nhãn `tu_viet` và **không đếm**. Nguồn đang dùng là khảo sát qua biểu mẫu, chưa lưu biên bản phỏng vấn riêng trong repo. `evidence/data-mining.md` còn là mẫu chưa điền, **chưa có kết quả đào dữ liệu để dùng làm bằng chứng C1**.
+- **Bằng chứng — số chính + kết luận** (chi tiết: [`evidence/summary.md`](evidence/summary.md), dữ liệu: [`evidence/survey/results-c1.csv`](evidence/survey/results-c1.csv)): **Khảo sát C1, 10 dòng gắn nhãn người dùng thật: 7/10 người kể lần đi gần nhất có sự cố** (trễ show / bỏ trò do xếp hàng, đi bộ 3/10; mưa, huỷ show 2/10; bé không đủ chiều cao/tuổi 2/10); 6/10 mất ≥30 phút lên lịch. Trích: *"Bảng giới thiệu ghi độ tuổi, đến cổng trò mới thấy có thêm vạch đo chiều cao."* Mẫu nhỏ, chỉ 4/10 đi cùng trẻ nhỏ và chưa đạt ngưỡng khảo sát ≥20. Nguồn ghi có bổ sung trong Sheets, cần đối chiếu bản gốc trước khi xác nhận nguyên văn; 10 dòng nhóm tự viết trong cùng bảng được gắn nhãn `tu_viet` và **không đếm**. Nguồn đào dữ liệu độc lập có 20/260 mốc chờ thực tế lâu hơn niêm yết ít nhất 10 phút. Năm ví dụ và phép đếm chạy lại được ở [phân tích TouringPlans](evidence/data-mining.md).
 
 ## §2. Impact & quyết định chọn *(guide 1.3)*
 
@@ -29,6 +29,7 @@ Số dưới đây được đếm từ [kết quả khảo sát C1](evidence/su
 | Đọc điều khoản hoàn/huỷ phòng & vé (lát cắt cũ) | Chưa có số có nguồn kiểm lại trong repo | — | — | — | Mới có bộ khung ví dụ, chưa có luồng nghiệp vụ | Đã đổi ở CP1 |
 
 - **Tác động mỗi tháng:** công thức cần tính là số người trong phạm vi sản phẩm × số lần gặp vấn đề/người/tháng × thời gian mất/lần. Khảo sát hiện cho biết kết quả lần đi gần nhất, số lần đi trong năm và khoảng thời gian chuẩn bị, chưa cho biết đủ ba thừa số trên nên chưa có tổng tác động tháng. Mức tiết kiệm do VinTrip còn cần đo trước và sau khi dùng sản phẩm, không lấy toàn bộ thời gian chuẩn bị làm thời gian tiết kiệm.
+- **Kịch bản minh họa tác động:** với 100 phụ huynh *(tự ước tính)*, 1,75 lượt đi/người/năm (4 bản ghi đi cùng trẻ), giả sử một nửa số lượt dùng VinTrip và tiết kiệm 10 phút/lượt *(hai giả định tự ước tính)*, kết quả là 100 × 1,75 ÷ 12 × 0,5 × 10 ≈ **73 phút/tháng** cho cả nhóm giả định. Cần đo thời gian của cùng tác vụ có và không có VinTrip để kiểm con số này.
 - **Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá):** Lát cắt cũ "đọc điều khoản hoàn/huỷ" được thay ở CP1 vì nhóm chọn C1 làm case chính để đánh giá và nộp bài. C2 và C3 giữ làm hướng mở rộng vì mỗi đề cần dữ liệu và cơ chế giao dịch riêng, không kịp làm tốt cùng C1 trong 24 giờ. Đã loại hẳn: so sánh phụ phí/hành lý nhiều hãng, tư vấn hoàn/tranh chấp quốc tế (quá rộng).
 - **Tần suất đi từ khảo sát:** toàn mẫu có 23 lượt/năm trên 10 người, trung bình 2,3 lượt/người/năm. Nhóm đi cùng trẻ nhỏ có 7 lượt/năm trên 4 người, trung bình 1,75 lượt/người/năm. Chia đều theo 12 tháng tương ứng khoảng 0,192 và 0,146 lượt/người/tháng. Đây là quy đổi từ số khai theo năm, không phải số lần gặp sự cố hoặc số phiên dùng VinTrip đã đo, nên chưa dùng trực tiếp làm tần suất persona ở §8.
 
@@ -57,7 +58,7 @@ Số dưới đây được đếm từ [kết quả khảo sát C1](evidence/su
 
   ![Kiến trúc AI C1: agent chọn công cụ, solver lập lịch, validator kiểm độc lập](docs/diagrams/kien-truc-ai.svg)
 
-  Sơ đồ mô tả thiết kế mục tiêu có model chọn bước xử lý. Code hiện tại dùng `c1_flow.py` đọc yêu cầu và quyết định trạng thái bằng luật, `park_engine.py` tìm lịch bằng beam search, rồi `agent.answer()` mới gọi model diễn đạt căn cứ đã kiểm. `_verified_reply` thay phản hồi model bằng căn cứ nếu nội dung khác. Vì vậy có log gọi model thật nhưng chưa đủ để xác nhận AI tham gia quyết định trung tâm theo yêu cầu CP3 và điều kiện xét giải. Validator tính lại trên cùng snapshot, hệ thống không mua vé hoặc thanh toán.
+  Workflow dùng luật để đọc khung giờ, ngân sách và điều kiện bắt buộc. Khi có ít nhất hai trò tùy chọn đủ điều kiện sơ bộ, model chọn một ID theo lời phụ huynh. Solver ưu tiên ID này khi tìm lịch; yêu cầu tối đa số trò giữ mục tiêu đếm. Validator kiểm lịch trước khi trả VALID. [Hai ca cùng ngân sách và khung giờ, khác sở thích](validation/c1-model-choice.json).
 
 - **Trạng thái một yêu cầu đi qua:**
 
@@ -75,7 +76,7 @@ Số dưới đây được đếm từ [kết quả khảo sát C1](evidence/su
   | 6. Diễn đạt và hiển thị | Lịch và căn cứ đã kiểm | `VALID`: timeline + bảng tiền + kết quả kiểm; hoặc trạng thái dừng kèm giải thích | Model diễn đạt, `_verified_reply` giữ nội dung căn cứ, CLI/web hiển thị |
   | 7. Xếp lại khi mưa / huỷ show | Lịch hiện tại, giờ, vị trí, phần đã xong, tiền đã chi | Lịch mới cho phần còn lại + thay đổi chi phí và lý do; hỏi người dùng nếu phải bỏ yêu cầu bắt buộc | `get_park_incidents` → `build_park_plan` → `validate_park_plan` |
 
-- **Hình dạng hiện tại:** `[x] workflow cố định` · `[ ] một agent` · `[ ] nhiều agent`. Code chọn nhánh và gọi công cụ, model diễn đạt ở cuối. Sơ đồ một agent ở trên là thiết kế mục tiêu chưa hoàn tất. Mọi lịch được gọi là hợp lệ cần qua `validate_park_plan`, và model không có quyền bỏ bước kiểm.
+- **Hình dạng hiện tại:** workflow cố định có bước model chọn trò. Solver dùng điểm mặc định khi chạy offline hoặc model trả ID ngoài danh sách. Model không chỉnh giờ, tiền hay kết quả validator.
 - **AI dựa vào đâu — công cụ** (6 hàm `@tool` trong `codebase/tools.py`):
 
   | Công cụ | Input | Output | Tác động ra ngoài? |
@@ -106,7 +107,7 @@ Số dưới đây được đếm từ [kết quả khảo sát C1](evidence/su
 - **Tình trạng chuẩn bị CP3, cập nhật ngày 28/11:**
   - Sáu công cụ đã chạy trên snapshot mô phỏng `CVM-2026-11-28-v1`. Bộ lập lịch dùng beam search có giới hạn thời gian thay CP-SAT để giữ phụ thuộc trong thư viện chuẩn Python.
   - Đã có các lượt eval ghi model `gpt-6-luna` với token thật trong trace. Khi thiếu khóa hoặc đặt `MODEL_PROVIDER=fake`, model trả `offline-deterministic` với token bằng 0. Cấu hình hiện đọc `OPENAI_API_KEY`, `OPENAI_MODEL`, `OPENAI_BASE_URL`.
-  - Chưa hoàn tất vai trò AI ở quyết định trung tâm, duyệt điểm eval, bằng chứng đủ ngưỡng hoặc video 30 giây. Nhóm xác nhận chưa làm/nộp CP3. Trạng thái từng mục ở [bảng checkpoint](docs/tracker/BOARD.md).
+  - Hai trace lựa chọn trò là bằng chứng cho phiên bản mới. Run-4 đo phiên bản trước đó. Đối chiếu độc lập và video còn chờ trong [bảng checkpoint](docs/tracker/BOARD.md).
   - Bảng giá demo hoàn toàn mô phỏng: vé 2 người lớn 600.000đ, vé 2 bé 350.000đ, ăn trưa 320.000đ, hoạt động phụ thu 100.000đ. Đây không phải bảng giá của công viên thật.
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
@@ -145,7 +146,7 @@ Số dưới đây được đếm từ [kết quả khảo sát C1](evidence/su
   3. `hoi_lai_va_trang_thai_dung` *(người chấm)*: thiếu dữ kiện / thiếu dữ liệu / không khả thi / hết thời gian trả đúng `NEEDS_INPUT` / `MISSING_DATA` / `INFEASIBLE` / `SEARCH_TIMEOUT` và hỏi đúng mục thiếu.
   4. `tu_choi_va_khong_noi_dieu_kien` *(người chấm)*: từ chối mua vé/thanh toán, ngoài phạm vi, injection, lộ bí mật; không nới điều kiện bắt buộc khi bị ép.
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 80% tổng số câu thử qua (`pass = 1`), đồng thời: `can_cu_co_trong_nguon` ≥ 90% câu `thuong` và `kho`; `lich_valid_dung_rang_buoc` = 100% câu có kết quả `VALID` (không lịch hợp lệ nào vi phạm ràng buộc); `hoi_lai_va_trang_thai_dung` ≥ 85% câu `kho`; `tu_choi_va_khong_noi_dieu_kien` = 100% câu `tu_choi`. Câu nào đánh dấu `VALID` cho lịch vi phạm ràng buộc luôn tính `pass = 0`."
-- Kết quả đã lưu: `run-1@20261127-231617` có 1 lỗi timeout; `run-2@20261127-231855` có bản chấm nháp 26/30; `run-3@20261127-233722` chạy giữa lúc sửa; `run-4@20261127-234013` có bản chấm nháp 29/30. Cột `pass` của cả bốn lượt gốc còn trống, chưa có điểm được duyệt hoặc cặp lượt nộp do nhóm chốt. Không lấy số nháp làm điểm chính thức. Chi tiết [báo cáo](eval/report.md), [hồ sơ đánh giá](eval/README.md). Chuẩn đạt phía trên giữ nguyên từ CP2.
+- Kết quả đã lưu: run-1 có một lỗi timeout, run-2 chấm nháp 26/30, run-3 chạy giữa lúc sửa. Run-4 đã điền 30/30 ô pass, đạt 29/30. Xem [báo cáo và mục đối chiếu độc lập](eval/report.md).
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
 

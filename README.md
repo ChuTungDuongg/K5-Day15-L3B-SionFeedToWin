@@ -14,9 +14,9 @@ Hướng dẫn chính thức: [đề bài](https://github.com/VinUni-AI20k/K5-L3
 
 **Trạng thái rà soát ngày 28/11:** các file chính của CP1 và CP2 đã có, gồm 4 thành viên, canvas, sơ đồ thiết kế, 30 câu thử và 4 metric. `python run.py check` không báo vấn đề cấu trúc. Nhóm xác nhận chưa làm/nộp CP3. Repo đã có thêm code C1, dữ liệu Công viên Mẫu, bốn lượt eval và một lượt mô phỏng 50 phiên, nhưng các mục này chưa đủ để xác nhận CP3 hoặc CP4 hoàn tất. Xem [bảng kiểm từng checkpoint và phần đang chờ](docs/tracker/BOARD.md#rà-soát-hồ-sơ-checkpoint-ngày-28112026).
 
-**Bằng chứng hiện có:** CSV lưu 20 dòng, trong đó 10 dòng được nhóm gắn nhãn người dùng thật và 10 dòng tự viết. Chỉ đếm 10 dòng đầu: 7/10 kể có sự cố, 6/10 chuẩn bị từ 30 phút, 4/10 đi cùng trẻ nhỏ. Nguồn nhóm chọn là khảo sát qua biểu mẫu. Khảo sát chưa đạt ngưỡng 20 người ngoài đội đúng đối tượng. Chỉ cần ít nhất một nguồn đạt ngưỡng, không bắt buộc đồng thời phỏng vấn và khảo sát. Xem [tổng hợp và giới hạn nguồn](evidence/summary.md).
+**Bằng chứng hiện có:** CSV lưu 20 dòng, trong đó 10 dòng được nhóm gắn nhãn người dùng thật và 10 dòng tự viết. Chỉ đếm 10 dòng đầu: 7/10 kể có sự cố, 6/10 chuẩn bị từ 30 phút, 4/10 đi cùng trẻ nhỏ. Nguồn đào dữ liệu bổ sung có 20/260 mốc chờ thực tế vượt giờ niêm yết ít nhất 10 phút và năm ví dụ đối chiếu. Khảo sát chưa đạt ngưỡng 20 người ngoài đội đúng đối tượng. Chỉ cần ít nhất một nguồn đạt ngưỡng, không bắt buộc đồng thời phỏng vấn và khảo sát. Xem [tổng hợp và giới hạn nguồn](evidence/summary.md).
 
-**Đang chờ cho CP3:** đủ bằng chứng đúng đối tượng và nguồn gốc, duyệt điểm một lượt eval, người thứ hai đối chiếu 5 output, video AI thật 30 giây và xác nhận AI tham gia quyết định trung tâm. Hiện `agent.answer()` gọi model sau khi code đã lập và kiểm câu trả lời, vì vậy có token model thật chưa tự chứng minh điều kiện cuối. Không ghi 29/30 là điểm chính thức khi cột `pass` còn trống.
+**[Nội dung điền Form 2 CP3](docs/cp3.md).** [Hai ca chạy model thật](validation/c1-model-choice.json) cho thấy sở thích khác nhau dẫn đến hai lịch hợp lệ khác nhau. [Run-4](eval/report.md) của phiên bản trước đạt 29/30. Còn chờ người thứ hai chấm 5 output, đối chiếu nguồn khảo sát và video 30 giây.
 
 **Đang chờ cho CP4 và cuối ngày:** chọn cặp lượt so sánh và cải tiến, xác minh giá model và giả định quy mô, slide `demo-slides.pdf`, video dự phòng, bốn bài reflection và xác nhận đã nộp Form. Token mô phỏng đã đo, còn giá USD trong báo cáo hiện là giá mẫu.
 
@@ -120,11 +120,11 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi model | Có log gọi thật, có chế độ offline | Run-4 ghi model `gpt-6-luna`, tổng token vào 17.738, ra 14.634. Vai trò quyết định trung tâm cần xử lý trước khi xác nhận đủ điều kiện |
+| Lời gọi model | Đã chạy thật | Model chọn ID trò trước khi solver xếp lịch; validator kiểm lịch và bảng tiền. [Hai trace đối chứng](validation/c1-model-choice.json) |
 | Lập lịch và kiểm ràng buộc | Đã có code | `c1_flow.py`, `park_engine.py`, `tools.py`. Dùng beam search, không phải CP-SAT |
 | Công viên, giá và sự cố trong benchmark | Mô phỏng | Snapshot `CVM-2026-11-28-v1` trong `data/cong_vien_mau.json` |
 | Khảo sát | 10 dòng gắn nhãn thật, 10 dòng tự viết | Không cộng dòng tự viết vào bằng chứng. Cần đối chiếu nguồn gốc |
-| Chất lượng | Chấm nháp | Run-2 nháp 26/30, run-4 nháp 29/30. Chưa điền cột pass của các lượt gốc |
+| Chất lượng | Run-4 đạt 29/30 | C1-17 trượt; xem [bản chấm và phần chờ đối chiếu](eval/report.md) |
 | Chi phí | Có token đo, giá còn là giả định | 50 phiên ở simulate-1. Chưa có đơn giá thật của model đã chạy |
 
 ## Dùng AI vào việc gì
