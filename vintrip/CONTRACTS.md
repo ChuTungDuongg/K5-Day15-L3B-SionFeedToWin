@@ -166,3 +166,42 @@ Hướng dẫn, dữ liệu giả, trạng thái và giới hạn: [`docs/c3-fli
 - Hợp đồng chi tiết và hướng dẫn chạy local: [room-upgrades-contract.md](docs/room-upgrades-contract.md).
 - Bằng chứng CP4 và nghiệm thu tổng thể CP1–CP4: [evidence CP4](docs/evidence/room-upgrades-cp4.md), [final acceptance](docs/evidence/room-upgrades-final-acceptance.md).
 - Endpoint mẫu `/api/commerce/bookings/draft-change` và consumer cũ giữ nguyên để tương thích; không dùng phụ thu mẫu của nó cho room-upgrades.
+
+## 8. C1 · Lập lịch một ngày ở Công viên Mẫu (`vintrip/ai` ↔ `vintrip/fe`)
+
+Frontend (khung lập lịch trên trang chủ `#lich-vui-choi` và trang `/c1`) chỉ phụ thuộc vào hợp đồng này. Backend được đổi cách xử lý bên trong, nhưng giữ nguyên đường dẫn và hình dạng dữ liệu.
+
+**Yêu cầu:** `POST {NEXT_PUBLIC_API_URL}/ai/c1/ask`, `Content-Type: application/json`
+
+```json
+{ "text": "Công viên Mẫu, 2 người lớn, bé 5 tuổi cao 108 cm. Đi 09:00–14:00, ngân sách 1.500.000 đồng." }
+```
+
+- `text`: chuỗi 1–4000 ký tự sau khi bỏ khoảng trắng hai đầu. Sai thì trả `422`.
+
+**Trả về `200`:**
+
+```json
+{
+  "output": "VinTrip — ...\nTrạng thái: VALID · snapshot CVM-2026-11-28-v1 · dữ liệu mô phỏng\n...",
+  "status": "VALID",
+  "snapshot_id": "CVM-2026-11-28-v1",
+  "trace": [
+    { "kind": "tool", "name": "get_park_catalog", "latency_s": 0.0 },
+    { "kind": "model", "name": "call_model", "latency_s": 5.234 }
+  ]
+}
+```
+
+| Trường | Kiểu | Ý nghĩa |
+|---|---|---|
+| `output` | string, có xuống dòng `\n` | Câu trả lời đã kiểm, hiển thị nguyên văn (`white-space: pre-wrap`). Frontend không tự tính giờ hay tiền |
+| `status` | một trong `VALID`, `NEEDS_INPUT`, `MISSING_DATA`, `INFEASIBLE`, `SEARCH_TIMEOUT`, `TỪ CHỐI`, `CHƯA HỢP LỆ`, `THÔNG TIN` | Nhãn trạng thái. Giá trị lạ thì frontend hiện nhãn trung tính |
+| `snapshot_id` | string | Phiên bản dữ liệu mô phỏng |
+| `trace` | mảng `{kind: "tool" \| "model", name, latency_s}` | Các bước công cụ và model, theo thứ tự chạy |
+
+**Lỗi:** `422` khi đầu vào sai; `503` khi dịch vụ chưa cài bộ lập lịch C1; `500` khi lời gọi model hỏng (ví dụ khoá API không hợp lệ). Mọi mã khác 200 thì frontend hiện thông báo lỗi kèm nút "Thử lại", không hiện kết quả.
+
+**Thời gian:** một lần gọi model thật mất khoảng 5–10 giây. Frontend phải có trạng thái chờ và không cho gửi trùng.
+
+**CORS:** backend cho phép origin của web (`http://localhost:3100` khi chạy local).
