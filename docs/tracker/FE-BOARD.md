@@ -43,6 +43,7 @@
 | FE-12 | Logo VinTrip mới theo yêu cầu trực tiếp: bỏ biểu tượng chữ V, đồng bộ SVG sáng/tối và favicon | **Codex** | FE-01, FE-04 | XONG |
 | FE-13 | Hero trang chủ: chữ "VinTrip" lớn + slogan mới "Mỗi hành trình là một câu chuyện đáng nhớ." viết bằng Dancing Script; font chữ chính toàn trang đổi sang Be Vietnam Pro (token đã đổi, xem `fe-redesign.md` §1.2); ảnh hero đổi sang biển hồ Ocean Park `ocean-park/ocean-park-lagoon.jpg` | **Codex** | FE-05 | ĐANG LÀM |
 | FE-14 | Khôi phục route `app/auth/google/mobile/route.ts` (đăng nhập Google cho app di động) để `pnpm typecheck` và build Docker chạy được; test có sẵn là đặc tả | **Antigravity** | — | TODO |
+| FE-15 | Gộp C1 vào trang chủ: khung lập lịch Công viên Mẫu nằm ngay dưới khung tìm kiếm (`#lich-vui-choi`), thêm tab "Lịch vui chơi"; `/c1` dùng chung component | **Codex** | FE-13 | TODO |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
 ## Phân vùng file (không ai sửa vùng của người khác)
