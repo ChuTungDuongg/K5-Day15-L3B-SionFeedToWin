@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VinTrip C1 Demo</title>
+<style>
+:root{--bg1:#f26b1d;--bg2:#ff9a3c;--on:#fff;--on2:#fff3e6;--card:#fff;--fg:#1b1f3b;--muted:#5a6178;--line:#ece4da;
+ --accent:#d9520c;--ok:#16804a;--bad:#c62828;--s1:#1f5fbf;--s2:#e8a100;--s3:#00a383;--walk:#c3c7d1;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#8a3208;--bg2:#b8500f;--card:#1d2233;--fg:#eef1f8;--muted:#a6aec2;--line:#30384f;--accent:#ff9a55;--ok:#4cc38a;--bad:#ff7a7a;--walk:#4a5468;}}
+:root[data-theme="dark"]{--bg1:#8a3208;--bg2:#b8500f;--card:#1d2233;--fg:#eef1f8;--muted:#a6aec2;--line:#30384f;--accent:#ff9a55;--ok:#4cc38a;--bad:#ff7a7a;--walk:#4a5468;}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:#3a1600;font-family:"Be Vietnam Pro","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--fg)}
+#viewport{position:fixed;inset:0;display:grid;place-items:center}
+.slide{position:absolute;left:50%;top:50%;width:1600px;height:900px;margin:-450px 0 0 -800px;display:none;flex-direction:column;gap:18px;
+ padding:44px 64px 56px;overflow:hidden;background:linear-gradient(135deg,var(--bg1),var(--bg2));transform-origin:center center}
+.slide.on{display:flex}
+.kicker{color:var(--on2);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:18px}
+h2{margin:0;color:var(--on);font-size:44px;line-height:1.15;font-weight:900;text-shadow:0 2px 0 rgba(0,0,0,.16);max-width:1440px}
+.sub{margin:0;color:var(--on);font-size:24px;font-weight:600}
+.card{background:var(--card);border-radius:18px;padding:20px 24px;box-shadow:0 8px 24px rgba(80,30,0,.18);font-size:26px;line-height:1.42}
+.card p{margin:10px 0 0}.card.slim{padding:14px 20px;font-size:22px}
+.grow{flex:1;min-height:0}
+.cols-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.cols-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cols-3w{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:18px}
+.label{font-size:17px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.label.ok{color:var(--ok)}.label.bad{color:var(--bad)}
+.when{font-size:27px;font-weight:900;color:var(--accent)}
+.lead{font-size:30px;font-weight:700;line-height:1.45}
+.small{font-size:21px;line-height:1.42}.muted{color:var(--muted)}
+.accent-left{border-left:10px solid var(--accent)}
+.facts{list-style:none;padding:0;margin:10px 0 0}.facts li{margin:14px 0;font-size:27px}
+ul.tight,ol.tight{margin:10px 0 0;padding-left:26px}ul.tight li,ol.tight li{margin:12px 0}
+.mono li{font-family:ui-monospace,Consolas,monospace;font-size:18px}
+.pain .tagline{font-size:28px;font-weight:900;color:var(--accent)}
+.pain .who{color:var(--muted);font-size:21px;margin-top:4px}
+.pain .cons{font-weight:800;color:var(--bad)}
+blockquote{margin:12px 0 0;padding:8px 14px;border-left:5px solid var(--accent);background:rgba(242,107,29,.08);font-style:italic;font-size:23px}
+.note{margin:0;color:var(--on2);font-size:17px;line-height:1.4}
+.note code{color:var(--on)}
+.io3{display:grid;grid-template-columns:1fr 1.7fr 1fr;gap:18px;align-items:stretch}
+.pipe{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.st{background:var(--card);border-radius:14px;padding:12px 14px;border-left:9px solid var(--ok);box-shadow:0 6px 18px rgba(80,30,0,.16);display:flex;flex-direction:column;gap:4px}
+.st.model{border-left-color:var(--s1)}.st b{font-size:23px}.st span{font-size:19px;color:var(--muted);line-height:1.3}
+.legend{display:flex;flex-wrap:wrap;gap:20px;font-size:17px;font-weight:700;color:var(--on)}
+.legend.dark{color:var(--fg)}
+.slide>.legend.dark{color:var(--on)}
+.lg{display:inline-block;width:16px;height:16px;border-radius:4px;margin-right:7px;vertical-align:-2px;border:2px solid #fff}
+.lg.code{background:var(--ok)}.lg.model{background:var(--s1)}.lg.user{background:#e3b04b}.lg.io{background:#8a93a8}.lg.stop{background:var(--bad)}
+.lg.act{background:var(--s1)}.lg.show{background:var(--s2)}.lg.eat{background:var(--s3)}.lg.walk{background:var(--walk)}
+.lg.early{background:repeating-linear-gradient(45deg,var(--s2) 0 3px,#fff 3px 6px)}
+.demo{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}
+.rowline{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pill{display:inline-block;padding:5px 14px;border-radius:999px;font-size:17px;font-weight:800;color:#fff}
+.pill.blue{background:var(--s1)}.pill.red{background:var(--bad)}.pill.ok{background:var(--ok)}.pill.grey{background:#6b7280;font-size:13px;vertical-align:3px}
+.gantt{position:relative;height:84px;margin-top:12px;background:rgba(0,0,0,.03);border-radius:10px}
+.gantt .b{position:absolute;top:8px;height:68px;border-radius:5px;font-size:15px;font-weight:800;line-height:1.15;padding:6px 5px;overflow:hidden;color:#1b1f3b;box-shadow:0 0 0 1.5px var(--card)}
+.gantt .act{background:var(--s1);color:#fff}.gantt .show{background:var(--s2)}.gantt .eat{background:var(--s3)}.gantt .walk{background:var(--walk)}
+.gantt .early{background:repeating-linear-gradient(45deg,var(--s2) 0 4px,#fff 4px 8px);font-size:12px}
+.axis{position:relative;height:24px;font-size:15px;font-weight:700;color:var(--muted);margin-bottom:8px}.axis span{position:absolute;transform:translateX(-50%)}
+.money{margin-top:18px;font-size:28px}.money .small{display:block;margin-top:4px}
+.verdict{margin-top:14px;padding:14px 18px;border-radius:12px;font-size:22px;line-height:1.4}
+.verdict.bad{background:rgba(198,40,40,.09);border-left:6px solid var(--bad)}.verdict.ok{background:rgba(22,128,74,.10);border-left:6px solid var(--ok)}
+.sbar{display:flex;gap:3px;height:46px;margin-top:10px}
+.seg{display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff;border-radius:4px;overflow:hidden;white-space:nowrap}
+.seg.s1{background:var(--s1)}.seg.s2{background:var(--s2);color:#1b1f3b}.seg.s3{background:var(--s3);color:#1b1f3b}
+.callout{margin-top:18px;padding:14px 18px;border-radius:12px;background:rgba(31,95,191,.08);border-left:6px solid var(--s1);font-size:22px}
+.pchart{display:flex;align-items:flex-end;justify-content:center;gap:44px;height:330px;margin-top:10px;border-bottom:3px solid var(--line);padding-top:40px}
+.pcol{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;width:120px;position:relative}
+.pval{font-size:34px;font-weight:900;margin-bottom:6px}
+.pbar{width:96px;border-radius:6px 6px 0 0}
+.pbar.before{background:repeating-linear-gradient(135deg,#8a93a8 0 7px,#b8bfcd 7px 14px)}
+.pbar.after{background:repeating-linear-gradient(135deg,var(--s1) 0 7px,#5b8fe0 7px 14px)}
+.pcap{position:absolute;bottom:-36px;font-size:21px;font-weight:800;white-space:nowrap}
+.pchart+.small{margin-top:44px}
+.stackcol{display:flex;flex-direction:column;gap:6px}.stackcol .verdict{margin-top:6px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.kv{font-size:62px;font-weight:900;color:var(--accent);line-height:1}.kl{font-size:21px;font-weight:700;margin-top:6px;line-height:1.3}
+.card>.kv .kl{font-size:22px;color:var(--fg)}
+.formula{margin-top:14px;padding:16px 18px;border-radius:12px;background:rgba(242,107,29,.1);font-weight:800;font-size:24px}
+.closing{margin:0;color:var(--on);font-size:34px;font-weight:900;text-shadow:0 2px 0 rgba(0,0,0,.16)}
+.diagram{padding:12px 16px;background:#fff}
+.diagram svg{display:block}
+.note-list{margin:0;padding-left:22px;color:var(--on);font-size:18px;line-height:1.45}
+.hbar{display:grid;grid-template-columns:330px 1fr 56px;gap:10px;align-items:center;margin:7px 0;font-size:18px}
+.hbar .track{height:20px}.hbar .fill{height:100%;background:var(--s1);border-radius:0 4px 4px 0}.hbar .fill.muted{background:var(--walk)}
+.gloss{margin:8px 0 0;display:grid;grid-template-columns:280px 1fr;gap:6px 14px;font-size:18px}.gloss dt{font-weight:800}.gloss dd{margin:0}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.9em}
+.pager{position:absolute;right:64px;bottom:18px;color:var(--on);font-size:16px;font-weight:800}
+#hud{position:fixed;top:8px;right:10px;opacity:.55;display:flex;gap:8px;align-items:center;z-index:5;font:700 13px system-ui,sans-serif;color:#fff}
+#hud button{background:rgba(255,255,255,.92);color:#1b1f3b;border:0;border-radius:8px;padding:6px 11px;font-weight:800;cursor:pointer}
+#notes{display:none;position:fixed;left:0;right:0;bottom:0;max-height:38vh;overflow:auto;background:rgba(15,18,32,.94);color:#fff;padding:14px 22px 48px;font:16px/1.5 system-ui,sans-serif;z-index:4}
+body.shownotes #notes{display:block}
+#hud:hover{opacity:1}
+@media print{
+ @page{size:1600px 900px;margin:0}
+ html,body{overflow:visible;height:auto;background:none}
+ #viewport{position:static;display:block}
+ .slide{display:flex!important;position:relative;left:0;top:0;margin:0;transform:none!important;page-break-after:always;break-after:page}
+ #hud,#notes{display:none!important}
+ body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+<section class="slide " data-notes="Người dùng của VinTrip là phụ huynh, người tự lên lịch một ngày đi khu vui chơi cho cả nhà có trẻ nhỏ. Việc này diễn ra ở ba lúc: trước khi đi phải tra giá, giờ, suất diễn, điều kiện; khi ghép lịch phải cộng thời gian chơi, xếp hàng, đi bộ, ăn uống và tiền; còn khi đang đi, mưa hay một hoạt động thay đổi có thể làm hỏng lịch. Ví dụ gia đình bên phải: hai bé cao 108 và 132 cm, năm tiếng, một triệu rưỡi, muốn xem show 11 giờ. Phụ huynh phải tự trả lời cả loạt câu hỏi đó." data-page="1 / 8" aria-label="Phụ huynh tự lên lịch một ngày đi khu vui chơi — và tự kiểm mọi ràng buộc"><div class="kicker">Ai cần VinTrip · Khi nào</div><h2>Phụ huynh tự lên lịch một ngày đi khu vui chơi — và tự kiểm mọi ràng buộc</h2><div class="cols-3">
+  <div class="card"><div class="when">Trước chuyến đi</div><p>Tra giá vé, giờ mở cửa, suất diễn, bản đồ, điều kiện tuổi/chiều cao.</p></div>
+  <div class="card"><div class="when">Khi ghép lịch</div><p>Cộng thời gian chơi, xếp hàng, đi bộ, ăn nghỉ và tổng chi phí.</p></div>
+  <div class="card"><div class="when">Khi đang đi</div><p>Mưa hoặc một hoạt động thay đổi làm lịch cũ không còn phù hợp.</p></div>
+</div>
+<div class="cols-2 grow">
+  <div class="card accent-left">
+    <div class="label">Bài toán</div>
+    <p class="lead">Phụ huynh phải tự ghép lịch vui chơi từ nhiều nguồn, đồng thời kiểm giờ, chi phí và điều kiện của từng bé. Bỏ sót một ràng buộc có thể khiến gia đình lỡ show, chọn trò trẻ không được tham gia hoặc phát sinh tiền ngoài dự tính.</p>
+    <p class="small muted">Hôm nay họ làm bằng cách: tra web/fanpage, xem review, đối chiếu bản đồ, hỏi người quen rồi tự ghép.</p>
+  </div>
+  <div class="card">
+    <div class="label">Ví dụ một gia đình</div>
+    <ul class="facts">
+      <li>👨‍👩 2 người lớn · 👧 bé 5 tuổi <b>108 cm</b> · 👦 bé 9 tuổi <b>132 cm</b></li>
+      <li>🕘 Ở công viên <b>09:00–14:00</b></li>
+      <li>💰 Ngân sách <b>1.500.000 đồng</b></li>
+      <li>🎭 Muốn xem show <b>11:00</b> · 🍱 ăn trưa liền <b>45 phút</b></li>
+    </ul>
+    <p class="small muted">Trò nào bé 108 cm được chơi? Đi bộ kịp show không? Tổng tiền có vượt không?</p>
+  </div>
+</div><div class="pager">1 / 8</div></section><section class="slide " data-notes="Đây không phải nỗi đau tưởng tượng. Nhóm phỏng vấn ba phụ huynh có con nhỏ, ký hiệu P1, P2, P3 để ẩn danh. Cả ba đều gặp vướng mắc, nhưng mỗi người một kiểu. P1 tưởng vé cổng là xong, tới nơi trò nào cũng thu tiền xu riêng. P2 chuẩn bị gần một tiếng vẫn lỡ show vì đi bộ xa hơn dự tính. P3 thì bé thiếu đúng 2 phân so với mức 1 mét, đứng ngoài khu nước, mất tiền vé. Ba nhóm đau: tiền, thời gian, điều kiện của bé. Khảo sát và dữ liệu thời gian chờ chỉ là nguồn bổ sung, mẫu nhỏ, nhóm để ở phụ lục." data-page="2 / 8" aria-label="Bỏ sót một ràng buộc là gia đình mất show, mất lượt chơi hoặc mất tiền"><div class="kicker">Vướng mắc có thật</div><h2>Bỏ sót một ràng buộc là gia đình mất show, mất lượt chơi hoặc mất tiền</h2><p class="sub">Nhóm phỏng vấn 3 phụ huynh đi cùng trẻ nhỏ (ngoài nhóm, 28/11). Cả 3 đều kể có vướng mắc — <b>mỗi người một kiểu</b>.</p>
+<div class="cols-3 grow">
+  <div class="card pain"><div class="tagline">💸 Chi phí · P1</div>
+    <p class="who">Phụ huynh có 2 con nhỏ (5 tuổi và 2 tuổi)</p>
+    <p><b>Vướng:</b> tưởng vé cổng là đủ; tới nơi mới biết nhiều trò tính tiền xu riêng.</p>
+    <p class="cons">→ Hậu quả: phát sinh tiền ngoài dự tính, phải chạy đi đổi tiền lẻ.</p>
+    <blockquote>“Cứ tưởng mua vé vào cổng là xong…”</blockquote></div>
+  <div class="card pain"><div class="tagline">⏱ Thời gian · P2</div>
+    <p class="who">Phụ huynh có con trai 7 tuổi</p>
+    <p><b>Vướng:</b> chuẩn bị 45–60 phút nhưng không tính đủ quãng đi bộ giữa các khu.</p>
+    <p class="cons">→ Hậu quả: tới nơi thì show 14:00 vừa kết thúc.</p>
+    <blockquote>“…tới nơi thì show vừa kết thúc.”</blockquote></div>
+  <div class="card pain"><div class="tagline">📏 Điều kiện tham gia · P3</div>
+    <p class="who">Phụ huynh có con gái 4 tuổi</p>
+    <p><b>Vướng:</b> khu nước yêu cầu cao trên 1 m; bé thiếu 2 cm, tới cổng mới biết.</p>
+    <p class="cons">→ Hậu quả: bé không được vào, bỏ phí tiền vé khu đó.</p>
+    <blockquote>“…con bé nhà mình thiếu đúng 2 phân…”</blockquote></div>
+</div>
+<p class="note">P1, P2, P3 là mã ẩn danh của 3 người được phỏng vấn. Nguồn bổ sung (chi tiết ở Phụ lục 3): khảo sát — 7/10 câu trả lời gắn nhãn người dùng thật kể có sự cố lần đi gần nhất (chỉ 4/10 đi cùng trẻ nhỏ); dữ liệu thời gian chờ tham khảo ở Mỹ năm 2018 — 20/260 mốc chờ thực tế dài hơn niêm yết ≥10 phút.</p><div class="pager">2 / 8</div></section><section class="slide " data-notes="Giải pháp là một luồng xử lý cố định. Phụ huynh đưa thành viên, chiều cao, khung giờ, ngân sách, sở thích. Code kiểm yêu cầu, lọc bỏ trò bé không đủ điều kiện. Model chỉ làm một việc: chọn một trò ưu tiên trong danh sách đã lọc; trả ID lạ thì code bỏ qua. Bộ xếp lịch, còn gọi là solver, sắp giờ. Bộ kiểm tra lịch, gọi là validator, tính lại điều kiện từng bé và tổng tiền. Cuối cùng model diễn đạt, nhưng nếu diễn đạt sai, code giữ nguyên bản đã kiểm. Dữ liệu là Công viên Mẫu mô phỏng, và VinTrip không mua vé." data-page="3 / 8" aria-label="VinTrip nhận một yêu cầu và trả lịch đã kiểm: code tính, model chỉ chọn trò và diễn đạt"><div class="kicker">VinTrip xử lý phần nào</div><h2>VinTrip nhận một yêu cầu và trả lịch đã kiểm: code tính, model chỉ chọn trò và diễn đạt</h2><div class="io3 grow">
+  <div class="card"><div class="label">Đầu vào</div><ul class="tight">
+    <li>Thành viên, tuổi, chiều cao từng bé</li><li>Khung giờ, ngân sách</li><li>Sở thích, hoạt động bắt buộc (show, ăn trưa)</li>
+    <li class="muted">Khi xếp lại: vị trí, phần đã chơi, tiền đã chi, sự cố</li></ul></div>
+  <div class="pipe">
+    <div class="st code"><b>1 · Kiểm yêu cầu</b><span>Code chuẩn hoá, chặn yêu cầu ngoài phạm vi, thiếu thì hỏi lại</span></div>
+    <div class="st code"><b>2 · Lọc trò</b><span>Code bỏ trò bé không đủ điều kiện</span></div>
+    <div class="st model"><b>3 · Model chọn 1 trò ưu tiên</b><span>Chỉ nhận ID nằm trong danh sách đã lọc</span></div>
+    <div class="st code"><b>4 · Bộ xếp lịch (solver)</b><span>Xếp giờ, đi bộ, show, ăn trưa</span></div>
+    <div class="st code"><b>5 · Bộ kiểm tra lịch (validator)</b><span>Tính lại điều kiện từng bé và tổng tiền</span></div>
+    <div class="st model"><b>6 · Model diễn đạt</b><span>Code giữ lại bản đã xác minh nếu model nói khác</span></div>
+  </div>
+  <div class="card"><div class="label">Đầu ra</div><ul class="tight">
+    <li>Lịch theo giờ + phút đi bộ</li><li>Bảng tiền từng khoản</li><li>Trạng thái: <b>Hợp lệ</b>, <b>Chưa hợp lệ</b>, <b>Cần hỏi thêm</b>, <b>Không khả thi</b>, <b>Từ chối</b></li><li>Giải thích lý do</li></ul></div>
+</div>
+<div class="cols-2">
+  <div class="card slim"><b>Dữ liệu:</b> Công viên Mẫu — <b>dữ liệu mô phỏng</b>, bản chụp (snapshot) <code>CVM-2026-11-28-v1</code>. Không phải giá của công viên thật.</div>
+  <div class="card slim"><b>Phạm vi:</b> chỉ lập và kiểm lịch. <b>Không</b> mua vé, thanh toán hay giữ chỗ. Kiến trúc đầy đủ ở Phụ lục 1.</div>
+</div>
+<div class="legend"><span><i class="lg code"></i>Code tính toán / kiểm tra</span><span><i class="lg model"></i>Model ngôn ngữ</span></div><div class="pager">3 / 8</div></section><section class="slide " data-notes="DEMO LIVE ~2 phút. (1) Mở web /c1, hoặc chạy `python run.py`. (2) Dán ca 1: «Nhà mình 2 người lớn và 2 bé 5 tuổi (cao 108 cm), 9 tuổi (cao 132 cm). Đi Công viên Mẫu từ 09:00 đến 14:00, ngân sách 1.500.000 đồng, ưu tiên trò nhẹ, muốn xem show lúc 11:00 và cần ăn trưa liên tục 45 phút.» Chỉ: nhãn Hợp lệ; show 11:00 có mặt trước 15 phút; ăn trưa liền 45 phút; tổng 1.370.000đ còn 130.000đ; mở trace thấy get_park_catalog → build_park_plan → validate_park_plan. (3) Dán ca 2: «Gia đình 2 người lớn, bé 5 tuổi cao 108 cm và bé 9 tuổi cao 132 cm, đi 09:00–14:00, ngân sách 1.500.000 đồng. Thêm giúp trò tàu lượn yêu cầu cao ít nhất 120 cm cho cả nhà chơi chung.» Chỉ: lịch có tàu lượn bị gắn Chưa hợp lệ kèm lý do bé 108 cm; phương án thay không còn tàu lượn và mới được gắn Hợp lệ. Nếu live ra trò hoặc giờ khác, đọc đúng kết quả trên màn hình. Mất mạng: dùng slide này (output thật của run-6)." data-page="4 / 8" aria-label="Demo: một ca bình thường và một ca cố tình vi phạm điều kiện chiều cao"><div class="kicker">Chạy thật</div><h2>Demo: một ca bình thường và một ca cố tình vi phạm điều kiện chiều cao</h2><div class="demo grow">
+  <div class="card">
+    <div class="rowline"><span class="pill blue">Ca 1 · bình thường</span><span class="pill ok">✓ Hợp lệ (VALID) · 0 vi phạm</span></div>
+    <p class="small">Gia đình ở Slide 1: 2 người lớn, bé 108 cm và 132 cm, 09:00–14:00, 1.500.000đ, ưu tiên trò nhẹ, show 11:00, ăn trưa 45 phút.</p>
+    <div class="gantt" role="img" aria-label="Lịch 09:00–14:00 của lượt run-6: Vườn sinh thái 09:05–10:15, có mặt 10:45, show 11:00–11:30, tàu hỏa 11:36–12:06, ăn trưa 12:10–12:55, trò điện tử 12:58–13:28, thủy cung 13:28–13:58, xen giữa là các chặng đi bộ 3–8 phút"><div class="b walk" style="left:0.00%;width:1.67%" title="09:00–09:05 · đi bộ"></div><div class="b act" style="left:1.67%;width:23.33%" title="09:05–10:15 · Vườn sinh thái">Vườn sinh thái</div><div class="b walk" style="left:25.00%;width:2.67%" title="10:15–10:23 · đi bộ"></div><div class="b early" style="left:35.00%;width:5.00%" title="10:45–11:00 · có mặt"></div><div class="b show" style="left:40.00%;width:10.00%" title="11:00–11:30 · Show 11:00">Show 11:00</div><div class="b walk" style="left:50.00%;width:2.00%" title="11:30–11:36 · đi bộ"></div><div class="b act" style="left:52.00%;width:10.00%" title="11:36–12:06 · Tàu hỏa">Tàu hỏa</div><div class="b walk" style="left:62.00%;width:1.33%" title="12:06–12:10 · đi bộ"></div><div class="b eat" style="left:63.33%;width:15.00%" title="12:10–12:55 · Ăn trưa 45′">Ăn trưa 45′</div><div class="b walk" style="left:78.33%;width:1.00%" title="12:55–12:58 · đi bộ"></div><div class="b act" style="left:79.33%;width:10.00%" title="12:58–13:28 · Trò điện tử">Trò điện tử</div><div class="b act" style="left:89.33%;width:10.00%" title="13:28–13:58 · Thủy cung">Thủy cung</div></div>
+    <div class="axis"><span style="left:0.00%">09:00</span><span style="left:20.00%">10:00</span><span style="left:40.00%">11:00</span><span style="left:60.00%">12:00</span><span style="left:80.00%">13:00</span><span style="left:100.00%">14:00</span></div>
+    <div class="legend dark"><span><i class="lg act"></i>Trò chơi</span><span><i class="lg show"></i>Show</span><span><i class="lg early"></i>Có mặt trước 15′</span><span><i class="lg eat"></i>Ăn trưa</span><span><i class="lg walk"></i>Đi bộ</span></div>
+    <div class="money"><b>1.370.000đ</b> / 1.500.000đ · còn <b>130.000đ</b>
+      <span class="small muted">= vé 2 người lớn 600k + vé 2 bé 350k + ăn trưa 320k + phụ thu 100k</span></div>
+  </div>
+  <div class="card">
+    <div class="rowline"><span class="pill red">Ca 2 · khó</span></div>
+    <p class="small">Cùng gia đình, yêu cầu thêm <b>tàu lượn cao tối thiểu 120 cm</b> “cho cả nhà chơi chung”.</p>
+    <div class="verdict bad">✗ <b>Chưa hợp lệ</b> — bộ kiểm tra báo: <i>bé 5 tuổi (108cm) cao 108cm &lt; 120cm yêu cầu của Tàu lượn Sấm Sét.</i></div>
+    <p class="small">Không tự nới điều kiện. Đưa phương án thay:</p>
+    <div class="verdict ok">✓ <b>Bỏ tàu lượn → Hợp lệ</b>, 0 vi phạm · 8 hoạt động: Vườn sinh thái, Đu quay mini, Tàu hỏa, Sân chơi nước, Rạp phim 4D, Trò điện tử, Thủy cung, Mê cung gương · <b>1.050.000đ</b> (ca này không yêu cầu ăn trưa)</div>
+  </div>
+</div>
+<p class="note">Kết quả đã lưu của lượt <code>run-6@20261128-124828</code>, câu thử C1-01 và C1-09 (eval/run-6.csv). Chạy trực tiếp có thể ra thứ tự trò khác vì model chọn trò ưu tiên — khi đó đọc kết quả trên màn hình.</p><div class="pager">4 / 8</div></section><section class="slide " data-notes="Nhóm đo bằng hai bộ câu. Bộ chính 30 câu: 14 thường, 11 khó, 5 câu phải từ chối; chuẩn đạt chốt từ trước. Bộ bổ sung 20 câu tổng hợp, khoá lại trước khi sửa code. Cần nói rõ: bộ này do cùng người soạn và sửa code, nên không phải đánh giá mù. Chấm có hai phần: code tự đối chiếu giờ, giá, và lịch hợp lệ; người chấm xem hỏi lại và từ chối có đúng không. Cùng một bộ câu được chạy trên mã trước và sau khi sửa. Ngoài ra có 106 test code với model giả — cái đó kiểm logic hàm, không đo chất lượng trả lời." data-page="5 / 8" aria-label="Nhóm đo bằng hai bộ câu thử, chạy cùng câu trên mã trước và sau khi sửa"><div class="kicker">Đánh giá thế nào</div><h2>Nhóm đo bằng hai bộ câu thử, chạy cùng câu trên mã trước và sau khi sửa</h2><div class="cols-2 grow">
+  <div class="card">
+    <div class="label">Bộ chính · 30 câu</div>
+    <div class="sbar"><div class="seg s1" style="width:46.67%" title="Thường: 14/30"><span>Thường 14</span></div><div class="seg s2" style="width:36.67%" title="Khó: 11/30"><span>Khó 11</span></div><div class="seg s3" style="width:16.67%" title="Từ chối: 5/30"><span>Từ chối 5</span></div></div>
+    <p class="small">11 câu dựng từ câu trả lời khảo sát thật, 19 câu nhóm tự viết từ các tình huống trong spec. Chuẩn “đạt” chốt trước CP2.</p>
+    <div class="label" style="margin-top:14px">Bộ bổ sung · 20 câu</div>
+    <div class="sbar"><div class="seg s1" style="width:30.00%" title="Thường: 6/20"><span>Thường 6</span></div><div class="seg s2" style="width:40.00%" title="Khó: 8/20"><span>Khó 8</span></div><div class="seg s3" style="width:30.00%" title="Từ chối: 6/20"><span>Từ chối 6</span></div></div>
+    <p class="small">Câu tổng hợp (synthetic), khoá bằng mã băm trước khi sửa code. <b>Cùng tác giả soạn và sửa code</b> → không phải đánh giá mù độc lập.</p>
+  </div>
+  <div class="card">
+    <div class="label">Chấm thế nào</div>
+    <ul class="tight">
+      <li><b>Code chấm:</b> giờ, giá hiển thị khớp dữ liệu công cụ; mọi lịch gắn Hợp lệ phải qua lại các kiểm tra.</li>
+      <li><b>Người chấm:</b> hỏi lại đúng chỗ thiếu; từ chối đúng (mua vé, ép bỏ kiểm tra, đòi lộ khoá).</li>
+      <li><b>Trước / sau:</b> cùng bộ câu, chạy trên mã trước sửa và sau sửa, model gpt-6-luna.</li>
+    </ul>
+    <div class="callout">Khác với <b>106 test code</b> chạy với model giả (đã chạy lại 28/11, tất cả qua): test code kiểm logic từng hàm, <b>không</b> đo chất lượng câu trả lời nghiệp vụ.</div>
+  </div>
+</div>
+<p class="note">Nguồn: eval/benchmark.csv · eval/metric_spec.yaml · eval/heldout/manifest.json · eval/c1-validation-review.md · spec.md §7</p><div class="pager">5 / 8</div></section><section class="slide " data-notes="Kết quả: bộ chính từ 29 lên 30 trên 30, bộ bổ sung từ 17 lên 19 trên 20. Cả bốn con số đều là chấm nháp, đang chờ nhóm duyệt. Phần sửa: trước đây khi người dùng ép bỏ kiểm tra, hệ thống từ chối ngay mà không chạy validator; giờ validator vẫn chạy, ghi nhận thiếu dữ liệu và không dựng lịch giả. Nhưng nhóm phải nói thẳng: nếu show bắt buộc đã bị huỷ, hệ thống vẫn có thể xếp vào lịch và gắn hợp lệ. Chuẩn của nhóm yêu cầu không có lịch hợp lệ nào sai, nên lỗi này là chưa đạt." data-page="6 / 8" aria-label="Sau khi sửa, kết quả tốt hơn — nhưng còn một lỗi chưa đạt yêu cầu an toàn"><div class="kicker">Kết quả cải tiến</div><h2>Sau khi sửa, kết quả tốt hơn — nhưng còn một lỗi chưa đạt yêu cầu an toàn</h2><div class="cols-3w grow">
+  <div class="card"><div class="label">Bộ chính · 30 câu</div><div class="pchart" role="img" aria-label="Bộ chính: trước sửa 29/30, sau sửa 30/30, chấm nháp"><div class="pcol"><div class="pval">29/30</div><div class="pbar before" style="height:96.7%" title="Trước sửa: 29/30"></div><div class="pcap">Trước sửa</div></div><div class="pcol"><div class="pval">30/30</div><div class="pbar after" style="height:100.0%" title="Sau sửa: 30/30"></div><div class="pcap">Sau sửa</div></div></div><p class="small">run-5 → run-6 · <b>chấm nháp, chờ nhóm duyệt</b></p></div>
+  <div class="card"><div class="label">Bộ bổ sung · 20 câu</div><div class="pchart" role="img" aria-label="Bộ bổ sung: trước sửa 17/20, sau sửa 19/20, chấm nháp"><div class="pcol"><div class="pval">17/20</div><div class="pbar before" style="height:85.0%" title="Trước sửa: 17/20"></div><div class="pcap">Trước sửa</div></div><div class="pcol"><div class="pval">19/20</div><div class="pbar after" style="height:95.0%" title="Sau sửa: 19/20"></div><div class="pcap">Sau sửa</div></div></div><p class="small">heldout-2 → heldout-1 · <b>chấm nháp, chờ nhóm duyệt</b></p></div>
+  <div class="card stackcol">
+    <div class="verdict ok">✓ <b>Đã cải thiện:</b> câu ép “bỏ kiểm tra, cứ gắn hợp lệ” giờ vẫn chạy bộ kiểm tra; nó ghi nhận thiếu dữ liệu và <b>không dựng lịch giả</b>.</div>
+    <div class="verdict bad">✗ <b>Chưa đạt:</b> show bắt buộc <b>đã bị huỷ</b> vẫn có thể bị xếp vào lịch và gắn Hợp lệ. Bộ bổ sung: chỉ <b>8/9</b> lịch gắn Hợp lệ là đúng ràng buộc.</div>
+    <p class="small">Chuẩn C1 không chỉ là ≥80% câu đạt: còn ngưỡng từng metric và <b>không được có lịch Hợp lệ nào vi phạm</b>. Lỗi trên vi phạm đúng điều kiện cứng đó.</p>
+  </div>
+</div>
+<p class="note">Bộ bổ sung không có chuẩn nghiệm thu riêng đã chốt. Run-4 (phiên bản trước nữa) đạt 29/30 và đã được người thứ hai đối chiếu 5/5 câu. Nguồn: eval/c1-validation-review.md · eval/report.md · run-6@20261128-124828 · heldout-1@20261128-125101 · heldout-2@20261128-125702.</p><div class="pager">6 / 8</div></section><section class="slide " data-notes="Về chi phí, nhóm chỉ trình bày phần đã đo. Run-6 chạy 30 câu: 45 lần gọi model, khoảng một lần rưỡi mỗi câu, hơn 31 nghìn token vào và 18 nghìn token ra, lấy từ số liệu API trả về. Nhưng để ra tiền cần đơn giá đã xác nhận của model đang chạy, mà nhóm chưa có; tỷ lệ thành công cũng mới là chấm nháp. Công thức nằm trên slide. Và quan trọng nhất: nhóm chưa đo được phụ huynh tiết kiệm bao nhiêu phút, nên chưa kết luận lợi ích lớn hơn chi phí." data-page="7 / 8" aria-label="Đã đo được lượng token; chưa đủ dữ kiện để tính tiền và thời gian tiết kiệm"><div class="kicker">Chi phí và giá trị</div><h2>Đã đo được lượng token; chưa đủ dữ kiện để tính tiền và thời gian tiết kiệm</h2><div class="cols-2 grow">
+  <div class="card">
+    <div class="label">Đã đo · run-6, 30 câu, model gpt-6-luna</div>
+    <div class="kpis">
+      <div><div class="kv">45</div><div class="kl">lần gọi model<br><span class="muted">≈1,5 lần/câu</span></div></div>
+      <div><div class="kv">31.265</div><div class="kl">token vào<br><span class="muted">≈1.042/câu</span></div></div>
+      <div><div class="kv">18.463</div><div class="kl">token ra<br><span class="muted">≈615/câu</span></div></div>
+    </div>
+    <p class="small">Token lấy từ số liệu sử dụng API trả về, không ước lượng. Token là đơn vị chữ mà nhà cung cấp model tính tiền. 0 lỗi kỹ thuật.</p>
+  </div>
+  <div class="card">
+    <div class="label">Còn thiếu</div>
+    <div class="formula">Chi phí / task thành công = chi phí trung bình mỗi phiên ÷ tỷ lệ thành công đã duyệt</div>
+    <ul class="tight">
+      <li>✗ Chưa có <b>đơn giá</b> đã xác nhận cho model/endpoint đang chạy → chưa ra số tiền chính thức.</li>
+      <li>✗ Tỷ lệ thành công mới là <b>chấm nháp</b>.</li>
+      <li>✗ Chưa đo <b>số phút</b> phụ huynh tiết kiệm được → chưa so được chi phí với giá trị.</li>
+    </ul>
+  </div>
+</div>
+<p class="note">Nguồn: eval/c1-validation-review.md (bảng Usage API) · spec.md §8 · cost/cost-estimate.md</p><div class="pager">7 / 8</div></section><section class="slide " data-notes="Tóm lại, lát cắt C1 đã chạy được: từ một câu tiếng Việt ra lịch, bảng tiền và trạng thái, chặn được trò bé không đủ chiều cao. Nhưng dữ liệu còn là mô phỏng, lỗi show huỷ chưa sửa, điểm mới chưa duyệt, và chưa đo được thời gian tiết kiệm. Ba bước tiếp theo, đều là dự kiến: sửa lỗi show huỷ và checker; cho phụ huynh thật dùng thử và bấm giờ; rồi mới tính chi phí. Cảm ơn ban giám khảo." data-page="8 / 8" aria-label="Kết luận: lát cắt C1 đã chạy được trên dữ liệu mô phỏng, cần sửa tiếp trước khi thử với phụ huynh"><div class="kicker">Kết luận</div><h2>Kết luận: lát cắt C1 đã chạy được trên dữ liệu mô phỏng, cần sửa tiếp trước khi thử với phụ huynh</h2><div class="cols-3 grow">
+  <div class="card"><div class="label ok">Đã làm được</div><ul class="tight">
+    <li>Từ một câu tiếng Việt ra lịch theo giờ, bảng tiền, trạng thái</li>
+    <li>Bộ kiểm tra chặn trò bé không đủ chiều cao và đưa phương án thay</li>
+    <li>Hỏi lại khi thiếu dữ kiện, từ chối mua vé</li></ul></div>
+  <div class="card"><div class="label bad">Còn hạn chế</div><ul class="tight">
+    <li>Dữ liệu Công viên Mẫu là mô phỏng</li>
+    <li>Show bắt buộc đã huỷ có thể vẫn bị gắn Hợp lệ</li>
+    <li>Điểm các lượt mới chưa được nhóm duyệt</li>
+    <li>Chưa đo thời gian tiết kiệm, chưa tính được tiền</li></ul></div>
+  <div class="card"><div class="label">Bước tiếp theo <span class="pill grey">dự kiến</span></div><ol class="tight">
+    <li>Sửa nhận diện show huỷ, đưa vào bộ kiểm tra; sửa checker; soạn bộ câu kiểm định mới</li>
+    <li>Cho phụ huynh thật dùng thử, bấm giờ cùng tác vụ có / không có VinTrip</li>
+    <li>Xác nhận đơn giá model, tính chi phí mỗi task thành công</li></ol></div>
+</div>
+<p class="closing">Mục tiêu: không còn gia đình nào tới cổng mới biết con mình không được chơi.</p><div class="pager">8 / 8</div></section><section class="slide " data-notes="Phụ lục, mở khi được hỏi về kiến trúc." data-page="Phụ lục 1/4" aria-label="Phụ lục 1 · Kiến trúc C1 theo code hiện tại"><div class="kicker">Phụ lục</div><h2>Phụ lục 1 · Kiến trúc C1 theo code hiện tại</h2><div class="card diagram"><svg viewBox="0 0 1520 560" width="100%" role="img" aria-label="Kiến trúc C1: phụ huynh dùng giao diện /c1, qua API Gateway và API C1 tới điều phối agent.answer; code kiểm yêu cầu và chọn nhánh, tra dữ liệu và lọc trò, model chọn một trò ưu tiên, bộ xếp lịch, bộ kiểm tra lịch, dựng kết quả có căn cứ, model diễn đạt, code kiểm phản hồi, trả kết quả và trace về giao diện. Nhánh hỏi lại, thiếu dữ liệu, không khả thi hoặc từ chối đi thẳng tới dựng kết quả." font-family="Be Vietnam Pro,Segoe UI,Roboto,Arial,sans-serif"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs><rect x="20" y="40" width="262" height="84" rx="12" fill="#fff4dc" stroke="#b7791f" stroke-width="2.5"/><text x="151.0" y="88.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Phụ huynh</text><rect x="320" y="40" width="262" height="84" rx="12" fill="#f1f3f7" stroke="#5b6475" stroke-width="2.5"/><text x="451.0" y="72.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Giao diện /c1</text><text x="451.0" y="96.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">web</text><rect x="620" y="40" width="262" height="84" rx="12" fill="#f1f3f7" stroke="#5b6475" stroke-width="2.5"/><text x="751.0" y="72.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">API Gateway</text><text x="751.0" y="96.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">core-api</text><rect x="920" y="40" width="262" height="84" rx="12" fill="#f1f3f7" stroke="#5b6475" stroke-width="2.5"/><text x="1051.0" y="72.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">API C1</text><text x="1051.0" y="96.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">POST /ai/c1/ask</text><rect x="1220" y="40" width="262" height="84" rx="12" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="1351.0" y="72.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Điều phối C1</text><text x="1351.0" y="96.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">agent.answer</text><rect x="1228" y="120" width="85.8" height="22" rx="11" fill="#fff" stroke="#1b7f4b" stroke-width="1.5"/><text x="1270.9" y="135" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b7f4b">ghi trace</text><path d="M282,82.0 L316,82.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M582,82.0 L616,82.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M882,82.0 L916,82.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M1182,82.0 L1216,82.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><rect x="1220" y="210" width="262" height="84" rx="12" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="1351.0" y="242.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Kiểm yêu cầu, chọn nhánh</text><text x="1351.0" y="266.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">c1_flow</text><rect x="920" y="210" width="262" height="84" rx="12" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="1051.0" y="242.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Tra dữ liệu, lọc trò</text><text x="1051.0" y="266.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">get_park_catalog …</text><rect x="928" y="290" width="110.39999999999999" height="22" rx="11" fill="#fff" stroke="#1b7f4b" stroke-width="1.5"/><text x="983.2" y="305" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b7f4b">đọc snapshot</text><rect x="620" y="210" width="262" height="84" rx="12" fill="#e6efff" stroke="#1f5fbf" stroke-width="2.5"/><text x="751.0" y="242.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Model chọn trò ưu tiên</text><text x="751.0" y="266.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">1 ID trong danh sách lọc</text><rect x="628" y="290" width="85.8" height="22" rx="11" fill="#fff" stroke="#1f5fbf" stroke-width="1.5"/><text x="670.9" y="305" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f5fbf">ghi trace</text><rect x="320" y="210" width="262" height="84" rx="12" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="451.0" y="242.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Bộ xếp lịch</text><text x="451.0" y="266.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">build_park_plan</text><rect x="328" y="290" width="110.39999999999999" height="22" rx="11" fill="#fff" stroke="#1b7f4b" stroke-width="1.5"/><text x="383.2" y="305" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b7f4b">đọc snapshot</text><rect x="444.4" y="290" width="53.0" height="22" rx="11" fill="#fff" stroke="#1b7f4b" stroke-width="1.5"/><text x="470.9" y="305" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b7f4b">trace</text><rect x="20" y="210" width="262" height="84" rx="12" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="151.0" y="242.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Bộ kiểm tra lịch</text><text x="151.0" y="266.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">validate_park_plan</text><rect x="28" y="290" width="110.39999999999999" height="22" rx="11" fill="#fff" stroke="#1b7f4b" stroke-width="1.5"/><text x="83.19999999999999" y="305" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b7f4b">đọc snapshot</text><rect x="144.39999999999998" y="290" width="53.0" height="22" rx="11" fill="#fff" stroke="#1b7f4b" stroke-width="1.5"/><text x="170.89999999999998" y="305" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1b7f4b">trace</text><path d="M1351.0,124 L1351.0,206" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M1220,252.0 L1186,252.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M920,252.0 L886,252.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M620,252.0 L586,252.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M320,252.0 L286,252.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><rect x="20" y="400" width="262" height="84" rx="12" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="151.0" y="432.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Dựng kết quả có căn cứ</text><text x="151.0" y="456.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">giờ, tiền từ công cụ</text><rect x="320" y="400" width="262" height="84" rx="12" fill="#e6efff" stroke="#1f5fbf" stroke-width="2.5"/><text x="451.0" y="432.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Model diễn đạt</text><text x="451.0" y="456.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">call_model</text><rect x="328" y="480" width="85.8" height="22" rx="11" fill="#fff" stroke="#1f5fbf" stroke-width="1.5"/><text x="370.9" y="495" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1f5fbf">ghi trace</text><rect x="620" y="400" width="262" height="84" rx="12" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="751.0" y="432.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Kiểm phản hồi</text><text x="751.0" y="456.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">_verified_reply</text><rect x="920" y="400" width="262" height="84" rx="12" fill="#f1f3f7" stroke="#5b6475" stroke-width="2.5"/><text x="1051.0" y="432.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Kết quả + trace</text><text x="1051.0" y="456.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">→ hiển thị trên /c1</text><path d="M151.0,312 L151.0,396" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M282,442.0 L316,442.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M582,442.0 L616,442.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M882,442.0 L916,442.0" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><rect x="1220" y="400" width="262" height="84" rx="12" fill="#fdeceb" stroke="#c62828" stroke-width="2.5"/><text x="1351.0" y="432.0" text-anchor="middle" font-size="19" font-weight="800" fill="#1b1f3b">Hỏi lại · thiếu dữ liệu</text><text x="1351.0" y="456.0" text-anchor="middle" font-size="15" fill="#3d4459" font-family="ui-monospace,Consolas,monospace">không khả thi · từ chối</text><path d="M1351.0,312 L1351.0,396" fill="none" stroke="#c62828" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#ah)"/><text x="1361.0" y="346" text-anchor="start" font-size="15" font-weight="700" fill="#c62828">không lập lịch</text><path d="M1351.0,484 L1351.0,524 L151.0,524 L151.0,488" fill="none" stroke="#c62828" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#ah)"/><text x="760" y="546" text-anchor="middle" font-size="15" font-weight="700" fill="#c62828">kết quả dừng cũng đi qua bước dựng, diễn đạt và kiểm phản hồi</text></svg></div>
+<div class="legend dark"><span><i class="lg user"></i>Người quyết</span><span><i class="lg io"></i>Giao diện / API</span><span><i class="lg code"></i>Code tính toán, kiểm tra</span><span><i class="lg model"></i>Model ngôn ngữ</span><span><i class="lg stop"></i>Dừng, không lập lịch</span></div>
+<ul class="note-list">
+  <li>Đây là luồng điều phối cố định có model hỗ trợ, không phải agent tự gọi công cụ hay tự sửa lịch lặp vô hạn.</li>
+  <li>Model chọn trò ưu tiên chỉ khi có ≥2 trò đủ điều kiện; ID ngoài danh sách thì dùng cách chọn mặc định của solver.</li>
+  <li>Bản web: API C1 còn gửi lịch sang core-api kiểm lại; core-api bác thì không giữ nhãn Hợp lệ.</li>
+  <li>6 công cụ: get_park_catalog · get_show_schedule · get_park_incidents · estimate_walk · build_park_plan · validate_park_plan.</li>
+</ul><div class="pager">Phụ lục 1/4</div></section><section class="slide " data-notes="Phụ lục, mở khi được hỏi về các trạng thái." data-page="Phụ lục 2/4" aria-label="Phụ lục 2 · Luồng nghiệp vụ và các trạng thái trả về"><div class="kicker">Phụ lục</div><h2>Phụ lục 2 · Luồng nghiệp vụ và các trạng thái trả về</h2><div class="card diagram"><svg viewBox="0 0 1640 540" width="100%" role="img" aria-label="Luồng nghiệp vụ C1: nhập yêu cầu; nếu vượt phạm vi hoặc đòi bỏ kiểm tra thì từ chối; chuẩn hoá; không có dữ liệu thì báo thiếu dữ liệu; thiếu dữ kiện thì hỏi lại; đủ thì chọn hoạt động và xếp lịch; không khả thi hoặc hết thời gian tìm thì báo; có lịch ứng viên thì kiểm giờ, đi bộ, show, điều kiện trẻ, ăn nghỉ, ngân sách; không qua thì chưa hợp lệ, qua thì hợp lệ theo bộ kiểm tra hiện tại; mọi nhánh đều được diễn đạt và trả kết quả." font-family="Be Vietnam Pro,Segoe UI,Roboto,Arial,sans-serif"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs><rect x="5.0" y="88.0" width="110" height="64" rx="10" fill="#f1f3f7" stroke="#5b6475" stroke-width="2.5"/><text x="60" y="115" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Nhập</text><text x="60" y="135" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">yêu cầu</text><polygon points="215,60.0 295.0,120 215,180.0 135.0,120" fill="#fff4dc" stroke="#b7791f" stroke-width="2.5"/><text x="215" y="107" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Vượt phạm vi</text><text x="215" y="126" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">hoặc đòi bỏ</text><text x="215" y="145" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">kiểm tra?</text><rect x="310.0" y="88.0" width="130" height="64" rx="10" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="375" y="115" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Chuẩn hoá</text><text x="375" y="135" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">thông tin</text><polygon points="530,65.0 605.0,120 530,175.0 455.0,120" fill="#fff4dc" stroke="#b7791f" stroke-width="2.5"/><text x="530" y="116" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Có dữ liệu</text><text x="530" y="135" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">phù hợp?</text><polygon points="690,65.0 765.0,120 690,175.0 615.0,120" fill="#fff4dc" stroke="#b7791f" stroke-width="2.5"/><text x="690" y="116" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Đủ dữ kiện</text><text x="690" y="135" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">xác nhận?</text><rect x="785.0" y="88.0" width="130" height="64" rx="10" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="850" y="115" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Chọn hoạt động</text><text x="850" y="135" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">và xếp lịch</text><polygon points="1015,65.0 1090.0,120 1015,175.0 940.0,120" fill="#fff4dc" stroke="#b7791f" stroke-width="2.5"/><text x="1015" y="116" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Kết quả</text><text x="1015" y="135" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">tìm lịch?</text><rect x="1120.0" y="78.0" width="160" height="84" rx="10" fill="#e8f5ec" stroke="#1b7f4b" stroke-width="2.5"/><text x="1200" y="105" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Kiểm giờ, đi bộ,</text><text x="1200" y="125" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">show, điều kiện trẻ,</text><text x="1200" y="145" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">ăn nghỉ, ngân sách</text><polygon points="1395,65.0 1470.0,120 1395,175.0 1320.0,120" fill="#fff4dc" stroke="#b7791f" stroke-width="2.5"/><text x="1395" y="116" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Qua các</text><text x="1395" y="135" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">kiểm tra?</text><path d="M115,120 L131,120" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M295,120 L306,120" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="302.5" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">Không</text><path d="M440,120 L451,120" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M605,120 L611,120" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="610.0" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">Có</text><path d="M765,120 L776,120" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="772.5" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">Có</text><path d="M915,120 L936,120" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M1090,120 L1116,120" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="1105.0" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">Có lịch</text><path d="M1280,120 L1316,120" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M215,178 L215,225 L215,225 L215,258" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="221" y="218" text-anchor="start" font-size="15" font-weight="700" fill="#334155">Có</text><rect x="131.0" y="262.0" width="168" height="76" rx="10" fill="#fdeceb" stroke="#c62828" stroke-width="2.5"/><text x="215" y="295" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Từ chối</text><text x="215" y="315" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">không xác nhận lịch</text><path d="M215,338 L215,436" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M530,178 L530,225 L530,225 L530,258" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="536" y="218" text-anchor="start" font-size="15" font-weight="700" fill="#334155">Không</text><rect x="446.0" y="262.0" width="168" height="76" rx="10" fill="#fff1e0" stroke="#b85c00" stroke-width="2.5"/><text x="530" y="295" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Báo thiếu dữ liệu</text><text x="530" y="315" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">MISSING_DATA</text><path d="M530,338 L530,436" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M690,178 L690,225 L690,225 L690,258" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="696" y="218" text-anchor="start" font-size="15" font-weight="700" fill="#334155">Không</text><rect x="606.0" y="262.0" width="168" height="76" rx="10" fill="#fff1e0" stroke="#b85c00" stroke-width="2.5"/><text x="690" y="295" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Hỏi lại</text><text x="690" y="315" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">NEEDS_INPUT</text><path d="M690,338 L690,436" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M1015,178 L1015,225 L930,225 L930,258" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="924" y="218" text-anchor="end" font-size="15" font-weight="700" fill="#334155">Đã chứng minh</text><rect x="846.0" y="262.0" width="168" height="76" rx="10" fill="#fff1e0" stroke="#b85c00" stroke-width="2.5"/><text x="930" y="295" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Không khả thi</text><text x="930" y="315" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">INFEASIBLE</text><path d="M930,338 L930,436" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M1015,178 L1015,225 L1100,225 L1100,258" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="1106" y="218" text-anchor="start" font-size="15" font-weight="700" fill="#334155">Hết thời gian</text><rect x="1016.0" y="262.0" width="168" height="76" rx="10" fill="#fff1e0" stroke="#b85c00" stroke-width="2.5"/><text x="1100" y="295" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Hết giờ tìm</text><text x="1100" y="315" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">SEARCH_TIMEOUT</text><path d="M1100,338 L1100,436" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M1395,178 L1395,225 L1295,225 L1295,258" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="1289" y="218" text-anchor="end" font-size="15" font-weight="700" fill="#334155">Không</text><rect x="1211.0" y="262.0" width="168" height="76" rx="10" fill="#fdeceb" stroke="#c62828" stroke-width="2.5"/><text x="1295" y="285" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Chưa hợp lệ</text><text x="1295" y="305" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">nêu vi phạm,</text><text x="1295" y="325" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">phương án thay</text><path d="M1295,338 L1295,436" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><path d="M1395,178 L1395,225 L1495,225 L1495,258" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><text x="1501" y="218" text-anchor="start" font-size="15" font-weight="700" fill="#334155">Có</text><rect x="1411.0" y="262.0" width="168" height="76" rx="10" fill="#dff3e6" stroke="#1b7f4b" stroke-width="2.5"/><text x="1495" y="285" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Hợp lệ (VALID)</text><text x="1495" y="305" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">theo bộ kiểm tra</text><text x="1495" y="325" text-anchor="middle" font-size="15" font-weight="500" fill="#1b1f3b">hiện có</text><path d="M1495,338 L1495,436" fill="none" stroke="#334155" stroke-width="2.5" marker-end="url(#ah)"/><rect x="30.0" y="442.0" width="1580" height="56" rx="10" fill="#f1f3f7" stroke="#5b6475" stroke-width="2.5"/><text x="820" y="475" text-anchor="middle" font-size="15" font-weight="800" fill="#1b1f3b">Model diễn đạt → code kiểm phản hồi với căn cứ → trả kết quả</text></svg></div>
+<ul class="note-list">
+  <li>Sơ đồ tổng quát; code còn nhánh tra cứu suất diễn, kiểm lịch phụ huynh đưa vào và xếp lại khi mưa / đã chơi một phần.</li>
+  <li>Không khả thi (INFEASIBLE) chỉ trả khi có phép tính chứng minh; hết thời gian tìm (SEARCH_TIMEOUT) thì không gọi là không khả thi.</li>
+  <li>Nhánh sự cố chỉ chạy khi hệ thống nhận diện đúng câu; lỗi bỏ sót show đã huỷ vẫn tồn tại.</li>
+  <li>“Hợp lệ” nghĩa là qua các kiểm tra hiện có, chưa phải bảo đảm mọi lịch đúng tuyệt đối.</li>
+</ul><div class="pager">Phụ lục 2/4</div></section><section class="slide " data-notes="Phụ lục, mở khi được hỏi về khảo sát và dữ liệu." data-page="Phụ lục 3/4" aria-label="Phụ lục 3 · Hai nguồn bằng chứng bổ sung — mẫu nhỏ, không suy ra tỷ lệ thị trường"><div class="kicker">Phụ lục</div><h2>Phụ lục 3 · Hai nguồn bằng chứng bổ sung — mẫu nhỏ, không suy ra tỷ lệ thị trường</h2><div class="cols-2 grow">
+  <div class="card"><div class="label">Khảo sát C1 · 10 câu trả lời gắn nhãn người dùng thật</div>
+    <p class="small muted">File có thêm 10 dòng nhóm tự viết, không tính. Chỉ 4/10 người đi cùng trẻ nhỏ. Không phải 10 phụ huynh.</p>
+    <p class="small"><b>Lần đi gần nhất</b></p>
+    <div class="hbar"><span>Trễ show / bỏ trò vì hàng chờ, đi bộ</span><div class="track"><div class="fill" style="width:30%"></div></div><b>3/10</b></div><div class="hbar"><span>Mưa hoặc show huỷ làm rối lịch</span><div class="track"><div class="fill" style="width:20%"></div></div><b>2/10</b></div><div class="hbar"><span>Bé không đủ chiều cao/tuổi, trò đóng</span><div class="track"><div class="fill" style="width:20%"></div></div><b>2/10</b></div><div class="hbar"><span>Không có sự cố</span><div class="track"><div class="fill muted" style="width:30%"></div></div><b>3/10</b></div>
+    <p class="small"><b>Thời gian lên lịch</b></p>
+    <div class="hbar"><span>15–30 phút</span><div class="track"><div class="fill muted" style="width:40%"></div></div><b>4/10</b></div><div class="hbar"><span>30–60 phút</span><div class="track"><div class="fill" style="width:50%"></div></div><b>5/10</b></div><div class="hbar"><span>Trên 60 phút</span><div class="track"><div class="fill" style="width:10%"></div></div><b>1/10</b></div>
+  </div>
+  <div class="card"><div class="label">Dữ liệu thời gian chờ tham khảo</div>
+    <div class="kv">20/260 <span class="kl">mốc · 7,7%</span></div>
+    <p>có thời gian chờ thực tế dài hơn bảng niêm yết <b>ít nhất 10 phút</b>.</p>
+    <p class="small">Ví dụ 10/1/2018 lúc 10:46: bảng ghi 55 phút, thực đo 71 phút.</p>
+    <div class="callout">Nguồn: TouringPlans, trò Kilimanjaro Safaris (Disney’s Animal Kingdom, Mỹ), năm 2018. Đây là <b>mốc dữ liệu</b>, không phải số người; không phải số liệu Công viên Mẫu hay công viên ở Việt Nam. Dùng để minh hoạ rủi ro căn giờ theo số niêm yết.</div>
+  </div>
+</div>
+<p class="note">Nguồn: evidence/summary.md · evidence/survey/results-c1.csv · evidence/data-mining.md</p><div class="pager">Phụ lục 3/4</div></section><section class="slide " data-notes="Phụ lục, thuật ngữ và nguồn." data-page="Phụ lục 4/4" aria-label="Phụ lục 4 · Thuật ngữ và nguồn"><div class="kicker">Phụ lục</div><h2>Phụ lục 4 · Thuật ngữ và nguồn</h2><div class="cols-2 grow">
+  <div class="card"><div class="label">Thuật ngữ</div><dl class="gloss">
+    <dt>Bộ xếp lịch (solver)</dt><dd>Code tìm cách sắp các hoạt động vào khung giờ (beam search có giới hạn thời gian).</dd>
+    <dt>Bộ kiểm tra lịch (validator)</dt><dd>Code tính lại giờ, đi bộ, suất diễn, điều kiện từng bé, ăn nghỉ, ngân sách.</dd>
+    <dt>Hợp lệ (VALID)</dt><dd>Lịch qua mọi kiểm tra hiện có của validator.</dd>
+    <dt>Cần hỏi thêm (NEEDS_INPUT)</dt><dd>Thiếu dữ kiện quyết định, hệ thống hỏi lại thay vì đoán.</dd>
+    <dt>Bản chụp dữ liệu (snapshot)</dt><dd>Một phiên bản cố định của dữ liệu công viên mô phỏng.</dd>
+    <dt>Trace</dt><dd>Nhật ký mỗi lượt: công cụ, model, token, thời gian.</dd>
+    <dt>Chấm nháp</dt><dd>Điểm đề xuất, chưa được nhóm duyệt chính thức.</dd>
+  </dl></div>
+  <div class="card"><div class="label">Nguồn trong repo</div><ul class="tight mono">
+    <li>spec.md (§1–§9)</li><li>evidence/summary.md · evidence/interviews/P1–P3.md</li>
+    <li>evidence/survey/results-c1.csv · evidence/data-mining.md</li>
+    <li>codebase/agent.py · c1_flow.py · park_engine.py · tools.py</li>
+    <li>eval/benchmark.csv · eval/heldout/ · eval/run-6.csv</li>
+    <li>eval/c1-validation-review.md · eval/report.md</li>
+    <li>vintrip/ai/app/api/c1.py (API C1)</li></ul></div>
+</div><div class="pager">Phụ lục 4/4</div></section>
+</div>
+<div id="notes" aria-live="polite"></div>
+<div id="hud"><button id="prev" aria-label="Trang trước">←</button><span id="count"></span><button id="next" aria-label="Trang sau">→</button>
+<button id="nbtn">Ghi chú (N)</button><span id="timer">⏱ T</span></div>
+<script>
+const S=[...document.querySelectorAll('.slide')],N=document.getElementById('notes'),C=document.getElementById('count'),T=document.getElementById('timer');
+let i=0,t0=null;
+function fit(){const k=Math.min(innerWidth/1600,innerHeight/900);S.forEach(s=>s.style.transform='scale('+k+')');}
+function show(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,k)=>s.classList.toggle('on',k===i));
+ C.textContent=S[i].dataset.page;N.textContent=S[i].dataset.notes;try{history.replaceState(null,'','#'+(i+1));}catch(e){}}
+addEventListener('resize',fit);
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}
+ else if(['ArrowLeft','PageUp'].includes(e.key))show(i-1);else if(e.key==='Home')show(0);else if(e.key==='End')show(S.length-1);
+ else if(e.key==='n'||e.key==='N')document.body.classList.toggle('shownotes');else if(e.key==='t'||e.key==='T')t0=t0?null:Date.now();});
+document.getElementById('prev').onclick=()=>show(i-1);document.getElementById('next').onclick=()=>show(i+1);
+document.getElementById('nbtn').onclick=()=>document.body.classList.toggle('shownotes');
+setInterval(()=>{if(!t0){T.textContent='⏱ T';return}const s=Math.floor((Date.now()-t0)/1000);T.textContent='⏱ '+Math.floor(s/60)+':'+String(s%60).padStart(2,'0')+(s>300?' · quá 5 phút':'')},500);
+fit();show((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>
