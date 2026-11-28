@@ -53,7 +53,7 @@ Một số câu xếp lại lịch có thêm lịch trước đó, vị trí hi�
 
 ## Dữ liệu của lát cắt cũ (không dùng cho C1)
 
-Nhánh main hiện không có các bộ dữ liệu nghiệp vụ hủy phòng, khách sạn, chuyến bay hay lịch chuyến đi. Bộ khung chỉ có công cụ trả một đoạn dữ liệu ví dụ. Tài liệu cũ trên máy chưa commit không phải dữ liệu của VinTrip và không được dùng thay bằng chứng C1.
+Các file `policies_sample.json` và `rooms_sample.json` đã có cho các luồng bổ trợ, được mô tả ở Dataset 5 và 6. Chúng không phải bằng chứng pain và không thay snapshot Công viên Mẫu dùng để đánh giá C1. Tài liệu cũ chưa commit trên máy khác không được tính là nguồn của nhánh này.
 
 ## Dữ liệu Ocean Park thật (bổ trợ, không thay Công viên Mẫu)
 
