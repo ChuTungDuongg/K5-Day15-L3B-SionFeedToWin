@@ -229,7 +229,7 @@ async def cancel_policy(core: httpx.AsyncClient, data: Cancellation) -> Answer:
     if missing:
         fields = ", ".join(LABELS[key] for key in missing)
         lines.append(CardLine(label="Thông tin cần bổ sung", detail=fields[0].upper() + fields[1:]))
-        text = f"Bạn cho Vini biết {fields} nhé?"
+        text = f"Bạn cho VinTrip biết {fields} nhé?"
     else:
         text = (
             f"{STATUS[status]}, phí hủy {vnd(fee)}, hoàn {result['refundPercent']}% "

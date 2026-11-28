@@ -1,6 +1,6 @@
 export const summary = {
   badge: 'AI',
-  title: 'Vini đọc giúp bạn',
+  title: 'VinTrip đọc giúp bạn',
   intro: 'Đọc nhanh ý kiến trong phần bình luận.',
   open: 'Tóm tắt bằng AI',
   openShort: 'Tóm tắt',
@@ -10,7 +10,7 @@ export const summary = {
   close: 'Thu gọn',
   dismiss: 'Đóng tóm tắt',
   cancel: 'Hủy',
-  loading: 'Vini đang lấy bản tóm tắt…',
+  loading: 'VinTrip đang lấy bản tóm tắt…',
   loadingHint: 'Bạn vẫn có thể đọc bình luận bên dưới.',
   pendingTitle: 'Chưa có bản tóm tắt',
   pending:

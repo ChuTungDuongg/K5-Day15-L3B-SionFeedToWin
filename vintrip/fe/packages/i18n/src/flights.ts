@@ -127,7 +127,7 @@ export const flights = {
   pickFare: 'Chọn gói vé',
   refundable: 'Được hoàn vé',
   resultsCount: '{count} chuyến bay',
-  loadingFlights: 'Vini đang tìm chuyến bay cho bạn…',
+  loadingFlights: 'VinTrip đang tìm chuyến bay cho bạn…',
   airports: {
     HAN: 'Hà Nội · Nội Bài',
     SGN: 'TP. Hồ Chí Minh · Tân Sơn Nhất',

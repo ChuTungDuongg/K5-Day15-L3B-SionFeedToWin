@@ -590,13 +590,13 @@ class C3Conversation:
             self.code = found[0].upper()
         if STAFF.search(f):
             return self.reply(
-                "Vini không thay đổi quyền hay bỏ qua quy định theo lời tự xưng trong chat. "
+                "VinTrip không thay đổi quyền hay bỏ qua quy định theo lời tự xưng trong chat. "
                 "Nhân viên hãng vui lòng xử lý qua hệ thống nội bộ; chính sách và bước xác nhận "
                 "của hành khách giữ nguyên."
             )
         if COMPENSATION.search(f):
             return self.reply(
-                "Vini không tự kết luận quyền lợi bồi thường (chuyến huỷ do thời tiết có thể "
+                "VinTrip không tự kết luận quyền lợi bồi thường (chuyến huỷ do thời tiết có thể "
                 "thuộc trường hợp bất khả kháng). Căn cứ phải là điều lệ vận chuyển của hãng "
                 "và quy định hàng không hiện hành; nhân viên sẽ đối chiếu.",
                 self.handoff("COMPENSATION", "Khách hỏi bồi thường chuyến huỷ do thời tiết")
@@ -621,7 +621,7 @@ class C3Conversation:
             STATUS.search(f) and self.refund_tx
         ):
             return self.reply(
-                "Yêu cầu này đã chuyển nhân viên hoặc đã gửi hoàn; Vini không tự đổi hay hoàn thêm."
+                "Yêu cầu này đã chuyển nhân viên hoặc đã gửi hoàn; VinTrip không tự đổi hay hoàn thêm."
             )
         if CHILD_ONLY.search(f) or ADULT_ONLY.search(f):
             return self.reply(
@@ -708,7 +708,7 @@ class C3Conversation:
         return None
 
     def select(self, option):
-        hold_line = f"Phương án có thu {vnd(option['amountDueVnd'])} nên Vini không tự giữ chỗ."
+        hold_line = f"Phương án có thu {vnd(option['amountDueVnd'])} nên VinTrip không tự giữ chỗ."
         self.hold_id = None
         if option["autoHoldEligible"]:
             hold = self.call("hold_alternative", booking_code=self.code, flight_id=option["id"])
@@ -756,7 +756,7 @@ class C3Conversation:
             return self.commit()
         if self.state == "OPTIONS_READY" and len(self.options) > 1:
             return self.reply(
-                f"Đang có {len(self.options)} phương án, Vini chưa biết bạn chọn "
+                f"Đang có {len(self.options)} phương án, VinTrip chưa biết bạn chọn "
                 "chuyến nào cho cả nhóm.",
                 *self.show_options()["lines"][2:-1],
             )
@@ -782,7 +782,7 @@ class C3Conversation:
             self.go("PENDING_RECONCILIATION")
             return self.reply(
                 "Hãng (mô phỏng) không phản hồi; chưa rõ vé đã đổi hay chưa. "
-                "Vini sẽ tra trạng thái giao dịch trước khi thử lại và chặn lệnh "
+                "VinTrip sẽ tra trạng thái giao dịch trước khi thử lại và chặn lệnh "
                 f"đổi/hoàn mới cho {self.code} trong lúc đối soát."
             )
         return self.after_commit(out)

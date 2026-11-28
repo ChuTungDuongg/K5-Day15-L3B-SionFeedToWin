@@ -44,7 +44,7 @@
 | FE-13 | Hero trang chủ: chữ "VinTrip" lớn + slogan mới "Mỗi hành trình là một câu chuyện đáng nhớ." viết bằng Dancing Script; font chữ chính toàn trang đổi sang Be Vietnam Pro (token đã đổi, xem `fe-redesign.md` §1.2); ảnh hero đổi sang biển hồ Ocean Park `ocean-park/ocean-park-lagoon.jpg` | **Codex** | FE-05 | XONG |
 | FE-14 | Khôi phục route `app/auth/google/mobile/route.ts` (đăng nhập Google cho app di động) để `pnpm typecheck` và build Docker chạy được; test có sẵn là đặc tả | **Antigravity** | — | TODO |
 | FE-15 | Gộp C1 vào trang chủ: khung lập lịch Công viên Mẫu (`#lich-vui-choi`) nằm dưới mục "Gợi ý cho bạn", trên dải "VINTRIP TICKET", thêm tab "Lịch vui chơi"; `/c1` dùng chung component | **Codex** | FE-13 | TODO |
-| FE-16 | Chatbot đổi tên "Vini" → "VinTrip", mô tả "Chồn nhỏ đồng hành cùng bạn" (i18n `assistant.ts` + prompt `vintrip/ai/app/prompts/assistant-responder.v5.md`); sửa chuỗi sót `initials: 'TF'`, "rái cá biển". Không đổi `codebase/agent.py` (C1 đã chấm) | **Codex** | FE-13 | ĐANG LÀM |
+| FE-16 | Chatbot đổi tên "Vini" → "VinTrip", mô tả "Chồn nhỏ đồng hành cùng bạn" (i18n `assistant.ts` + prompt `vintrip/ai/app/prompts/assistant-responder.v5.md`); sửa chuỗi sót `initials: 'TF'`, "rái cá biển". Không đổi `codebase/agent.py` (C1 đã chấm) | **Codex** | FE-13 | CHỜ NGHIỆM THU |
 | FE-17 | Đánh bóng trang chủ theo `docs/design/fe-polish-handoff.md` đợt 2–3 (bento, tấm vé sổ tay, banner cộng đồng, chân trang, hover) + quyết định màu phụ xanh cổ vịt | **Codex** | FE-15 | SAU CP4 |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
@@ -119,11 +119,11 @@ Kiểm: MODEL_PROVIDER=fake pnpm test: 790/790 test web và các package đạt;
 
 ## FE-16 · Đổi tên chatbot thành VinTrip (Codex)
 
-**Codex 28/11/2026 — ĐANG LÀM.** Đổi tên/câu chữ hiển thị Vini/VINI thành VinTrip/VINTRIP trong i18n; assistant.name = VinTrip, subtitle = Chồn nhỏ đồng hành cùng bạn, lời chào và các nhãn chat/kỳ ở đồng bộ; sửa busy thành câu tự nhiên. Đồng bộ các nhãn liên quan trong i18n/src/{assistant,ota,mobile,api,ai-usage,user-activity,flights,summary}.ts; demo.ts feed.initials = VT. Không còn “rái cá” trong i18n, kể cả nhãn khung avatar viết hoa.
+**Codex 28/11/2026 — CHỜ NGHIỆM THU.** Đổi tên/câu chữ hiển thị Vini/VINI thành VinTrip/VINTRIP trong i18n; assistant.name = VinTrip, subtitle = Chồn nhỏ đồng hành cùng bạn, lời chào và các nhãn chat/kỳ ở đồng bộ; sửa busy thành câu tự nhiên. Đồng bộ các nhãn liên quan trong i18n/src/{assistant,ota,mobile,api,ai-usage,user-activity,flights,summary}.ts; demo.ts feed.initials = VT. Không còn “rái cá” trong i18n, kể cả nhãn khung avatar viết hoa.
 
 Prompt assistant-responder.v5.md: đổi tên/persona, cách xưng và ví dụ; đã đối chiếu để bảo đảm mọi luật còn lại giữ nguyên. Người dùng xác nhận mở rộng phần câu trả lời dự phòng backend: chỉ đổi tên/persona trong app/services/assistant/social.py và skills/{booking_draft,cancel_policy,c3_flow,verified_itinerary}.py, giữ nguyên xử lý/regex/nhánh điều kiện. Đối chiếu từng file với HEAD xác nhận ngoài phép thay tên/persona không có thay đổi khác; Python parse đạt. Không sửa codebase/, không đổi tên file ảnh hoặc biến/component. Không có assertion test hiện có so khớp cứng tên/mô tả cũ cần cập nhật.
 
-Kiểm: MODEL_PROVIDER=fake pnpm test — 790/790 test web và các package đạt, chỉ suite route Google mobile thiếu có sẵn không nạp được (FE-14). AI pytest và typecheck đang chờ kết quả. rg -n -i 'rái cá' packages/i18n/src: không có kết quả; git diff --check đạt.
+Kiểm: MODEL_PROVIDER=fake pnpm test — 790/790 test web và các package đạt, chỉ suite route Google mobile thiếu có sẵn không nạp được (FE-14). Trong vintrip/ai, MODEL_PROVIDER=fake LLM_PROVIDER=fake .venv/Scripts/python.exe -m pytest -q: 1362 passed, 8 skipped. MODEL_PROVIDER=fake pnpm typecheck: chỉ TS2307 thiếu app/auth/google/mobile/route.ts có sẵn (FE-14), các package đạt. rg -n -i 'rái cá' packages/i18n/src: không có kết quả; git diff --check đạt.
 
 ## Nhật ký nghiệm thu (Claude ghi)
 

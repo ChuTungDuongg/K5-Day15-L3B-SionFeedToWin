@@ -80,7 +80,7 @@ export const demo = {
     guideBody: 'Lộ trình tham khảo cho demo. Chưa kiểm tra dịch vụ hay xác nhận khả năng đặt.',
     back: 'Về bảng tin',
     creator: 'Cộng đồng Vintrip',
-    initials: 'TF',
+    initials: 'VT',
     commentAuthor: 'Minh Anh',
     comment: 'Lưu lại để lên kế hoạch cho chuyến đi tiếp theo.',
   },
