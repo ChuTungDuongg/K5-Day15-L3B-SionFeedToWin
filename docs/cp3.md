@@ -4,7 +4,7 @@
 
 [Bằng chứng C1 của nhóm](https://github.com/ChuTungDuongg/K5-Day15-L3B-SionFeedToWin/blob/vintrip/evidence/summary.md)
 
-Nhóm mình muốn biết liệu có thể dựa vào thời gian chờ niêm yết để căn giờ xem show cho gia đình hay không. Với trò Kilimanjaro Safaris, nhóm đối chiếu được 260 mốc trong năm 2018 có cả thời gian niêm yết và thời gian khách thực chờ. Có 20 mốc khách chờ lâu hơn ít nhất 10 phút (7,7%). Khảo sát của nhóm có 4 dòng đi cùng trẻ nhỏ trong 10 dòng gắn nhãn người dùng thật, nên nhóm chỉ dùng khảo sát để bổ sung bối cảnh. [Cách đếm và 5 ví dụ](../evidence/data-mining.md)
+Nhóm mình muốn biết liệu có thể dựa vào thời gian chờ niêm yết để căn giờ xem show cho gia đình hay không. Với trò Kilimanjaro Safaris, nhóm đối chiếu được 260 mốc trong năm 2018 có cả thời gian niêm yết và thời gian khách thực chờ. Có 20 mốc khách chờ lâu hơn ít nhất 10 phút (7,7%). Nhóm cũng phỏng vấn trực tiếp 3 phụ huynh ngoài nhóm đi cùng trẻ nhỏ ([P1.md](../evidence/interviews/P1.md)–[P3.md](../evidence/interviews/P3.md)): 3/3 đều gặp sự cố thực tế (phát sinh phụ thu ngoài vé cổng, lỡ giờ show 14:00 do đi bộ xa giữa các khu, và bé thiếu 2 cm dưới 1 m mất tiền vé khu nước). Khảo sát của nhóm có 4 dòng đi cùng trẻ nhỏ trong 10 dòng gắn nhãn người dùng thật, được dùng để bổ sung bối cảnh. [Cách đếm và 5 ví dụ](../evidence/data-mining.md)
 
 ## Ô 2 · Video
 
@@ -12,7 +12,7 @@ Nhóm mình muốn biết liệu có thể dựa vào thời gian chờ niêm y�
 
 ## Ô 3 · Kết quả lượt 1
 
-> Nhóm mình thử 30 câu, gồm 14 câu thường, 11 câu khó và 5 câu từ chối. Ở lượt đầu (run-1@20261127-231617), bản chấm nháp hồi cứu ghi 25/30 câu đạt (83,3%); một câu hết thời gian chờ. Lượt đã ghi đủ điểm (run-4@20261127-234013) đạt 29/30 (96,7%). Câu C1-17 từ chối đúng nhưng thiếu bước kiểm lịch mà tiêu chí yêu cầu, nên nhóm giữ điểm 0. Hai lượt này chạy trước khi thêm bước model chọn trò. Nhóm mình đã duyệt 5/5 điểm do AI đề xuất khi đối chiếu lại: 4 câu đạt, C1-17 trượt. Cả 5 điểm khớp với run-4. Phần còn chờ là lượt tự chấm độc lập của người thứ hai.
+> Nhóm mình thử 30 câu, gồm 14 câu thường, 11 câu khó và 5 câu từ chối. Ở lượt đầu (run-1@20261127-231617), bản chấm nháp hồi cứu ghi 25/30 câu đạt (83,3%); một câu hết thời gian chờ. Lượt đã ghi đủ điểm (run-4@20261127-234013) đạt 29/30 (96,7%). Câu C1-17 từ chối đúng nhưng thiếu bước kiểm lịch mà tiêu chí yêu cầu, nên nhóm giữ điểm 0. Hai lượt này chạy trước khi thêm bước model chọn trò. Nhóm mình đã duyệt 5/5 điểm do AI đề xuất khi đối chiếu lại: 4 câu đạt, C1-17 trượt. Người thứ hai (Hà Lê Duy, `TV3`) đã hoàn tất tự chấm độc lập 5 câu trong [eval/doi-chieu-5.md](../eval/doi-chieu-5.md) và khớp **5/5 (100%)** với `run-4`.
 
 [Điểm từng câu run-4](../eval/run-4.csv) · [Báo cáo và điểm lượt đầu](../eval/report.md) · [Phiếu đối chiếu bởi người](../eval/doi-chieu-5.md)
 
