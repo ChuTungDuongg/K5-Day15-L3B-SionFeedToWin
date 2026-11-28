@@ -41,7 +41,7 @@
 | FE-09 | Trợ lý Vini, giỏ hàng, thanh toán, đặt chỗ, tài khoản, đăng nhập | **Antigravity** | FE-01, FE-02 | XONG |
 | FE-11 | Thống nhất kiểu nút bị khoá: nền `--color-surface-muted`, chữ `--color-text-muted`, không dùng `opacity` | **Codex** (`globals.css` `.primary-button:disabled`) + **Antigravity** (`auth.module.css` `.submitBtn`, `flights.module.css` `.searchButton`) | FE-04 | Antigravity XONG · Codex TODO |
 | FE-12 | Logo VinTrip mới theo yêu cầu trực tiếp: bỏ biểu tượng chữ V, đồng bộ SVG sáng/tối và favicon | **Codex** | FE-01, FE-04 | XONG |
-| FE-13 | Hero trang chủ: slogan mới "Mỗi hành trình là một câu chuyện đáng nhớ." viết bằng font thư pháp Great Vibes (OFL, lấy lại từ commit `5c2a221`) | **Codex** | FE-05 | TODO |
+| FE-13 | Hero trang chủ: slogan mới "Mỗi hành trình là một câu chuyện đáng nhớ." viết bằng font thư pháp Great Vibes (OFL, lấy lại từ commit `5c2a221`); ảnh hero đổi sang biển hồ Ocean Park `ocean-park/ocean-park-lagoon.jpg` | **Codex** | FE-05 | TODO |
 | FE-10 | Nghiệm thu từng ticket của Codex và Antigravity, rà tổng thể cuối cùng | **Claude** | mỗi ticket | liên tục |
 
 ## Phân vùng file (không ai sửa vùng của người khác)
