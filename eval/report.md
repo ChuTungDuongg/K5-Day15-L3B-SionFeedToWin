@@ -37,7 +37,7 @@ Khi checkout Windows, CSV có thể dùng CRLF còn chuỗi trong JSONL vẫn l�
 
 Có 26/30 output giống hệt run-2. Đã đối chiếu lại bốn output thay đổi. C1-04, C1-26 và C1-27 chỉ thêm nhãn nguồn cho phần đã xong. Trong hai metric do người chấm, chỉ C1-11 đổi output và được chấm lại đạt về trạng thái. Các câu còn lại của hai metric này giữ đánh giá cũ.
 
-**Đối chiếu bổ sung:** AI khớp 5/5 với bản chấm trong một yêu cầu đã bỏ điểm và ghi chú cũ. [Chi tiết](doi-chieu-ai.md). **Đối chiếu bởi người:** chờ người thứ hai hoàn thành [phiếu 5 output](doi-chieu-5.md) và ghi số khớp thực tế.
+**Đối chiếu bổ sung:** AI khớp 5/5 với bản chấm trong một yêu cầu đã bỏ điểm và ghi chú cũ. [Chi tiết](doi-chieu-ai.md). Ngày 28/11/2026, thành viên nhóm đã duyệt cả 5 điểm đề xuất. **Chấm độc lập:** chờ người thứ hai hoàn thành [phiếu 5 output](doi-chieu-5.md) và ghi số khớp thực tế.
 
 ## Kiểm phiên bản chọn trò trước CP3
 

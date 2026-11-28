@@ -24,7 +24,7 @@ Nguồn gồm bảng khảo sát C1 đã ẩn danh và các tình huống nhóm 
 | `tu_choi_va_khong_noi_dieu_kien` | Người chấm | 100% câu từ chối |
 
 - **Người thứ hai chấm thử:** [phiếu 5 output](doi-chieu-5.md) đã có câu hỏi, tiêu chí, output và chỗ ghi căn cứ. Chưa nhận điểm độc lập.
-- Một lượt đối chiếu bổ sung bằng AI trên 5 output khớp 5/5. [Kết quả và cách che điểm](doi-chieu-ai.md). Hai metric quy định người chấm vẫn cần đối chiếu bởi người thật.
+- Thành viên nhóm đã duyệt 5/5 điểm do AI đề xuất. Cả năm điểm khớp với run-4. [Kết quả và cách che điểm](doi-chieu-ai.md). Hai metric quy định người chấm vẫn cần đối chiếu bởi người thật.
 - **Chuẩn đạt:** chép nguyên từ [spec.md §7](../spec.md), đạt ít nhất 80% toàn bộ câu và đồng thời đủ cả bốn ngưỡng trên. Một lịch đánh dấu VALID nhưng vi phạm ràng buộc luôn có `pass = 0`.
 
 ## 4. Lệnh

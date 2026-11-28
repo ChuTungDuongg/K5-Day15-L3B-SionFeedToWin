@@ -12,7 +12,7 @@ Nhóm mình muốn biết liệu có thể dựa vào thời gian chờ niêm y�
 
 ## Ô 3 · Kết quả lượt 1
 
-> Nhóm mình thử 30 câu, gồm 14 câu thường, 11 câu khó và 5 câu từ chối. Ở lượt đầu (run-1@20261127-231617), bản chấm nháp hồi cứu ghi 25/30 câu đạt (83,3%); một câu hết thời gian chờ. Lượt đã ghi đủ điểm (run-4@20261127-234013) đạt 29/30 (96,7%). Câu C1-17 từ chối đúng nhưng thiếu bước kiểm lịch mà tiêu chí yêu cầu, nên nhóm giữ điểm 0. Hai lượt này chạy trước khi thêm bước model chọn trò. Phần còn chờ là một người thứ hai đối chiếu độc lập 5 câu.
+> Nhóm mình thử 30 câu, gồm 14 câu thường, 11 câu khó và 5 câu từ chối. Ở lượt đầu (run-1@20261127-231617), bản chấm nháp hồi cứu ghi 25/30 câu đạt (83,3%); một câu hết thời gian chờ. Lượt đã ghi đủ điểm (run-4@20261127-234013) đạt 29/30 (96,7%). Câu C1-17 từ chối đúng nhưng thiếu bước kiểm lịch mà tiêu chí yêu cầu, nên nhóm giữ điểm 0. Hai lượt này chạy trước khi thêm bước model chọn trò. Nhóm mình đã duyệt 5/5 điểm do AI đề xuất khi đối chiếu lại: 4 câu đạt, C1-17 trượt. Cả 5 điểm khớp với run-4. Phần còn chờ là lượt tự chấm độc lập của người thứ hai.
 
 [Điểm từng câu run-4](../eval/run-4.csv) · [Báo cáo và điểm lượt đầu](../eval/report.md) · [Phiếu đối chiếu bởi người](../eval/doi-chieu-5.md)
 

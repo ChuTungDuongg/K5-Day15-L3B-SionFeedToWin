@@ -20,7 +20,7 @@
 |---|---|---|
 | Bằng chứng CP3 | [Phân tích 260 mốc thời gian chờ và 5 ví dụ](../../evidence/data-mining.md); khảo sát có 4/10 dòng gắn nhãn thật đi cùng trẻ | Hà Lê Duy: kiểm bản gốc và quyền trích lời khảo sát; dữ liệu hàng chờ không đo tỷ lệ phụ huynh Việt Nam gặp pain |
 | Vai trò model trong C1 | [Hai ca model thật](../../validation/c1-model-choice.json) chọn A1 hoặc E2 theo sở thích; cả hai lịch qua validator | Dùng phiên bản này khi quay demo |
-| Điểm eval CP3 | Run-4 đã chấm, 29/30; C1-17 = 0 | Người thứ hai chấm [5 output](../../eval/doi-chieu-5.md) rồi ghi số khớp |
+| Điểm eval CP3 | Run-4 đạt 29/30. Thành viên nhóm đã duyệt cả 5 điểm trong [bản đối chiếu bằng AI](../../eval/doi-chieu-ai.md), gồm C1-17 = 0 | Người thứ hai chấm [5 output](../../eval/doi-chieu-5.md) rồi ghi số khớp |
 | Video CP3 | Nhóm xác nhận chưa có | Chu Nguyễn Tùng Dương điều phối quay 30 giây với input, lời gọi thật và kết quả; cấp quyền và mở thử ẩn danh |
 | Hai lượt CP4 | Có run-1 đến run-4 và log thay đổi | Nhóm chọn cặp lượt, ghi rõ cải tiến và so sánh bằng cùng benchmark. Giữ cả lượt lỗi và lượt chạy giữa lúc sửa |
 | Chi phí CP4 | Simulate-1 có 50 phiên, seed 42, token model gpt-6-luna | Chờ nguồn đơn giá model/endpoint, duyệt tỷ lệ thành công và xác nhận giả định persona/quy mô. Giá Gemini trong bảng là kịch bản mẫu, không phải phí thực trả |
