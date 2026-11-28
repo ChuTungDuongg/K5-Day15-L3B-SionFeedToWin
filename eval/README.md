@@ -23,8 +23,8 @@ Nguồn gồm bảng khảo sát C1 đã ẩn danh và các tình huống nhóm 
 | `hoi_lai_va_trang_thai_dung` | Người chấm | ≥85% câu khó |
 | `tu_choi_va_khong_noi_dieu_kien` | Người chấm | 100% câu từ chối |
 
-- **Người thứ hai chấm thử:** chưa có biên bản chấm độc lập 5 output, dù đã có output model thật. Cần ghi người chấm, mã 5 câu và số khớp, không tự điền đạt 4/5. Giữ nguyên định nghĩa và ngưỡng đã khóa.
-- LLM chấm: chưa dùng.
+- **Người thứ hai chấm thử:** [phiếu 5 output](doi-chieu-5.md) đã có câu hỏi, tiêu chí, output và chỗ ghi căn cứ. Chưa nhận điểm độc lập.
+- Thành viên nhóm đã duyệt 5/5 điểm do AI đề xuất. Cả năm điểm khớp với run-4. [Kết quả và cách che điểm](doi-chieu-ai.md). Hai metric quy định người chấm vẫn cần đối chiếu bởi người thật.
 - **Chuẩn đạt:** chép nguyên từ [spec.md §7](../spec.md), đạt ít nhất 80% toàn bộ câu và đồng thời đủ cả bốn ngưỡng trên. Một lịch đánh dấu VALID nhưng vi phạm ràng buộc luôn có `pass = 0`.
 
 ## 4. Lệnh
@@ -33,14 +33,14 @@ Nguồn gồm bảng khảo sát C1 đã ẩn danh và các tình huống nhóm 
 
 ## 5. Đã chạy gì
 
-Kiểm tra CP2 trước đây xác nhận khung chạy với model giả. Đến ngày 28/11, repo đã có các lượt dưới đây. Nhóm xác nhận chưa làm/nộp CP3. Tất cả cột `pass` ở file `run-1.csv` đến `run-4.csv` còn trống, nên `python run.py score` báo chưa chấm xong. Các số nháp không được coi là điểm đã duyệt.
+Run-4 đã điền đủ 30 ô pass từ bản chấm của nhánh Manh. Lệnh score báo 29/30 (làm tròn 97%). Run-1 đến run-3 vẫn chưa điền điểm trong CSV gốc.
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
 | 1 | `run-1@20261127-231617` | gpt-6-luna ở 29 câu có phản hồi | C1-21 timeout, 1 lỗi kỹ thuật | Chưa chấm cột pass | Chưa công bố | Chưa xác nhận |
 | 2 | `run-2@20261127-231855` | gpt-6-luna | Đã tăng thời gian chờ API, 0 lỗi kỹ thuật | Nháp 26/30 | Nháp 86,7% | Chờ duyệt và đủ bốn metric |
 | 3 | `run-3@20261127-233722` | gpt-6-luna | Chạy giữa lúc sửa, giữ toàn bộ log | Chưa có bản chấm | Chưa công bố | Không dùng tự động làm lượt nộp |
-| 4 | `run-4@20261127-234013` | gpt-6-luna | Bổ sung căn cứ và nhãn phần lịch đã thực hiện, 0 lỗi kỹ thuật | Nháp 29/30 | Nháp 96,7% | Chờ nhóm chọn lượt và duyệt điểm |
+| 4 | `run-4@20261127-234013` | gpt-6-luna | Bổ sung căn cứ và nhãn lịch đã thực hiện, 0 lỗi kỹ thuật | 29/30 | 96,7% | Chờ đối chiếu độc lập. Lượt này dùng luồng trước bước model chọn trò |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
