@@ -129,6 +129,8 @@ def _value(act, req):
         value += 60
     if prefer.get("popular") and act["popular"]:
         value += 80
+    if req.get("preferred_activity") == act["id"]:
+        value += 1000  # Ưu tiên đưa lựa chọn của model vào lịch nếu đủ giờ và ngân sách.
     return value
 
 

@@ -56,6 +56,7 @@ const INFO_KINDS = new Set([
   'cancel_policy',
   'approval_draft',
   'verified_itinerary',
+  'flight_disruption',
 ]);
 const INFO_ICONS: Record<string, AssistantIconName> = {
   weather: 'sun',
@@ -64,6 +65,7 @@ const INFO_ICONS: Record<string, AssistantIconName> = {
   summary: 'chat',
   compare: 'compare',
   transport: 'bus',
+  flight_disruption: 'plane',
 };
 const PART_ICONS: Record<DayPart, AssistantIconName> = {
   morning: 'sun',

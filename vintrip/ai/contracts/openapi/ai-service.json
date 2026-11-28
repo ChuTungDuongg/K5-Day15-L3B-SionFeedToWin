@@ -1841,6 +1841,62 @@
         "title": "EmbedResponse",
         "type": "object"
       },
+      "FlightDisruption": {
+        "additionalProperties": false,
+        "description": "Untrusted request slots only; C3 always re-reads the mock snapshot.",
+        "properties": {
+          "action": {
+            "default": "review",
+            "enum": [
+              "review",
+              "hold",
+              "change",
+              "refund",
+              "choose"
+            ],
+            "title": "Action",
+            "type": "string"
+          },
+          "arrivalBefore": {
+            "anyOf": [
+              {
+                "maxLength": 40,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Arrivalbefore"
+          },
+          "bookingCode": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bookingcode"
+          },
+          "targetFlightId": {
+            "anyOf": [
+              {
+                "maxLength": 32,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Targetflightid"
+          }
+        },
+        "title": "FlightDisruption",
+        "type": "object"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -3393,6 +3449,16 @@
             "anyOf": [
               {
                 "$ref": "#/components/schemas/Cancellation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pendingFlightDisruption": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FlightDisruption"
               },
               {
                 "type": "null"

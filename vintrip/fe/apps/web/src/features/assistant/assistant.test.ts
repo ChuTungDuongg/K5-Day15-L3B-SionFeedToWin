@@ -21,6 +21,29 @@ const card = (patch: Partial<AssistantCard>): AssistantCard => ({
   ...patch,
 });
 
+it('hiển thị phương án C3 và bản nháp chờ duyệt, không có nút đặt vé', () => {
+  const disruption = card({
+    kind: 'flight_disruption',
+    title: 'Bản nháp xử lý huỷ chuyến · CHỜ NGƯỜI DÙNG DUYỆT',
+    source: 'Vintrip C3 · MÔ PHỎNG · Không tự động gửi',
+    lines: [
+      { label: 'Trạng thái', detail: 'PENDING_USER_APPROVAL' },
+      { label: 'DEMO-VT101', detail: 'SGN → HAN · Bù thêm 400.000đ' },
+      { label: 'Nội dung bản nháp', detail: 'Đề nghị đổi vé, chờ người duyệt.' },
+      { label: 'Lưu ý an toàn', detail: 'Chưa giữ chỗ, đổi vé, hoàn tiền.' },
+    ],
+  });
+  expect(hasVisibleAssistantCards([disruption])).toBe(true);
+  const html = renderToStaticMarkup(createElement(QueryClientProvider, { client: new QueryClient() },
+    createElement(AssistantCards, { cards: [disruption], onOpen() {} })));
+  expect(html).toContain('PENDING_USER_APPROVAL');
+  expect(html).toContain('400.000đ');
+  expect(html).toContain('MÔ PHỎNG');
+  expect(html).toContain('Đề nghị đổi vé, chờ người duyệt.');
+  expect(html).not.toContain('<button');
+  expect(html).not.toContain('<a ');
+});
+
 describe('nút đặt combo trên web', () => {
   const book = (params: Record<string, string>) => ({
     type: 'book' as const,

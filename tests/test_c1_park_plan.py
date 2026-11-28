@@ -34,6 +34,22 @@ def base_request(**extra):
     return req
 
 
+class ModelChoiceTests(unittest.TestCase):
+    def test_choice_changes_schedule_but_cannot_inject_an_activity(self):
+        req = base_request(window=["09:00", "10:30"], lunch=None, show=None)
+        def planned(choice):
+            with patch.object(agent.c1_flow, "call_model", return_value={"text": choice}):
+                plan, check = agent.c1_flow.plan_and_check(req, "Bé thích khám phá")
+            self.assertTrue(check["valid"])
+            return [item["id"] for item in plan["items"]]
+
+        self.assertIn("A1", planned("A1"))
+        self.assertIn("E2", planned("E2"))
+        self.assertNotEqual(planned("A1"), planned("E2"))
+        baseline = [item["id"] for item in pe.build_plan(req)["items"]]
+        self.assertEqual(planned("không có trong catalog"), baseline)
+
+
 class ToolContractTests(unittest.TestCase):
     def test_tools_registered_with_docs(self):
         for name in ("get_park_catalog", "get_show_schedule", "get_park_incidents", "estimate_walk",

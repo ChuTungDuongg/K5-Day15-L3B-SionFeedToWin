@@ -20,9 +20,15 @@ from app.clients.llm.guarded import GuardedLlmClient
 from app.clients.llm.openai import OpenAILlmClient
 from app.core.breaker import CircuitBreaker
 from app.core.config import get_chat_settings
-from app.services.assistant.controller import ControllerOutput, apply_guards, off_topic_kind, to_understanding
+from app.services.assistant.controller import (
+    ControllerOutput,
+    apply_guards,
+    off_topic_kind,
+    to_understanding,
+)
 from app.services.assistant.planner import today_in_vietnam
 from app.services.assistant.schemas import ChatRequest, Understanding
+from app.services.assistant.skills.c3_engine import is_disruption, is_followup
 from app.services.assistant.skills.cancel_policy import POLICY_CODE, parse_vnd
 from app.services.assistant.turn import REEL_KINDS
 from app.services.summary.injection import match_injection
@@ -120,7 +126,9 @@ def get_role_llm(role: Role) -> GuardedLlmClient:
                 for name, value in prices.items()
             },
             base_url=settings.openai_base_url,
-            reasoning_effort=settings.openai_reasoning_effort if not model.startswith("gpt-4") else "",
+            reasoning_effort=(
+                settings.openai_reasoning_effort if not model.startswith("gpt-4") else ""
+            ),
             max_output_tokens=settings.chat_max_output_tokens,
             **limits,
         )
@@ -137,9 +145,12 @@ def get_role_llm(role: Role) -> GuardedLlmClient:
     return GuardedLlmClient(inner, CircuitBreaker(f"chat-{role}"))
 
 
-COMMERCE_INTENTS = {"cancel_policy", "booking_draft", "verified_itinerary"}
-DESTINATIONS = ("Ocean Park", "VinUni", "Mega Grand World", "Bát Tràng", "Đà Nẵng", "Hà Nội", "TP.HCM", "Đà Lạt", "Hội An", "Vũng Tàu", "Huế",
-                "Nha Trang", "Phú Quốc", "Quy Nhơn", "Hạ Long", "Sa Pa", "Ninh Bình")
+COMMERCE_INTENTS = {"cancel_policy", "booking_draft", "verified_itinerary", "flight_disruption"}
+DESTINATIONS = (
+    "Ocean Park", "VinUni", "Mega Grand World", "Bát Tràng", "Đà Nẵng", "Hà Nội", "TP.HCM",
+    "Đà Lạt", "Hội An", "Vũng Tàu", "Huế", "Nha Trang", "Phú Quốc", "Quy Nhơn", "Hạ Long",
+    "Sa Pa", "Ninh Bình",
+)
 
 
 def deterministic_understanding(request: ChatRequest) -> Understanding | None:
@@ -147,6 +158,10 @@ def deterministic_understanding(request: ChatRequest) -> Understanding | None:
         return None
     message = request.message
     folded = normalize_text(message)
+    if is_disruption(message) or (
+        request.trip and request.trip.pending_flight_disruption and is_followup(message)
+    ):
+        return Understanding(intent="flight_disruption")
     cancellation = re.search(
         r"\b(huy (?:dat )?(?:phong|booking|don)|hoan tien|(?:phi|chinh sach) huy|"
         r"(?:moc gio|han|cutoff) (?:huy|nhan phong)|cutoff)\b", folded,

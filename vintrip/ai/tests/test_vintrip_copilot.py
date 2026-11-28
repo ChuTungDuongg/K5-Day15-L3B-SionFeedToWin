@@ -3,6 +3,7 @@
 import asyncio
 import json
 from dataclasses import replace
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import httpx
@@ -23,13 +24,16 @@ class DownRedis:
     def __getattr__(self, _name):
         async def unavailable(*_args):
             raise RedisConnectionError("offline demo")
+
         return unavailable
 
 
 @pytest.fixture
 def demo(monkeypatch):
     settings = ChatSettings(
-        _env_file=None, chat_llm_enabled=True, openai_api_key="",
+        _env_file=None,
+        chat_llm_enabled=True,
+        openai_api_key="",
     )
     requests = []
 
@@ -38,7 +42,8 @@ def demo(monkeypatch):
         raise httpx.ConnectError("offline demo", request=request)
 
     core = httpx.AsyncClient(
-        base_url="https://core.test", transport=httpx.MockTransport(core_offline),
+        base_url="https://core.test",
+        transport=httpx.MockTransport(core_offline),
     )
     monkeypatch.setattr(chat_api, "get_core_client", lambda: core)
     gate = TurnGate(settings, DownRedis())
@@ -50,7 +55,8 @@ def demo(monkeypatch):
 
 def events(client, message, **payload):
     response = client.post(
-        "/chat", json={"conversationId": str(uuid4()), "message": message, **payload},
+        "/chat",
+        json={"conversationId": str(uuid4()), "message": message, **payload},
         headers={"Origin": "http://localhost:8080"},
     )
     assert response.status_code == 200
@@ -58,8 +64,10 @@ def events(client, message, **payload):
     assert response.headers["content-type"].startswith("text/event-stream")
     frames = [frame.splitlines() for frame in response.text.strip().split("\n\n")]
     assert frames[-1][0] == "event: done"
-    return {name.removeprefix("event: "): json.loads(data.removeprefix("data: "))
-            for name, data in frames}
+    return {
+        name.removeprefix("event: "): json.loads(data.removeprefix("data: "))
+        for name, data in frames
+    }
 
 
 @pytest.mark.parametrize(
@@ -74,7 +82,8 @@ def events(client, message, **payload):
 def test_cancel_cutoff_across_timezones(demo, cancel_at, status, fee, refund):
     client, calls = demo
     output = events(
-        client, "Hủy phòng FLEX-48H, nhận phòng 10/12/2026, "
+        client,
+        "Hủy phòng FLEX-48H, nhận phòng 10/12/2026, "
         f"hủy {cancel_at}, Asia/Ho_Chi_Minh, 3.200.000đ, 2 đêm, "
         "hotelSlug=coastal-pearl-da-nang",
     )
@@ -108,7 +117,8 @@ def test_missing_cancel_time_g10_and_short_reply(demo):
 def test_booking_change_stays_a_draft(demo):
     client, calls = demo
     output = events(
-        client, "Đổi phòng VT-2026-8841 từ Deluxe City View sang Premier Sea View (2 đêm); "
+        client,
+        "Đổi phòng VT-2026-8841 từ Deluxe City View sang Premier Sea View (2 đêm); "
         "ghi chú: Ưu tiên tầng cao",
     )
     card = output["cards"]["items"][0]
@@ -187,3 +197,132 @@ def test_ocean_park_vinuni_verified_itinerary(demo):
     assert "Ocean Park" in cards[0]["title"]
     assert cards[0]["priceFrom"] == 630_000
     assert cards[0]["totalPrice"] == 1_000_000
+
+
+@pytest.fixture
+def c3_demo(demo, monkeypatch):
+    from app.services.assistant.skills import flight_disruption as skill
+
+    evaluate = skill.evaluate
+    now = datetime(2026, 11, 27, 8, tzinfo=UTC)
+    monkeypatch.setattr(skill, "evaluate", lambda request: evaluate(request, now=now))
+    return demo
+
+
+def test_c3_options_and_multiturn_change_stay_pending(c3_demo):
+    client, calls = c3_demo
+    output = events(client, "Chuyến bay bị huỷ, C3 DEMO-C3-001")
+    card = output["cards"]["items"][0]
+    assert card["kind"] == "flight_disruption"
+    assert card["actions"] is None
+    assert "MÔ PHỎNG" in card["source"]
+    lines = {line["label"]: line["detail"] for line in card["lines"]}
+    assert "400.000đ" in lines["DEMO-VT101"]
+    assert "Không đủ chỗ" in lines["Loại DEMO-VT102"]
+    output = events(client, "Đổi vé DEMO-VT101", trip=output["trip"])
+    assert output["done"]["kind"] == "answer"
+    card = output["cards"]["items"][0]
+    assert "CHỜ NGƯỜI DÙNG DUYỆT" in card["title"]
+    assert card["id"].startswith("C3-DRAFT-")
+    again = events(client, "Đã duyệt, xác nhận", trip=output["trip"])
+    assert again["cards"]["items"][0]["id"] == card["id"]
+    assert not calls  # no supplier or booking mutation endpoint
+
+
+@pytest.mark.parametrize("message", ["Giữ chỗ", "Đổi vé", "Hoàn tiền vé"])
+def test_c3_drafts_are_read_only(c3_demo, message):
+    client, calls = c3_demo
+    output = events(client, f"C3 {message} DEMO-C3-001 sang DEMO-VT101")
+    card = output["cards"]["items"][0]
+    assert card["lines"][0]["detail"] == "PENDING_USER_APPROVAL"
+    assert card["actions"] is None
+    assert "Chưa giữ chỗ" in card["lines"][-1]["detail"]
+    assert not calls
+
+
+def test_c3_missing_booking_then_short_reply(c3_demo):
+    client, _ = c3_demo
+    output = events(client, "Chuyến bay của tôi bị huỷ")
+    assert output["done"]["kind"] == "clarify"
+    output = events(client, "DEMO-C3-001", trip=output["trip"])
+    assert output["cards"]["items"][0]["lines"][0]["detail"] == "OPTIONS_READY"
+
+
+def test_c3_deadline_correction_and_switch_back_to_hotel(c3_demo):
+    client, _ = c3_demo
+    output = events(client, "C3 DEMO-C3-001 đến trước 15:00")
+    output = events(client, "2026-12-10T15:00:00+07:00", trip=output["trip"])
+    lines = {line["label"]: line["detail"] for line in output["cards"]["items"][0]["lines"]}
+    assert "DEMO-VT101" in lines
+    assert "DEMO-VT103" not in lines
+    assert "Đến sau giờ yêu cầu" in lines["Loại DEMO-VT103"]
+    hotel = events(client, "Hoàn tiền phòng FLEX-48H", trip=output["trip"])
+    assert hotel["cards"]["items"][0]["kind"] == "cancel_policy"
+    assert hotel["trip"]["pendingFlightDisruption"] is None
+
+
+@pytest.mark.parametrize(
+    ("message", "status"),
+    [
+        ("C3 DEMO-C3-999", "MISSING_DATA"),
+        ("C3 DEMO-C3-002", "NOT_ELIGIBLE"),
+        ("C3 đổi vé DEMO-C3-001 sang DEMO-VT102", "OPTION_UNAVAILABLE"),
+        ("C3 giữ chỗ DEMO-C3-001", "NEEDS_INPUT"),
+        ("C3 DEMO-C3-001 đến trước 15:00", "NEEDS_INPUT"),
+    ],
+)
+def test_c3_unverified_requests_never_create_drafts(c3_demo, message, status):
+    client, calls = c3_demo
+    output = events(client, message)
+    card = output["cards"]["items"][0]
+    assert card["lines"][0]["detail"] == status
+    assert not card["id"].startswith("C3-DRAFT-")
+    assert not calls
+
+
+def test_c3_rejects_client_supplied_refund_amount(c3_demo):
+    client, _ = c3_demo
+    response = client.post(
+        "/chat",
+        json={
+            "conversationId": str(uuid4()),
+            "message": "Hoàn tiền vé C3",
+            "trip": {
+                "pendingFlightDisruption": {"bookingCode": "DEMO-C3-001", "refundVnd": 99999999}
+            },
+        },
+    )
+    assert response.status_code == 422
+
+
+def test_c3_removing_deadline_restores_options(c3_demo):
+    client, calls = c3_demo
+    output = events(client, "C3 DEMO-C3-001 đến trước 2026-12-10T12:00:00+07:00")
+    assert output["cards"]["items"][0]["lines"][0]["detail"] == "NO_OPTIONS"
+    output = events(client, "Bỏ giới hạn giờ đến", trip=output["trip"])
+    assert output["cards"]["items"][0]["lines"][0]["detail"] == "OPTIONS_READY"
+    assert output["trip"]["pendingFlightDisruption"]["arrivalBefore"] is None
+    assert not calls
+
+
+def test_c3_suggestions_only_propose_available_flights(c3_demo, monkeypatch):
+    from app.services.assistant.skills import c3_engine
+
+    snapshot = c3_engine.load_snapshot()
+    snapshot["flights"][0]["seats"] = 0
+    monkeypatch.setattr(c3_engine, "load_snapshot", lambda: snapshot)
+    client, calls = c3_demo
+    output = events(client, "C3 xem phương án DEMO-C3-001")
+    suggestions = output["suggestions"]["items"]
+    assert any("Giữ chỗ DEMO-VT103" == s for s in suggestions)
+    assert any("Đổi vé DEMO-VT103" == s for s in suggestions)
+    assert not any("DEMO-VT101" in s for s in suggestions)
+    assert not calls
+
+
+def test_c3_refund_after_an_invalid_deadline(c3_demo):
+    client, calls = c3_demo
+    output = events(client, "C3 DEMO-C3-001 đến trước 15:00")
+    output = events(client, "Hoàn tiền vé C3", trip=output["trip"])
+    assert output["cards"]["items"][0]["lines"][0]["detail"] == "PENDING_USER_APPROVAL"
+    assert not calls

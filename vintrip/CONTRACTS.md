@@ -136,7 +136,15 @@ Giữ nguyên toàn bộ cấu trúc `Card` + `CardLine` trong `vintrip/ai/app/s
 - `codebase/tools.py`: mỗi công cụ có `@tool` và docstring đủ 4 mục (`tên · input · output · có tác động ra ngoài không`).
 - **KHÔNG BAO GIỜ SỬA:** `run.py`, `codebase/tracing.py`, `eval/run_eval.py`, `cost/simulate.py`.
 
-## 6. Room upgrades — lễ tân khách sạn (case C2, CP1–CP4)
+## 6. Mở rộng demo C3 trên nhánh vintrip
+
+Theo yêu cầu triển khai C3 ngày 27/11/2026, bổ sung `kind: "flight_disruption"` ngoài ba loại thẻ ở §4. Giữ nguyên hợp đồng `Card`/SSE; thẻ C3 có `priceFrom: null`, `priceBasis: "unavailable"`, `actions: null`, chi tiết phương án và nội dung bản nháp nằm trong `lines`. `source` bắt buộc ghi mô phỏng và không tự động gửi. Giao diện hiển thị qua thẻ thông tin với biểu tượng máy bay.
+
+`trip.pendingFlightDisruption` chỉ chứa `bookingCode`, `action` (`review`, `hold`, `change`, `refund`, `choose`), `targetFlightId`, `arrivalBefore`; không nhận giá hay tồn chỗ từ client. Engine đọc lại snapshot `c3-demo-v1` mỗi lượt. Các yêu cầu giao dịch chỉ tạo bản nháp `PENDING_USER_APPROVAL`; không có API thực thi giao dịch hay thay đổi dữ liệu đặt chỗ. Bridge CLI và AI service dùng chung engine thư viện chuẩn trong `ai/app/services/assistant/skills/c3_engine.py`.
+
+Hướng dẫn, dữ liệu giả, trạng thái và giới hạn: [`docs/c3-flight-disruption.md`](../docs/c3-flight-disruption.md). Đây là demo mở rộng; bộ đánh giá và chuẩn đạt C1 giữ nguyên.
+
+## 7. Room upgrades — lễ tân khách sạn (case C2, CP1–CP4)
 
 - Backend CP1/CP4 (`/api/commerce/room-upgrades`): bắt buộc access token và phân công nhân viên tại đúng khách sạn trên server.
   - `GET /staff-context` (trả `{ hasAccess, assignments[] }` không tạo lỗi 403 cho khách hàng thường), `GET /bookings?hotelId=...`, `GET /bookings/:bookingCode?hotelId=...`, `POST /quotes`.
