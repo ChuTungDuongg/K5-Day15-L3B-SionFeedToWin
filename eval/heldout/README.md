@@ -14,3 +14,7 @@ python eval/check_c1_run.py eval/heldout/run-1.csv --trace traces/heldout/run-1.
 ```
 
 Runner dùng `call_case` và định dạng CSV của bộ khung. Kết quả, trace, mã lượt chạy và hash source được lưu riêng. Không chạy `run.py score` cho bộ này vì lệnh đó tra benchmark/trace C1 ở thư mục gốc. Điểm AI đề xuất nằm trong file chấm nháp riêng, chưa ghi vào cột `pass` chính thức; nhóm duyệt các tiêu chí cần người chấm.
+
+## So sánh phiên bản
+
+`run-1` đo bản sau sửa (`efcc284`), nháp 19/20. `run-2` chạy bổ sung sau đó nhưng đo bản trước sửa (`3d2c983`), nháp 17/20. Đối chiếu hash với run-5 trước khi chạy. Cùng benchmark và model gpt-6-luna; [báo cáo](../c1-validation-review.md). Tham số `--code-root` chọn worktree mã sản phẩm khác mà không đổi thư mục lưu output.

@@ -1,4 +1,5 @@
 """Chạy bộ C1 riêng; dùng call_case của khung, không sửa khung hoặc benchmark CP2."""
+import argparse
 import csv
 from datetime import datetime, timezone
 import hashlib
@@ -14,6 +15,11 @@ import run_eval
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--code-root", type=Path, default=ROOT,
+                        help="Worktree chứa phiên bản sản phẩm cần đo; output vẫn lưu cạnh benchmark.")
+    args = parser.parse_args()
+    code_root = args.code_root.resolve()
     folder = ROOT / "eval" / "heldout"
     bench = folder / "benchmark.csv"
     manifest = json.loads((folder / "manifest.json").read_text(encoding="utf-8"))
@@ -30,15 +36,16 @@ def main():
     run_id = f"heldout-{n}@{datetime.now():%Y%m%d-%H%M%S}"
     trace_folder = ROOT / "traces" / "heldout"
     trace_folder.mkdir(parents=True, exist_ok=True)
-    sources = list((ROOT / "codebase").glob("*.py")) + [ROOT / "data" / "cong_vien_mau.json"]
+    sources = list((code_root / "codebase").glob("*.py")) + [code_root / "data" / "cong_vien_mau.json"]
     context = {"run_id": run_id, "started_at": datetime.now(timezone.utc).isoformat(),
-               "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+               "commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=code_root, text=True).strip(),
                "benchmark_sha256_lf": manifest["sha256_lf"], "ids": ids,
-               "source_sha256": {p.relative_to(ROOT).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+               "source_sha256": {p.relative_to(code_root).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
                                  for p in sources}}
     with (folder / f"{name}-context.json").open("x", encoding="utf-8") as f:
         json.dump(context, f, ensure_ascii=False, indent=2)
         f.write("\n")
+    run_eval.CODEBASE = str(code_root / "codebase")
     answer, tracing = run_eval.load_answer()
     rows = []
     with (folder / f"{name}.csv").open("x", encoding="utf-8-sig", newline="") as f, \

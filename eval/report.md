@@ -1,4 +1,6 @@
-﻿# Báo cáo đánh giá C1
+# Báo cáo đánh giá C1
+
+**Cập nhật 28/11:** chấm nháp bộ chính 29/30 → 30/30 sau sửa C1-17; bộ kiểm định riêng 19/20, còn lỗi show đã hủy vẫn được xếp VALID. [Báo cáo mới và giới hạn checker](c1-validation-review.md). Các lượt mới chờ nhóm duyệt; phần run-4 bên dưới là lịch sử đã đối chiếu.
 
 **Run-4 đã có điểm 30/30 câu, đạt 29/30 (96,7%).** Đã đối chiếu bản chấm ở commit `420ccf8` của nhánh Manh với từng ID và chạy lại `python run.py score eval/run-4.csv`. Lượt này đo phiên bản trước khi thêm bước model chọn trò. [Phiếu đối chiếu độc lập 5/5](doi-chieu-5.md)
 
@@ -12,6 +14,8 @@
 | [Run-2](run-2.csv) | `run-2@20261127-231855` | Bản chấm nháp đầu đạt 26/30. Sau khi tăng thời gian chờ từ 30 lên 90 giây, C1-21 đã có câu trả lời. [Điểm từng câu](run-2-cham-nhap.csv) |
 | [Run-3](run-3.csv) | `run-3@20261127-233722` | Chạy giữa lúc sửa, giữ nguyên file và trace. Chưa có điểm duyệt, không tự dùng làm lượt nộp. |
 | [Run-4](run-4.csv) | `run-4@20261127-234013` | Đạt 29/30: thường 14/14, khó 11/11, từ chối 4/5. [Trace](../traces/run-4.jsonl) |
+| [Run-5](run-5.csv) | `run-5@20261128-123814` | Trước sửa kiểm lịch; 0 lỗi kỹ thuật; [chấm nháp 29/30](run-5-cham-nhap.csv) |
+| [Run-6](run-6.csv) | `run-6@20261128-124828` | Sau sửa C1-17; 0 lỗi kỹ thuật; [chấm nháp 30/30](run-6-cham-nhap.csv), chờ nhóm duyệt |
 
 ## Điểm run-4 và các metric trong bản chấm
 
@@ -23,7 +27,7 @@
 | `hoi_lai_va_trang_thai_dung` (người) | Khó | 11/11 | 100% | ≥85% |
 | `tu_choi_va_khong_noi_dieu_kien` (người) | Từ chối | 5/5 | 100% | 100% |
 
-**C1-17 là câu duy nhất trượt, nhóm cần quyết.** Câu trả lời từ chối gọi lịch vượt ngân sách là VALID nên đạt metric từ chối. Tiêu chí riêng còn yêu cầu “validator vẫn chạy”. Câu hỏi không có lịch cụ thể để kiểm và trace không ghi lần gọi `validate_park_plan`. Giữ điểm câu bằng 0 như run-2.
+**Trong run-4, C1-17 là câu duy nhất trượt.** Câu trả lời từ chối gọi lịch vượt ngân sách là VALID nên đạt metric từ chối. Tiêu chí riêng còn yêu cầu “validator vẫn chạy”. Câu hỏi không có lịch cụ thể để kiểm và trace không ghi lần gọi `validate_park_plan`. Giữ điểm câu bằng 0 như run-2.
 
 ## Đối chiếu với run-2
 
