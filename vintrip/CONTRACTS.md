@@ -167,7 +167,46 @@ Hướng dẫn, dữ liệu giả, trạng thái và giới hạn: [`docs/c3-fli
 - Bằng chứng CP4 và nghiệm thu tổng thể CP1–CP4: [evidence CP4](docs/evidence/room-upgrades-cp4.md), [final acceptance](docs/evidence/room-upgrades-final-acceptance.md).
 - Endpoint mẫu `/api/commerce/bookings/draft-change` và consumer cũ giữ nguyên để tương thích; không dùng phụ thu mẫu của nó cho room-upgrades.
 
-## 8. C1 — Lập lịch Công viên Mẫu: luồng backend
+## 8. C1 · Lập lịch một ngày ở Công viên Mẫu (`vintrip/ai` ↔ `vintrip/fe`)
+
+Frontend (khung lập lịch trên trang chủ `#lich-vui-choi` và trang `/c1`) chỉ phụ thuộc vào hợp đồng này. Backend được đổi cách xử lý bên trong, nhưng giữ nguyên đường dẫn và hình dạng dữ liệu.
+
+**Yêu cầu:** `POST {NEXT_PUBLIC_API_URL}/ai/c1/ask`, `Content-Type: application/json`
+
+```json
+{ "text": "Công viên Mẫu, 2 người lớn, bé 5 tuổi cao 108 cm. Đi 09:00–14:00, ngân sách 1.500.000 đồng." }
+```
+
+- `text`: chuỗi 1–4000 ký tự sau khi bỏ khoảng trắng hai đầu. Sai thì trả `422`.
+
+**Trả về `200`:**
+
+```json
+{
+  "output": "VinTrip — ...\nTrạng thái: VALID · snapshot CVM-2026-11-28-v1 · dữ liệu mô phỏng\n...",
+  "status": "VALID",
+  "snapshot_id": "CVM-2026-11-28-v1",
+  "trace": [
+    { "kind": "tool", "name": "get_park_catalog", "latency_s": 0.0 },
+    { "kind": "model", "name": "call_model", "latency_s": 5.234 }
+  ]
+}
+```
+
+| Trường | Kiểu | Ý nghĩa |
+|---|---|---|
+| `output` | string, có xuống dòng `\n` | Câu trả lời đã kiểm, hiển thị nguyên văn (`white-space: pre-wrap`). Frontend không tự tính giờ hay tiền |
+| `status` | một trong `VALID`, `NEEDS_INPUT`, `MISSING_DATA`, `INFEASIBLE`, `SEARCH_TIMEOUT`, `TỪ CHỐI`, `CHƯA HỢP LỆ`, `THÔNG TIN` | Nhãn trạng thái. Giá trị lạ thì frontend hiện nhãn trung tính |
+| `snapshot_id` | string | Phiên bản dữ liệu mô phỏng |
+| `trace` | mảng `{kind: "tool" \| "model", name, latency_s}` | Các bước công cụ và model, theo thứ tự chạy |
+
+**Lỗi:** `422` khi đầu vào sai; `503` khi dịch vụ chưa cài bộ lập lịch C1; `500` khi lời gọi model hỏng (ví dụ khoá API không hợp lệ). Mọi mã khác 200 thì frontend hiện thông báo lỗi kèm nút "Thử lại", không hiện kết quả.
+
+**Thời gian:** một lần gọi model thật mất khoảng 5–10 giây. Frontend phải có trạng thái chờ và không cho gửi trùng.
+
+**CORS:** backend cho phép origin của web (`http://localhost:3100` khi chạy local).
+
+### 8.1 Luồng backend C1 và các trường mở rộng (chỉ thêm, tương thích ngược với §8)
 
 Luồng đầy đủ: FE `/c1` → `POST /ai/c1/ask` (Traefik → FastAPI `POST /c1/ask`) → `codebase/c1_flow` lập lịch bằng `build_park_plan` và kiểm cục bộ bằng `validate_park_plan` → AI gửi lịch sang Core API kiểm độc lập → trả kết quả cho FE.
 
@@ -176,4 +215,5 @@ Luồng đầy đủ: FE `/c1` → `POST /ai/c1/ask` (Traefik → FastAPI `POST 
   - `POST /api/commerce/park-plans/validate` body `{ parkId, snapshotId, request: { members[{kind,label,age?,heightCm?}], window, budgetVnd, includeGate, startZone, lunch{minDurationMin,window,beforeShow}|null, show{required}|null, requiredActivities, rain, cancelledSessions }, items[{kind,id,zone,start,end}] }` → `{ valid, violations[], warnings[], totalVnd, breakdown[{label,amountVnd}], snapshotId, isMock, validatedBy: "core-api" }`. Snapshot khác snapshot hiện tại → `409` `{ reason: "SNAPSHOT_MISMATCH", currentSnapshotId }`; body sai → `400`.
   - Validator TypeScript giữ quy tắc khớp `validate_plan` của `codebase/park_engine.py` (giờ mở cửa, đi bộ, chờ + chơi, điều kiện từng thành viên, suất diễn và giờ đến sớm, mưa, ăn trưa, trò bắt buộc, ngân sách), cộng thêm: hoạt động sai khu, giờ kết thúc không sau giờ bắt đầu, ăn trưa ngoài khu ăn. Suất diễn nằm trong `incidents_today` nhưng yêu cầu chưa khai báo huỷ chỉ là `warnings`.
   - Snapshot của core (`infra/cong-vien-mau.snapshot.ts`) sinh từ `data/cong_vien_mau.json`; test `vintrip/ai/tests/test_c1.py::test_core_snapshot_fixture_matches_planner_data` chặn hai bản lệch nhau.
-- AI `POST /c1/ask` trả thêm (chỉ thêm trường): `plan` (các mục của lịch cuối) và `core_validation` (`status`: `VALID` | `INVALID` | `SNAPSHOT_MISMATCH` | `UNAVAILABLE`, kèm kết quả core). Lịch cục bộ `VALID` mà core báo `INVALID` hoặc `SNAPSHOT_MISMATCH` → `status` hạ thành `CHƯA HỢP LỆ` và `output` thêm dòng lý do. Core không trả lời → giữ trạng thái cục bộ, `core_validation.status = "UNAVAILABLE"`. AI đọc `CORE_API_URL` (compose: `http://core-api:3000`).
+- AI `POST /c1/ask` nhận thêm `previous` (tuỳ chọn, tối đa 10 câu phụ huynh đã gửi trước trong cùng khung chat, cũ → mới; câu mới nhất được ưu tiên khi ghép). Trả thêm (chỉ thêm trường): `reply` (lời Vini cho khung chat, không mã trạng thái hay tên công cụ; `output` giữ nguyên làm căn cứ), `status_label` (nhãn tiếng Việt), `input_hint` (gợi ý cách trả lời khi Vini hỏi lại, rỗng nếu không cần), `plan` (các mục của lịch cuối) và `core_validation` (`status`: `VALID` | `INVALID` | `SNAPSHOT_MISMATCH` | `UNAVAILABLE`, kèm kết quả core). Lịch cục bộ `VALID` mà core báo `INVALID` hoặc `SNAPSHOT_MISMATCH` → `status` hạ thành `CHƯA HỢP LỆ` và `output` thêm dòng lý do. Core không trả lời → giữ trạng thái cục bộ, `core_validation.status = "UNAVAILABLE"`. AI đọc `CORE_API_URL` (compose: `http://core-api:3000`).
+- Chat Vini (`POST /ai/chat`): câu nhắc Công viên Mẫu (hoặc lập lịch khu vui chơi) có intent `park_plan`, trả thẻ `kind: "park_plan"` (`priceFrom: null`, `priceBasis: "unavailable"`, `lines[0].detail` = câu hỏi). Web mở popup chat gọi `/ai/c1/ask` với câu đó.

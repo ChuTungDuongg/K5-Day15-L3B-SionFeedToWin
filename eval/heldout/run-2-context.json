@@ -1,0 +1,39 @@
+{
+  "run_id": "heldout-2@20261128-125702",
+  "started_at": "2026-11-28T05:57:02.491320+00:00",
+  "commit": "3d2c9836307643cb612a56e517783446205b14f6",
+  "benchmark_sha256_lf": "867c308c2e8c04a1b246c8e683fbf9dff58c3fd8a36d207fe87a2b2f1625e95e",
+  "ids": [
+    "HO-01",
+    "HO-02",
+    "HO-03",
+    "HO-04",
+    "HO-05",
+    "HO-06",
+    "HO-07",
+    "HO-08",
+    "HO-09",
+    "HO-10",
+    "HO-11",
+    "HO-12",
+    "HO-13",
+    "HO-14",
+    "HO-15",
+    "HO-16",
+    "HO-17",
+    "HO-18",
+    "HO-19",
+    "HO-20"
+  ],
+  "source_sha256": {
+    "codebase/agent.py": "f9cf393f0897f13fa91004535e31835331ec568b9b4a1232be81c5e669fd06d1",
+    "codebase/ai.py": "eec7897f4d4ddf19df62b5b0f3f957d911f9c481f664a0b3ddfb2c4bd8c370f0",
+    "codebase/app.py": "5c727bceb1c16d41ec21f050d6536adba0735fa53f75adc372413ebdaab953d6",
+    "codebase/c1_flow.py": "7ea92f1ae09f6639841cc8086e7cb7a30663ac9058d72401517ecd3f4068519e",
+    "codebase/park_engine.py": "10c636193d615b4e0d861a2282de5dd69b530bbed49b5e0c3f8edd0d2e6477e3",
+    "codebase/tools.py": "becb7554fe8d8c975d40dc6b2a864bffeb4b874bad3dddbb450da9f00ec4b9e3",
+    "codebase/tracing.py": "e32fe1bbd2ad55c9d072304308cc2b1791daf1a378dd7169322b03064f595b83",
+    "codebase/web_demo.py": "7d76433ca45695054b8d12b69d1aaadc9cf6e8cc35c1c5aeade1300ce7756ead",
+    "data/cong_vien_mau.json": "3e314e2ee2acff88c12b03acf2c606100d6671fdcb7397b370145c4336d0006d"
+  }
+}

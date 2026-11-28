@@ -676,6 +676,8 @@ def validate_park_plan(items: list, request: dict) -> dict:
     Input: Danh sách mục lịch, yêu cầu đã chuẩn hoá.
     Output: valid (true/false), danh sách vi phạm (khung giờ, đi bộ, suất diễn, đến sớm, điều kiện
     từng thành viên, ăn trưa, mưa, yêu cầu bắt buộc, ngân sách), bảng tiền và tổng tính lại, snapshot_id.
+    Thiếu lịch/thành viên/khung giờ/ngân sách: valid=false, missing_fields, total_vnd=null;
+    không tự điền dữ kiện còn thiếu.
     Tác động ra ngoài: Không, chỉ tính toán.
     """
     return park_engine.validate_plan(items, request)

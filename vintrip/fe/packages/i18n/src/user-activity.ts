@@ -1,4 +1,4 @@
-/** Trang admin hành vi người dùng (SCRUM-177): tương tác, chia sẻ, xem, chat Vini theo từng người. Chỉ superadmin. */
+/** Trang admin hành vi người dùng (SCRUM-177): tương tác, chia sẻ, xem, chat VinTrip theo từng người. Chỉ superadmin. */
 export const userActivity = {
   eyebrow: 'Người dùng / Hành vi',
   title: 'Hành vi người dùng',
@@ -54,17 +54,17 @@ export const userActivity = {
   registeredAt: 'Ngày đăng ký',
   recentEvents: 'Hoạt động gần đây',
   recentEmpty: 'Chưa có hoạt động trong khoảng này.',
-  chatQuestions: 'Câu hỏi đã gửi Vini',
-  chatEmpty: 'Chưa chat với Vini trong khoảng này.',
+  chatQuestions: 'Câu hỏi đã gửi VinTrip',
+  chatEmpty: 'Chưa chat với VinTrip trong khoảng này.',
   kinds: {
     reaction: 'Thích bài',
     comment: 'Bình luận',
     share: 'Chia sẻ',
     view: 'Xem video',
-    chat: 'Chat Vini',
+    chat: 'Chat VinTrip',
     post: 'Đăng bài',
   },
-  chatError: 'Vini trả lời lỗi',
+  chatError: 'VinTrip trả lời lỗi',
   chatAction: 'Bấm nút trên thẻ',
   watchedSeconds: '{seconds} giây',
   reactions: { like: 'Thích', love: 'Yêu thích', helpful: 'Hữu ích' },

@@ -1,6 +1,5 @@
-# Inter variable
+# Font web và nguồn outline logo
 
-- File: `InterVariable.woff2`, giữ nguyên dữ liệu tải từ [rsms/inter](https://github.com/rsms/inter/blob/master/docs/font-files/InterVariable.woff2).
+- FE-13 bỏ `InterVariable.woff2` và khai báo Inter trong globals.css. Chữ web hiện dùng Be Vietnam Pro; Dancing Script chỉ dùng cho tên và slogan hero, nạp qua next/font/google với subset tiếng Việt (xem README thư mục brand).
 - Giấy phép: [OFL.txt](OFL.txt), bản gốc từ [rsms/inter/LICENSE.txt](https://github.com/rsms/inter/blob/master/LICENSE.txt).
-- CSS khai báo tên `Inter`, trọng lượng 100–900, `font-display: swap`. Stack `--font-sans` do PM quản lý: SF Pro trên Apple, Inter trên Windows/Android.
-- Không nhúng SF Pro. Kiểm tra hiển thị trang trên Windows thuộc bước PM kiểm ảnh; kiểm cmap trong file bảo đảm dấu tiếng Việt có glyph.
+- Giữ giấy phép Inter cho các outline vector có sẵn của logo FE-12; nguồn outline là [rsms/inter](https://github.com/rsms/inter/blob/master/docs/font-files/InterVariable.woff2), không tải Inter khi hiển thị trang.

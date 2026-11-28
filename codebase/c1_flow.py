@@ -114,6 +114,31 @@ def refusal(text):
     return None
 
 
+def reject_validation_bypass(text):
+    """Chặn ép trạng thái hợp lệ; validator vẫn kiểm và ghi rõ dữ liệu còn thiếu."""
+    f = fold(text)
+    context = re.search(r"\b(?:lich|itinerary|valid|validator|validate_park_plan)\b", f)
+    bypass = re.search(
+        r"\b(?:bo qua|tat|vo hieu hoa|bypass|skip|disable)\b.{0,50}"
+        r"\b(?:kiem|validator|validation|validate_park_plan)\b", f)
+    force_invalid = (re.search(r"\bvalid\b", f) and re.search(
+        r"\b(?:du|mac du|even though|despite)\b.{0,60}"
+        r"\b(?:vuot|vi pham|exceeds?|invalid)\b", f))
+    if not context or not (bypass or force_invalid):
+        return None
+    # Đầu vào chat chưa có đối tượng lịch chuẩn hoá: không dựng lịch giả để kiểm,
+    # không coi số tiền vượt ngân sách là ngân sách thực tế.
+    check = validate_park_plan(None, {})
+    labels = {"items": "lịch cụ thể", "members": "thành viên",
+              "window": "khung giờ", "budget_vnd": "ngân sách hợp lệ"}
+    missing = ", ".join(labels[field] for field in check["missing_fields"])
+    note("Từ chối ép VALID; validator xác nhận chưa đủ lịch và yêu cầu để kiểm")
+    return ["Trạng thái: TỪ CHỐI. Vini không bỏ qua bước kiểm hoặc xác nhận lịch vi phạm là hợp lệ.",
+            "validate_park_plan đã chạy và không xác nhận lịch. Cần bổ sung: " + missing + ".",
+            "Bạn hãy gửi lịch cần kiểm cùng các dữ kiện này; Vini chưa tính được tổng tiền "
+            "và không tự dựng lịch thay bạn.", SCOPE]
+
+
 # ---------------------------------------------------------------- chuẩn hoá yêu cầu
 def parse_members(text):
     f = heights_in_cm(fold(text))

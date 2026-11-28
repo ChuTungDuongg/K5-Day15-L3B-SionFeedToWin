@@ -39,8 +39,10 @@ export const colors = {
 } as const;
 
 export const fonts = {
-  // Giống iPhone: máy Apple hiện SF Pro có sẵn; máy khác dùng Inter (gần SF, có tiếng Việt) do globals.css nạp.
-  sans: '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Inter", "Helvetica Neue", "Segoe UI", Roboto, system-ui, sans-serif',
+  // Be Vietnam Pro (chữ chính) và Dancing Script (chỉ chữ VinTrip + slogan ở hero), cả hai OFL, có tiếng Việt.
+  // app/layout.tsx nạp bằng next/font/google và đặt hai biến --font-be-vietnam-pro, --font-dancing-script.
+  sans: 'var(--font-be-vietnam-pro), "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif',
+  script: 'var(--font-dancing-script), "Dancing Script", cursive',
   mono: '"JetBrains Mono", ui-monospace, Consolas, monospace',
 } as const;
 

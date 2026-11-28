@@ -17,3 +17,8 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Slide, video, reflection | Chưa thực hiện hoặc chưa có sản phẩm trong repo | Chưa có slide PDF, link video hay bài reflection cá nhân | Chờ nhóm thực hiện và xác nhận. Không tự tạo trải nghiệm hoặc biên nhận nộp bài | Cả bốn thành viên |
 
 **Không dùng AI để:** tạo người được phỏng vấn, trích dẫn, câu trả lời khảo sát; sửa kết quả các lượt đã chạy (`eval/run-*.csv`, `cost/simulate-*.csv`, `traces/`).
+
+
+## 28/11/2026 — sửa kiểm lịch và kiểm định riêng
+
+Codex rà run-5, sửa việc nhánh từ chối can thiệp chỉ dẫn bỏ qua validator. Validator từ chối dữ liệu thiếu thay vì tự dựng lịch/giá. Codex tạo 20 câu synthetic với seed cố định và khóa trước khi sửa; đây không phải bằng chứng người dùng hoặc đánh giá mù độc lập. Bộ này không dùng để chỉnh code sau khi đọc kết quả. Điểm AI đề xuất để riêng cho nhóm duyệt; giữ nguyên cột pass của lượt mới, chuẩn CP2 và các output cũ. Chi tiết ở `eval/c1-validation-review.md`.

@@ -69,7 +69,7 @@ export const demo = {
     otherTrips: 'Thêm một chút cảm hứng',
     notFoundTitle: 'Chuyến đi này chưa có trong danh mục.',
     notFoundBody: 'Quay về khám phá để chọn một chuyến khác.',
-    footer: 'Vintrip · Thấy là thích, nhích là đi.',
+    footer: 'Vintrip · Mỗi hành trình là một câu chuyện đáng nhớ.',
   },
   feed: {
     previous: 'Bài trước',
@@ -80,7 +80,7 @@ export const demo = {
     guideBody: 'Lộ trình tham khảo cho demo. Chưa kiểm tra dịch vụ hay xác nhận khả năng đặt.',
     back: 'Về bảng tin',
     creator: 'Cộng đồng Vintrip',
-    initials: 'TF',
+    initials: 'VT',
     commentAuthor: 'Minh Anh',
     comment: 'Lưu lại để lên kế hoạch cho chuyến đi tiếp theo.',
   },

@@ -33,7 +33,7 @@ Nguồn gồm bảng khảo sát C1 đã ẩn danh và các tình huống nhóm 
 
 ## 5. Đã chạy gì
 
-Run-4 đã điền đủ 30 ô pass từ bản chấm của nhánh Manh. Lệnh score báo 29/30 (làm tròn 97%). Run-1 đến run-3 vẫn chưa điền điểm trong CSV gốc.
+Run-4 đã điền đủ 30 ô pass từ bản chấm của nhánh Manh. Các lượt mới run-5 và run-6 có điểm AI đề xuất riêng, chưa điền pass chính thức. [So sánh mới và bộ kiểm định riêng](c1-validation-review.md).
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
@@ -41,11 +41,15 @@ Run-4 đã điền đủ 30 ô pass từ bản chấm của nhánh Manh. Lệnh 
 | 2 | `run-2@20261127-231855` | gpt-6-luna | Đã tăng thời gian chờ API, 0 lỗi kỹ thuật | Nháp 26/30 | Nháp 86,7% | Chờ duyệt và đủ bốn metric |
 | 3 | `run-3@20261127-233722` | gpt-6-luna | Chạy giữa lúc sửa, giữ toàn bộ log | Chưa có bản chấm | Chưa công bố | Không dùng tự động làm lượt nộp |
 | 4 | `run-4@20261127-234013` | gpt-6-luna | Bổ sung căn cứ và nhãn lịch đã thực hiện, 0 lỗi kỹ thuật | 29/30 | 96,7% | Đạt chuẩn (đã đối chiếu độc lập 5/5; lượt này dùng luồng trước bước model chọn trò) |
+| 5 | `run-5@20261128-123814` | gpt-6-luna | Trước sửa kiểm lịch, có bước model chọn trò; 0 lỗi | Nháp 29/30 | Nháp 96,7% | Chờ nhóm duyệt |
+| 6 | `run-6@20261128-124828` | gpt-6-luna | Sau sửa C1-17; 0 lỗi | Nháp 30/30 | Nháp 100% | Chờ nhóm duyệt; bộ riêng còn lỗi show hủy |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-Run-1 có lỗi timeout ở C1-21. Bản đối chiếu run-2 và run-4 ghi việc bổ sung lần tra catalog cho C1-11, phút đi bộ từ cổng ở C1-25 và nhãn nguồn lịch cũ ở C1-26. C1-17 còn trượt theo bản chấm nháp vì yêu cầu riêng có “validator vẫn chạy” trong khi trace không ghi lần gọi này.
+Run-1 có lỗi timeout ở C1-21. Bản đối chiếu run-2 và run-4 ghi việc bổ sung lần tra catalog cho C1-11, phút đi bộ từ cổng ở C1-25 và nhãn nguồn lịch cũ ở C1-26. Trong run-4 và run-5, C1-17 trượt vì yêu cầu riêng có “validator vẫn chạy” trong khi trace không ghi lần gọi này.
 
 Checker từng báo output khác trace khi checkout Windows do CSV đổi LF thành CRLF. Chỉ chuẩn hóa xuống dòng khi so sánh, không sửa các file run hoặc trace. Trên run-4, hai metric code kiểm lại được 25/25 câu có căn cứ và 14/14 lịch VALID. Hai metric người chấm vẫn cần được duyệt theo [báo cáo](report.md).
+
+Bản sửa đã gọi validator và từ chối xác nhận khi thiếu lịch/yêu cầu (C1-17, run-6). Bộ riêng 20 câu cho kết quả nháp 19/20: HO-14 vẫn xếp show đã hủy và báo VALID. Checker hiện bỏ sót sự cố này; xem [báo cáo mới](c1-validation-review.md).

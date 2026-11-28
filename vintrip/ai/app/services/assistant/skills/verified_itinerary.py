@@ -40,7 +40,7 @@ CATALOGS = {
 
 def verified_itinerary(place: str, days: int, budget: int | None) -> Answer:
     if not place:
-        return Answer(kind="clarify", text="Bạn muốn Vini xếp lịch trình ở đâu?")
+        return Answer(kind="clarify", text="Bạn muốn VinTrip xếp lịch trình ở đâu?")
     catalog = CATALOGS.get(normalize_text(place))
     if not catalog or not 1 <= days <= 2:
         return Answer(
@@ -79,7 +79,7 @@ def verified_itinerary(place: str, days: int, budget: int | None) -> Answer:
     ]
     return Answer(
         kind="answer",
-        text=f"Vini xếp lịch trình {label} {days} ngày, chi phí tự ước tính {vnd(total)} mỗi người. "
+        text=f"VinTrip xếp lịch trình {label} {days} ngày, chi phí tự ước tính {vnd(total)} mỗi người. "
         "Các khung giờ đã được kiểm tra theo dữ liệu demo.",
         cards=[
             Card(
